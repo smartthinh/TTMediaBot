@@ -11,6 +11,7 @@ import webbrowser
 import wx
 import wx.adv
 
+from bot.auto_updater import run_auto_updater
 from bot import Bot, app_vars
 from bot.TeamTalk.structs import State
 from bot.translator import Translator
@@ -1172,8 +1173,11 @@ class MainFrame(wx.Frame):
         self.btn_hide = wx.Button(panel, label="&Hide Window")
         self.btn_website = wx.Button(panel, label="&Visit Website")
 
-        # Row 3: Join Telegram Channel & Exit
+        # Row 3: Join Telegram Channel
         self.btn_telegram = wx.Button(panel, label="&Join Telegram Channel")
+        
+        # Row 4: Check for Updates & Exit
+        self.btn_check_update = wx.Button(panel, label="&Check for Updates")
         self.btn_exit = wx.Button(panel, label="E&xit")
 
         self.btn_connect_all.Bind(wx.EVT_BUTTON, self.on_connect_all_toggle)
@@ -1182,6 +1186,7 @@ class MainFrame(wx.Frame):
         self.btn_hide.Bind(wx.EVT_BUTTON, self.on_hide_window)
         self.btn_website.Bind(wx.EVT_BUTTON, self.on_visit_website)
         self.btn_telegram.Bind(wx.EVT_BUTTON, self.on_join_telegram)
+        self.btn_check_update.Bind(wx.EVT_BUTTON, self.on_check_update)
         self.btn_exit.Bind(wx.EVT_BUTTON, self.on_exit)
 
         self.btn_sizer.Add(self.btn_connect_all, 1, wx.EXPAND)
@@ -1190,6 +1195,7 @@ class MainFrame(wx.Frame):
         self.btn_sizer.Add(self.btn_hide, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_website, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_telegram, 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_check_update, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_exit, 1, wx.EXPAND)
 
         main_sizer.Add(self.btn_sizer, 0, wx.EXPAND | wx.ALL, 10)
@@ -1231,6 +1237,9 @@ class MainFrame(wx.Frame):
         self.btn_hide.SetLabel(translate("&Hide Window"))
         self.btn_hide.SetToolTip(translate("Minimize TTMediaBot window to the system tray."))
         self.btn_website.SetLabel(translate("&Visit Website"))
+        if hasattr(self, 'btn_check_update'):
+            self.btn_check_update.SetLabel(translate("&Check for Updates"))
+            self.btn_check_update.SetToolTip(translate("Check for the latest version online."))
         self.btn_website.SetToolTip(translate("Open website: https://smartthinh.com/en/home"))
         self.btn_telegram.SetLabel(translate("&Join Telegram Channel"))
         self.btn_telegram.SetToolTip(translate("Open Telegram channel: https://t.me/accessiblevisionresources"))
@@ -1534,9 +1543,9 @@ class MainFrame(wx.Frame):
         self.update_connect_all_button()
         self.update_status(translate("Connecting to '{server_name}'...").format(server_name=server_name))
 
-        cfg_path = os.path.join(app_vars.temp_dir, f".config_server_{idx}.json")
-        cache_name = os.path.join(app_vars.cache_dir, f"TTMediaBotCache_{idx}.dat")
-        log_name = os.path.join(app_vars.logs_dir, f"TTMediaBot_server_{idx}.log")
+        cfg_path = os.path.join(app_vars.temp_dir, f".config_server_{s_id}.json")
+        cache_name = os.path.join(app_vars.cache_dir, f"TTMediaBotCache_{s_id}.dat")
+        log_name = os.path.join(app_vars.logs_dir, f"TTMediaBot_server_{s_id}.log")
 
         thread = threading.Thread(
             target=self._bot_worker,
@@ -1668,10 +1677,7 @@ class MainFrame(wx.Frame):
             if curr_state != prev_state:
                 self.server_states[s_id] = curr_state
                 any_changed = True
-                if idx < self.server_list.GetCount():
-                    s_name = server.get("name", translate("Unnamed Server"))
-                    prefix = f"[{translate(curr_state.capitalize())}] " if curr_state != "disconnected" else ""
-                    self.server_list.SetString(idx, f"{prefix}{s_name}")
+                self._update_listbox_item(s_id)
 
         if any_changed:
             self.update_connect_all_button()
@@ -1846,6 +1852,11 @@ class MainFrame(wx.Frame):
     def on_join_telegram(self, event=None):
         webbrowser.open("https://t.me/accessiblevisionresources")
 
+
+    def on_check_update(self, event=None):
+        from bot.auto_updater import run_auto_updater
+        run_auto_updater(translate_func=translate, parent=self, manual=True)
+
     def on_exit(self, event):
         self.Close()
 
@@ -1888,6 +1899,14 @@ class MainFrame(wx.Frame):
 def run_gui(config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
     """Entry point for running the wx GUI."""
     app = wx.App(False)
+    
+    # Initialize locale for auto updater
+    server_mgr = ServerManager(config_path)
+    set_gui_locale(server_mgr.get_language())
+    
+    # Check for updates before showing the main window
+    run_auto_updater(translate)
+    
     frame = MainFrame(config_path, cache_path, log_path)
     frame.Show()
     app.MainLoop()

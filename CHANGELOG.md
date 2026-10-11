@@ -1,15 +1,21 @@
-﻿# 📋 Changelog — TTMediaBot
+# 📋 Changelog — TTMediaBot
 
 All notable updates to this fork are documented here, in reverse chronological order.
 
 ---
 
-## 🆕 [Unreleased] — Global Internet Radio & GUI Search
+## 🆕 [Unreleased] — Global Internet Radio, GUI Search & Auto-Updater
 *(Changes being worked on for the next release)*
+
+### 🔄 Automatic Software Updates
+- **Automatic Update Check:** The app now checks for newer versions on GitHub every time it opens. You can also click the new "Check for Updates" button in the main window at any time.
+- **In-App Release Notes:** Read the full list of changes and new features directly inside the update dialog before deciding to upgrade.
+- **One-Click Silent Install:** When you click "Update", the app automatically downloads the latest installer, installs it quietly in the background without asking you to click Next or accept licenses, cleans up the downloaded file, and reopens the updated app right away.
 
 ### 🖥️ Graphical Server Manager
 - **Server Search Box:** Added a quick search box to the main interface. You can now type a few letters to instantly find and connect to your saved servers. Fully accessible for screen readers (NVDA).
 - **Delete All Servers:** Added a "Delete All Servers" button next to "Connect All" to quickly clear your server list. It includes safety checks and warnings if any servers are currently connected.
+- **Check for Updates Button:** Added a dedicated button on the main window to check for online updates anytime.
 
 ### 📻 Listen to Global Internet Radio
 - **Search and Play Radio (`ra`):** You can now search and play internet radio stations from all around the world.
