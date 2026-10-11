@@ -4,23 +4,26 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🆕 [Unreleased] — Global Internet Radio, GUI Search & Auto-Updater
-*(Changes being worked on for the next release)*
+## 🆕 v3.4.0 — Global Internet Radio, Auto-Updater & Portuguese Support *(10/12/2026)*
 
-### 🔄 Automatic Software Updates
+### 📻 1. Listen to Global Internet Radio
+- **Search and Play Radio (`ra`):** You can now search and play internet radio stations from all around the world.
+- **Smart Channel Selection:** When you search for a radio station, the bot automatically skips broken channels and picks the most popular working channel.
+- **Radio Favorites (`raf`, `rmr`, `rpf`):** You can now save your favorite radio stations to a new, separate list. This makes it easy to add, remove, and quickly play your favorite radio channels.
+
+### 🔄 2. Automatic Software Updates
 - **Automatic Update Check:** The app now checks for newer versions on GitHub every time it opens. You can also click the new "Check for Updates" button in the main window at any time.
 - **In-App Release Notes:** Read the full list of changes and new features directly inside the update dialog before deciding to upgrade.
 - **One-Click Silent Install:** When you click "Update", the app automatically downloads the latest installer, installs it quietly in the background without asking you to click Next or accept licenses, cleans up the downloaded file, and reopens the updated app right away.
 
-### 🖥️ Graphical Server Manager
+### 🖥️ 3. Graphical Server Manager Improvements
 - **Server Search Box:** Added a quick search box to the main interface. You can now type a few letters to instantly find and connect to your saved servers. Fully accessible for screen readers (NVDA).
 - **Delete All Servers:** Added a "Delete All Servers" button next to "Connect All" to quickly clear your server list. It includes safety checks and warnings if any servers are currently connected.
 - **Check for Updates Button:** Added a dedicated button on the main window to check for online updates anytime.
 
-### 📻 Listen to Global Internet Radio
-- **Search and Play Radio (`ra`):** You can now search and play internet radio stations from all around the world.
-- **Smart Channel Selection:** When you search for a radio station, the bot automatically skips broken channels and picks the most popular working channel.
-- **Radio Favorites (`raf`, `rmr`, `rpf`):** You can now save your favorite radio stations to a new, separate list. This makes it easy to add, remove, and quickly play your favorite radio channels.
+### 🌐 4. Portuguese Language Support & Streamlined Locales
+- **Portuguese Support:** Added full Portuguese (`pt_BR`) language translation for both the interface and bot commands, translated by **Otávio Santiago**.
+- **Streamlined Language Options:** Focused supported languages to Vietnamese, English, and Portuguese for high translation quality and easy maintenance.
 
 ---
 
@@ -34,7 +37,7 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **System Tray Support:** Minimize the app to the system tray to keep it running smoothly in the background, with quick access to restore the window or manage connections.
 
 ### 🌐 2. Full Vietnamese Language Support
-- **Complete Translation:** All interface elements, settings, notifications, and bot commands/responses inside TeamTalk channels are now available in natural Vietnamese.
+- **Complete Translation:** All interface elements, settings, notifications, and bot commands/responses inside TeamTalk channels are now available in natural Vietnamese, translated by **Nguyễn Ninh Hoàng**.
 - **Instant Language Switching:** Switch between supported languages directly from the main window at any time without needing to restart the application.
 - **Automatic Preference Saving:** The app remembers your preferred language for future sessions.
 

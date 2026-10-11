@@ -8,7 +8,7 @@ import subprocess
 from bot.app_vars import app_version
 
 GITHUB_API_URL = "https://api.github.com/repos/smartthinh/TTMediaBot/releases/latest"
-CHANGELOG_URL = "https://raw.githubusercontent.com/smartthinh/TTMediaBot/main/CHANGELOG.md"
+CHANGELOG_URL = "https://raw.githubusercontent.com/smartthinh/TTMediaBot/master/CHANGELOG.md"
 
 def check_for_updates():
     try:
@@ -28,11 +28,20 @@ def check_for_updates():
                 if download_url:
                     changelog_text = ""
                     try:
-                        cl_req = urllib.request.Request(CHANGELOG_URL, headers={'User-Agent': 'TTMediaBot-AutoUpdater'})
+                        url = CHANGELOG_URL
+                        if "github.com" in url and "/blob/" in url:
+                            url = url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
+                        cl_req = urllib.request.Request(url, headers={'User-Agent': 'TTMediaBot-AutoUpdater'})
                         with urllib.request.urlopen(cl_req, timeout=5) as cl_res:
                             changelog_text = cl_res.read().decode('utf-8', errors='ignore')
                     except Exception as e:
-                        print(f"Error fetching changelog: {e}")
+                        print(f"Error fetching remote changelog: {e}")
+                        if os.path.exists("CHANGELOG.md"):
+                            try:
+                                with open("CHANGELOG.md", "r", encoding="utf-8") as f:
+                                    changelog_text = f.read()
+                            except Exception:
+                                pass
                         
                     return latest_version, download_url, changelog_text
     except Exception as e:

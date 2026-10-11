@@ -98,13 +98,7 @@ def get_sound_device_choices() -> tuple[List[str], List[str]]:
 
 SUPPORTED_LANGUAGES = [
     ("en", "English (en)"),
-    ("ar", "Arabic (ar)"),
-    ("es", "Spanish (es)"),
-    ("hu", "Hungarian (hu)"),
-    ("id", "Indonesian (id)"),
     ("pt_BR", "Portuguese (pt_BR)"),
-    ("ru", "Russian (ru)"),
-    ("tr", "Turkish (tr)"),
     ("vi", "Vietnamese (vi)"),
 ]
 

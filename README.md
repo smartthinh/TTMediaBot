@@ -177,7 +177,7 @@ Restricted to accounts listed in the teamtalk.users.admins array in config.json.
 | :--- | :--- | :--- |
 | adh | [command] | Shows the administrator commands list or help for a specific admin command. |
 | cg | [n/m/f] | Changes the bot's account gender (n: None, m: Male, f: Female). |
-| cl | [code] | Changes bot language (e.g., cl en, cl pt_BR, cl ru, cl es, cl tr, cl ar, etc.). |
+| cl | [code] | Changes bot language (e.g., cl vi, cl en, cl pt_BR). |
 | cn | [name] | Updates the bot's nickname on the server. |
 | cs | [status] | Updates the bot's status text message. |
 | cc | [r/f] | Clears cache data (cc r: clears recents history, cc f: clears favorites). |
