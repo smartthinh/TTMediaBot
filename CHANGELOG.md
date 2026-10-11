@@ -21,9 +21,8 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Delete All Servers:** Added a "Delete All Servers" button next to "Connect All" to quickly clear your server list. It includes safety checks and warnings if any servers are currently connected.
 - **Check for Updates Button:** Added a dedicated button on the main window to check for online updates anytime.
 
-### 🌐 4. Portuguese Language Support & Streamlined Locales
+### 🌐 4. Portuguese Language Support
 - **Portuguese Support:** Added full Portuguese (`pt_BR`) language translation for both the interface and bot commands, translated by **Otávio Santiago**.
-- **Streamlined Language Options:** Focused supported languages to Vietnamese, English, and Portuguese for high translation quality and easy maintenance.
 
 ---
 
