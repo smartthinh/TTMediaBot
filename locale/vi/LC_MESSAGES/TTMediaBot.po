@@ -1941,3 +1941,12 @@ msgstr "Không rõ tiêu đề"
 #: D:/TTMediaBot/bot/services/yt.py:186
 msgid "YouTube Track"
 msgstr "Bài hát YouTube"
+
+#: D:/TTMediaBot/bot/auto_updater.py:184
+#, python-brace-format
+msgid "You are using the latest version of TTMediaBot (v{version})."
+msgstr "Bạn đang sử dụng phiên bản mới nhất của TTMediaBot (v{version})."
+
+#: D:/TTMediaBot/bot/auto_updater.py:185
+msgid "Update Check"
+msgstr "Kiểm tra cập nhật"
