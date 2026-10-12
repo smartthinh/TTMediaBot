@@ -32,7 +32,7 @@ parser.add_argument(
     "-c",
     "--config",
     help="Path to the configuration file",
-    default=path.join(app_vars.directory, "config.json"),
+    default=None,
 )
 parser.add_argument("-C", "--cache", help="Path to the cache file", default=None)
 parser.add_argument("-l", "--log", help="Path to the log file", default=None)
@@ -53,13 +53,15 @@ args = parser.parse_args()
 
 
 def main(
-    config: str = args.config,
+    config: Optional[str] = None,
     cache: Optional[str] = args.cache,
     log: Optional[str] = args.log,
     devices: bool = args.devices,
     default_config: bool = args.default_config,
     cli: bool = args.cli,
 ) -> None:
+    if config is None:
+        config = args.config if args.config else app_vars.get_config_path()
     if devices:
         bot = Bot(None, None, None)
         echo_sound_devices(bot.sound_device_manager)

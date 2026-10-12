@@ -30,7 +30,7 @@ class ConfigManager:
             else:
                 sys.exit("Incorrect configuration file path")
         else:
-            self.config_dir = app_vars.directory
+            self.config_dir = app_vars.data_dir
             config_dict = {}
         self.config: ConfigModel = ConfigModel(**config_dict)
 

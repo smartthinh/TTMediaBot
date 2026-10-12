@@ -48,7 +48,7 @@ class PlaylistUploader:
         pass
 
         error_exit = False
-        temp_dir = tempfile.TemporaryDirectory()
+        temp_dir = tempfile.TemporaryDirectory(dir=app_vars.temp_dir)
         try:
             downloaded_files = []
             

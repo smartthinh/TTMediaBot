@@ -12,6 +12,7 @@ import types
 import sys
 
 from bot.TeamTalk.structs import *
+from bot import app_vars
 
 if TYPE_CHECKING:
     from bot import Bot
@@ -223,32 +224,32 @@ class TeamTalkThread(Thread):
 
     def import_event_handlers(self) -> ModuleType:
         try:
+            handler_file = self.config.event_handling.event_handlers_file_name
+            if not os.path.isabs(handler_file):
+                for base in [app_vars.data_dir, app_vars.directory]:
+                    c = os.path.join(base, handler_file)
+                    if os.path.exists(c):
+                        handler_file = c
+                        break
+
             if (
-                os.path.isfile(self.config.event_handling.event_handlers_file_name)
-                and os.path.splitext(
-                    self.config.event_handling.event_handlers_file_name
-                )[1]
-                == ".py"
+                os.path.isfile(handler_file)
+                and os.path.splitext(handler_file)[1] == ".py"
             ):
                 module = SourceFileLoader(
-                    os.path.splitext(
-                        self.config.event_handling.event_handlers_file_name
-                    )[0],
-                    self.config.event_handling.event_handlers_file_name,
+                    os.path.splitext(os.path.basename(handler_file))[0],
+                    handler_file,
                 ).load_module()
-            elif os.path.isdir(
-                self.config.event_handling.event_handlers_file_name
-            ) and "__init__.py" in os.listdir(
-                self.config.event_handling.event_handlers_file_name
+            elif os.path.isdir(handler_file) and "__init__.py" in os.listdir(
+                handler_file
             ):
                 module = SourceFileLoader(
-                    self.config.event_handling.event_handlers_file_name,
-                    self.config.event_handling.event_handlers_file_name
-                    + "/__init__.py",
+                    os.path.basename(handler_file),
+                    os.path.join(handler_file, "__init__.py"),
                 ).load_module()
             else:
                 logging.error(
-                    "Incorrect path to event handlers. An empty module will be used"
+                    f"Incorrect path to event handlers ('{handler_file}'). An empty module will be used"
                 )
                 module = types.ModuleType("event_handlers")
         except Exception as e:

@@ -41,7 +41,7 @@ class Uploader:
         temp_dir = None
         try:
             if track.type == TrackType.Default or track.service in ['yt', 'ytm']:
-                temp_dir = tempfile.TemporaryDirectory()
+                temp_dir = tempfile.TemporaryDirectory(dir=app_vars.temp_dir)
                 logging.info(f"Uploader: Downloading track to {temp_dir.name} (Video: {video})")
                 file_path = track.download(temp_dir.name, video=video)
             else:

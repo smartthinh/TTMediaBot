@@ -5,7 +5,7 @@ import threading
 import sys
 import os
 import subprocess
-from bot.app_vars import app_version
+from bot.app_vars import app_version, temp_dir
 
 GITHUB_API_URL = "https://api.github.com/repos/smartthinh/TTMediaBot/releases/latest"
 CHANGELOG_URL = "https://raw.githubusercontent.com/smartthinh/TTMediaBot/master/CHANGELOG.md"
@@ -110,7 +110,7 @@ Would you like to update now?").format(version=latest_version)
 
     def download_update(self):
         try:
-            exe_path = os.path.join(os.environ.get("TEMP", "."), f"Setup_TTMediaBot_v{self.latest_version}.exe")
+            exe_path = os.path.join(temp_dir, f"Setup_TTMediaBot_v{self.latest_version}.exe")
             
             req = urllib.request.Request(self.download_url, headers={'User-Agent': 'TTMediaBot-AutoUpdater'})
             with urllib.request.urlopen(req) as response:
@@ -142,7 +142,7 @@ Would you like to update now?").format(version=latest_version)
         self.EndModal(wx.ID_CANCEL)
 
     def install_and_restart(self, exe_path):
-        bat_path = os.path.join(os.environ.get("TEMP", "."), "ttmediabot_update.bat")
+        bat_path = os.path.join(temp_dir, "ttmediabot_update.bat")
         
         # Locate target executable to launch after installation
         if getattr(sys, 'frozen', False):

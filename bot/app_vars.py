@@ -7,11 +7,7 @@ if TYPE_CHECKING:
     from bot.translator import Translator
 
 app_name = "TTMediaBot"
-<<<<<<< HEAD
 app_version = "3.4.0"
-=======
-app_version = "3.3.0"
->>>>>>> b35d01a06c5ba7971997fdac4fcb6d05e35342be
 client_name = app_name + "-V" + app_version
 about_text: Callable[[Translator], str] = lambda translator: translator.translate(
     """\
@@ -43,11 +39,49 @@ else:
 logs_dir = os.path.join(data_dir, "logs")
 cache_dir = os.path.join(data_dir, "cache")
 temp_dir = os.path.join(data_dir, "temp")
+downloads_dir = os.path.join(data_dir, "downloads")
+music_downloads_dir = os.path.join(downloads_dir, "music")
+zip_downloads_dir = os.path.join(downloads_dir, "zips")
+default_config_path = os.path.join(data_dir, "config.json")
 
 os.makedirs(data_dir, exist_ok=True)
 os.makedirs(logs_dir, exist_ok=True)
 os.makedirs(cache_dir, exist_ok=True)
 os.makedirs(temp_dir, exist_ok=True)
+os.makedirs(downloads_dir, exist_ok=True)
+os.makedirs(music_downloads_dir, exist_ok=True)
+os.makedirs(zip_downloads_dir, exist_ok=True)
+
+
+def get_config_path() -> str:
+    """
+    Returns the path to config.json.
+    If the app is frozen (packaged/installed), always uses data_dir (%APPDATA%\\TTMediaBot)
+    because the installation directory (e.g. Program Files) is read-only.
+    In development mode, uses the project root config.json if present, otherwise data_dir.
+    Ensures that an initial config file exists in data_dir by copying from template if necessary.
+    """
+    user_config = os.path.join(data_dir, "config.json")
+    if getattr(sys, "frozen", False):
+        if not os.path.exists(user_config):
+            for candidate in [
+                os.path.join(directory, "config.json"),
+                os.path.join(directory, "config_default.json"),
+            ]:
+                if os.path.exists(candidate):
+                    try:
+                        import shutil
+                        shutil.copy2(candidate, user_config)
+                        break
+                    except Exception:
+                        pass
+        return user_config
+    else:
+        dev_config = os.path.join(directory, "config.json")
+        if os.path.exists(dev_config):
+            return dev_config
+        return user_config
+
 
 
 def ensure_ffmpeg_in_path() -> None:

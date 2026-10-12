@@ -14,7 +14,7 @@ from bot.config.models import YtModel
 from bot.player.enums import TrackType
 from bot.player.track import Track
 from bot.services import Service as _Service
-from bot import errors
+from bot import errors, app_vars
 
 
 class YtService(_Service):
@@ -43,13 +43,37 @@ class YtService(_Service):
             "quiet": True,
             "no_warnings": True,
             "source_address": "0.0.0.0",
+            "cachedir": os.path.join(app_vars.cache_dir, "yt-dlp"),
         }
         cookiefile = getattr(self.config, "cookiefile_path", "")
-        if cookiefile and os.path.isfile(cookiefile):
-            self._ydl_opts_base["cookiefile"] = cookiefile
-            logging.info(f"{self.name.upper()} Service: Cookie file found at {cookiefile}")
+        if cookiefile:
+            if not os.path.isabs(cookiefile):
+                for base in [
+                    app_vars.data_dir,
+                    os.path.join(app_vars.data_dir, "data"),
+                    app_vars.directory,
+                    os.path.join(app_vars.directory, "data"),
+                ]:
+                    candidate = os.path.join(base, cookiefile)
+                    if os.path.isfile(candidate):
+                        cookiefile = candidate
+                        break
+            if os.path.isfile(cookiefile):
+                self._ydl_opts_base["cookiefile"] = cookiefile
+                logging.info(f"{self.name.upper()} Service: Cookie file found at {cookiefile}")
+            else:
+                logging.debug(f"{self.name.upper()} Service: Configured cookie file '{cookiefile}' not found.")
         else:
-            logging.debug(f"{self.name.upper()} Service: No cookie file configured or not found.")
+            # Check default locations in roaming user directory (%APPDATA%\TTMediaBot)
+            for def_candidate in [
+                os.path.join(app_vars.data_dir, "cookies.txt"),
+                os.path.join(app_vars.data_dir, "data", "cookies.txt"),
+                os.path.join(app_vars.directory, "data", "cookies.txt"),
+            ]:
+                if os.path.isfile(def_candidate):
+                    self._ydl_opts_base["cookiefile"] = def_candidate
+                    logging.info(f"{self.name.upper()} Service: Default cookie file found at {def_candidate}")
+                    break
 
     def search(self, query: str, limit: Optional[int] = None) -> List[Track]:
         if limit is None:

@@ -13,4 +13,6 @@ def clean_file_name(file_name: str) -> str:
 
 
 def get_abs_path(file_name: str) -> str:
-    return os.path.join(app_vars.directory, file_name)
+    if os.access(app_vars.directory, os.W_OK):
+        return os.path.join(app_vars.directory, file_name)
+    return os.path.join(app_vars.data_dir, file_name)

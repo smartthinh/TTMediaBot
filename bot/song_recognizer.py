@@ -12,8 +12,8 @@ import urllib.parse
 from typing import Any, Dict, Optional, TYPE_CHECKING
 
 import requests
-from bot.app_vars import ensure_ffmpeg_in_path
-ensure_ffmpeg_in_path()
+from bot import app_vars
+app_vars.ensure_ffmpeg_in_path()
 
 import speech_recognition as sr
 from shazamio import Shazam
@@ -145,7 +145,7 @@ class SongRecognizer:
         if track_dur and track_dur > 0 and start_sec + duration_seconds > track_dur:
             start_sec = max(0, int(track_dur - duration_seconds))
 
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_file:
+        with tempfile.NamedTemporaryFile(suffix=".wav", dir=app_vars.temp_dir, delete=False) as tmp_file:
             tmp_path = tmp_file.name
 
         def cut_ffmpeg(target_url: str) -> bool:

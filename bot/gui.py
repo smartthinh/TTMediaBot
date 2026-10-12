@@ -144,7 +144,39 @@ class ServerManager:
     """Manages the server list in servers.json and applies server configuration to config.json."""
 
     def __init__(self, config_path: str):
-        self.config_path = os.path.abspath(config_path)
+        # Resolve config path: if packaged/frozen or read-only (e.g. Program Files when installed),
+        # always use user data directory (%APPDATA%\TTMediaBot\config.json).
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        target_path = os.path.abspath(config_path) if config_path else user_config
+
+        def _is_writable(path: str) -> bool:
+            try:
+                if os.path.exists(path):
+                    return os.access(path, os.W_OK)
+                d = os.path.dirname(os.path.abspath(path))
+                return os.path.exists(d) and os.access(d, os.W_OK)
+            except Exception:
+                return False
+
+        if getattr(sys, "frozen", False) or not _is_writable(target_path):
+            if not os.path.exists(user_config):
+                for candidate in [
+                    target_path,
+                    os.path.join(app_vars.directory, "config.json"),
+                    os.path.join(app_vars.directory, "config_default.json"),
+                ]:
+                    if os.path.exists(candidate):
+                        try:
+                            import shutil
+                            shutil.copy2(candidate, user_config)
+                            logging.info(f"Initialized user config from {candidate} to {user_config}")
+                            break
+                        except Exception as e:
+                            logging.error(f"Error copying config template: {e}")
+            self.config_path = user_config
+        else:
+            self.config_path = target_path
+
         # Store servers.json in user data directory (%APPDATA%\TTMediaBot)
         self.servers_file = os.path.join(app_vars.data_dir, "servers.json")
         self.servers: List[Dict[str, Any]] = []
@@ -152,42 +184,71 @@ class ServerManager:
 
     def get_language(self) -> str:
         """Reads global language from config.json. Defaults to 'en'."""
-        if os.path.exists(self.config_path):
-            try:
-                with open(self.config_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                return data.get("general", {}).get("language", "en")
-            except Exception as e:
-                logging.error(f"Error reading language from {self.config_path}: {e}")
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    lang = data.get("general", {}).get("language")
+                    if lang:
+                        return lang
+                except Exception as e:
+                    logging.error(f"Error reading language from {p}: {e}")
         return "en"
 
     def set_language(self, language: str) -> None:
         """Saves global language to config.json immediately."""
         data = {}
-        if os.path.exists(self.config_path):
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
             try:
-                with open(self.config_path, "r", encoding="utf-8") as f:
+                with open(load_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
             except Exception as e:
-                logging.error(f"Error reading {self.config_path}: {e}")
+                logging.error(f"Error reading {load_path}: {e}")
+
         if "general" not in data or not isinstance(data["general"], dict):
             data["general"] = {}
         data["general"]["language"] = language
-        try:
-            temp_file = self.config_path + ".tmp"
-            with open(temp_file, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
-                f.flush()
-                os.fsync(f.fileno())
-            os.replace(temp_file, self.config_path)
-            logging.info(f"Language '{language}' saved immediately to {self.config_path}")
-        except Exception as e:
-            logging.error(f"Error writing language to {self.config_path}: {e}")
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        saved = False
+        for target in targets:
             try:
-                with open(self.config_path, "w", encoding="utf-8") as f:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
-            except Exception as ex:
-                logging.error(f"Fallback save failed: {ex}")
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"Language '{language}' saved immediately to {target}")
+                saved = True
+                break
+            except Exception as e:
+                logging.error(f"Error writing language to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"Language '{language}' saved (fallback) to {target}")
+                    saved = True
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
+        if not saved:
+            logging.error(f"Failed to save language '{language}' to any config location")
 
     def load_servers(self) -> List[Dict[str, Any]]:
         """Loads servers from servers.json. By default, starts with an empty list."""
@@ -1057,6 +1118,7 @@ class MainFrame(wx.Frame):
         self.log_path = log_path
 
         self.server_mgr = ServerManager(config_path)
+        self.config_path = self.server_mgr.config_path
         self.servers = self.server_mgr.servers
         self.visible_servers = list(self.servers)
         self.search_query = ""
@@ -1901,6 +1963,6 @@ def run_gui(config_path: str, cache_path: Optional[str] = None, log_path: Option
     # Check for updates before showing the main window
     run_auto_updater(translate)
     
-    frame = MainFrame(config_path, cache_path, log_path)
+    frame = MainFrame(server_mgr.config_path, cache_path, log_path)
     frame.Show()
     app.MainLoop()

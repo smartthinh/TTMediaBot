@@ -4,6 +4,24 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
+## 🆕 [Unreleased] — Roaming User Data Migration & Permission Fixes
+
+### 🛡️ 1. Windows Permissions & Full Roaming Data Architecture
+- **Settings & Language Persistence:** Resolved an issue where changing language or updating runtime settings in the GUI failed to save when the application was packaged and installed into write-protected system directories (such as `C:\Program Files\TTMediaBot`). Configuration (`config.json`) is now automatically resolved and safely stored in the user's roaming directory (`%APPDATA%\TTMediaBot\config.json`).
+- **First-Run Template Initialization:** On first launch after installation, user settings are automatically seeded from the bundled template into `%APPDATA%\TTMediaBot\config.json`, preventing `PermissionError` when running under standard non-elevated user privileges.
+- **Complete Roaming Storage Isolation:**
+  - **Downloads:** Replaced deprecated hardcoded `/home/ttbot/...` paths with `%APPDATA%\TTMediaBot\downloads\music` and `%APPDATA%\TTMediaBot\downloads\zips` for local downloads (`ads 1`, `ads 2`).
+  - **Temporary Workspace:** Sandboxed all runtime temp files (10s audio slices for Shazam/Google Voice song recognition, server configs, temporary SSL certs, and auto-updater packages) into `%APPDATA%\TTMediaBot\temp`.
+  - **yt-dlp Caching:** Explicitly routed media stream caching to `%APPDATA%\TTMediaBot\cache\yt-dlp`.
+  - **User Credentials & Certificates:** Added automatic discovery for user-supplied `cookies.txt` and `ttservercert.pem` inside `%APPDATA%\TTMediaBot`.
+  - **Custom Event Handlers:** Supported loading user-defined `event_handlers.py` from `%APPDATA%\TTMediaBot`.
+
+### 🐛 2. Bug Fixes
+- **Git Merge Conflict Cleanup:** Removed leftover Git conflict markers in `bot/app_vars.py` that caused a `SyntaxError` on startup.
+- **Hardcoded Path Removal:** Eliminated legacy Linux paths in download commands to ensure 100% native compatibility on Windows.
+
+---
+
 ## 🆕 v3.4.0 — Global Internet Radio, Auto-Updater & Portuguese Support *(10/12/2026)*
 
 ### 📻 1. Listen to Global Internet Radio
