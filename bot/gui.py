@@ -45,6 +45,18 @@ def translate(message: str) -> str:
     return get_gui_translator().translate(message)
 
 
+class SearchTextCtrl(wx.TextCtrl):
+    """Plain text box used for searching.
+
+    Unlike wx.SearchCtrl (which wraps a hidden inner edit field), a normal
+    wx.TextCtrl is correctly labelled by the StaticText placed right before it,
+    so screen readers such as NVDA announce the label when focus lands here.
+    """
+
+    def SetDescriptiveText(self, text):
+        self.SetHint(text)
+
+
 _cached_sound_devices: Optional[tuple[List[str], List[str]]] = None
 _device_lock = threading.Lock()
 
@@ -1176,14 +1188,12 @@ class MainFrame(wx.Frame):
         # Search Box
         search_sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.lbl_search = wx.StaticText(panel, label=translate("&Search:"))
-        self.txt_search = wx.SearchCtrl(panel, style=wx.TE_PROCESS_ENTER)
+        self.txt_search = SearchTextCtrl(panel, style=wx.TE_PROCESS_ENTER)
         self.txt_search.SetName(translate("Search"))
         self.txt_search.SetToolTip(translate("Type to search servers"))
         self.txt_search.SetDescriptiveText(translate("Search servers..."))
-        self.txt_search.ShowSearchButton(True)
-        self.txt_search.ShowCancelButton(True)
         self.txt_search.Bind(wx.EVT_TEXT, self.on_search)
-        self.txt_search.Bind(wx.EVT_SEARCHCTRL_CANCEL_BTN, self.on_search_cancel)
+        self.txt_search.Bind(wx.EVT_KEY_DOWN, self.on_search_key_down)
         search_sizer.Add(self.lbl_search, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 5)
         search_sizer.Add(self.txt_search, 1, wx.EXPAND)
         main_sizer.Add(search_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
@@ -1341,6 +1351,12 @@ class MainFrame(wx.Frame):
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()
         self._populate_server_list()
+
+    def on_search_key_down(self, event):
+        if event.GetKeyCode() == wx.WXK_ESCAPE and self.txt_search.GetValue():
+            self.on_search_cancel(event)
+            return
+        event.Skip()
 
     def on_search_cancel(self, event):
         self.txt_search.SetValue("")
