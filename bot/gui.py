@@ -1098,6 +1098,10 @@ class BotTaskBarIcon(wx.adv.TaskBarIcon):
                 menu.Bind(wx.EVT_MENU, self.frame.on_connect_all, item_toggle)
 
         menu.AppendSeparator()
+        item_logs = menu.Append(wx.ID_ANY, translate("&View Logs..."))
+        menu.Bind(wx.EVT_MENU, lambda e: (self.frame.show_from_tray(), self.frame.on_view_logs()), item_logs)
+
+        menu.AppendSeparator()
         item_exit = menu.Append(wx.ID_ANY, translate("E&xit TTMediaBot"))
         menu.Bind(wx.EVT_MENU, self.on_exit, item_exit)
         return menu
@@ -1119,12 +1123,109 @@ class BotTaskBarIcon(wx.adv.TaskBarIcon):
         return super().Destroy()
 
 
+class LogDialog(wx.Dialog):
+    """Dialog displaying application logs with a read-only multi-line edit control and save to file feature."""
+
+    def __init__(self, parent: wx.Window, log_content: str = "", server_log_path: Optional[str] = None):
+        super().__init__(
+            parent,
+            title=translate("Application Logs"),
+            size=(740, 540),
+            style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER | wx.MAXIMIZE_BOX | wx.MINIMIZE_BOX,
+        )
+        self.SetMinSize((480, 360))
+        self.server_log_path = server_log_path
+
+        panel = wx.Panel(self)
+        main_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        self.lbl_log = wx.StaticText(panel, label=translate("&Log Content:"))
+        main_sizer.Add(self.lbl_log, 0, wx.LEFT | wx.TOP | wx.RIGHT, 10)
+
+        self.txt_log = wx.TextCtrl(
+            panel,
+            value=log_content,
+            style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL,
+        )
+        self.txt_log.SetName(translate("Log Content"))
+        self.txt_log.SetToolTip(translate("Entire log recorded during application usage."))
+        self.txt_log.SetInsertionPointEnd()
+        main_sizer.Add(self.txt_log, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
+        # Bottom buttons sizer
+        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.btn_save = wx.Button(panel, id=wx.ID_SAVE, label=translate("&Save Log..."))
+        self.btn_save.SetToolTip(translate("Save log content to a file."))
+        self.btn_save.Bind(wx.EVT_BUTTON, self.on_save)
+        btn_sizer.Add(self.btn_save, 0, wx.RIGHT, 8)
+
+        self.btn_refresh = wx.Button(panel, id=wx.ID_REFRESH, label=translate("&Refresh"))
+        self.btn_refresh.SetToolTip(translate("Reload latest log entries."))
+        self.btn_refresh.Bind(wx.EVT_BUTTON, self.on_refresh)
+        btn_sizer.Add(self.btn_refresh, 0, wx.RIGHT, 8)
+
+        btn_sizer.AddStretchSpacer(1)
+
+        self.btn_close = wx.Button(panel, id=wx.ID_CANCEL, label=translate("&Close"))
+        self.btn_close.SetToolTip(translate("Close the log dialog."))
+        self.btn_close.Bind(wx.EVT_BUTTON, self.on_close)
+        btn_sizer.Add(self.btn_close, 0)
+
+        main_sizer.Add(btn_sizer, 0, wx.EXPAND | wx.ALL, 10)
+
+        panel.SetSizer(main_sizer)
+        self.CentreOnParent()
+
+    def on_save(self, event=None):
+        default_file = f"TTMediaBot_log_{time.strftime('%Y%m%d_%H%M%S')}.log"
+        wildcard = translate("Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*")
+        with wx.FileDialog(
+            self,
+            message=translate("Save Log File"),
+            defaultDir=os.path.expanduser("~"),
+            defaultFile=default_file,
+            wildcard=wildcard,
+            style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
+        ) as file_dialog:
+            if file_dialog.ShowModal() == wx.ID_CANCEL:
+                return
+            save_path = file_dialog.GetPath()
+            try:
+                content = self.txt_log.GetValue()
+                with open(save_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                wx.MessageBox(
+                    translate("Log file successfully saved to:\n{path}").format(path=save_path),
+                    translate("Save Log"),
+                    wx.OK | wx.ICON_INFORMATION,
+                    self,
+                )
+            except Exception as e:
+                logging.error(f"Error saving log to file: {e}")
+                wx.MessageBox(
+                    translate("Failed to save log file:\n{error}").format(error=str(e)),
+                    translate("Error"),
+                    wx.OK | wx.ICON_ERROR,
+                    self,
+                )
+
+    def on_refresh(self, event=None):
+        from bot.logger import get_session_logs
+        logs = get_session_logs(self.server_log_path)
+        self.txt_log.SetValue(logs)
+        self.txt_log.SetInsertionPointEnd()
+
+    def on_close(self, event=None):
+        self.EndModal(wx.ID_CANCEL)
+
+
 class MainFrame(wx.Frame):
     """Main window displaying the server list and connection controls."""
 
     def __init__(self, config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
-        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 580))
-        self.SetMinSize((480, 460))
+        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 610))
+        self.SetMinSize((480, 480))
         self.config_path = config_path
         self.cache_path = cache_path
         self.log_path = log_path
@@ -1222,8 +1323,8 @@ class MainFrame(wx.Frame):
         lang_sizer.Add(self.choice_language, 1, wx.EXPAND)
         main_sizer.Add(lang_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
 
-        # Buttons Grid (3 rows x 2 columns)
-        self.btn_sizer = wx.GridSizer(rows=4, cols=2, vgap=6, hgap=8)
+        # Buttons Grid (5 rows x 2 columns)
+        self.btn_sizer = wx.GridSizer(cols=2, vgap=6, hgap=8)
 
         # Row 1: Connect All & Delete All
         self.btn_connect_all = wx.Button(panel, label="&Connect All")
@@ -1233,35 +1334,39 @@ class MainFrame(wx.Frame):
 
         # Row 2: Add Server & Hide Window
         self.btn_add = wx.Button(panel, label="&Add Server...")
-
-        # Row 2: Hide Window & Visit Website
         self.btn_hide = wx.Button(panel, label="&Hide Window")
-        self.btn_website = wx.Button(panel, label="&Visit Website")
 
-        # Row 3: Join Telegram Channel
-        self.btn_telegram = wx.Button(panel, label="&Join Telegram Channel")
-        
-        # Row 4: Check for Updates & Exit
+        # Row 3: View Logs & Check for Updates
+        self.btn_view_logs = wx.Button(panel, label="&View Logs...")
         self.btn_check_update = wx.Button(panel, label="&Check for Updates")
+
+        # Row 4: Visit Website & Join Telegram Channel
+        self.btn_website = wx.Button(panel, label="&Visit Website")
+        self.btn_telegram = wx.Button(panel, label="&Join Telegram Channel")
+
+        # Row 5: Exit
         self.btn_exit = wx.Button(panel, label="E&xit")
 
         self.btn_connect_all.Bind(wx.EVT_BUTTON, self.on_connect_all_toggle)
         self.btn_delete_all.Bind(wx.EVT_BUTTON, self.on_delete_all)
         self.btn_add.Bind(wx.EVT_BUTTON, self.on_add_server)
         self.btn_hide.Bind(wx.EVT_BUTTON, self.on_hide_window)
+        self.btn_view_logs.Bind(wx.EVT_BUTTON, self.on_view_logs)
+        self.btn_check_update.Bind(wx.EVT_BUTTON, self.on_check_update)
         self.btn_website.Bind(wx.EVT_BUTTON, self.on_visit_website)
         self.btn_telegram.Bind(wx.EVT_BUTTON, self.on_join_telegram)
-        self.btn_check_update.Bind(wx.EVT_BUTTON, self.on_check_update)
         self.btn_exit.Bind(wx.EVT_BUTTON, self.on_exit)
 
         self.btn_sizer.Add(self.btn_connect_all, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_delete_all, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_add, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_hide, 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_view_logs, 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_check_update, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_website, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_telegram, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_check_update, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_exit, 1, wx.EXPAND)
+        self.btn_sizer.Add((0, 0), 1, wx.EXPAND)
 
         main_sizer.Add(self.btn_sizer, 0, wx.EXPAND | wx.ALL, 10)
 
@@ -1302,6 +1407,9 @@ class MainFrame(wx.Frame):
         self.btn_hide.SetLabel(translate("&Hide Window"))
         self.btn_hide.SetToolTip(translate("Minimize TTMediaBot window to the system tray."))
         self.btn_website.SetLabel(translate("&Visit Website"))
+        if hasattr(self, 'btn_view_logs'):
+            self.btn_view_logs.SetLabel(translate("&View Logs..."))
+            self.btn_view_logs.SetToolTip(translate("View application logs and errors."))
         if hasattr(self, 'btn_check_update'):
             self.btn_check_update.SetLabel(translate("&Check for Updates"))
             self.btn_check_update.SetToolTip(translate("Check for the latest version online."))
@@ -1519,6 +1627,10 @@ class MainFrame(wx.Frame):
 
         item_add = menu.Append(wx.ID_ANY, translate("&Add Server..."))
         self.Bind(wx.EVT_MENU, self.on_add_server, item_add)
+
+        menu.AppendSeparator()
+        item_logs = menu.Append(wx.ID_ANY, translate("&View Logs..."))
+        self.Bind(wx.EVT_MENU, self.on_view_logs, item_logs)
 
         if client_pos != wx.DefaultPosition:
             self.server_list.PopupMenu(menu, client_pos)
@@ -1913,6 +2025,21 @@ class MainFrame(wx.Frame):
         webbrowser.open("https://t.me/accessiblevisionresources")
 
 
+    def on_view_logs(self, event=None):
+        """Opens the log viewer dialog showing full application session logs."""
+        server_log_path = None
+        sel_idx = self.server_list.GetSelection()
+        if 0 <= sel_idx < len(self.visible_servers):
+            server = self.visible_servers[sel_idx]
+            s_id = self.get_server_id(server)
+            server_log_path = os.path.join(app_vars.logs_dir, f"TTMediaBot_server_{s_id}.log")
+
+        from bot.logger import get_session_logs
+        log_content = get_session_logs(server_log_path)
+        dlg = LogDialog(self, log_content=log_content, server_log_path=server_log_path)
+        dlg.ShowModal()
+        dlg.Destroy()
+
     def on_check_update(self, event=None):
         from bot.auto_updater import run_auto_updater
         run_auto_updater(translate_func=translate, parent=self, manual=True)
@@ -1958,6 +2085,9 @@ class MainFrame(wx.Frame):
 
 def run_gui(config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
     """Entry point for running the wx GUI."""
+    from bot.logger import setup_gui_logging
+    setup_gui_logging()
+    logging.info(f"TTMediaBot {app_vars.app_version} GUI starting")
     app = wx.App(False)
     
     # Initialize locale for auto updater

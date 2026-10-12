@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  TTMediaBot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-12 07:46+0700\n"
+"POT-Creation-Date: 2026-10-12 19:44+0700\n"
 "PO-Revision-Date: 2021-07-17 13:41+0400\n"
 "Last-Translator: \n"
 "Language: tr\n"
@@ -106,15 +106,6 @@ msgstr "Kanala katılma başarısız oldu: {}"
 
 #: D:/TTMediaBot/bot/auto_updater.py:141
 msgid "Update Error"
-msgstr ""
-
-#: D:/TTMediaBot/bot/auto_updater.py:184
-#, python-brace-format
-msgid "You are using the latest version of TTMediaBot (v{version})."
-msgstr ""
-
-#: D:/TTMediaBot/bot/auto_updater.py:185
-msgid "Update Check"
 msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:438
@@ -390,324 +381,405 @@ msgstr ""
 msgid "&Show Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1094 D:/TTMediaBot/bot/gui.py:1525
+#: D:/TTMediaBot/bot/gui.py:1094 D:/TTMediaBot/bot/gui.py:1621
 msgid "&Disconnect All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1097 D:/TTMediaBot/bot/gui.py:1528
+#: D:/TTMediaBot/bot/gui.py:1097 D:/TTMediaBot/bot/gui.py:1624
 msgid "&Connect All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1101
+#: D:/TTMediaBot/bot/gui.py:1101 D:/TTMediaBot/bot/gui.py:1411
+#: D:/TTMediaBot/bot/gui.py:1632
+msgid "&View Logs..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1105
 msgid "E&xit TTMediaBot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1126 D:/TTMediaBot/bot/gui.py:1279
+#: D:/TTMediaBot/bot/gui.py:1132
+msgid "Application Logs"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1142
+msgid "&Log Content:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1150
+msgid "Log Content"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1151
+msgid "Entire log recorded during application usage."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1158
+msgid "&Save Log..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1159
+msgid "Save log content to a file."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1163
+msgid "&Refresh"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1164
+msgid "Reload latest log entries."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1170
+msgid "&Close"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1171
+msgid "Close the log dialog."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1182
+msgid "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1185
+msgid "Save Log File"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1199
+#, python-brace-format
+msgid ""
+"Log file successfully saved to:\n"
+"{path}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1200
+msgid "Save Log"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1207
+#, python-brace-format
+msgid ""
+"Failed to save log file:\n"
+"{error}"
+msgstr ""
+
+# | msgid "Error: {}"
+#: D:/TTMediaBot/bot/gui.py:1208
+#, fuzzy
+msgid "Error"
+msgstr "Hata: {}"
+
+#: D:/TTMediaBot/bot/gui.py:1227 D:/TTMediaBot/bot/gui.py:1383
 msgid "TTMediaBot - Server Manager"
 msgstr ""
 
 # | msgid "Search results:"
-#: D:/TTMediaBot/bot/gui.py:1190 D:/TTMediaBot/bot/gui.py:1282
+#: D:/TTMediaBot/bot/gui.py:1291 D:/TTMediaBot/bot/gui.py:1386
 #, fuzzy
 msgid "&Search:"
 msgstr "Arama sonuçları:"
 
 # | msgid "Searching..."
-#: D:/TTMediaBot/bot/gui.py:1192 D:/TTMediaBot/bot/gui.py:1285
+#: D:/TTMediaBot/bot/gui.py:1293 D:/TTMediaBot/bot/gui.py:1389
 #, fuzzy
 msgid "Search"
 msgstr "Aranıyor..."
 
-#: D:/TTMediaBot/bot/gui.py:1193 D:/TTMediaBot/bot/gui.py:1286
+#: D:/TTMediaBot/bot/gui.py:1294 D:/TTMediaBot/bot/gui.py:1390
 msgid "Type to search servers"
 msgstr ""
 
 # | msgid "Search results:"
-#: D:/TTMediaBot/bot/gui.py:1194 D:/TTMediaBot/bot/gui.py:1284
+#: D:/TTMediaBot/bot/gui.py:1295 D:/TTMediaBot/bot/gui.py:1388
 #, fuzzy
 msgid "Search servers..."
 msgstr "Arama sonuçları:"
 
-#: D:/TTMediaBot/bot/gui.py:1280
+#: D:/TTMediaBot/bot/gui.py:1384
 msgid "&Servers:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1288
+#: D:/TTMediaBot/bot/gui.py:1392
 msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1290
+#: D:/TTMediaBot/bot/gui.py:1394
 msgid "&Language:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1296
+#: D:/TTMediaBot/bot/gui.py:1400
 msgid "Select the active language for the bot and interface."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1299
+#: D:/TTMediaBot/bot/gui.py:1403
 msgid "&Delete All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1300
+#: D:/TTMediaBot/bot/gui.py:1404
 msgid "Delete all saved servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1301 D:/TTMediaBot/bot/gui.py:1532
+#: D:/TTMediaBot/bot/gui.py:1405 D:/TTMediaBot/bot/gui.py:1628
 msgid "&Add Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1302
+#: D:/TTMediaBot/bot/gui.py:1406
 msgid "Add a new server to the list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1303
+#: D:/TTMediaBot/bot/gui.py:1407
 msgid "&Hide Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1304
+#: D:/TTMediaBot/bot/gui.py:1408
 msgid "Minimize TTMediaBot window to the system tray."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1305
+#: D:/TTMediaBot/bot/gui.py:1409
 msgid "&Visit Website"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1307
+#: D:/TTMediaBot/bot/gui.py:1412
+msgid "View application logs and errors."
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:1414
 msgid "&Check for Updates"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1308
+#: D:/TTMediaBot/bot/gui.py:1415
 msgid "Check for the latest version online."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1309
+#: D:/TTMediaBot/bot/gui.py:1416
 msgid "Open website: https://smartthinh.com/en/home"
 msgstr ""
 
 # | msgid "Joining channel: {}"
-#: D:/TTMediaBot/bot/gui.py:1310
+#: D:/TTMediaBot/bot/gui.py:1417
 #, fuzzy
 msgid "&Join Telegram Channel"
 msgstr "Kanala katılıyor: {}"
 
-#: D:/TTMediaBot/bot/gui.py:1311
+#: D:/TTMediaBot/bot/gui.py:1418
 msgid "Open Telegram channel: https://t.me/accessiblevisionresources"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1312
+#: D:/TTMediaBot/bot/gui.py:1419
 msgid "E&xit"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1313
+#: D:/TTMediaBot/bot/gui.py:1420
 msgid "Close TTMediaBot (or press Alt+F4)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1317
+#: D:/TTMediaBot/bot/gui.py:1424
 msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1381 D:/TTMediaBot/bot/gui.py:1406
+#: D:/TTMediaBot/bot/gui.py:1477 D:/TTMediaBot/bot/gui.py:1502
 msgid "Unnamed Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1384 D:/TTMediaBot/bot/gui.py:1410
-#: D:/TTMediaBot/bot/gui.py:1734
+#: D:/TTMediaBot/bot/gui.py:1480 D:/TTMediaBot/bot/gui.py:1506
+#: D:/TTMediaBot/bot/gui.py:1834
 msgid "Connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1386 D:/TTMediaBot/bot/gui.py:1412
-#: D:/TTMediaBot/bot/gui.py:1738
+#: D:/TTMediaBot/bot/gui.py:1482 D:/TTMediaBot/bot/gui.py:1508
+#: D:/TTMediaBot/bot/gui.py:1838
 msgid "Connecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1388 D:/TTMediaBot/bot/gui.py:1414
-#: D:/TTMediaBot/bot/gui.py:1743
+#: D:/TTMediaBot/bot/gui.py:1484 D:/TTMediaBot/bot/gui.py:1510
+#: D:/TTMediaBot/bot/gui.py:1843
 msgid "Reconnecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1434
+#: D:/TTMediaBot/bot/gui.py:1530
 msgid "Status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1453
+#: D:/TTMediaBot/bot/gui.py:1549
 msgid "&Disconnect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1454
+#: D:/TTMediaBot/bot/gui.py:1550
 msgid "Disconnect all connected TeamTalk servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1456
+#: D:/TTMediaBot/bot/gui.py:1552
 msgid "&Connect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1457
+#: D:/TTMediaBot/bot/gui.py:1553
 msgid "Connect all configured servers to TeamTalk."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1488 D:/TTMediaBot/bot/gui.py:1610
-#: D:/TTMediaBot/bot/gui.py:1649 D:/TTMediaBot/bot/gui.py:1733
-#: D:/TTMediaBot/bot/gui.py:1737 D:/TTMediaBot/bot/gui.py:1742
+#: D:/TTMediaBot/bot/gui.py:1584 D:/TTMediaBot/bot/gui.py:1710
+#: D:/TTMediaBot/bot/gui.py:1749 D:/TTMediaBot/bot/gui.py:1833
+#: D:/TTMediaBot/bot/gui.py:1837 D:/TTMediaBot/bot/gui.py:1842
 msgid "Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1494
+#: D:/TTMediaBot/bot/gui.py:1590
 #, python-brace-format
 msgid "&Disconnect from '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1499
+#: D:/TTMediaBot/bot/gui.py:1595
 #, python-brace-format
 msgid "&Cancel Connecting to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1504
+#: D:/TTMediaBot/bot/gui.py:1600
 #, python-brace-format
 msgid "&Connect to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1510
+#: D:/TTMediaBot/bot/gui.py:1606
 msgid "&Edit Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1515
+#: D:/TTMediaBot/bot/gui.py:1611
 msgid "&Delete Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1546
+#: D:/TTMediaBot/bot/gui.py:1646
 msgid "Please select a server from the list first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1547 D:/TTMediaBot/bot/gui.py:1573
-#: D:/TTMediaBot/bot/gui.py:1817 D:/TTMediaBot/bot/gui.py:1850
-#: D:/TTMediaBot/bot/gui.py:1890
+#: D:/TTMediaBot/bot/gui.py:1647 D:/TTMediaBot/bot/gui.py:1673
+#: D:/TTMediaBot/bot/gui.py:1917 D:/TTMediaBot/bot/gui.py:1950
+#: D:/TTMediaBot/bot/gui.py:1990
 msgid "Information"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1572
+#: D:/TTMediaBot/bot/gui.py:1672
 msgid "No servers to connect. Please add a server first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1586
+#: D:/TTMediaBot/bot/gui.py:1686
 msgid "Connecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1600
+#: D:/TTMediaBot/bot/gui.py:1700
 msgid "Disconnecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1616
+#: D:/TTMediaBot/bot/gui.py:1716
 #, python-brace-format
 msgid "Connecting to '{server_name}'..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1695
+#: D:/TTMediaBot/bot/gui.py:1795
 msgid "Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1700
+#: D:/TTMediaBot/bot/gui.py:1800
 #, python-brace-format
 msgid ""
 "An error occurred while running the bot on '{server_name}':\n"
 "{err_msg}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1703
+#: D:/TTMediaBot/bot/gui.py:1803
 msgid "Connection Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1767
+#: D:/TTMediaBot/bot/gui.py:1867
 msgid "TTMediaBot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1768
+#: D:/TTMediaBot/bot/gui.py:1868
 msgid "TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1800
+#: D:/TTMediaBot/bot/gui.py:1900
 msgid "Add New Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1809
+#: D:/TTMediaBot/bot/gui.py:1909
 #, python-brace-format
 msgid "Added server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1816
+#: D:/TTMediaBot/bot/gui.py:1916
 msgid "Please select a server to edit."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1828
+#: D:/TTMediaBot/bot/gui.py:1928
 msgid ""
 "Cannot edit the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1829 D:/TTMediaBot/bot/gui.py:1863
-#: D:/TTMediaBot/bot/gui.py:1900
+#: D:/TTMediaBot/bot/gui.py:1929 D:/TTMediaBot/bot/gui.py:1963
+#: D:/TTMediaBot/bot/gui.py:2000
 msgid "Notice"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1835
+#: D:/TTMediaBot/bot/gui.py:1935
 msgid "Edit Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1842
+#: D:/TTMediaBot/bot/gui.py:1942
 #, python-brace-format
 msgid "Updated server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1849
+#: D:/TTMediaBot/bot/gui.py:1949
 msgid "Please select a server to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1862
+#: D:/TTMediaBot/bot/gui.py:1962
 msgid ""
 "Cannot delete the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1869
+#: D:/TTMediaBot/bot/gui.py:1969
 msgid "this server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1872
+#: D:/TTMediaBot/bot/gui.py:1972
 #, python-brace-format
 msgid "Are you sure you want to delete server '{server_name}'?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1873
+#: D:/TTMediaBot/bot/gui.py:1973
 msgid "Confirm Delete"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1883
+#: D:/TTMediaBot/bot/gui.py:1983
 #, python-brace-format
 msgid "Deleted server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1889
+#: D:/TTMediaBot/bot/gui.py:1989
 msgid "No servers to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1899
+#: D:/TTMediaBot/bot/gui.py:1999
 msgid ""
 "Some servers are currently connected. Please disconnect all servers "
 "before deleting."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1908
+#: D:/TTMediaBot/bot/gui.py:2008
 msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1909
+#: D:/TTMediaBot/bot/gui.py:2009
 msgid "Confirm Delete All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1918
+#: D:/TTMediaBot/bot/gui.py:2018
 msgid "All servers deleted."
 msgstr ""
 
@@ -2179,4 +2251,10 @@ msgstr "Sonraki parça yok"
 
 #~ msgid "Unknown"
 #~ msgstr "Bilinmiyor"
+
+#~ msgid "You are using the latest version of TTMediaBot (v{version})."
+#~ msgstr ""
+
+#~ msgid "Update Check"
+#~ msgstr ""
 

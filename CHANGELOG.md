@@ -4,21 +4,20 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🆕 [Unreleased] — Roaming User Data Migration & Permission Fixes
+## 🆕 [Unreleased] — In-App Log Viewer & System Improvements
 
-### 🛡️ 1. Windows Permissions & Full Roaming Data Architecture
-- **Settings & Language Persistence:** Resolved an issue where changing language or updating runtime settings in the GUI failed to save when the application was packaged and installed into write-protected system directories (such as `C:\Program Files\TTMediaBot`). Configuration (`config.json`) is now automatically resolved and safely stored in the user's roaming directory (`%APPDATA%\TTMediaBot\config.json`).
-- **First-Run Template Initialization:** On first launch after installation, user settings are automatically seeded from the bundled template into `%APPDATA%\TTMediaBot\config.json`, preventing `PermissionError` when running under standard non-elevated user privileges.
-- **Complete Roaming Storage Isolation:**
-  - **Downloads:** Replaced deprecated hardcoded `/home/ttbot/...` paths with `%APPDATA%\TTMediaBot\downloads\music` and `%APPDATA%\TTMediaBot\downloads\zips` for local downloads (`ads 1`, `ads 2`).
-  - **Temporary Workspace:** Sandboxed all runtime temp files (10s audio slices for Shazam/Google Voice song recognition, server configs, temporary SSL certs, and auto-updater packages) into `%APPDATA%\TTMediaBot\temp`.
-  - **yt-dlp Caching:** Explicitly routed media stream caching to `%APPDATA%\TTMediaBot\cache\yt-dlp`.
-  - **User Credentials & Certificates:** Added automatic discovery for user-supplied `cookies.txt` and `ttservercert.pem` inside `%APPDATA%\TTMediaBot`.
-  - **Custom Event Handlers:** Supported loading user-defined `event_handlers.py` from `%APPDATA%\TTMediaBot`.
+### 📋 1. View & Save Application Logs
+- **New "View Logs" Button:** You can now click the **"View Logs..."** button (or press `Alt+V`) directly on the main window to check what the bot is doing and inspect any errors. This option is also available in the right-click menu on any server and in the system tray icon menu.
+- **Easy-to-Read Log Window:** Opens a clean window displaying all activity and error logs recorded while using the app. The text field is read-only, automatically scrolls to the newest messages, and works seamlessly with screen readers (NVDA, JAWS).
+- **Save Log to File:** Click the **"Save Log..."** button to open the familiar Windows Save File dialog. You can choose where to save the log and save it as a `.log` or `.txt` file, making it simple to share error details for troubleshooting and support.
+- **Refresh & Close:** Instantly reload the latest logs with the **"Refresh"** button, or exit the window with the **"Close"** button (or by pressing `Esc`).
 
-### 🐛 2. Bug Fixes
-- **Git Merge Conflict Cleanup:** Removed leftover Git conflict markers in `bot/app_vars.py` that caused a `SyntaxError` on startup.
-- **Hardcoded Path Removal:** Eliminated legacy Linux paths in download commands to ensure 100% native compatibility on Windows.
+### 🛡️ 2. Reliable Settings & Windows Compatibility
+- **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
+- **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
+
+### 🐛 3. Bug Fixes
+- **Startup & Path Fixes:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
 
 ---
 
