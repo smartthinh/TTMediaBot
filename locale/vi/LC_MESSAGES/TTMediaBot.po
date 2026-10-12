@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-10-12 19:44+0700\n"
-"PO-Revision-Date: 2026-10-12 19:42+0700\n"
+"PO-Revision-Date: 2026-10-12 20:33+0700\n"
 "Last-Translator: \n"
-"Language: vi\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Poedit 3.9\n"
 
 #: D:/TTMediaBot/bot/__init__.py:139
 msgid "Update completed successfully! I am back online."
@@ -24,17 +25,16 @@ msgstr "Cập nhật thành công! Bot đã hoạt động trở lại."
 
 #: D:/TTMediaBot/bot/__init__.py:178
 msgid ""
-"The bot is starting an update process and will restart shortly. It may go"
-" offline at any moment."
+"The bot is starting an update process and will restart shortly. It may go "
+"offline at any moment."
 msgstr ""
-"Bot đang bắt đầu cập nhật và sẽ khởi động lại trong giây lát. Bot có thể "
-"ngắt kết nối bất cứ lúc nào."
+"Bot đang bắt đầu cập nhật và sẽ khởi động lại trong giây lát. Bot có thể ngắt "
+"kết nối bất cứ lúc nào."
 
 #: D:/TTMediaBot/bot/__init__.py:210
 msgid "The bot is restarting now to apply the update. See you in a moment!"
 msgstr ""
-"Bot đang khởi động lại để áp dụng bản cập nhật. Hẹn gặp lại bạn trong "
-"giây lát!"
+"Bot đang khởi động lại để áp dụng bản cập nhật. Hẹn gặp lại bạn trong giây lát!"
 
 # #-#-#-#-#  catalog.po (TTMediaBot VERSION)  #-#-#-#-#
 # | msgid "" "Hello, I'm Smart Thinh.\n" "This is a TTMediaBot edition for
@@ -46,26 +46,22 @@ msgstr ""
 # | TeamTalk 5, based on João Almeida's " "fork.\n" "Ported to run seamlessly
 # on
 #: D:/TTMediaBot/bot/app_vars.py:13
-#, fuzzy
 msgid ""
 "Hello, I'm Smart Thinh.\n"
-"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's "
-"fork.\n"
+"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's fork.\n"
 "Ported to run seamlessly on Windows with high stability and ultra-fast "
 "response.\n"
 "Repository: https://github.com/smartthinh/TTMediaBot\n"
-""
-"Original Authors: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, "
-"Kirill Belousov.\n"
+"\fOriginal Authors: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, Kirill "
+"Belousov.\n"
 msgstr ""
 "Xin chào, mình là Smart Thinh.\n"
-"Đây là phiên bản TTMediaBot dành cho TeamTalk 5, dựa trên bản fork của "
-"João Almeida.\n"
-"Được chuyển sang chạy mượt trên Windows, rất ổn định và phản hồi cực "
-"nhanh.\n"
+"Đây là phiên bản TTMediaBot dành cho TeamTalk 5, dựa trên bản fork của João "
+"Almeida.\n"
+"Được chuyển sang chạy mượt trên Windows, rất ổn định và phản hồi cực nhanh.\n"
 "Kho mã nguồn: https://github.com/smartthinh/TTMediaBot\n"
-"\\fTác giả gốc: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, "
-"Kirill Belousov.\n"
+"\fTác giả gốc: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, Kirill "
+"Belousov.\n"
 
 #: D:/TTMediaBot/bot/auto_updater.py:61
 msgid "Update Available"
@@ -74,11 +70,11 @@ msgstr "Đã có bản cập nhật"
 #: D:/TTMediaBot/bot/auto_updater.py:68
 #, python-brace-format
 msgid ""
-"A new version of TTMediaBot (v{version}) is available.Would you like to "
-"update now?"
+"A new version of TTMediaBot (v{version}) is available.Would you like to update "
+"now?"
 msgstr ""
-"Đã có phiên bản mới của TTMediaBot (v{version}). Bạn có muốn cập nhật "
-"ngay bây giờ không?"
+"Đã có phiên bản mới của TTMediaBot (v{version}). Bạn có muốn cập nhật ngay bây "
+"giờ không?"
 
 #: D:/TTMediaBot/bot/auto_updater.py:78
 msgid "Release notes are not available."
@@ -500,8 +496,8 @@ msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
-"Chọn máy chủ. Nhấn Enter để kết nối/ngắt kết nối. Nhấp chuột phải hoặc "
-"nhấn phím Application để mở menu ngữ cảnh."
+"Chọn máy chủ. Nhấn Enter để kết nối/ngắt kết nối. Nhấp chuột phải hoặc nhấn phím "
+"Application để mở menu ngữ cảnh."
 
 #: D:/TTMediaBot/bot/gui.py:1394
 msgid "&Language:"
@@ -577,8 +573,8 @@ msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
-"Sẵn sàng. Nhấn Enter trên một máy chủ để kết nối/ngắt kết nối. Nhấp chuột"
-" phải hoặc phím Application để mở menu ngữ cảnh."
+"Sẵn sàng. Nhấn Enter trên một máy chủ để kết nối/ngắt kết nối. Nhấp chuột phải "
+"hoặc phím Application để mở menu ngữ cảnh."
 
 #: D:/TTMediaBot/bot/gui.py:1477 D:/TTMediaBot/bot/gui.py:1502
 msgid "Unnamed Server"
@@ -699,8 +695,7 @@ msgstr "TTMediaBot"
 #: D:/TTMediaBot/bot/gui.py:1868
 msgid "TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
-"TTMediaBot đang chạy ngầm. Nhấp vào biểu tượng ở khay hệ thống để khôi "
-"phục."
+"TTMediaBot đang chạy ngầm. Nhấp vào biểu tượng ở khay hệ thống để khôi phục."
 
 #: D:/TTMediaBot/bot/gui.py:1900
 msgid "Add New Server"
@@ -717,11 +712,9 @@ msgstr "Vui lòng chọn máy chủ cần chỉnh sửa."
 
 #: D:/TTMediaBot/bot/gui.py:1928
 msgid ""
-"Cannot edit the server while the bot is connected to it. Please "
-"disconnect first."
+"Cannot edit the server while the bot is connected to it. Please disconnect first."
 msgstr ""
-"Không thể chỉnh sửa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối "
-"trước."
+"Không thể chỉnh sửa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối trước."
 
 #: D:/TTMediaBot/bot/gui.py:1929 D:/TTMediaBot/bot/gui.py:1963
 #: D:/TTMediaBot/bot/gui.py:2000
@@ -743,8 +736,8 @@ msgstr "Vui lòng chọn máy chủ cần xóa."
 
 #: D:/TTMediaBot/bot/gui.py:1962
 msgid ""
-"Cannot delete the server while the bot is connected to it. Please "
-"disconnect first."
+"Cannot delete the server while the bot is connected to it. Please disconnect "
+"first."
 msgstr "Không thể xóa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối trước."
 
 #: D:/TTMediaBot/bot/gui.py:1969
@@ -771,17 +764,16 @@ msgstr "Không có máy chủ nào để xóa."
 
 #: D:/TTMediaBot/bot/gui.py:1999
 msgid ""
-"Some servers are currently connected. Please disconnect all servers "
-"before deleting."
+"Some servers are currently connected. Please disconnect all servers before "
+"deleting."
 msgstr ""
-"Một số máy chủ hiện đang được kết nối. Vui lòng ngắt kết nối tất cả các "
-"máy chủ trước khi xóa."
+"Một số máy chủ hiện đang được kết nối. Vui lòng ngắt kết nối tất cả các máy chủ "
+"trước khi xóa."
 
 #: D:/TTMediaBot/bot/gui.py:2008
 msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
-"Bạn có chắc chắn muốn xóa TẤT CẢ máy chủ không? Thao tác này không thể "
-"hoàn tác."
+"Bạn có chắc chắn muốn xóa TẤT CẢ máy chủ không? Thao tác này không thể hoàn tác."
 
 #: D:/TTMediaBot/bot/gui.py:2009
 msgid "Confirm Delete All"
@@ -845,13 +837,12 @@ msgstr "Hiện các lệnh dành cho quản trị viên"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:35
 msgid ""
-"+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the "
-"blocklist. -COMMAND removes from it. Without a command shows the "
-"blocklist"
+"+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the blocklist. "
+"-COMMAND removes from it. Without a command shows the blocklist"
 msgstr ""
-"+/-COMMAND Chặn hoặc bỏ chặn các lệnh. +COMMAND thêm lệnh vào danh sách "
-"chặn. -COMMAND xóa lệnh khỏi danh sách chặn. Không có lệnh nào được nhập "
-"sẽ hiển thị danh sách chặn."
+"+/-COMMAND Chặn hoặc bỏ chặn các lệnh. +COMMAND thêm lệnh vào danh sách chặn. "
+"-COMMAND xóa lệnh khỏi danh sách chặn. Không có lệnh nào được nhập sẽ hiển thị "
+"danh sách chặn."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:46
 #: D:/TTMediaBot/bot/commands/admin_commands.py:340
@@ -906,8 +897,7 @@ msgstr "Ngôn ngữ không hợp lệ"
 #: D:/TTMediaBot/bot/commands/admin_commands.py:97
 #, python-brace-format
 msgid ""
-"Current language: {current_language}. Available languages: "
-"{available_languages}"
+"Current language: {current_language}. Available languages: {available_languages}"
 msgstr ""
 "Ngôn ngữ hiện tại: {current_language}. Các ngôn ngữ có thể chọn: "
 "{available_languages}"
@@ -918,11 +908,11 @@ msgstr "BIỆT_DANH Đổi biệt danh của bot"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:118
 msgid ""
-"r/f Clears bot's cache. r clears recents, f clears favorites, without an "
-"option clears the entire cache"
+"r/f Clears bot's cache. r clears recents, f clears favorites, without an option "
+"clears the entire cache"
 msgstr ""
-"r/f Xóa bộ nhớ cache của bot. r xóa các mục gần đây, f xóa các mục yêu "
-"thích, nếu không có tùy chọn nào thì xóa toàn bộ bộ nhớ cache"
+"r/f Xóa bộ nhớ cache của bot. r xóa các mục gần đây, f xóa các mục yêu thích, "
+"nếu không có tùy chọn nào thì xóa toàn bộ bộ nhớ cache"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:126
 msgid "Cache cleared"
@@ -938,13 +928,12 @@ msgstr "Đã xóa danh sách yêu thích"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:141
 msgid ""
-"Join channel. first argument is channel name or id, second argument is "
-"password, split argument \" | \", if password is undefined, don't type "
-"second argument"
+"Join channel. first argument is channel name or id, second argument is password, "
+"split argument \" | \", if password is undefined, don't type second argument"
 msgstr ""
-"Tham gia kênh. Tham số đầu tiên là tên hoặc ID kênh, tham số thứ hai là "
-"mật khẩu, tách tham số bằng dấu \" | \", nếu mật khẩu không được xác định"
-" thì không cần nhập tham số thứ hai"
+"Tham gia kênh. Tham số đầu tiên là tên hoặc ID kênh, tham số thứ hai là mật "
+"khẩu, tách tham số bằng dấu \" | \", nếu mật khẩu không được xác định thì không "
+"cần nhập tham số thứ hai"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:160
 msgid "This channel does not exist"
@@ -998,11 +987,11 @@ msgstr "Đã tắt xử lý sự kiện"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:283
 msgid ""
-"Toggles channel messages. When disabled, notifications are sent privately"
-" instead of public channel"
+"Toggles channel messages. When disabled, notifications are sent privately "
+"instead of public channel"
 msgstr ""
-"Bật/tắt tin nhắn kênh. Khi tắt, thông báo sẽ được gửi riêng tư thay vì "
-"đến kênh công khai"
+"Bật/tắt tin nhắn kênh. Khi tắt, thông báo sẽ được gửi riêng tư thay vì đến kênh "
+"công khai"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:293
 msgid "Public channel messages enabled (bot will announce in channel)."
@@ -1010,11 +999,11 @@ msgstr "Đã bật tin nhắn công khai (bot sẽ thông báo trong kênh)."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:297
 msgid ""
-"Private messages mode enabled (bot will send notifications privately "
-"instead of public channel)."
+"Private messages mode enabled (bot will send notifications privately instead of "
+"public channel)."
 msgstr ""
-"Chế độ tin nhắn riêng tư đã được bật (bot sẽ gửi thông báo riêng tư thay "
-"vì kênh công khai)."
+"Chế độ tin nhắn riêng tư đã được bật (bot sẽ gửi thông báo riêng tư thay vì kênh "
+"công khai)."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:304
 msgid "Saves bot's configuration"
@@ -1026,12 +1015,11 @@ msgstr "Đã lưu cấu hình"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:315
 msgid ""
-"+/-USERNAME Manages a list of administrators. +USERNAME adds a user. "
-"-USERNAME removes it. Without an option shows the list"
+"+/-USERNAME Manages a list of administrators. +USERNAME adds a user. -USERNAME "
+"removes it. Without an option shows the list"
 msgstr ""
 "+/-USERNAME Quản lý danh sách quản trị viên. +USERNAME thêm người dùng. "
-"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh "
-"sách."
+"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh sách."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:331
 msgid "This user is not in the admin list"
@@ -1044,12 +1032,11 @@ msgstr "<Ẩn danh>"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:347
 msgid ""
-"+/-USERNAME Manages a list of banned users. +USERNAME adds a user. "
-"-USERNAME removes it. Without an option shows the list"
+"+/-USERNAME Manages a list of banned users. +USERNAME adds a user. -USERNAME "
+"removes it. Without an option shows the list"
 msgstr ""
-"+/-USERNAME Quản lý danh sách người dùng bị cấm. +USERNAME thêm người "
-"dùng. -USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị "
-"danh sách."
+"+/-USERNAME Quản lý danh sách người dùng bị cấm. +USERNAME thêm người dùng. "
+"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh sách."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:362
 msgid "This user is not banned"
@@ -1081,14 +1068,14 @@ msgstr "Xem thông tin về bot"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:41
 msgid ""
-"QUERY Plays tracks found for the query. If no query is given, plays or "
-"pauses current track. When search results mode (sr) is active, shows a "
-"numbered list instead"
+"QUERY Plays tracks found for the query. If no query is given, plays or pauses "
+"current track. When search results mode (sr) is active, shows a numbered list "
+"instead"
 msgstr ""
-"QUERY Phát các bản nhạc được tìm thấy cho truy vấn. Nếu không có truy vấn"
-" nào được đưa ra, sẽ phát hoặc tạm dừng bản nhạc hiện tại. Khi chế độ kết"
-" quả tìm kiếm (sr) được kích hoạt, sẽ hiển thị một danh sách được đánh số"
-" thay vì danh sách kết quả"
+"QUERY Phát các bản nhạc được tìm thấy cho truy vấn. Nếu không có truy vấn nào "
+"được đưa ra, sẽ phát hoặc tạm dừng bản nhạc hiện tại. Khi chế độ kết quả tìm "
+"kiếm (sr) được kích hoạt, sẽ hiển thị một danh sách được đánh số thay vì danh "
+"sách kết quả"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:47
 #: D:/TTMediaBot/bot/commands/user_commands.py:778
@@ -1205,11 +1192,11 @@ msgstr "Hiện không có bài nào đang phát"
 #: D:/TTMediaBot/bot/commands/user_commands.py:163
 #, python-brace-format
 msgid ""
-"VOLUME Sets the volume to a value between 0 and {max_volume}. If no "
-"volume is specified, the current volume level is displayed"
+"VOLUME Sets the volume to a value between 0 and {max_volume}. If no volume is "
+"specified, the current volume level is displayed"
 msgstr ""
-"VOLUME Đặt âm lượng là giá trị nằm giữa 0 và {max_volume}. Nếu không chỉ "
-"định âm lượng, mức âm lượng hiện tại sẽ được hiển thị"
+"VOLUME Đặt âm lượng là giá trị nằm giữa 0 và {max_volume}. Nếu không chỉ định âm "
+"lượng, mức âm lượng hiện tại sẽ được hiển thị"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:184
 #, python-brace-format
@@ -1223,11 +1210,11 @@ msgstr "SỐ_GIÂY Tua tới bài hiện tại. Nếu không ghi, mặc định 
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:227
 msgid ""
-"[NUMBER|?] Plays next track, jumps to track number, or shows current "
-"position with ?"
+"[NUMBER|?] Plays next track, jumps to track number, or shows current position "
+"with ?"
 msgstr ""
-"[SỐ|?] Phát bài kế tiếp, nhảy đến bài theo số, hoặc ghi ? để xem đang ở "
-"bài số mấy?"
+"[SỐ|?] Phát bài kế tiếp, nhảy đến bài theo số, hoặc ghi ? để xem đang ở bài số "
+"mấy?"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:249
 #: D:/TTMediaBot/bot/commands/user_commands.py:438
@@ -1267,11 +1254,11 @@ msgstr "Không có bài trước đó"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:293
 msgid ""
-"MODE Sets the playback mode. If no mode is specified, the current mode "
-"and a list of modes are displayed"
+"MODE Sets the playback mode. If no mode is specified, the current mode and a "
+"list of modes are displayed"
 msgstr ""
-"CHẾ_ĐỘ Chọn chế độ phát nhạc. Nếu không ghi chế độ, sẽ hiện chế độ hiện "
-"tại và danh sách các chế độ"
+"CHẾ_ĐỘ Chọn chế độ phát nhạc. Nếu không ghi chế độ, sẽ hiện chế độ hiện tại và "
+"danh sách các chế độ"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:298
 msgid "Single Track"
@@ -1313,13 +1300,12 @@ msgstr "Chế độ không hợp lệ"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:336
 msgid ""
-"SERVICE Selects the service to play from, sv SERVICE h returns additional"
-" help. If no service is specified, the current service and a list of "
-"available services are displayed"
+"SERVICE Selects the service to play from, sv SERVICE h returns additional help. "
+"If no service is specified, the current service and a list of available services "
+"are displayed"
 msgstr ""
-"DỊCH_VỤ Chọn dịch vụ để phát nhạc. Gửi sv DỊCH_VỤ h để xem hướng dẫn "
-"thêm. Nếu không ghi dịch vụ, sẽ hiện dịch vụ hiện tại và danh sách các "
-"dịch vụ có thể chọn"
+"DỊCH_VỤ Chọn dịch vụ để phát nhạc. Gửi sv DỊCH_VỤ h để xem hướng dẫn thêm. Nếu "
+"không ghi dịch vụ, sẽ hiện dịch vụ hiện tại và danh sách các dịch vụ có thể chọn"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:344
 #, python-brace-format
@@ -1391,11 +1377,10 @@ msgstr "[SỐ|?] Chọn bài theo số, hoặc ghi ? để xem đang ở bài s�
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:464
 msgid ""
-"SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows "
-"current speed"
+"SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows current "
+"speed"
 msgstr ""
-"TỐC_ĐỘ Chỉnh tốc độ phát từ 0.25 đến 4. Nếu không ghi số, sẽ hiện tốc độ "
-"hiện tại"
+"TỐC_ĐỘ Chỉnh tốc độ phát từ 0.25 đến 4. Nếu không ghi số, sẽ hiện tốc độ hiện tại"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:469
 #, python-brace-format
@@ -1404,11 +1389,11 @@ msgstr "Tốc độ hiện tại: {}"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:483
 msgid ""
-"SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is "
-"given, shows current pitch"
+"SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is given, "
+"shows current pitch"
 msgstr ""
-"NỬA_CUNG Chỉnh cao độ (độ trầm bổng) từ -12 đến 12 nửa cung. Nếu không "
-"ghi số, sẽ hiện cao độ hiện tại"
+"NỬA_CUNG Chỉnh cao độ (độ trầm bổng) từ -12 đến 12 nửa cung. Nếu không ghi số, "
+"sẽ hiện cao độ hiện tại"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:488
 #, python-brace-format
@@ -1417,13 +1402,13 @@ msgstr "Cao độ hiện tại: {}"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:502
 msgid ""
-"+/-NUMBER Manages favorite tracks. + adds the current track to favorites."
-" - removes a track requested from favorites. If a number is specified "
-"after +/-, adds/removes a track with that number"
+"+/-NUMBER Manages favorite tracks. + adds the current track to favorites. - "
+"removes a track requested from favorites. If a number is specified after +/-, "
+"adds/removes a track with that number"
 msgstr ""
-"+/-SỐ Quản lý bài hát yêu thích. Dấu + thêm bài hiện tại vào danh sách "
-"yêu thích. Dấu - xóa bài khỏi danh sách yêu thích. Nếu ghi số sau dấu "
-"+/-, sẽ thêm hoặc xóa bài có số đó"
+"+/-SỐ Quản lý bài hát yêu thích. Dấu + thêm bài hiện tại vào danh sách yêu "
+"thích. Dấu - xóa bài khỏi danh sách yêu thích. Nếu ghi số sau dấu +/-, sẽ thêm "
+"hoặc xóa bài có số đó"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:508
 #: D:/TTMediaBot/bot/commands/user_commands.py:1807
@@ -1460,11 +1445,11 @@ msgstr "Bài đang phát không đến từ YouTube"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:634
 msgid ""
-"NUMBER Plays a track with  the given number from a list of recent tracks."
-" Without a number shows recent tracks"
+"NUMBER Plays a track with  the given number from a list of recent tracks. "
+"Without a number shows recent tracks"
 msgstr ""
-"SỐ Phát bài có số đó trong danh sách nghe gần đây. Nếu không ghi số, sẽ "
-"hiện danh sách nghe gần đây"
+"SỐ Phát bài có số đó trong danh sách nghe gần đây. Nếu không ghi số, sẽ hiện "
+"danh sách nghe gần đây"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:659
 #, python-brace-format
@@ -1514,11 +1499,11 @@ msgstr "Không vào được kênh: {}"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:763
 msgid ""
-"Downloads all tracks from a playlist/album URL, zips them, and uploads to"
-" the channel."
+"Downloads all tracks from a playlist/album URL, zips them, and uploads to the "
+"channel."
 msgstr ""
-"Tải tất cả bài trong một link danh sách phát hoặc album, nén thành file "
-"ZIP rồi gửi lên kênh."
+"Tải tất cả bài trong một link danh sách phát hoặc album, nén thành file ZIP rồi "
+"gửi lên kênh."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:771
 #, python-brace-format
@@ -1531,19 +1516,18 @@ msgstr "Vui lòng gửi link của danh sách phát hoặc album."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:794
 msgid ""
-"This command is for playlists, albums, and channels. For single tracks, "
-"use 'dl'."
+"This command is for playlists, albums, and channels. For single tracks, use 'dl'."
 msgstr ""
-"Lệnh này dùng cho danh sách phát, album và kênh. Nếu chỉ tải một bài, hãy"
-" dùng lệnh 'dl'."
+"Lệnh này dùng cho danh sách phát, album và kênh. Nếu chỉ tải một bài, hãy dùng "
+"lệnh 'dl'."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:869
 msgid ""
-"QUERY Searches for a track and adds it to the queue. If nothing is "
-"playing, starts immediately"
+"QUERY Searches for a track and adds it to the queue. If nothing is playing, "
+"starts immediately"
 msgstr ""
-"TỪ_KHÓA Tìm một bài và thêm vào hàng chờ. Nếu chưa có bài nào đang phát, "
-"sẽ phát ngay"
+"TỪ_KHÓA Tìm một bài và thêm vào hàng chờ. Nếu chưa có bài nào đang phát, sẽ phát "
+"ngay"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:913
 #, python-brace-format
@@ -1591,11 +1575,11 @@ msgstr "Đã xóa hàng chờ"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:996
 msgid ""
-"Skips current track and plays the next one from the queue. Falls back to "
-"normal next if queue is empty"
+"Skips current track and plays the next one from the queue. Falls back to normal "
+"next if queue is empty"
 msgstr ""
-"Bỏ qua bài hát hiện tại và phát bài tiếp theo từ hàng đợi. Quay lại chế "
-"độ phát bài tiếp theo thông thường nếu hàng đợi trống"
+"Bỏ qua bài hát hiện tại và phát bài tiếp theo từ hàng đợi. Quay lại chế độ phát "
+"bài tiếp theo thông thường nếu hàng đợi trống"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1007
 #, python-brace-format
@@ -1604,13 +1588,12 @@ msgstr "Đang phát bài kế tiếp trong hàng chờ: {}"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1031
 msgid ""
-"Toggles search results mode. When active, 'p QUERY' shows a numbered "
-"list. Use 'sr on' or 'sr off' to set explicitly. Save permanently with "
-"'sc'"
+"Toggles search results mode. When active, 'p QUERY' shows a numbered list. Use "
+"'sr on' or 'sr off' to set explicitly. Save permanently with 'sc'"
 msgstr ""
-"Bật hoặc tắt chế độ hiện kết quả tìm kiếm. Khi bật, lệnh 'p TỪ_KHÓA' sẽ "
-"hiện danh sách có đánh số. Dùng 'sr on' để bật hoặc 'sr off' để tắt. Dùng"
-" 'sc' để lưu lâu dài"
+"Bật hoặc tắt chế độ hiện kết quả tìm kiếm. Khi bật, lệnh 'p TỪ_KHÓA' sẽ hiện "
+"danh sách có đánh số. Dùng 'sr on' để bật hoặc 'sr off' để tắt. Dùng 'sc' để lưu "
+"lâu dài"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1039
 #: D:/TTMediaBot/bot/commands/user_commands.py:1049
@@ -1624,11 +1607,11 @@ msgstr "Chế độ hiện kết quả tìm kiếm: TẮT"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1063
 msgid ""
-"NUMBER Selects and plays result NUMBER from the last search list "
-"(requires search results mode to be active)"
+"NUMBER Selects and plays result NUMBER from the last search list (requires "
+"search results mode to be active)"
 msgstr ""
-"SỐ Chọn và phát kết quả có số đó trong danh sách tìm kiếm gần nhất (cần "
-"bật chế độ hiện kết quả tìm kiếm)"
+"SỐ Chọn và phát kết quả có số đó trong danh sách tìm kiếm gần nhất (cần bật chế "
+"độ hiện kết quả tìm kiếm)"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1082
 msgid "No search results available. Use 'p QUERY' to search first"
@@ -1641,12 +1624,11 @@ msgstr "{nickname} đã chọn: {track}"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1113
 msgid ""
-"NUMBER Sets how many results are shown when search results mode is "
-"active. Without a number shows current count. Resets to 1 on restart"
+"NUMBER Sets how many results are shown when search results mode is active. "
+"Without a number shows current count. Resets to 1 on restart"
 msgstr ""
-"SỐ Đặt số kết quả được hiện khi chế độ hiện kết quả tìm kiếm đang bật. "
-"Nếu không ghi số, sẽ hiện số lượng hiện tại. Sau khi khởi động lại, số "
-"này trở về 1"
+"SỐ Đặt số kết quả được hiện khi chế độ hiện kết quả tìm kiếm đang bật. Nếu không "
+"ghi số, sẽ hiện số lượng hiện tại. Sau khi khởi động lại, số này trở về 1"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1119
 #, python-brace-format
@@ -1674,8 +1656,8 @@ msgstr "Đã thêm link vào danh sách. Tổng cộng: {count}"
 #: D:/TTMediaBot/bot/commands/user_commands.py:1163
 msgid "LINK1 LINK2 ... Adds multiple space-separated links to the download list."
 msgstr ""
-"LINK1 LINK2 ... Thêm nhiều link cùng lúc vào danh sách tải, các link cách"
-" nhau bằng dấu cách."
+"LINK1 LINK2 ... Thêm nhiều link cùng lúc vào danh sách tải, các link cách nhau "
+"bằng dấu cách."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1178
 #, python-brace-format
@@ -1689,8 +1671,8 @@ msgstr "Hiện tất cả link trong danh sách tải."
 #: D:/TTMediaBot/bot/commands/user_commands.py:1207
 msgid "NUMBER_OR_LINK Removes a link from the download list by its index or URL."
 msgstr ""
-"SỐ_HOẶC_LINK Xóa một link khỏi danh sách tải, theo số thứ tự hoặc theo "
-"chính link đó."
+"SỐ_HOẶC_LINK Xóa một link khỏi danh sách tải, theo số thứ tự hoặc theo chính "
+"link đó."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1232
 msgid "Link not found in the list"
@@ -1711,11 +1693,11 @@ msgstr "Đang tìm và tải xuống..."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1273
 msgid ""
-"Downloads all links in your list and uploads them to the channel. Can "
-"download normally or as a ZIP archive."
+"Downloads all links in your list and uploads them to the channel. Can download "
+"normally or as a ZIP archive."
 msgstr ""
-"Tải tất cả link trong danh sách của bạn rồi gửi lên kênh. Có thể tải từng"
-" file riêng hoặc nén thành một file ZIP."
+"Tải tất cả link trong danh sách của bạn rồi gửi lên kênh. Có thể tải từng file "
+"riêng hoặc nén thành một file ZIP."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1285
 msgid ""
@@ -1798,11 +1780,11 @@ msgstr "Lỗi: Không tải được bài nào từ danh sách phát này."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1515
 msgid ""
-"Toggles local download mode for the 'ads' command. When active, files are"
-" saved locally to the VPS instead of uploaded to TeamTalk."
+"Toggles local download mode for the 'ads' command. When active, files are saved "
+"locally to the VPS instead of uploaded to TeamTalk."
 msgstr ""
-"Bật hoặc tắt chế độ tải về máy chủ cho lệnh 'ads'. Khi bật, file sẽ được "
-"lưu trên máy chủ (VPS) thay vì gửi lên TeamTalk."
+"Bật hoặc tắt chế độ tải về máy chủ cho lệnh 'ads'. Khi bật, file sẽ được lưu "
+"trên máy chủ (VPS) thay vì gửi lên TeamTalk."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1521
 msgid "Local download mode (adsc) enabled."
@@ -1814,11 +1796,11 @@ msgstr "Đã tắt chế độ tải về máy chủ (adsc)."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1530
 msgid ""
-"Toggles silence trimming mode. When active, automatically removes leading"
-" and trailing silence from tracks."
+"Toggles silence trimming mode. When active, automatically removes leading and "
+"trailing silence from tracks."
 msgstr ""
-"Bật hoặc tắt chế độ cắt khoảng lặng. Khi bật, bot tự động cắt phần im "
-"lặng ở đầu và cuối bài."
+"Bật hoặc tắt chế độ cắt khoảng lặng. Khi bật, bot tự động cắt phần im lặng ở đầu "
+"và cuối bài."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1537
 msgid "Silence trimming (ts) enabled."
@@ -1830,21 +1812,21 @@ msgstr "Đã tắt cắt khoảng lặng (ts)."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1546
 msgid ""
-"[-s] Identifies the currently playing song in a mix or compilation using "
-"YouTube Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force "
-"audio/voice recognition."
+"[-s] Identifies the currently playing song in a mix or compilation using YouTube "
+"Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force audio/voice "
+"recognition."
 msgstr ""
-"[-s] Nhận diện bài đang phát trong một bản mix hoặc tuyển tập, dựa vào "
-"chương của YouTube, Shazam hoặc AI giọng nói của Google. Dùng 'ws -s' để "
-"bắt buộc nhận diện bằng âm thanh/giọng nói."
+"[-s] Nhận diện bài đang phát trong một bản mix hoặc tuyển tập, dựa vào chương "
+"của YouTube, Shazam hoặc AI giọng nói của Google. Dùng 'ws -s' để bắt buộc nhận "
+"diện bằng âm thanh/giọng nói."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1555
 msgid ""
-"Could not identify the song. If this is a song with lyrics, please try "
-"again when the vocals/lyrics are clearly heard."
+"Could not identify the song. If this is a song with lyrics, please try again "
+"when the vocals/lyrics are clearly heard."
 msgstr ""
-"Không nhận diện được bài hát. Nếu bài có lời, hãy thử lại vào lúc nghe rõ"
-" giọng hát."
+"Không nhận diện được bài hát. Nếu bài có lời, hãy thử lại vào lúc nghe rõ giọng "
+"hát."
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1570
 #: D:/TTMediaBot/bot/commands/user_commands.py:1613
@@ -2023,9 +2005,8 @@ msgstr "Không rõ tiêu đề"
 msgid "YouTube Track"
 msgstr "Bài hát YouTube"
 
-#~ msgid "You are using the latest version of TTMediaBot (v{version})."
-#~ msgstr "Bạn đang sử dụng phiên bản mới nhất của TTMediaBot (v{version})."
+msgid "You are using the latest version of TTMediaBot (v{version})."
+msgstr "Bạn đang sử dụng phiên bản mới nhất của TTMediaBot (v{version})."
 
-#~ msgid "Update Check"
-#~ msgstr "Kiểm tra cập nhật"
-
+msgid "Update Check"
+msgstr "Kiểm tra cập nhật"
