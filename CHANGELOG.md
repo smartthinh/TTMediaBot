@@ -33,11 +33,22 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Save Log to File:** Click the **"Save Log..."** button to open the familiar Windows Save File dialog. You can choose where to save the log and save it as a `.log` or `.txt` file, making it simple to share error details for troubleshooting and support.
 - **Refresh & Close:** Instantly reload the latest logs with the **"Refresh"** button, or exit the window with the **"Close"** button (or by pressing `Esc`).
 
-### 🛡️ 3. Reliable Settings & Windows Compatibility
+### ⏱️ 3. Music Sleep Timer (`tm`)
+- **Automatic Music Shutdown:** You can now set a sleep timer to automatically stop music playback after a desired amount of time. Perfect for listening to music before going to sleep or managing listening time.
+- **Simple, Single Command (`tm`):** Easily turn on, turn off, or customize your sleep timer with one easy-to-remember command (measured strictly in minutes):
+  - `tm end`: Stops music automatically right after the currently playing song or video finishes.
+  - `tm on`: Turns on sleep timer with the default duration (30 minutes).
+  - `tm off`: Turns off and cancels the active sleep timer immediately.
+  - `tm 45`: Sets a custom countdown in minutes (e.g., `tm 15`, `tm 30`, `tm 60`, `tm 90`).
+  - `tm`: Checks the active timer status and remaining countdown time.
+- **Smooth Volume Fade-Out:** When the timer runs out, the bot gradually lowers the volume before stopping if fading is enabled, ensuring a gentle and pleasant stop without sudden loud cutoffs.
+- **Channel & Chat Notifications:** The bot clearly confirms when a timer is set, how much time remains, when it is cancelled, or when it expires.
+
+### 🛡️ 4. Reliable Settings & Windows Compatibility
 - **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
 - **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
 
-### 🚀 4. Performance & Stability Improvements
+### 🚀 5. Performance & Stability Improvements
 - **Startup & Path Optimization:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
 
 ---

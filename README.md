@@ -167,6 +167,7 @@ Send commands via private message (PM) to the bot or directly in the channel (if
 | rmr | [num] | Removes a radio from your radio favorites by its index. |
 | rpf | [num] | Plays a radio from your radio favorites by its index. |
 | tr | [on/off/from to] | Checks status, enables/disables public channel translation, or sets language pair (e.g., tr on, tr off, tr auto en, tr vi en). |
+| tm | [on/off/end/minutes] | Sets a sleep timer to automatically stop playback (e.g., tm end, tm on, tm off, tm 30, tm 45). Use tm end to stop after the current video/track ends. Check remaining time with tm. |
 | a | | Displays bot version, author details, and about information. |
 
 ---

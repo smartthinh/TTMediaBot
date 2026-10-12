@@ -92,6 +92,7 @@ class CommandProcessor:
             "rmr": user_commands.RadioRemoveFavoriteCommand,
             "rpf": user_commands.RadioPlayFavoriteCommand,
             "tr": user_commands.ChannelTranslateCommand,
+            "tm": user_commands.TimerCommand,
         }
         self.admin_commands_dict = {
             "adh": admin_commands.AdminHelpCommand,

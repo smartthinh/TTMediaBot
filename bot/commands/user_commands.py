@@ -1938,3 +1938,114 @@ class ChannelTranslateCommand(Command):
         else:
             raise errors.InvalidArgumentError
 
+
+class TimerCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "[on/off/end/MINUTES] Checks timer status, enables/disables timer, stops after current video/track ends, or sets timer in minutes (e.g., tm end, tm 30, tm on, tm off)"
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        sleep_timer = getattr(self.player, "sleep_timer", None)
+        if not sleep_timer:
+            return self.translator.translate("Sleep timer is not available.")
+
+        arg = arg.strip().lower()
+        if not arg:
+            # Query active timer status
+            if not sleep_timer.is_active:
+                return self.translator.translate("No sleep timer is currently active.")
+
+            if sleep_timer.stop_after_current:
+                remaining_secs = sleep_timer.get_remaining_seconds()
+                if remaining_secs > 0:
+                    mins = remaining_secs // 60
+                    secs = remaining_secs % 60
+                    time_part = f" (~{mins}m {secs}s remaining)" if mins > 0 else f" (~{secs}s remaining)"
+                else:
+                    time_part = ""
+                return self.translator.translate(
+                    "Sleep timer is active: playback will stop when current track ends{time_part}."
+                ).format(time_part=time_part)
+
+            remaining_secs = sleep_timer.get_remaining_seconds()
+            if remaining_secs <= 0:
+                return self.translator.translate("Sleep timer is about to stop playback.")
+            mins = remaining_secs // 60
+            secs = remaining_secs % 60
+            if mins > 0 and secs > 0:
+                time_str = f"{mins}m {secs}s"
+            elif mins > 0:
+                time_str = f"{mins}m"
+            else:
+                time_str = f"{secs}s"
+            return self.translator.translate(
+                "Sleep timer is active: {time_str} remaining."
+            ).format(time_str=time_str)
+
+        # Handle 'off': turn off timer
+        if arg == "off":
+            if sleep_timer.cancel():
+                return self.translator.translate("Sleep timer has been cancelled.")
+            else:
+                return self.translator.translate("No sleep timer was active.")
+
+        # Handle 'end': stop when current video / track ends
+        if arg == "end":
+            if self.player.state == State.Stopped:
+                return self.translator.translate("Nothing is playing")
+
+            sleep_timer.set_stop_after_current(user.nickname)
+
+            track_name = getattr(self.player.track, "name", "")
+            track_info = f" ({track_name})" if track_name else ""
+            msg = self.translator.translate(
+                "Sleep timer set: playback will stop when current track ends{track_info}."
+            ).format(track_info=track_info)
+
+            if self.config.general.send_channel_messages:
+                self.send_message_async(
+                    self.translator.translate(
+                        "{nickname} set a sleep timer to stop music when current track ends."
+                    ).format(nickname=user.nickname),
+                    type=2,
+                )
+            return msg
+
+        # Handle 'on': turn on timer with default duration (30 minutes)
+        if arg == "on":
+            minutes = 30.0
+        else:
+            # Parse duration strictly in minutes (e.g., "30", "45", "60")
+            try:
+                minutes = float(arg)
+            except ValueError:
+                raise errors.InvalidArgumentError
+
+            if minutes <= 0:
+                raise errors.InvalidArgumentError
+
+            # Max limit check (e.g. 1440 minutes = 24 hours)
+            if minutes > 1440:
+                return self.translator.translate("Error: Timer cannot be set for more than 24 hours (1440 minutes).")
+
+        sleep_timer.set_timer(minutes, user.nickname)
+
+        dur_str = f"{minutes:g} minute(s)"
+
+        msg = self.translator.translate(
+            "Sleep timer set: music will stop in {duration}."
+        ).format(duration=dur_str)
+
+        # Notify channel if configured
+        if self.config.general.send_channel_messages:
+            self.send_message_async(
+                self.translator.translate(
+                    "{nickname} set a sleep timer to stop music in {duration}."
+                ).format(nickname=user.nickname, duration=dur_str),
+                type=2,
+            )
+
+        return msg
+

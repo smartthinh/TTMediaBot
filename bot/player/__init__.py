@@ -13,6 +13,7 @@ from bot import errors
 from bot.player.enums import Mode, State, TrackType
 from bot.player.track import Track
 from bot.player.queue_manager import QueueManager
+from bot.player.sleep_timer import SleepTimer
 from bot.sound_devices import SoundDevice, SoundDeviceType
 
 
@@ -85,6 +86,7 @@ class Player:
         self.silence_trim: bool = getattr(self.config, "silence_trim", False)
         self.silence_trim_threshold: float = getattr(self.config, "silence_trim_threshold", -30.0)
         self.pitch_semitones: float = getattr(self.config, "default_pitch", 0.0)
+        self.sleep_timer: SleepTimer = SleepTimer(self, bot)
 
     def initialize(self) -> None:
         logging.debug("Initializing player")
@@ -209,6 +211,7 @@ class Player:
 
     def close(self) -> None:
         logging.debug("Closing player")
+        self.sleep_timer.cancel()
         self._cancel_prefetch()
         if self.state != State.Stopped:
             self.stop()
@@ -865,6 +868,8 @@ class Player:
                     f"track={self.track.name!r} error={error!r}"
                 )
         if self.state == State.Playing and self._player.idle_active:
+            if hasattr(self, "sleep_timer") and self.sleep_timer.on_track_end():
+                return
             if self.mode == Mode.SingleTrack or self.track.type == TrackType.Direct:
                 # Mesmo em SingleTrack/Direct, a fila tem prioridade
                 if not self.queue.is_empty:
