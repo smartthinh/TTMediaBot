@@ -1881,12 +1881,13 @@ class ChannelTranslateCommand(Command):
         current_to = getattr(self.config.general, "channel_translation_to", "en") or "en"
 
         if not args:
+            arrow = "->" if current_from == "auto" else "<->"
             status_text = (
-                self.translator.translate("Channel translation is enabled ({lang_from} -> {lang_to}).")
+                self.translator.translate("Channel translation is enabled ({lang_from} {arrow} {lang_to}).")
                 if current_enabled
-                else self.translator.translate("Channel translation is disabled ({lang_from} -> {lang_to}).")
+                else self.translator.translate("Channel translation is disabled ({lang_from} {arrow} {lang_to}).")
             )
-            return status_text.format(lang_from=current_from, lang_to=current_to)
+            return status_text.format(lang_from=current_from, arrow=arrow, lang_to=current_to)
 
         sub = args[0].lower()
         if len(args) == 1:
@@ -1898,9 +1899,10 @@ class ChannelTranslateCommand(Command):
                     self.config_manager.save()
                 except Exception as e:
                     logging.warning(f"Failed to save config after enabling channel translation: {e}")
+                arrow = "->" if current_from == "auto" else "<->"
                 return self.translator.translate(
-                    "Channel translation enabled ({lang_from} -> {lang_to})."
-                ).format(lang_from=current_from, lang_to=current_to)
+                    "Channel translation enabled ({lang_from} {arrow} {lang_to})."
+                ).format(lang_from=current_from, arrow=arrow, lang_to=current_to)
             elif sub in ("off", "0", "disable", "false"):
                 self.config.general.channel_translation = False
                 try:
@@ -1914,6 +1916,13 @@ class ChannelTranslateCommand(Command):
         elif len(args) == 2:
             new_from = args[0].lower()
             new_to = args[1].lower()
+
+            if new_to == "auto":
+                return self.translator.translate("Error: Target language cannot be 'auto'. Please specify a valid target language.")
+
+            if new_from == new_to:
+                return self.translator.translate("Error: Source and target languages cannot be the same.")
+
             self.config.general.channel_translation_from = new_from
             self.config.general.channel_translation_to = new_to
             self.config.general.channel_translation = True
@@ -1921,9 +1930,11 @@ class ChannelTranslateCommand(Command):
                 self.config_manager.save()
             except Exception as e:
                 logging.warning(f"Failed to save config after updating channel translation: {e}")
+
+            arrow = "->" if new_from == "auto" else "<->"
             return self.translator.translate(
-                "Channel translation set to {lang_from} -> {lang_to} (Enabled)."
-            ).format(lang_from=new_from, lang_to=new_to)
+                "Channel translation set to {lang_from} {arrow} {lang_to} (Enabled)."
+            ).format(lang_from=new_from, arrow=arrow, lang_to=new_to)
         else:
             raise errors.InvalidArgumentError
 

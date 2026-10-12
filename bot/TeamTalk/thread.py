@@ -233,11 +233,9 @@ class TeamTalkThread(Thread):
             if not text:
                 return
 
-            # Prevent infinite echo loops: ignore messages sent by this bot
+            # Prevent infinite echo loops: ignore messages sent by this bot instance
             my_user_id = self.ttclient.tt.getMyUserID()
-            if message.user.id == my_user_id:
-                return
-            if message.user.username and message.user.username == self.config.username:
+            if my_user_id > 0 and message.user.id == my_user_id:
                 return
             if getattr(self.ttclient, "user", None) and message.user.id == self.ttclient.user.id:
                 return
@@ -267,25 +265,49 @@ class TeamTalkThread(Thread):
 
             lang_from = getattr(general_cfg, "channel_translation_from", "auto") or "auto"
             lang_to = getattr(general_cfg, "channel_translation_to", "en") or "en"
+            if lang_to == "auto":
+                lang_to = "en"
 
             from bot.services.channel_translator import (
                 translate_channel_text,
                 is_same_or_parent_language,
             )
 
-            translated, detected = translate_channel_text(
-                text, lang_from=lang_from, lang_to=lang_to
-            )
-
-            if not translated:
-                return
-
-            # If detected language matches target language, do not translate
-            if detected and is_same_or_parent_language(detected, lang_to):
-                logging.debug(
-                    f"Channel translation skipped: detected language '{detected}' matches target '{lang_to}'"
+            if lang_from == "auto":
+                # Mode 1: One-way translation (auto-detect source -> lang_to)
+                translated, detected = translate_channel_text(
+                    text, lang_from="auto", lang_to=lang_to
                 )
-                return
+                if not translated:
+                    return
+
+                # If detected language matches target language, skip
+                if detected and is_same_or_parent_language(detected, lang_to):
+                    logging.debug(
+                        f"Channel translation skipped: detected language '{detected}' matches target '{lang_to}'"
+                    )
+                    return
+            else:
+                # Mode 2: Bidirectional translation (both lang_from and lang_to are specific)
+                translated, detected = translate_channel_text(
+                    text, lang_from="auto", lang_to=lang_to
+                )
+                if not translated:
+                    return
+
+                if detected and is_same_or_parent_language(detected, lang_to):
+                    # Message is in target language -> translate into source language!
+                    translated, _ = translate_channel_text(
+                        text, lang_from=lang_to, lang_to=lang_from
+                    )
+                    if not translated:
+                        return
+                elif detected and is_same_or_parent_language(detected, lang_from):
+                    # Message is in source language -> translated is already in target language!
+                    pass
+                else:
+                    # Message is in a third language -> keep translation in target language
+                    pass
 
             # If translation matches original text (e.g. symbols, numbers), skip
             if translated.strip().lower() == text.strip().lower():

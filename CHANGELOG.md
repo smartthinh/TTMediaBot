@@ -7,18 +7,25 @@ All notable updates to this fork are documented here, in reverse chronological o
 ## 🆕 [Unreleased] — Public Channel Translation, In-App Log Viewer & System Improvements
 
 ### 🌐 1. Public Channel Translation (`tr`)
-- **Automatic Channel Translation:** The bot can now automatically translate messages sent by users in the public TeamTalk channel into your chosen target language (defaults to auto-detecting the source language and translating to English).
-- **Simple, Single Command (`tr`):** Control all translation features with just one command:
-  - `tr`: Check the current status of the translation feature (whether it's on or off, and the active language pair).
+- **Automatic Channel Translation:** The bot can automatically translate conversation messages in the public TeamTalk channel so everyone in the room can easily understand each other.
+- **Two-Way Translation Mode:** When you specify two languages (such as `tr vi en`), the bot automatically translates both ways:
+  - Messages in Vietnamese are translated to English.
+  - Messages in English are translated back to Vietnamese!
+  - Perfect for two people speaking different languages in the same channel.
+- **One-Way Auto-Detect Mode:** When using `auto` as the source (such as `tr auto en`), the bot detects any language and translates it into your chosen target language (defaults to English).
+- **Simple, Single Command (`tr`):** Control all translation features with one easy command:
+  - `tr`: Check current status, showing `(auto -> en)` for one-way or `(vi <-> en)` for two-way translation.
   - `tr on`: Turn on public channel translation (defaults to `auto` -> `en`).
   - `tr off`: Turn off public channel translation.
-  - `tr auto en`: Set auto-detection for incoming text and translate to English.
-  - `tr vi en`: Translate from Vietnamese to English.
+  - `tr auto en`: Translate any language to English.
+  - `tr vi en`: Enable two-way translation between Vietnamese and English.
   - Supports international regional language tags like `en-us`, `pt-br`, `zh-cn`, `ja`, etc.
-- **Sender Nickname in Translations:** Translated messages are posted back to the channel clearly marked with the original sender's name: `[Nickname]: <Translated text>`.
-- **Smart Translation Skipping:** If a message in the channel is already written in the target language (for example, if translating to English and someone types in English), the bot intelligently skips it to keep the chat clean and natural.
-- **Never Intercepts Channel Messages as Bot Commands:** Public chat messages are strictly treated as conversation text for translation and will never be mistaken for bot commands.
-- **Rock-Solid Background Processing:** All translation requests are handled asynchronously in the background using the built-in Instant Translate engine. Network delays or API hiccups will never freeze or crash playback or the bot's TeamTalk connection.
+- **Sender Nickname in Translations:** Every translation starts with the speaker's name (`[Nickname]: <Translated text>`) so everyone can follow the conversation easily.
+- **Smart Translation Skipping:** If a message is already in the target language, or contains only numbers/emojis, the bot skips it to keep the chat clean.
+- **Helpful Input Checks:** Clearly lets you know if you accidentally set the target language to `auto` or select the same language for both source and target.
+- **Seamless Account Sharing:** Works smoothly even when you and the bot log into the server using the same registered user account.
+- **Channel Chat is Never Mistaken for Commands:** Messages in the public channel are treated strictly as conversation text to translate, keeping bot playback controls secure.
+- **Smooth Background Operation:** Translations are processed quickly in the background without interrupting music playback or server connections.
 
 ### 📋 2. View & Save Application Logs
 - **New "View Logs" Button:** You can now click the **"View Logs..."** button (or press `Alt+V`) directly on the main window to check what the bot is doing and inspect any errors. This option is also available in the right-click menu on any server and in the system tray icon menu.
@@ -30,9 +37,8 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
 - **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
 
-### 🐛 4. Bug Fixes
-- **Startup & Path Fixes:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
-- **TeamTalk Event Loop Protection:** Added comprehensive exception shielding to the TeamTalk connection pump, ensuring unexpected errors never interrupt bot operations.
+### 🚀 4. Performance & Stability Improvements
+- **Startup & Path Optimization:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
 
 ---
 
