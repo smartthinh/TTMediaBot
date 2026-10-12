@@ -1193,7 +1193,6 @@ class MainFrame(wx.Frame):
         self.txt_search.SetToolTip(translate("Type to search servers"))
         self.txt_search.SetDescriptiveText(translate("Search servers..."))
         self.txt_search.Bind(wx.EVT_TEXT, self.on_search)
-        self.txt_search.Bind(wx.EVT_KEY_DOWN, self.on_search_key_down)
         search_sizer.Add(self.lbl_search, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 5)
         search_sizer.Add(self.txt_search, 1, wx.EXPAND)
         main_sizer.Add(search_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
@@ -1350,17 +1349,6 @@ class MainFrame(wx.Frame):
 
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()
-        self._populate_server_list()
-
-    def on_search_key_down(self, event):
-        if event.GetKeyCode() == wx.WXK_ESCAPE and self.txt_search.GetValue():
-            self.on_search_cancel(event)
-            return
-        event.Skip()
-
-    def on_search_cancel(self, event):
-        self.txt_search.SetValue("")
-        self.search_query = ""
         self._populate_server_list()
 
     def get_server_by_id(self, s_id: str) -> dict:
