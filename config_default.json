@@ -9,7 +9,10 @@
         "time_format": "%H:%M",
         "start_commands": [],
         "search_results_mode": false,
-        "video_subtitles": false
+        "video_subtitles": false,
+        "channel_translation": false,
+        "channel_translation_from": "auto",
+        "channel_translation_to": "en"
     },
     "sound_devices": {
         "output_device": 0,

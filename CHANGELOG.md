@@ -4,20 +4,35 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🆕 [Unreleased] — In-App Log Viewer & System Improvements
+## 🆕 [Unreleased] — Public Channel Translation, In-App Log Viewer & System Improvements
 
-### 📋 1. View & Save Application Logs
+### 🌐 1. Public Channel Translation (`tr`)
+- **Automatic Channel Translation:** The bot can now automatically translate messages sent by users in the public TeamTalk channel into your chosen target language (defaults to auto-detecting the source language and translating to English).
+- **Simple, Single Command (`tr`):** Control all translation features with just one command:
+  - `tr`: Check the current status of the translation feature (whether it's on or off, and the active language pair).
+  - `tr on`: Turn on public channel translation (defaults to `auto` -> `en`).
+  - `tr off`: Turn off public channel translation.
+  - `tr auto en`: Set auto-detection for incoming text and translate to English.
+  - `tr vi en`: Translate from Vietnamese to English.
+  - Supports international regional language tags like `en-us`, `pt-br`, `zh-cn`, `ja`, etc.
+- **Sender Nickname in Translations:** Translated messages are posted back to the channel clearly marked with the original sender's name: `[Nickname]: <Translated text>`.
+- **Smart Translation Skipping:** If a message in the channel is already written in the target language (for example, if translating to English and someone types in English), the bot intelligently skips it to keep the chat clean and natural.
+- **Never Intercepts Channel Messages as Bot Commands:** Public chat messages are strictly treated as conversation text for translation and will never be mistaken for bot commands.
+- **Rock-Solid Background Processing:** All translation requests are handled asynchronously in the background using the built-in Instant Translate engine. Network delays or API hiccups will never freeze or crash playback or the bot's TeamTalk connection.
+
+### 📋 2. View & Save Application Logs
 - **New "View Logs" Button:** You can now click the **"View Logs..."** button (or press `Alt+V`) directly on the main window to check what the bot is doing and inspect any errors. This option is also available in the right-click menu on any server and in the system tray icon menu.
 - **Easy-to-Read Log Window:** Opens a clean window displaying all activity and error logs recorded while using the app. The text field is read-only, automatically scrolls to the newest messages, and works seamlessly with screen readers (NVDA, JAWS).
 - **Save Log to File:** Click the **"Save Log..."** button to open the familiar Windows Save File dialog. You can choose where to save the log and save it as a `.log` or `.txt` file, making it simple to share error details for troubleshooting and support.
 - **Refresh & Close:** Instantly reload the latest logs with the **"Refresh"** button, or exit the window with the **"Close"** button (or by pressing `Esc`).
 
-### 🛡️ 2. Reliable Settings & Windows Compatibility
+### 🛡️ 3. Reliable Settings & Windows Compatibility
 - **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
 - **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
 
-### 🐛 3. Bug Fixes
+### 🐛 4. Bug Fixes
 - **Startup & Path Fixes:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
+- **TeamTalk Event Loop Protection:** Added comprehensive exception shielding to the TeamTalk connection pump, ensuring unexpected errors never interrupt bot operations.
 
 ---
 

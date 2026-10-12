@@ -1865,3 +1865,65 @@ class RadioPlayFavoriteCommand(Command):
             return self.translator.translate("Playing radio from favorites")
         except (ValueError, IndexError):
             return self.translator.translate("Invalid number")
+
+
+class ChannelTranslateCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "[on/off/<source> <target>] Checks translation status, enables/disables public channel translation, or sets language pair (e.g. tr auto en, tr vi en)"
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        args = arg.strip().split()
+        current_enabled = getattr(self.config.general, "channel_translation", False)
+        current_from = getattr(self.config.general, "channel_translation_from", "auto") or "auto"
+        current_to = getattr(self.config.general, "channel_translation_to", "en") or "en"
+
+        if not args:
+            status_text = (
+                self.translator.translate("Channel translation is enabled ({lang_from} -> {lang_to}).")
+                if current_enabled
+                else self.translator.translate("Channel translation is disabled ({lang_from} -> {lang_to}).")
+            )
+            return status_text.format(lang_from=current_from, lang_to=current_to)
+
+        sub = args[0].lower()
+        if len(args) == 1:
+            if sub in ("on", "1", "enable", "true"):
+                self.config.general.channel_translation = True
+                self.config.general.channel_translation_from = current_from
+                self.config.general.channel_translation_to = current_to
+                try:
+                    self.config_manager.save()
+                except Exception as e:
+                    logging.warning(f"Failed to save config after enabling channel translation: {e}")
+                return self.translator.translate(
+                    "Channel translation enabled ({lang_from} -> {lang_to})."
+                ).format(lang_from=current_from, lang_to=current_to)
+            elif sub in ("off", "0", "disable", "false"):
+                self.config.general.channel_translation = False
+                try:
+                    self.config_manager.save()
+                except Exception as e:
+                    logging.warning(f"Failed to save config after disabling channel translation: {e}")
+                return self.translator.translate("Channel translation disabled.")
+            else:
+                raise errors.InvalidArgumentError
+
+        elif len(args) == 2:
+            new_from = args[0].lower()
+            new_to = args[1].lower()
+            self.config.general.channel_translation_from = new_from
+            self.config.general.channel_translation_to = new_to
+            self.config.general.channel_translation = True
+            try:
+                self.config_manager.save()
+            except Exception as e:
+                logging.warning(f"Failed to save config after updating channel translation: {e}")
+            return self.translator.translate(
+                "Channel translation set to {lang_from} -> {lang_to} (Enabled)."
+            ).format(lang_from=new_from, lang_to=new_to)
+        else:
+            raise errors.InvalidArgumentError
+

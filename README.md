@@ -166,6 +166,7 @@ Send commands via private message (PM) to the bot or directly in the channel (if
 | raf | | Adds the currently playing radio to your radio favorites list. |
 | rmr | [num] | Removes a radio from your radio favorites by its index. |
 | rpf | [num] | Plays a radio from your radio favorites by its index. |
+| tr | [on/off/from to] | Checks status, enables/disables public channel translation, or sets language pair (e.g., tr on, tr off, tr auto en, tr vi en). |
 | a | | Displays bot version, author details, and about information. |
 
 ---

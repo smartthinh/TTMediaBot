@@ -13,6 +13,9 @@ class GeneralModel(BaseModel):
     start_commands: List[str] = []
     search_results_mode: bool = False
     video_subtitles: bool = False
+    channel_translation: bool = False
+    channel_translation_from: str = "auto"
+    channel_translation_to: str = "en"
 
 class SoundDevicesModel(BaseModel):
     output_device: int = 0

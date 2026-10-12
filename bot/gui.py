@@ -147,6 +147,9 @@ DEFAULT_SERVER_CONFIG: Dict[str, Any] = {
     "send_channel_messages": True,
     "search_results_mode": False,
     "video_subtitles": False,
+    "channel_translation": False,
+    "channel_translation_from": "auto",
+    "channel_translation_to": "en",
     "start_commands": [],
     "cookiefile_path": "",
 }
@@ -392,6 +395,9 @@ class ServerManager:
         gen["send_channel_messages"] = bool(server.get("send_channel_messages", True))
         gen["search_results_mode"] = bool(server.get("search_results_mode", False))
         gen["video_subtitles"] = bool(server.get("video_subtitles", False))
+        gen["channel_translation"] = bool(server.get("channel_translation", gen.get("channel_translation", False)))
+        gen["channel_translation_from"] = str(server.get("channel_translation_from", gen.get("channel_translation_from", "auto")))
+        gen["channel_translation_to"] = str(server.get("channel_translation_to", gen.get("channel_translation_to", "en")))
         start_cmds = server.get("start_commands", [])
         if isinstance(start_cmds, str):
             start_cmds = [c.strip() for c in start_cmds.split(",") if c.strip()]

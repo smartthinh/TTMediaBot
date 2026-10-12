@@ -197,12 +197,16 @@ class TeamTalk:
             message.nMsgType = type
             message.szMessage = _str(string)
             if type == 1:
-                if isinstance(user, int):
-                    message.nToUserID = user
-                else:
-                    message.nToUserID = user.id
+                if user is not None:
+                    if isinstance(user, int):
+                        message.nToUserID = user
+                    else:
+                        message.nToUserID = user.id
             elif type == 2:
-                message.nChannelID = self.tt.getMyChannelID()
+                cid = self.tt.getMyChannelID()
+                if cid == 0 and hasattr(self, "channel") and getattr(self.channel, "id", 0) != 0:
+                    cid = self.channel.id
+                message.nChannelID = cid
             self.tt.doTextMessage(message)
 
     def send_file(self, channel: Union[int, str], file_path: str):
@@ -290,7 +294,7 @@ class TeamTalk:
                 self.get_channel(msg.nChannelID),
                 MessageType(msg.nMsgType),
             )
-        except ValueError:
+        except Exception:
             return Message("", self.get_user(1), self.get_channel(1), MessageType.User)
 
     def get_file(self, file: TeamTalkPy.RemoteFile) -> File:

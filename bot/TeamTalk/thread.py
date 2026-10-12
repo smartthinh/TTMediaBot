@@ -32,184 +32,271 @@ class TeamTalkThread(Thread):
             self.event_handlers = self.import_event_handlers()
         self._close = False
         while not self._close:
-            event = self.ttclient.get_event(self.ttclient.tt.getMessage())
-            if event.event_type == EventType.NONE:
-                continue
-            elif (
-                event.event_type == EventType.ERROR
-                and self.ttclient.state == State.CONNECTED
+            try:
+                self._process_next_event()
+            except Exception as e:
+                logging.error(f"Error in TeamTalk event pump: {e}", exc_info=True)
+                time.sleep(0.05)
+
+    def _process_next_event(self) -> None:
+        event = self.ttclient.get_event(self.ttclient.tt.getMessage())
+        if event.event_type == EventType.NONE:
+            return
+        elif (
+            event.event_type == EventType.ERROR
+            and self.ttclient.state == State.CONNECTED
+        ):
+            self.ttclient.errors_queue.put(event.error)
+        elif (
+            event.event_type == EventType.SUCCESS
+            and self.ttclient.state == State.CONNECTED
+        ):
+            self.ttclient.event_success_queue.put(event)
+        elif (
+            event.event_type == EventType.USER_TEXT_MESSAGE
+            and event.message.type == MessageType.User
+        ):
+            self.ttclient.message_queue.put(event.message)
+        elif (
+            event.event_type == EventType.USER_TEXT_MESSAGE
+            and event.message.type == MessageType.Channel
+        ):
+            self._handle_channel_message(event.message)
+        elif (
+            event.event_type == EventType.FILE_NEW
+            and event.file.username == self.config.username
+            and event.file.channel.id == self.ttclient.channel.id
+        ):
+            self.ttclient.uploaded_files_queue.put(event.file)
+        elif (
+            event.event_type == EventType.CON_FAILED
+            or event.event_type == EventType.CON_LOST
+            or event.event_type == EventType.MYSELF_KICKED
+        ):
+            if event.event_type == EventType.CON_FAILED:
+                logging.warning("Connection failed")
+            elif event.event_type == EventType.CON_LOST:
+                logging.warning("Server lost")
+            else:
+                logging.warning("Kicked")
+            self.ttclient.disconnect()
+            if (
+                self.ttclient.reconnect
+                and self.ttclient.reconnect_attempt
+                < self.config.reconnection_attempts
+                or self.config.reconnection_attempts < 0
             ):
-                self.ttclient.errors_queue.put(event.error)
-            elif (
-                event.event_type == EventType.SUCCESS
-                and self.ttclient.state == State.CONNECTED
-            ):
-                self.ttclient.event_success_queue.put(event)
-            elif (
-                event.event_type == EventType.USER_TEXT_MESSAGE
-                and event.message.type == MessageType.User
-            ):
-                self.ttclient.message_queue.put(event.message)
-            elif (
-                event.event_type == EventType.FILE_NEW
-                and event.file.username == self.config.username
-                and event.file.channel.id == self.ttclient.channel.id
-            ):
-                self.ttclient.uploaded_files_queue.put(event.file)
-            elif (
-                event.event_type == EventType.CON_FAILED
-                or event.event_type == EventType.CON_LOST
-                or event.event_type == EventType.MYSELF_KICKED
-            ):
-                if event.event_type == EventType.CON_FAILED:
-                    logging.warning("Connection failed")
-                elif event.event_type == EventType.CON_LOST:
-                    logging.warning("Server lost")
-                else:
-                    logging.warning("Kicked")
                 self.ttclient.disconnect()
+                self._interruptible_sleep(self.config.reconnection_timeout)
+                if self._close:
+                    return
+                self.ttclient.connect()
+                self.ttclient.reconnect_attempt += 1
+            else:
+                logging.error("Connection error")
+                sys.exit(1)
+        elif event.event_type == EventType.CON_SUCCESS:
+            self.ttclient.reconnect_attempt = 0
+            self.ttclient.login()
+        elif event.event_type == EventType.ERROR:
+            if self.ttclient.flags & Flags.AUTHORIZED == Flags(0):
+                logging.warning("Login failed")
                 if (
                     self.ttclient.reconnect
                     and self.ttclient.reconnect_attempt
                     < self.config.reconnection_attempts
                     or self.config.reconnection_attempts < 0
                 ):
-                    self.ttclient.disconnect()
                     self._interruptible_sleep(self.config.reconnection_timeout)
                     if self._close:
-                        break
-                    self.ttclient.connect()
-                    self.ttclient.reconnect_attempt += 1
+                        return
+                    self.ttclient.login()
                 else:
-                    logging.error("Connection error")
+                    logging.error("Login error")
                     sys.exit(1)
-            elif event.event_type == EventType.CON_SUCCESS:
-                self.ttclient.reconnect_attempt = 0
-                self.ttclient.login()
-            elif event.event_type == EventType.ERROR:
-                if self.ttclient.flags & Flags.AUTHORIZED == Flags(0):
-                    logging.warning("Login failed")
-                    if (
-                        self.ttclient.reconnect
-                        and self.ttclient.reconnect_attempt
-                        < self.config.reconnection_attempts
-                        or self.config.reconnection_attempts < 0
-                    ):
-                        self._interruptible_sleep(self.config.reconnection_timeout)
-                        if self._close:
-                            break
-                        self.ttclient.login()
-                    else:
-                        logging.error("Login error")
-                        sys.exit(1)
+            else:
+                logging.warning("Failed to join channel")
+                if (
+                    self.ttclient.reconnect
+                    and self.ttclient.reconnect_attempt
+                    < self.config.reconnection_attempts
+                    or self.config.reconnection_attempts < 0
+                ):
+                    self._interruptible_sleep(self.config.reconnection_timeout)
+                    if self._close:
+                        return
+                    self.ttclient.join()
                 else:
-                    logging.warning("Failed to join channel")
-                    if (
-                        self.ttclient.reconnect
-                        and self.ttclient.reconnect_attempt
-                        < self.config.reconnection_attempts
-                        or self.config.reconnection_attempts < 0
-                    ):
-                        self._interruptible_sleep(self.config.reconnection_timeout)
-                        if self._close:
-                            break
-                        self.ttclient.join()
-                    else:
-                        logging.error("Error joining channel")
-                        sys.exit(1)
-            elif event.event_type == EventType.MYSELF_LOGGEDIN:
-                self.ttclient.user_account = event.user_account
-                self.ttclient.reconnect_attempt = 0
-                self.ttclient.join()
-            elif (
-                event.event_type == EventType.SUCCESS
-                and self.ttclient.state == State.CONNECTING
-            ):
-                self.ttclient.reconnect_attempt = 0
-                self.ttclient.reconnect = True
-                self.ttclient.state = State.CONNECTED
-                self.ttclient.change_status_text(self.ttclient.status)
-            elif event.event_type == EventType.USER_LEFT:
-                # Auto-return is only valid for a temporary move requested through
-                # the "jc" command. Manual TeamTalk moves must never cause the bot
-                # to stop playback or jump back to the configured/root channel.
-                try:
-                    requested_user_id = getattr(
-                        self.bot, "jc_requested_by_user_id", None
-                    )
-                    configured_channel = getattr(
-                        self.bot, "default_channel", self.config.channel
-                    )
+                    logging.error("Error joining channel")
+                    sys.exit(1)
+        elif event.event_type == EventType.MYSELF_LOGGEDIN:
+            self.ttclient.user_account = event.user_account
+            self.ttclient.reconnect_attempt = 0
+            self.ttclient.join()
+        elif (
+            event.event_type == EventType.SUCCESS
+            and self.ttclient.state == State.CONNECTING
+        ):
+            self.ttclient.reconnect_attempt = 0
+            self.ttclient.reconnect = True
+            self.ttclient.state = State.CONNECTED
+            self.ttclient.change_status_text(self.ttclient.status)
+        elif event.event_type == EventType.USER_LEFT:
+            # Auto-return is only valid for a temporary move requested through
+            # the "jc" command. Manual TeamTalk moves must never cause the bot
+            # to stop playback or jump back to the configured/root channel.
+            try:
+                requested_user_id = getattr(
+                    self.bot, "jc_requested_by_user_id", None
+                )
+                configured_channel = getattr(
+                    self.bot, "default_channel", self.config.channel
+                )
 
-                    if requested_user_id is None:
-                        logging.debug(
-                            "Auto-return skipped: bot was not moved by the jc command."
+                if requested_user_id is None:
+                    logging.debug(
+                        "Auto-return skipped: bot was not moved by the jc command."
+                    )
+                elif event.user.id != requested_user_id:
+                    logging.debug(
+                        "Auto-return skipped: user %s left, but jc was requested by %s.",
+                        event.user.id,
+                        requested_user_id,
+                    )
+                elif (
+                    isinstance(configured_channel, str)
+                    and not configured_channel.strip()
+                ):
+                    logging.info(
+                        "Auto-return skipped: no default channel is configured."
+                    )
+                    self.bot.jc_requested_by_user_id = None
+                else:
+                    current_channel_id = self.ttclient.channel.id
+
+                    if isinstance(configured_channel, int):
+                        default_channel_id = configured_channel
+                    else:
+                        def _str(data):
+                            if isinstance(data, str):
+                                return (
+                                    bytes(data, "utf-8")
+                                    if os.supports_bytes_environ
+                                    else data
+                                )
+                            return str(data, "utf-8")
+
+                        default_channel_id = self.ttclient.tt.getChannelIDFromPath(
+                            _str(configured_channel)
                         )
-                    elif event.user.id != requested_user_id:
-                        logging.debug(
-                            "Auto-return skipped: user %s left, but jc was requested by %s.",
-                            event.user.id,
-                            requested_user_id,
-                        )
-                    elif (
-                        isinstance(configured_channel, str)
-                        and not configured_channel.strip()
-                    ):
-                        logging.info(
-                            "Auto-return skipped: no default channel is configured."
+
+                    if default_channel_id == 0:
+                        logging.warning(
+                            "Auto-return skipped: configured default channel "
+                            "could not be resolved: %r",
+                            configured_channel,
                         )
                         self.bot.jc_requested_by_user_id = None
+                    elif current_channel_id == default_channel_id:
+                        self.bot.jc_requested_by_user_id = None
                     else:
-                        current_channel_id = self.ttclient.channel.id
+                        # Issue the move first. If it fails synchronously,
+                        # playback must remain untouched.
+                        self.ttclient.move_user(
+                            self.ttclient.user.id, default_channel_id
+                        )
 
-                        if isinstance(configured_channel, int):
-                            default_channel_id = configured_channel
-                        else:
-                            def _str(data):
-                                if isinstance(data, str):
-                                    return (
-                                        bytes(data, "utf-8")
-                                        if os.supports_bytes_environ
-                                        else data
-                                    )
-                                return str(data, "utf-8")
+                        from bot.player.enums import State as PlayerState
 
-                            default_channel_id = self.ttclient.tt.getChannelIDFromPath(
-                                _str(configured_channel)
-                            )
+                        if self.bot.player.state != PlayerState.Stopped:
+                            self.bot.player.stop()
 
-                        if default_channel_id == 0:
-                            logging.warning(
-                                "Auto-return skipped: configured default channel "
-                                "could not be resolved: %r",
-                                configured_channel,
-                            )
-                            self.bot.jc_requested_by_user_id = None
-                        elif current_channel_id == default_channel_id:
-                            self.bot.jc_requested_by_user_id = None
-                        else:
-                            # Issue the move first. If it fails synchronously,
-                            # playback must remain untouched.
-                            self.ttclient.move_user(
-                                self.ttclient.user.id, default_channel_id
-                            )
-
-                            from bot.player.enums import State as PlayerState
-
-                            if self.bot.player.state != PlayerState.Stopped:
-                                self.bot.player.stop()
-
-                            self.bot.jc_requested_by_user_id = None
-                            logging.info(
-                                "Auto-return triggered: jc requester left; "
-                                "returning bot to configured default channel."
-                            )
-                except Exception as e:
-                    logging.error(f"Error in auto-return logic: {e}")
+                        self.bot.jc_requested_by_user_id = None
+                        logging.info(
+                            "Auto-return triggered: jc requester left; "
+                            "returning bot to configured default channel."
+                        )
+            except Exception as e:
+                logging.error(f"Error in auto-return logic: {e}")
 
 
-            if self.config.event_handling.load_event_handlers:
-                self.run_event_handler(event)
+        if self.config.event_handling.load_event_handlers:
+            self.run_event_handler(event)
+
+    def _handle_channel_message(self, message: Message) -> None:
+        try:
+            general_cfg = getattr(self.bot.config, "general", None) or getattr(self.config, "general", None)
+            if not general_cfg or not getattr(general_cfg, "channel_translation", False):
+                return
+
+            text = (message.text or "").strip()
+            if not text:
+                return
+
+            # Prevent infinite echo loops: ignore messages sent by this bot
+            my_user_id = self.ttclient.tt.getMyUserID()
+            if message.user.id == my_user_id:
+                return
+            if message.user.username and message.user.username == self.config.username:
+                return
+            if getattr(self.ttclient, "user", None) and message.user.id == self.ttclient.user.id:
+                return
+
+            # Check bot channel match if channel ID is known
+            my_channel_id = self.ttclient.tt.getMyChannelID()
+            if message.channel.id != 0 and my_channel_id != 0 and message.channel.id != my_channel_id:
+                return
+
+            Thread(
+                target=self._translate_and_post_channel_message,
+                args=(message,),
+                daemon=True,
+            ).start()
+        except Exception as e:
+            logging.error(f"Error handling channel message for translation: {e}", exc_info=True)
+
+    def _translate_and_post_channel_message(self, message: Message) -> None:
+        try:
+            text = (message.text or "").strip()
+            if not text:
+                return
+
+            general_cfg = getattr(self.bot.config, "general", None) or getattr(self.config, "general", None)
+            if not general_cfg or not getattr(general_cfg, "channel_translation", False):
+                return
+
+            lang_from = getattr(general_cfg, "channel_translation_from", "auto") or "auto"
+            lang_to = getattr(general_cfg, "channel_translation_to", "en") or "en"
+
+            from bot.services.channel_translator import (
+                translate_channel_text,
+                is_same_or_parent_language,
+            )
+
+            translated, detected = translate_channel_text(
+                text, lang_from=lang_from, lang_to=lang_to
+            )
+
+            if not translated:
+                return
+
+            # If detected language matches target language, do not translate
+            if detected and is_same_or_parent_language(detected, lang_to):
+                logging.debug(
+                    f"Channel translation skipped: detected language '{detected}' matches target '{lang_to}'"
+                )
+                return
+
+            # If translation matches original text (e.g. symbols, numbers), skip
+            if translated.strip().lower() == text.strip().lower():
+                logging.debug("Channel translation skipped: translation matches source text")
+                return
+
+            nickname = message.user.nickname or message.user.username or "User"
+            response_text = f"[{nickname}]: {translated.strip()}"
+            self.ttclient.send_message(response_text, type=2)
+        except Exception as e:
+            logging.error(f"Error translating and posting channel message: {e}", exc_info=True)
 
     def close(self) -> None:
         self._close = True
