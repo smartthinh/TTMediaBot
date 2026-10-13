@@ -45,6 +45,16 @@ def translate(message: str) -> str:
     return get_gui_translator().translate(message)
 
 
+def translate_noop(message: str) -> str:
+    """Marks a string for translation WITHOUT translating it now.
+
+    Use this for module-level constants (evaluated once at import time, when
+    the active language is not known yet). Translate the stored text later
+    with translate() at the moment it is displayed.
+    """
+    return message
+
+
 class SearchTextCtrl(wx.TextCtrl):
     """Plain text box used for searching.
 
@@ -116,7 +126,7 @@ SUPPORTED_LANGUAGES = [
 
 # Audio format choices for downloads (excluding m4a because YouTube native format is m4a)
 SUPPORTED_AUDIO_FORMATS = [
-    ("default", translate("Default (No conversion)")),
+    ("default", translate_noop("Default (No conversion)")),
     ("mp3", "MP3 (.mp3)"),
     ("wav", "WAV (.wav)"),
     ("flac", "FLAC (.flac)"),
@@ -125,6 +135,11 @@ SUPPORTED_AUDIO_FORMATS = [
     ("aac", "AAC (.aac)"),
     ("wma", "WMA (.wma)"),
 ]
+
+def get_audio_format_labels() -> List[str]:
+    """Returns the audio format labels translated into the active language."""
+    return [translate(label) for _, label in SUPPORTED_AUDIO_FORMATS]
+
 
 DEFAULT_SERVER_CONFIG: Dict[str, Any] = {
     "id": "",
@@ -1412,9 +1427,8 @@ class MainFrame(wx.Frame):
 
         # Download Audio Format Selection Row
         format_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.lbl_audio_format = wx.StaticText(panel, label="&Audio Format:")
-        format_labels = [label for _, label in SUPPORTED_AUDIO_FORMATS]
-        self.choice_audio_format = wx.Choice(panel, choices=format_labels)
+        self.lbl_audio_format = wx.StaticText(panel, label=translate("&Audio Format:"))
+        self.choice_audio_format = wx.Choice(panel, choices=get_audio_format_labels())
         self.choice_audio_format.Bind(wx.EVT_CHOICE, self.on_audio_format_changed)
 
         fmt_idx = 0
@@ -1507,6 +1521,8 @@ class MainFrame(wx.Frame):
         if hasattr(self, 'lbl_audio_format'):
             self.lbl_audio_format.SetLabel(translate("&Audio Format:"))
         if hasattr(self, 'choice_audio_format'):
+            for i, label in enumerate(get_audio_format_labels()):
+                self.choice_audio_format.SetString(i, label)
             for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
                 if code == self.current_audio_format:
                     self.choice_audio_format.SetSelection(i)
