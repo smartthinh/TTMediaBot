@@ -44,7 +44,18 @@ class YtService(_Service):
             "no_warnings": True,
             "source_address": "0.0.0.0",
             "cachedir": os.path.join(app_vars.cache_dir, "yt-dlp"),
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "extractor_args": {
+                "youtube": {
+                    "player_client": ["android", "web", "ios", "mweb"],
+                    "skip": ["translated_subs"],
+                }
+            },
         }
+        ffmpeg_dir = app_vars.get_ffmpeg_dir()
+        if ffmpeg_dir:
+            self._ydl_opts_base["ffmpeg_location"] = ffmpeg_dir
         cookiefile = getattr(self.config, "cookiefile_path", "")
         if cookiefile:
             if not os.path.isabs(cookiefile):
@@ -75,6 +86,99 @@ class YtService(_Service):
                     logging.info(f"{self.name.upper()} Service: Default cookie file found at {def_candidate}")
                     break
 
+    def _search_http_fallback(self, query: str, limit: int) -> List[Track]:
+        """
+        Direct YouTube search fallback via HTTP scraping.
+        Bypasses bot-detection, 429 rate-limits, and regional blocks encountered by yt-dlp in some countries.
+        """
+        import json
+        import re
+        import urllib.parse
+        import requests
+
+        url = f"https://www.youtube.com/results?search_query={urllib.parse.quote(query)}"
+        headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
+            "Accept-Language": "en-US,en;q=0.9,vi;q=0.8",
+        }
+        try:
+            r = requests.get(url, headers=headers, timeout=8)
+            if r.status_code != 200:
+                return []
+
+            tracks: List[Track] = []
+            match = re.search(r"var ytInitialData\s*=\s*({.+?});</script>", r.text)
+            if match:
+                try:
+                    data = json.loads(match.group(1))
+                    sections = (
+                        data.get("contents", {})
+                        .get("twoColumnSearchResultsRenderer", {})
+                        .get("primaryContents", {})
+                        .get("sectionListRenderer", {})
+                        .get("contents", [])
+                    )
+                    for sec in sections:
+                        items = sec.get("itemSectionRenderer", {}).get("contents", [])
+                        for item in items:
+                            vr = item.get("videoRenderer")
+                            if not vr:
+                                continue
+                            vid = vr.get("videoId")
+                            title_runs = vr.get("title", {}).get("runs", [])
+                            title = "".join(x.get("text", "") for x in title_runs) if title_runs else ""
+                            channel_runs = vr.get("ownerText", {}).get("runs", [])
+                            channel = "".join(x.get("text", "") for x in channel_runs) if channel_runs else ""
+                            if vid and title:
+                                full_title = f"{title} - {channel}" if channel and channel not in title else title
+                                tracks.append(
+                                    Track(
+                                        service=self.name,
+                                        url=f"https://www.youtube.com/watch?v={vid}",
+                                        name=full_title,
+                                        type=TrackType.Dynamic,
+                                        extra_info={
+                                            "id": vid,
+                                            "videoId": vid,
+                                            "title": title,
+                                            "uploader": channel,
+                                        },
+                                    )
+                                )
+                                if len(tracks) >= limit:
+                                    return tracks
+                except Exception as ex:
+                    logging.debug(f"ytInitialData parsing error: {ex}")
+
+            if not tracks:
+                titles = re.findall(r'"title":\{"runs":\[\{"text":"([^"]+)"\}\]', r.text)
+                video_ids = re.findall(r'"videoId":"([a-zA-Z0-9_-]{11})"', r.text)
+                seen_ids = set()
+                for vid, tit in zip(video_ids, titles):
+                    if vid in seen_ids:
+                        continue
+                    seen_ids.add(vid)
+                    tracks.append(
+                        Track(
+                            service=self.name,
+                            url=f"https://www.youtube.com/watch?v={vid}",
+                            name=tit,
+                            type=TrackType.Dynamic,
+                            extra_info={"id": vid, "videoId": vid, "title": tit},
+                        )
+                    )
+                    if len(tracks) >= limit:
+                        break
+
+            return tracks
+        except Exception as e:
+            logging.warning(f"Direct HTTP search fallback failed for '{query}': {e}")
+            return []
+
     def search(self, query: str, limit: Optional[int] = None) -> List[Track]:
         if limit is None:
             limit = self.config.search_results or 1
@@ -90,45 +194,47 @@ class YtService(_Service):
             "skip_download": True,
         })
 
+        tracks: List[Track] = []
         try:
             with yt_dlp.YoutubeDL(opts) as ydl:
                 info = ydl.extract_info(search_query, download=False)
-        except Exception as e:
-            logging.error(f"YT search error for '{query}': {e}")
-            raise errors.ServiceError(f"YouTube search error: {e}") from e
+            entries = info.get("entries") or []
+            for entry in entries:
+                if not entry or entry.get("ie_key") == "YoutubeTab":
+                    continue
+                entry_url = entry.get("url") or ""
+                if any(p in entry_url for p in ["/channel/", "/@", "/user/"]):
+                    continue
 
-        entries = info.get("entries") or []
-        tracks: List[Track] = []
-        for entry in entries:
-            if not entry:
-                continue
-            if entry.get("ie_key") == "YoutubeTab":
-                continue
-            entry_url = entry.get("url") or ""
-            if any(p in entry_url for p in ["/channel/", "/@", "/user/"]):
-                continue
-
-            vid = entry.get("id") or entry.get("videoId")
-            title = entry.get("title") or self.bot.translator.translate("Unknown Title")
-            uploader = entry.get("uploader") or entry.get("channel")
-            full_title = f"{title} - {uploader}" if uploader and uploader not in title else title
-            url = entry_url if "watch?v=" in entry_url else f"https://www.youtube.com/watch?v={vid}"
-            tracks.append(
-                Track(
-                    service=self.name,
-                    url=url,
-                    name=full_title,
-                    type=TrackType.Dynamic,
-                    extra_info=entry,
+                vid = entry.get("id") or entry.get("videoId")
+                title = entry.get("title") or self.bot.translator.translate("Unknown Title")
+                uploader = entry.get("uploader") or entry.get("channel")
+                full_title = f"{title} - {uploader}" if uploader and uploader not in title else title
+                url = entry_url if "watch?v=" in entry_url else f"https://www.youtube.com/watch?v={vid}"
+                tracks.append(
+                    Track(
+                        service=self.name,
+                        url=url,
+                        name=full_title,
+                        type=TrackType.Dynamic,
+                        extra_info=entry,
+                    )
                 )
-            )
+        except Exception as e:
+            logging.warning(f"YT search via yt-dlp failed for '{query}': {e}. Using direct HTTP fallback...")
+            tracks = self._search_http_fallback(query, limit)
+
+        # If still no tracks, try HTTP fallback if not tried already
         if not tracks:
-            # Fallback for queries with diacritics/accents blocked by YouTube search filters (e.g. "Xác nhận tuổi")
+            tracks = self._search_http_fallback(query, limit)
+
+        # Fallback for queries with diacritics/accents blocked by YouTube search filters
+        if not tracks:
             import unicodedata
             nfkd = unicodedata.normalize('NFKD', query)
             no_accents = ''.join([c for c in nfkd if not unicodedata.combining(c)]).replace('đ', 'd').replace('Đ', 'D')
             if no_accents != query:
-                logging.info(f"YT search returned 0 results for '{query}'. Retrying with unaccented query: '{no_accents}'")
+                logging.info(f"Retrying with unaccented query: '{no_accents}'")
                 search_query = f"ytsearch{limit + 5}:{no_accents}"
                 try:
                     with yt_dlp.YoutubeDL(opts) as ydl:
@@ -157,7 +263,8 @@ class YtService(_Service):
                         if len(tracks) >= limit:
                             break
                 except Exception as ex:
-                    logging.warning(f"YT unaccented fallback search failed: {ex}")
+                    logging.warning(f"YT unaccented fallback search via yt-dlp failed: {ex}. Using HTTP fallback...")
+                    tracks = self._search_http_fallback(no_accents, limit)
 
         if not tracks:
             raise errors.NothingFoundError()
@@ -293,6 +400,9 @@ class YtService(_Service):
         source_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else track.url
 
         opts = dict(self._ydl_opts_base)
+        ffmpeg_dir = app_vars.get_ffmpeg_dir()
+        if ffmpeg_dir:
+            opts["ffmpeg_location"] = ffmpeg_dir
         opts["outtmpl"] = file_path
         if video:
             opts["format"] = "bestvideo+bestaudio/best"

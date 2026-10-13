@@ -1372,7 +1372,7 @@ class DownloadListCommand(Command):
                     downloaded_path = track.download(dest_dir)
                     target_format = getattr(self.config.general, "download_audio_format", "default")
                     if target_format and target_format.lower() not in ("default", ""):
-                        utils.convert_audio(downloaded_path, target_format)
+                        downloaded_path = utils.convert_audio(downloaded_path, target_format)
                 except Exception as download_err:
                     logging.error(f"Local download failed for track {track.name}: {download_err}")
                     error_count += 1

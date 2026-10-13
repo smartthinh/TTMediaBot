@@ -36,6 +36,7 @@ def convert_audio(input_path: str, target_format: str) -> str:
         return input_path
 
     app_vars.ensure_ffmpeg_in_path()
+    ffmpeg_bin = app_vars.get_ffmpeg_path()
 
     base_path = os.path.splitext(input_path)[0]
     output_path = f"{base_path}.{target_ext}"
@@ -45,7 +46,7 @@ def convert_audio(input_path: str, target_format: str) -> str:
         output_path = f"{base_path}_converted.{target_ext}"
 
     cmd = [
-        "ffmpeg",
+        ffmpeg_bin,
         "-y",
         "-i", input_path,
         "-vn",
@@ -69,7 +70,7 @@ def convert_audio(input_path: str, target_format: str) -> str:
 
     cmd.append(output_path)
 
-    logging.info(f"[AudioConverter] Converting '{input_path}' to '{output_path}'")
+    logging.info(f"[AudioConverter] Converting '{input_path}' to '{output_path}' using '{ffmpeg_bin}'")
     try:
         startupinfo = None
         if os.name == "nt":
@@ -92,6 +93,10 @@ def convert_audio(input_path: str, target_format: str) -> str:
         else:
             logging.error(f"[AudioConverter] Output file '{output_path}' is missing or empty.")
             return input_path
+    except subprocess.CalledProcessError as e:
+        err_msg = e.stderr.decode(errors="replace") if e.stderr else str(e)
+        logging.error(f"[AudioConverter] FFmpeg process failed (exit code {e.returncode}): {err_msg}")
+        return input_path
     except Exception as e:
         logging.error(f"[AudioConverter] Failed to convert audio: {e}")
         return input_path

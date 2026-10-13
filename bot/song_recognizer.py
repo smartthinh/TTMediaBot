@@ -150,7 +150,7 @@ class SongRecognizer:
 
         def cut_ffmpeg(target_url: str) -> bool:
             cmd = [
-                "ffmpeg",
+                app_vars.get_ffmpeg_path(),
                 "-y",
                 "-ss",
                 str(start_sec),

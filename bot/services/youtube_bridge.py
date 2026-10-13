@@ -9,6 +9,7 @@ from typing import Any
 
 import requests
 
+from bot import app_vars
 from bot import errors
 
 logger = logging.getLogger(__name__)
@@ -117,7 +118,7 @@ class YouTubeBridge:
         plan = self._post("/download-plan", url=url, video=video)
         headers = plan.get("http_headers") or {}
         user_agent = headers.get("User-Agent", "")
-        base_cmd = ["ffmpeg", "-y", "-loglevel", "error"]
+        base_cmd = [app_vars.get_ffmpeg_path(), "-y", "-loglevel", "error"]
         if user_agent:
             base_cmd += ["-user_agent", user_agent]
 

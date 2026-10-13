@@ -84,36 +84,163 @@ def get_config_path() -> str:
 
 
 
-def ensure_ffmpeg_in_path() -> None:
-    """Ensures ffmpeg and ffprobe are available in PATH without creating lock files."""
-    import shutil
-    if shutil.which("ffmpeg") and shutil.which("ffprobe"):
-        return
+_cached_ffmpeg_path: str | None = None
+_cached_ffprobe_path: str | None = None
 
-    candidate_dirs = []
+
+def find_binary(binary_name: str) -> str | None:
+    """
+    Finds the absolute path to a binary executable (e.g. 'ffmpeg' or 'ffprobe').
+    Searches system PATH, frozen app folders (_internal, _internal/win32, etc.),
+    sys._MEIPASS, directory, and static_ffmpeg.
+    """
+    import shutil
+
+    ext = ".exe" if sys.platform == "win32" else ""
+    target_file = f"{binary_name}{ext}"
+
+    # 1. First check if it is already in PATH
+    which_path = shutil.which(binary_name) or shutil.which(target_file)
+    if which_path and os.path.isfile(which_path):
+        return os.path.abspath(which_path)
+
+    # 2. Gather candidate directories
+    candidate_dirs: list[str] = []
+
+    # Frozen executable directory and internal subfolders (PyInstaller / Inno Setup)
     if getattr(sys, "frozen", False):
         exe_dir = os.path.dirname(os.path.abspath(sys.executable))
-        candidate_dirs.append(exe_dir)
-        candidate_dirs.append(os.path.join(exe_dir, "_internal"))
-        candidate_dirs.append(os.path.join(exe_dir, "_internal", "static_ffmpeg", "bin", "win32"))
-    candidate_dirs.append(directory)
-    candidate_dirs.append(os.path.join(directory, "_internal", "static_ffmpeg", "bin", "win32"))
+        candidate_dirs.extend([
+            exe_dir,
+            os.path.join(exe_dir, "_internal"),
+            os.path.join(exe_dir, "_internal", "win32"),
+            os.path.join(exe_dir, "win32"),
+            os.path.join(exe_dir, "_internal", "bin"),
+            os.path.join(exe_dir, "bin"),
+            os.path.join(exe_dir, "_internal", "ffmpeg"),
+            os.path.join(exe_dir, "ffmpeg"),
+            os.path.join(exe_dir, "_internal", "static_ffmpeg", "bin", "win32"),
+            os.path.join(exe_dir, "static_ffmpeg", "bin", "win32"),
+        ])
 
+    # PyInstaller _MEIPASS (onefile mode)
+    meipass = getattr(sys, "_MEIPASS", None)
+    if meipass:
+        candidate_dirs.extend([
+            meipass,
+            os.path.join(meipass, "win32"),
+            os.path.join(meipass, "_internal", "win32"),
+            os.path.join(meipass, "bin"),
+            os.path.join(meipass, "static_ffmpeg", "bin", "win32"),
+        ])
+
+    # Project directory
+    candidate_dirs.extend([
+        directory,
+        os.path.join(directory, "_internal", "win32"),
+        os.path.join(directory, "_internal"),
+        os.path.join(directory, "win32"),
+        os.path.join(directory, "_internal", "bin"),
+        os.path.join(directory, "bin"),
+        os.path.join(directory, "ffmpeg"),
+        os.path.join(directory, "_internal", "static_ffmpeg", "bin", "win32"),
+    ])
+
+    # static_ffmpeg module dir if available
     try:
         import static_ffmpeg.run
         candidate_dirs.append(static_ffmpeg.run.get_platform_dir())
     except Exception:
         pass
 
+    # User data directory
+    candidate_dirs.extend([
+        os.path.join(data_dir, "bin"),
+        os.path.join(data_dir, "ffmpeg"),
+    ])
+
     for d in candidate_dirs:
-        if os.path.exists(d):
-            ffmpeg_path = os.path.join(d, "ffmpeg.exe" if sys.platform == "win32" else "ffmpeg")
-            if os.path.isfile(ffmpeg_path):
-                if d not in os.environ["PATH"]:
-                    os.environ["PATH"] = d + os.pathsep + os.environ["PATH"]
-                break
+        if d and os.path.isdir(d):
+            candidate = os.path.join(d, target_file)
+            if os.path.isfile(candidate):
+                return os.path.abspath(candidate)
+
+    # 3. Recursive search (up to 2 levels) in root folders as fallback
+    roots_to_search: list[str] = []
+    if getattr(sys, "frozen", False):
+        roots_to_search.append(os.path.dirname(os.path.abspath(sys.executable)))
+    if meipass:
+        roots_to_search.append(meipass)
+    roots_to_search.append(directory)
+
+    for root in roots_to_search:
+        if root and os.path.isdir(root):
+            try:
+                for current_dir, dirs, files in os.walk(root):
+                    rel = os.path.relpath(current_dir, root)
+                    if rel != "." and rel.count(os.sep) >= 2:
+                        dirs.clear()
+                    if target_file in files:
+                        p = os.path.join(current_dir, target_file)
+                        if os.path.isfile(p):
+                            return os.path.abspath(p)
+            except Exception:
+                pass
+
+    return None
+
+
+def _add_to_path(folder: str) -> None:
+    if folder and os.path.isdir(folder):
+        current_path = os.environ.get("PATH", "")
+        paths = current_path.split(os.pathsep)
+        if folder not in paths:
+            os.environ["PATH"] = folder + os.pathsep + current_path
+
+
+def get_ffmpeg_path() -> str:
+    """Returns the full path to ffmpeg executable, or 'ffmpeg' as fallback."""
+    global _cached_ffmpeg_path
+    if _cached_ffmpeg_path and os.path.isfile(_cached_ffmpeg_path):
+        return _cached_ffmpeg_path
+
+    found = find_binary("ffmpeg")
+    if found:
+        _cached_ffmpeg_path = found
+        _add_to_path(os.path.dirname(found))
+        return found
+    return "ffmpeg"
+
+
+def get_ffprobe_path() -> str:
+    """Returns the full path to ffprobe executable, or 'ffprobe' as fallback."""
+    global _cached_ffprobe_path
+    if _cached_ffprobe_path and os.path.isfile(_cached_ffprobe_path):
+        return _cached_ffprobe_path
+
+    found = find_binary("ffprobe")
+    if found:
+        _cached_ffprobe_path = found
+        _add_to_path(os.path.dirname(found))
+        return found
+    return "ffprobe"
+
+
+def get_ffmpeg_dir() -> str | None:
+    """Returns the directory containing ffmpeg executable, or None if not found."""
+    path = get_ffmpeg_path()
+    if path and path != "ffmpeg" and os.path.isfile(path):
+        return os.path.dirname(path)
+    return None
+
+
+def ensure_ffmpeg_in_path() -> None:
+    """Ensures ffmpeg and ffprobe are available in PATH and resolved."""
+    get_ffmpeg_path()
+    get_ffprobe_path()
 
 
 ensure_ffmpeg_in_path()
+
 
 

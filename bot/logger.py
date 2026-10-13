@@ -49,12 +49,33 @@ in_memory_log_handler.setFormatter(logging.Formatter(DEFAULT_LOG_FORMAT))
 
 
 def setup_gui_logging() -> None:
-    """Ensures in-memory log handler is attached to the root logger."""
+    """Ensures in-memory log handler and persistent file handler are attached to the root logger."""
     root = logging.getLogger()
     if root.level == logging.NOTSET or root.level > logging.INFO:
         root.setLevel(logging.INFO)
     if in_memory_log_handler not in root.handlers:
         root.addHandler(in_memory_log_handler)
+
+    gui_log_path = os.path.join(app_vars.logs_dir, "TTMediaBot_gui.log")
+    has_file_handler = any(
+        isinstance(h, logging.FileHandler) and getattr(h, "baseFilename", "") == os.path.abspath(gui_log_path)
+        for h in root.handlers
+    )
+    if not has_file_handler:
+        try:
+            os.makedirs(app_vars.logs_dir, exist_ok=True)
+            gui_file_handler = RotatingFileHandler(
+                filename=gui_log_path,
+                mode="a",
+                maxBytes=5 * 1024 * 1024,
+                backupCount=2,
+                encoding="UTF-8",
+            )
+            gui_file_handler.setFormatter(logging.Formatter(DEFAULT_LOG_FORMAT))
+            gui_file_handler.setLevel(logging.INFO)
+            root.addHandler(gui_file_handler)
+        except Exception:
+            pass
 
 
 # Automatically attach in-memory handler on import so all initial events are captured
@@ -122,14 +143,10 @@ def initialize_logger(bot: Bot) -> None:
 
 def get_session_logs(server_log_path: Optional[str] = None) -> str:
     """
-    Returns full logs for inspection.
-    Prioritizes in-memory session logs recorded during current usage.
-    Falls back to disk log files if in-memory log is empty.
+    Returns full logs for inspection directly from disk log files.
+    Preserves all historical logs across application launches.
+    Falls back to in-memory logs if no disk logs exist yet.
     """
-    mem_logs = in_memory_log_handler.get_logs().strip()
-    if mem_logs:
-        return mem_logs
-
     candidate_files = []
     if server_log_path and os.path.isfile(server_log_path):
         candidate_files.append(server_log_path)
@@ -156,4 +173,6 @@ def get_session_logs(server_log_path: Optional[str] = None) -> str:
         except Exception:
             continue
 
-    return ""
+    # Fallback to in-memory session logs if disk logs are empty or not created yet
+    mem_logs = in_memory_log_handler.get_logs().strip()
+    return mem_logs

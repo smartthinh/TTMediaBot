@@ -13,7 +13,7 @@
         "channel_translation": false,
         "channel_translation_from": "auto",
         "channel_translation_to": "en",
-        "download_audio_format": "default"
+        "download_audio_format": "ogg"
     },
     "sound_devices": {
         "output_device": 0,
