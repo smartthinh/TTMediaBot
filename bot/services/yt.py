@@ -122,8 +122,42 @@ class YtService(_Service):
                     extra_info=entry,
                 )
             )
-            if len(tracks) >= limit:
-                break
+        if not tracks:
+            # Fallback for queries with diacritics/accents blocked by YouTube search filters (e.g. "Xác nhận tuổi")
+            import unicodedata
+            nfkd = unicodedata.normalize('NFKD', query)
+            no_accents = ''.join([c for c in nfkd if not unicodedata.combining(c)]).replace('đ', 'd').replace('Đ', 'D')
+            if no_accents != query:
+                logging.info(f"YT search returned 0 results for '{query}'. Retrying with unaccented query: '{no_accents}'")
+                search_query = f"ytsearch{limit + 5}:{no_accents}"
+                try:
+                    with yt_dlp.YoutubeDL(opts) as ydl:
+                        info = ydl.extract_info(search_query, download=False)
+                    entries = info.get("entries") or []
+                    for entry in entries:
+                        if not entry or entry.get("ie_key") == "YoutubeTab":
+                            continue
+                        entry_url = entry.get("url") or ""
+                        if any(p in entry_url for p in ["/channel/", "/@", "/user/"]):
+                            continue
+                        vid = entry.get("id") or entry.get("videoId")
+                        title = entry.get("title") or self.bot.translator.translate("Unknown Title")
+                        uploader = entry.get("uploader") or entry.get("channel")
+                        full_title = f"{title} - {uploader}" if uploader and uploader not in title else title
+                        url = entry_url if "watch?v=" in entry_url else f"https://www.youtube.com/watch?v={vid}"
+                        tracks.append(
+                            Track(
+                                service=self.name,
+                                url=url,
+                                name=full_title,
+                                type=TrackType.Dynamic,
+                                extra_info=entry,
+                            )
+                        )
+                        if len(tracks) >= limit:
+                            break
+                except Exception as ex:
+                    logging.warning(f"YT unaccented fallback search failed: {ex}")
 
         if not tracks:
             raise errors.NothingFoundError()

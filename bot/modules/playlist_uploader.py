@@ -77,6 +77,9 @@ class PlaylistUploader:
                             continue
 
                     file_path = track.download(temp_dir.name)
+                    target_format = getattr(self.config.general, "download_audio_format", "default")
+                    if target_format and target_format.lower() not in ("default", ""):
+                        file_path = utils.convert_audio(file_path, target_format)
                     downloaded_files.append(file_path)
                 except Exception as e:
                     logging.error(f"PlaylistUploader: Failed to download track {i+1}: {e}")

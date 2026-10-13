@@ -11,7 +11,7 @@ from queue import Empty
 from bot.player.track import Track
 from bot.player.enums import TrackType
 from bot.TeamTalk.structs import ErrorType, User
-from bot import app_vars
+from bot import app_vars, utils
 
 if TYPE_CHECKING:
     from bot import Bot
@@ -63,6 +63,11 @@ class Uploader:
                     logging.error(f"Uploader: File not found at '{file_path}' and no alternative extensions found.")
                     self.ttclient.send_message(self.translator.translate("Error: Downloaded file not found."), user)
                     return
+
+            if not video:
+                target_format = getattr(self.config.general, "download_audio_format", "default")
+                if target_format and target_format.lower() not in ("default", ""):
+                    file_path = utils.convert_audio(file_path, target_format)
 
             logging.info(f"Uploader: Sending file '{file_path}' to channel {self.ttclient.channel.id}")
             command_id = self.ttclient.send_file(self.ttclient.channel.id, file_path)

@@ -16,6 +16,7 @@ class GeneralModel(BaseModel):
     channel_translation: bool = False
     channel_translation_from: str = "auto"
     channel_translation_to: str = "en"
+    download_audio_format: str = "default"
 
 class SoundDevicesModel(BaseModel):
     output_device: int = 0

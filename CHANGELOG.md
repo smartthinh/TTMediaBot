@@ -44,11 +44,18 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Smooth Volume Fade-Out:** When the timer runs out, the bot gradually lowers the volume before stopping if fading is enabled, ensuring a gentle and pleasant stop without sudden loud cutoffs.
 - **Channel & Chat Notifications:** The bot clearly confirms when a timer is set, how much time remains, when it is cancelled, or when it expires.
 
-### 🛡️ 4. Reliable Settings & Windows Compatibility
+### 🎵 4. Download Audio Format Selector & Automatic Converter
+- **Audio Format Selector on Main Screen:** Added a convenient combo box on the main interface allowing you to choose your desired audio format when downloading music from YouTube and uploading it to TeamTalk.
+- **Default Format Option:** The first and default option is "Default (No conversion)". When selected, the app keeps YouTube's native `.m4a` audio format without extra processing and uploads it straight away.
+- **Multiple Supported Formats:** Easily choose between popular audio formats including **MP3 (`.mp3`)**, **WAV (`.wav`)**, **FLAC (`.flac`)**, **OGG (`.ogg`)**, **Opus (`.opus`)**, **AAC (`.aac`)**, and **WMA (`.wma`)**.
+- **Automatic High-Quality Conversion & Cleanup:** Once the audio is downloaded to your computer, the software automatically converts it into your selected format, removes the old temporary file to save disk space, and uploads the converted file cleanly to the channel.
+
+### 🛡️ 5. Reliable Settings & Windows Compatibility
 - **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
 - **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
 
-### 🚀 5. Performance & Stability Improvements
+### 🚀 6. Performance & Stability Improvements
+- **Smart Search Fallback for Vietnamese Songs:** Fixed an issue where YouTube's search filter would occasionally return 0 results for specific Vietnamese titles with diacritics (like *"em đi trên cỏ non"*). The bot now automatically retries with an unaccented fallback query, ensuring songs are always found and played smoothly.
 - **Startup & Path Optimization:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
 
 ---

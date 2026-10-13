@@ -114,6 +114,18 @@ SUPPORTED_LANGUAGES = [
     ("vi", "Vietnamese (vi)"),
 ]
 
+# Audio format choices for downloads (excluding m4a because YouTube native format is m4a)
+SUPPORTED_AUDIO_FORMATS = [
+    ("default", "Default (No conversion)"),
+    ("mp3", "MP3 (.mp3)"),
+    ("wav", "WAV (.wav)"),
+    ("flac", "FLAC (.flac)"),
+    ("ogg", "OGG (.ogg)"),
+    ("opus", "Opus (.opus)"),
+    ("aac", "AAC (.aac)"),
+    ("wma", "WMA (.wma)"),
+]
+
 DEFAULT_SERVER_CONFIG: Dict[str, Any] = {
     "id": "",
     "name": "",
@@ -264,6 +276,74 @@ class ServerManager:
 
         if not saved:
             logging.error(f"Failed to save language '{language}' to any config location")
+
+    def get_audio_format(self) -> str:
+        """Reads global download audio format from config.json. Defaults to 'default'."""
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    fmt = data.get("general", {}).get("download_audio_format")
+                    if fmt:
+                        return fmt
+                except Exception as e:
+                    logging.error(f"Error reading download_audio_format from {p}: {e}")
+        return "default"
+
+    def set_audio_format(self, audio_format: str) -> None:
+        """Saves global download audio format to config.json immediately."""
+        data = {}
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
+            try:
+                with open(load_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                logging.error(f"Error reading {load_path}: {e}")
+
+        if "general" not in data or not isinstance(data["general"], dict):
+            data["general"] = {}
+        data["general"]["download_audio_format"] = audio_format
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        saved = False
+        for target in targets:
+            try:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"Download audio format '{audio_format}' saved immediately to {target}")
+                saved = True
+                break
+            except Exception as e:
+                logging.error(f"Error writing audio format to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"Download audio format '{audio_format}' saved (fallback) to {target}")
+                    saved = True
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
+        if not saved:
+            logging.error(f"Failed to save download audio format '{audio_format}' to any config location")
 
     def load_servers(self) -> List[Dict[str, Any]]:
         """Loads servers from servers.json. By default, starts with an empty list."""
@@ -1230,8 +1310,8 @@ class MainFrame(wx.Frame):
     """Main window displaying the server list and connection controls."""
 
     def __init__(self, config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
-        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 610))
-        self.SetMinSize((480, 480))
+        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 650))
+        self.SetMinSize((480, 500))
         self.config_path = config_path
         self.cache_path = cache_path
         self.log_path = log_path
@@ -1242,9 +1322,10 @@ class MainFrame(wx.Frame):
         self.visible_servers = list(self.servers)
         self.search_query = ""
 
-        # Global language
+        # Global language and download audio format
         self.current_language = self.server_mgr.get_language()
         set_gui_locale(self.current_language)
+        self.current_audio_format = self.server_mgr.get_audio_format()
 
         # Multi-server tracking
         self.active_bots: Dict[str, Bot] = {}
@@ -1329,6 +1410,24 @@ class MainFrame(wx.Frame):
         lang_sizer.Add(self.choice_language, 1, wx.EXPAND)
         main_sizer.Add(lang_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
 
+        # Download Audio Format Selection Row
+        format_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_audio_format = wx.StaticText(panel, label="&Audio Format:")
+        format_labels = [label for _, label in SUPPORTED_AUDIO_FORMATS]
+        self.choice_audio_format = wx.Choice(panel, choices=format_labels)
+        self.choice_audio_format.Bind(wx.EVT_CHOICE, self.on_audio_format_changed)
+
+        fmt_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
+            if code == self.current_audio_format:
+                fmt_idx = i
+                break
+        self.choice_audio_format.SetSelection(fmt_idx)
+
+        format_sizer.Add(self.lbl_audio_format, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        format_sizer.Add(self.choice_audio_format, 1, wx.EXPAND)
+        main_sizer.Add(format_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
         # Buttons Grid (5 rows x 2 columns)
         self.btn_sizer = wx.GridSizer(cols=2, vgap=6, hgap=8)
 
@@ -1405,6 +1504,17 @@ class MainFrame(wx.Frame):
         self.choice_language.SetToolTip(
             translate("Select the active language for the bot and interface.")
         )
+        if hasattr(self, 'lbl_audio_format'):
+            self.lbl_audio_format.SetLabel(translate("&Audio Format:"))
+        if hasattr(self, 'choice_audio_format'):
+            for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
+                if code == self.current_audio_format:
+                    self.choice_audio_format.SetSelection(i)
+                    break
+            self.choice_audio_format.SetToolTip(
+                translate("Select audio format for YouTube downloads and channel uploads (Default does not convert).")
+            )
+
         if hasattr(self, 'btn_delete_all'):
             self.btn_delete_all.SetLabel(translate("&Delete All Servers"))
             self.btn_delete_all.SetToolTip(translate("Delete all saved servers."))
@@ -1460,6 +1570,28 @@ class MainFrame(wx.Frame):
 
         # Retranslate GUI
         self.retranslate_ui()
+
+    def on_audio_format_changed(self, event=None):
+        sel_idx = self.choice_audio_format.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_AUDIO_FORMATS):
+            new_fmt = SUPPORTED_AUDIO_FORMATS[sel_idx][0]
+            if new_fmt != self.current_audio_format:
+                self.set_audio_format(new_fmt)
+
+    def set_audio_format(self, new_fmt: str):
+        self.current_audio_format = new_fmt
+        self.server_mgr.set_audio_format(new_fmt)
+
+        # Update all active bots in real time
+        for bot in self.active_bots.values():
+            if hasattr(bot, "config") and hasattr(bot.config, "general"):
+                bot.config.general.download_audio_format = new_fmt
+            if hasattr(bot, "config_manager"):
+                try:
+                    bot.config_manager.save()
+                except Exception:
+                    pass
+        logging.info(f"Updated global download audio format to: {new_fmt}")
 
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()

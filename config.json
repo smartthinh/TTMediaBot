@@ -12,7 +12,8 @@
         "video_subtitles": false,
         "channel_translation": false,
         "channel_translation_from": "auto",
-        "channel_translation_to": "en"
+        "channel_translation_to": "en",
+        "download_audio_format": "mp3"
     },
     "sound_devices": {
         "output_device": 0,

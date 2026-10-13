@@ -148,9 +148,9 @@ Send commands via private message (PM) to the bot or directly in the channel (if
 | qr | [num] | Removes a specific track from the queue by index. |
 | qc | | Clears the entire playback queue. |
 | qs | | Skips the current track and immediately plays the next track from the queue. |
-| dl | | Downloads the current track and uploads it to the TeamTalk channel. |
+| dl | | Downloads the current track (converted to your selected audio format if configured) and uploads it to the TeamTalk channel. |
 | dlv | | Downloads the current track as a video file and uploads it to the channel. |
-| dlp | [url] | Downloads an entire playlist/album, zips it, and uploads the archive to the channel. |
+| dlp | [url] | Downloads an entire playlist/album (converted to your selected audio format), zips it, and uploads the archive to the channel. |
 | aad | [link] | Adds a single URL to your custom download queue. |
 | ad | [link1 link2] | Adds multiple space-separated links to your custom download queue. |
 | ld | | Lists all links currently in your custom download queue. |
