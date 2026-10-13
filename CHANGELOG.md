@@ -4,7 +4,7 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🆕 [Unreleased] — Public Channel Translation, In-App Log Viewer & System Improvements
+## 🆕 v3.5.0 — Public Channel Translation, Sleep Timer & Audio Format Converter *(13/10/2026)*
 
 ### 🌐 1. Public Channel Translation (`tr`)
 - **Automatic Channel Translation:** The bot can automatically translate conversation messages in the public TeamTalk channel so everyone in the room can easily understand each other.
