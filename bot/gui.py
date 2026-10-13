@@ -116,7 +116,7 @@ SUPPORTED_LANGUAGES = [
 
 # Audio format choices for downloads (excluding m4a because YouTube native format is m4a)
 SUPPORTED_AUDIO_FORMATS = [
-    ("default", "Default (No conversion)"),
+    ("default", translate("Default (No conversion)")),
     ("mp3", "MP3 (.mp3)"),
     ("wav", "WAV (.wav)"),
     ("flac", "FLAC (.flac)"),
