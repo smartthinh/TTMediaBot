@@ -150,41 +150,45 @@ class Bot:
         self.pre_warm_interval = 50 # 50 seconds (User request: 'oi' every 50s)
 
         self._close = False
-        while not self._close:
-            if hasattr(self.ttclient, "thread") and not self.ttclient.thread.is_alive():
-                logging.info("TeamTalk thread has stopped, exiting bot main loop")
-                break
-            try:
-                message = self.ttclient.message_queue.get_nowait()
-                logging.info(
-                    "New message {text} from {username}".format(
-                        text=message.text, username=message.user.username
+        try:
+            while not self._close:
+                if hasattr(self.ttclient, "thread") and not self.ttclient.thread.is_alive():
+                    logging.info("TeamTalk thread has stopped, exiting bot main loop")
+                    break
+                try:
+                    message = self.ttclient.message_queue.get_nowait()
+                    logging.info(
+                        "New message {text} from {username}".format(
+                            text=message.text, username=message.user.username
+                        )
                     )
-                )
-                self.command_processor(message)
-            except queue.Empty:
-                pass
-            
-            # Check for periodic pre-warming
-            if time.time() - self.last_pre_warm_time >= self.pre_warm_interval:
-                self.last_pre_warm_time = time.time()
-                threading.Thread(target=self._perform_periodic_pre_warm, daemon=True).start()
-
-            # Check for update trigger file
-            update_file = os.path.join(self.config_manager.config_dir, "update_in_progress")
-            if os.path.exists(update_file):
-                self.is_updating = True
-                try:
-                    msg = self.translator.translate("The bot is starting an update process and will restart shortly. It may go offline at any moment.")
-                    self.ttclient.send_message(msg, type=2)
-                except Exception as e:
-                    logging.error(f"Error sending update warning: {e}")
-                try:
-                    os.remove(update_file)
-                except Exception:
+                    self.command_processor(message)
+                except queue.Empty:
                     pass
+                
+                # Check for periodic pre-warming
+                if time.time() - self.last_pre_warm_time >= self.pre_warm_interval:
+                    self.last_pre_warm_time = time.time()
+                    threading.Thread(target=self._perform_periodic_pre_warm, daemon=True).start()
 
-            time.sleep(app_vars.loop_timeout)
+                # Check for update trigger file
+                update_file = os.path.join(self.config_manager.config_dir, "update_in_progress")
+                if os.path.exists(update_file):
+                    self.is_updating = True
+                    try:
+                        msg = self.translator.translate("The bot is starting an update process and will restart shortly. It may go offline at any moment.")
+                        self.ttclient.send_message(msg, type=2)
+                    except Exception as e:
+                        logging.error(f"Error sending update warning: {e}")
+                    try:
+                        os.remove(update_file)
+                    except Exception:
+                        pass
+
+                time.sleep(app_vars.loop_timeout)
+        finally:
+            if not getattr(self, "_close", False):
+                self.close()
 
     def _perform_periodic_pre_warm(self):
         logging.info("Starting periodic pre-warming for services...")
@@ -204,6 +208,9 @@ class Bot:
             logging.error(f"Error during periodic pre-warming: {e}")
 
     def close(self) -> None:
+        if getattr(self, "_close", False):
+            return
+        self._close = True
         logging.debug("Closing bot")
         if getattr(self, "is_updating", False):
             try:
@@ -212,10 +219,24 @@ class Bot:
                 time.sleep(0.5)
             except Exception as e:
                 logging.error(f"Error sending shutdown message: {e}")
-        self.player.close()
-        self.ttclient.close()
-        self.tt_player_connector.close()
-        self.config_manager.close()
-        self.cache_manager.close()
-        self._close = True
+        try:
+            self.player.close()
+        except Exception:
+            pass
+        try:
+            self.ttclient.close()
+        except Exception:
+            pass
+        try:
+            self.tt_player_connector.close()
+        except Exception:
+            pass
+        try:
+            self.config_manager.close()
+        except Exception:
+            pass
+        try:
+            self.cache_manager.close()
+        except Exception:
+            pass
         logging.info("Bot closed")

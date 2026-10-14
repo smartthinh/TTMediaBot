@@ -428,8 +428,19 @@ class ServerManager:
     def apply_server_to_config(self, server: Dict[str, Any], config_path: str, language: Optional[str] = None) -> None:
         """Writes the selected server's settings to config.json before starting the bot."""
         data = {}
-        template_file = self.config_path if os.path.exists(self.config_path) else config_path
-        if os.path.exists(template_file):
+        template_file = None
+        for candidate in [
+            self.config_path,
+            os.path.join(app_vars.data_dir, "config.json"),
+            os.path.join(app_vars.directory, "config.json"),
+            os.path.join(app_vars.directory, "config_default.json"),
+            os.path.join(app_vars.directory, "_internal", "config_default.json"),
+        ]:
+            if candidate and os.path.exists(candidate) and os.path.abspath(candidate) != os.path.abspath(config_path):
+                template_file = candidate
+                break
+
+        if template_file:
             try:
                 with open(template_file, "r", encoding="utf-8") as f:
                     data = json.load(f)
@@ -1869,7 +1880,8 @@ class MainFrame(wx.Frame):
         self.update_connect_all_button()
         self.update_status(translate("Connecting to '{server_name}'...").format(server_name=server_name))
 
-        cfg_path = os.path.join(app_vars.temp_dir, f".config_server_{s_id}.json")
+        unique_suffix = f"{int(time.time() * 1000)}_{uuid.uuid4().hex[:6]}"
+        cfg_path = os.path.join(app_vars.temp_dir, f".config_server_{s_id}_{unique_suffix}.json")
         cache_name = os.path.join(app_vars.cache_dir, f"TTMediaBotCache_{s_id}.dat")
         log_name = os.path.join(app_vars.logs_dir, f"TTMediaBot_server_{s_id}.log")
 
@@ -1902,6 +1914,11 @@ class MainFrame(wx.Frame):
             logging.error(f"Error running bot for '{server.get('name')}': {e}", exc_info=True)
             wx.CallAfter(self.on_bot_error, server.get("name", translate("Server")), str(e))
         finally:
+            if bot:
+                try:
+                    bot.close()
+                except Exception:
+                    pass
             if s_id in self.active_bots:
                 del self.active_bots[s_id]
             wx.CallAfter(self.on_single_bot_stopped, s_id)
