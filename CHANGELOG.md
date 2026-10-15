@@ -20,7 +20,6 @@ All notable updates to this fork are documented here, in reverse chronological o
   - `96000 Hz (Hi-Res Studio Quality)`: High-resolution audio for advanced sound cards.
   - `32000 Hz (FM Radio Quality)`, `24000 Hz (Medium Quality)`, and `16000 Hz (Voice Quality)` for lighter bandwidth usage.
 - **Real-Time Effect:** Changing the sampling rate immediately updates active bot players in real time and automatically applies to all music downloads.
-- **Full Multilingual & Screen Reader Support:** Fully accessible for NVDA and JAWS, with complete translations in English, Vietnamese, and Portuguese.
 
 ### 🎵 Smart MP3 Bitrate Selector
 - **Appears Automatically When Needed:** When you select **MP3 (`.mp3`)** as your audio format, a dedicated **MP3 Bitrate** dropdown menu immediately appears right below it. If you choose any other format, it automatically hides away to keep your screen clean and clutter-free.
@@ -32,16 +31,14 @@ All notable updates to this fork are documented here, in reverse chronological o
   - `128 kbps (Standard Quality - Small Size)`: Traditional lightweight MP3 for fast sharing.
   - `96 kbps (Medium Quality)` & `64 kbps (Voice Quality / Radio)`: Super lightweight for spoken words, radio, and podcasts.
 - **Automatic Audio Processing:** Downloaded songs are automatically encoded with your chosen bitrate before being uploaded to your TeamTalk channel.
-- **Fully Accessible:** Works seamlessly with keyboard navigation and screen readers across all supported languages.
 
 ### 📥 Administrator Local Audio & Video Downloads (Direct to Host Machine)
 - **Two Standard Admin Commands:** Bot administrators can now download songs or videos directly to the host machine's storage without uploading them back to the TeamTalk server channel. To keep things clean, concise, and aligned with international standards, exactly two dedicated commands are provided:
-  - `da` (**D**ownload **A**udio): Downloads the currently playing song (or a query/link if provided, e.g. `da <song name or link>`) as audio and saves it into the host's `downloads/music` folder. It automatically applies your chosen audio format, sampling rate, and MP3 bitrate settings.
-  - `dv` (**D**ownload **V**ideo): Downloads the currently playing video (or a query/link if provided, e.g. `dv <video name or link>`) as a full video file (`.mp4`) and saves it into the host's `downloads/videos` folder.
+  - `da` (**Download **Audio): Downloads the currently playing song (or a query/link if provided, e.g. `da <song name or link>`) as audio and saves it into the host's `downloads/music` folder. It automatically applies your chosen audio format, sampling rate, and MP3 bitrate settings.
+  - `dv` (**Download **Video): Downloads the currently playing video (or a query/link if provided, e.g. `dv <video name or link>`) as a full video file (`.mp4`) and saves it into the host's `downloads/videos` folder.
 - **Strict Permission Protection:** Only bot administrators can execute `da` and `dv`. If a regular (non-admin) user attempts to run these commands, the bot politely blocks the action with an *"Only administrators can use this command"* message to protect host storage.
 - **Clear Status & File Path Notifications:** The bot notifies the administrator in TeamTalk chat when the download starts and when it finishes, providing the exact file name and the saved location on the host computer.
 - **1-Click "Downloads Folder" Button:** Added a **"Downloads Folder"** button directly to the main interface grid, allowing the bot host to open the folder containing downloaded files in File Explorer with a single click or keyboard shortcut.
-- **Full Multilingual & Accessibility Support:** Complete translations in Vietnamese, Portuguese, and English with full screen reader support.
 
 ### 🎶 Unified Smart Play Command (`p`) & Removal of Redundant `u` Command
 - **Unified All-in-One Playback (`p`):** The `p` command now intelligently detects and plays any type of input:
