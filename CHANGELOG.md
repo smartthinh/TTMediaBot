@@ -4,6 +4,15 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
+## 🚀 [Unreleased]
+
+### 🔄 Improved Auto-Updater & Clear Installation Progress
+- **Clear "Installing" Status:** After downloading the update, the status now clearly changes to **"Installing update... Please wait."** instead of closing abruptly. This lets you and screen readers know that the download has finished and installation is beginning.
+- **Visible Installation Progress:** The updater now displays a visible installation progress window with a progress bar while installing files. You can see the progress directly and no longer have to guess when the background installation is finished.
+- **Reliable Automatic Restart:** Once the installation completes, TTMediaBot automatically reopens with the new version ready to use, preventing accidental launches of the old version while updating.
+
+---
+
 ## 🆕 v3.5.0 — Ultra-Fast Playback, Worldwide Access, Channel Translation & Audio Converter *(14/10/2026)*
 
 ### ⚡ 1. Ultra-Fast Playback & Instant Search (`p`)

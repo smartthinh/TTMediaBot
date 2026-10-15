@@ -131,11 +131,18 @@ Would you like to update now?").format(version=latest_version)
                                 last_percent = percent
                                 wx.CallAfter(self.progress.SetValue, percent)
             
-            wx.CallAfter(self.lbl_info.SetLabel, self.translate("Installing update... Please wait."))
-            wx.CallAfter(self.install_and_restart, exe_path)
+            wx.CallAfter(self.on_download_finished, exe_path)
             
         except Exception as e:
             wx.CallAfter(self.show_error, str(e))
+
+    def on_download_finished(self, exe_path):
+        self.progress.SetValue(100)
+        self.lbl_info.SetLabel(self.translate("Installing update... Please wait."))
+        self.Layout()
+        self.Refresh()
+        self.Update()
+        wx.CallLater(1500, self.install_and_restart, exe_path)
 
     def show_error(self, err_msg):
         wx.MessageBox(self.translate("Failed to download update:") + f" {err_msg}", self.translate("Update Error"), wx.OK | wx.ICON_ERROR)
@@ -150,19 +157,29 @@ Would you like to update now?").format(version=latest_version)
         else:
             candidates = [
                 os.path.join(os.environ.get("ProgramFiles", "C:\\Program Files"), "TTMediaBot", "TTMediaBot.exe"),
+                os.path.join(os.environ.get("ProgramFiles(x86)", "C:\\Program Files (x86)"), "TTMediaBot", "TTMediaBot.exe"),
                 os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs", "TTMediaBot", "TTMediaBot.exe"),
                 os.path.abspath("dist\\TTMediaBot\\TTMediaBot.exe"),
+                os.path.abspath("TTMediaBot.exe"),
             ]
             target_exe = next((c for c in candidates if os.path.exists(c)), "")
 
         bat_lines = [
             "@echo off",
-            "timeout /t 2 /nobreak >nul",
-            f'start /wait "" "{exe_path}" /VERYSILENT /SUPPRESSMSGBOXES /FORCECLOSEAPPLICATIONS /SP-',
+            "timeout /t 1 /nobreak >nul",
+            f'start /wait "" "{exe_path}" /SILENT /SUPPRESSMSGBOXES /FORCECLOSEAPPLICATIONS /SP-',
             f'if exist "{exe_path}" del /f /q "{exe_path}"',
         ]
         if target_exe:
-            bat_lines.append(f'if exist "{target_exe}" start "" "{target_exe}"')
+            bat_lines.append(f'if exist "{target_exe}" (')
+            bat_lines.append(f'    start "" "{target_exe}"')
+            bat_lines.append(') else (')
+            bat_lines.append('    if exist "%ProgramFiles%\\TTMediaBot\\TTMediaBot.exe" start "" "%ProgramFiles%\\TTMediaBot\\TTMediaBot.exe"')
+            bat_lines.append('    if exist "%LOCALAPPDATA%\\Programs\\TTMediaBot\\TTMediaBot.exe" start "" "%LOCALAPPDATA%\\Programs\\TTMediaBot\\TTMediaBot.exe"')
+            bat_lines.append(')')
+        else:
+            bat_lines.append('if exist "%ProgramFiles%\\TTMediaBot\\TTMediaBot.exe" start "" "%ProgramFiles%\\TTMediaBot\\TTMediaBot.exe"')
+            bat_lines.append('if exist "%LOCALAPPDATA%\\Programs\\TTMediaBot\\TTMediaBot.exe" start "" "%LOCALAPPDATA%\\Programs\\TTMediaBot\\TTMediaBot.exe"')
         bat_lines.append('(goto) 2>nul & del "%~f0"')
         bat_lines.append("")
 
@@ -171,6 +188,12 @@ Would you like to update now?").format(version=latest_version)
             
         CREATE_NO_WINDOW = 0x08000000
         subprocess.Popen(["cmd.exe", "/c", bat_path], creationflags=CREATE_NO_WINDOW)
+
+        app = wx.GetApp()
+        if app:
+            top_window = app.GetTopWindow()
+            if top_window and hasattr(top_window, 'Close'):
+                top_window.Close(True)
         sys.exit(0)
 
 def run_auto_updater(translate_func, parent=None, manual=False):
