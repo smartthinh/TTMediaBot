@@ -1684,8 +1684,9 @@ class MainFrame(wx.Frame):
         self.btn_website = wx.Button(panel, label="&Visit Website")
         self.btn_telegram = wx.Button(panel, label="&Join Telegram Channel")
 
-        # Row 5: Exit
+        # Row 5: Exit & Downloads Folder
         self.btn_exit = wx.Button(panel, label="E&xit")
+        self.btn_open_downloads = wx.Button(panel, label="&Downloads Folder")
 
         self.btn_connect_all.Bind(wx.EVT_BUTTON, self.on_connect_all_toggle)
         self.btn_delete_all.Bind(wx.EVT_BUTTON, self.on_delete_all)
@@ -1696,6 +1697,7 @@ class MainFrame(wx.Frame):
         self.btn_website.Bind(wx.EVT_BUTTON, self.on_visit_website)
         self.btn_telegram.Bind(wx.EVT_BUTTON, self.on_join_telegram)
         self.btn_exit.Bind(wx.EVT_BUTTON, self.on_exit)
+        self.btn_open_downloads.Bind(wx.EVT_BUTTON, self.on_open_downloads)
 
         self.btn_sizer.Add(self.btn_connect_all, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_delete_all, 1, wx.EXPAND)
@@ -1706,7 +1708,7 @@ class MainFrame(wx.Frame):
         self.btn_sizer.Add(self.btn_website, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_telegram, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_exit, 1, wx.EXPAND)
-        self.btn_sizer.Add((0, 0), 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_open_downloads, 1, wx.EXPAND)
 
         main_sizer.Add(self.btn_sizer, 0, wx.EXPAND | wx.ALL, 10)
 
@@ -1798,6 +1800,9 @@ class MainFrame(wx.Frame):
         self.btn_telegram.SetToolTip(translate("Open Telegram channel: https://t.me/accessiblevisionresources"))
         self.btn_exit.SetLabel(translate("E&xit"))
         self.btn_exit.SetToolTip(translate("Close TTMediaBot (or press Alt+F4)."))
+        if hasattr(self, 'btn_open_downloads'):
+            self.btn_open_downloads.SetLabel(translate("&Downloads Folder"))
+            self.btn_open_downloads.SetToolTip(translate("Open the downloads folder."))
 
         self.update_connect_all_button()
         self.update_status(self._current_status_text)
@@ -2514,6 +2519,17 @@ class MainFrame(wx.Frame):
     def on_check_update(self, event=None):
         from bot.auto_updater import run_auto_updater
         run_auto_updater(translate_func=translate, parent=self, manual=True)
+
+    def on_open_downloads(self, event=None):
+        try:
+            os.makedirs(app_vars.downloads_dir, exist_ok=True)
+            if sys.platform == "win32":
+                os.startfile(app_vars.downloads_dir)
+            else:
+                import subprocess
+                subprocess.Popen(["xdg-open", app_vars.downloads_dir])
+        except Exception as e:
+            logging.error(f"Error opening downloads directory: {e}")
 
     def on_exit(self, event):
         self.Close()

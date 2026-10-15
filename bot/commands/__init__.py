@@ -114,6 +114,8 @@ class CommandProcessor:
             "rs": admin_commands.RestartCommand,
             "q": admin_commands.QuitCommand,
             "gcid": admin_commands.GetChannelIDCommand,
+            "da": admin_commands.DownloadLocalAudioCommand,
+            "dv": admin_commands.DownloadLocalVideoCommand,
         }
 
     def run(self):

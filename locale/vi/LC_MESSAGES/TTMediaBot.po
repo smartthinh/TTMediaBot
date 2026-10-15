@@ -7,34 +7,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-13 10:24+0700\n"
+"POT-Creation-Date: 2026-10-15 12:06+0700\n"
 "PO-Revision-Date: 2026-10-13 10:26+0700\n"
 "Last-Translator: \n"
-"Language-Team: \n"
 "Language: vi\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Poedit 3.9\n"
 
 #: D:/TTMediaBot/bot/__init__.py:139
 msgid "Update completed successfully! I am back online."
 msgstr "Cập nhật thành công! Bot đã hoạt động trở lại."
 
-#: D:/TTMediaBot/bot/__init__.py:178
+#: D:/TTMediaBot/bot/__init__.py:179
 msgid ""
-"The bot is starting an update process and will restart shortly. It may go "
-"offline at any moment."
+"The bot is starting an update process and will restart shortly. It may go"
+" offline at any moment."
 msgstr ""
-"Bot đang bắt đầu cập nhật và sẽ khởi động lại trong giây lát. Bot có thể ngắt "
-"kết nối bất cứ lúc nào."
+"Bot đang bắt đầu cập nhật và sẽ khởi động lại trong giây lát. Bot có thể "
+"ngắt kết nối bất cứ lúc nào."
 
-#: D:/TTMediaBot/bot/__init__.py:210
+#: D:/TTMediaBot/bot/__init__.py:217
 msgid "The bot is restarting now to apply the update. See you in a moment!"
 msgstr ""
-"Bot đang khởi động lại để áp dụng bản cập nhật. Hẹn gặp lại bạn trong giây lát!"
+"Bot đang khởi động lại để áp dụng bản cập nhật. Hẹn gặp lại bạn trong "
+"giây lát!"
 
 # #-#-#-#-#  catalog.po (TTMediaBot VERSION)  #-#-#-#-#
 # | msgid "" "Hello, I'm Smart Thinh.\n" "This is a TTMediaBot edition for
@@ -46,20 +46,22 @@ msgstr ""
 #: D:/TTMediaBot/bot/app_vars.py:13
 msgid ""
 "Hello, I'm Smart Thinh.\n"
-"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's fork.\n"
+"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's "
+"fork.\n"
 "Ported to run seamlessly on Windows with high stability and ultra-fast "
 "response.\n"
 "Repository: https://github.com/smartthinh/TTMediaBot\n"
-"\fOriginal Authors: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, Kirill "
-"Belousov.\n"
+"\fOriginal Authors: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, "
+"Kirill Belousov.\n"
 msgstr ""
 "Xin chào, mình là Smart Thinh.\n"
-"Đây là phiên bản TTMediaBot dành cho TeamTalk 5, dựa trên bản fork của João "
-"Almeida.\n"
-"Được chuyển sang chạy mượt trên Windows, rất ổn định và phản hồi cực nhanh.\n"
+"Đây là phiên bản TTMediaBot dành cho TeamTalk 5, dựa trên bản fork của "
+"João Almeida.\n"
+"Được chuyển sang chạy mượt trên Windows, rất ổn định và phản hồi cực "
+"nhanh.\n"
 "Kho mã nguồn: https://github.com/smartthinh/TTMediaBot\n"
-"\fTác giả gốc: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, Kirill "
-"Belousov.\n"
+"\fTác giả gốc: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili, "
+"Kirill Belousov.\n"
 
 #: D:/TTMediaBot/bot/auto_updater.py:61
 msgid "Update Available"
@@ -68,11 +70,11 @@ msgstr "Đã có bản cập nhật"
 #: D:/TTMediaBot/bot/auto_updater.py:68
 #, python-brace-format
 msgid ""
-"A new version of TTMediaBot (v{version}) is available.Would you like to update "
-"now?"
+"A new version of TTMediaBot (v{version}) is available.Would you like to "
+"update now?"
 msgstr ""
-"Đã có phiên bản mới của TTMediaBot (v{version}). Bạn có muốn cập nhật ngay bây "
-"giờ không?"
+"Đã có phiên bản mới của TTMediaBot (v{version}). Bạn có muốn cập nhật "
+"ngay bây giờ không?"
 
 #: D:/TTMediaBot/bot/auto_updater.py:78
 msgid "Release notes are not available."
@@ -90,369 +92,425 @@ msgstr "Hủy"
 msgid "Downloading update... Please wait."
 msgstr "Đang tải bản cập nhật... Vui lòng chờ."
 
-#: D:/TTMediaBot/bot/auto_updater.py:134
+#: D:/TTMediaBot/bot/auto_updater.py:141
 msgid "Installing update... Please wait."
 msgstr "Đang cài đặt bản cập nhật... Vui lòng chờ."
 
-#: D:/TTMediaBot/bot/auto_updater.py:141
+#: D:/TTMediaBot/bot/auto_updater.py:148
 msgid "Failed to download update:"
 msgstr "Không thể tải bản cập nhật:"
 
-#: D:/TTMediaBot/bot/auto_updater.py:141
+#: D:/TTMediaBot/bot/auto_updater.py:148
 msgid "Update Error"
 msgstr "Lỗi cập nhật"
 
-#: D:/TTMediaBot/bot/auto_updater.py:184
+#: D:/TTMediaBot/bot/auto_updater.py:207
 #, python-brace-format
 msgid "You are using the latest version of TTMediaBot (v{version})."
 msgstr "Bạn đang sử dụng phiên bản mới nhất của TTMediaBot (v{version})."
 
-#: D:/TTMediaBot/bot/auto_updater.py:185
+#: D:/TTMediaBot/bot/auto_updater.py:208
 msgid "Update Check"
 msgstr "Kiểm tra cập nhật"
 
-#: D:/TTMediaBot/bot/gui.py:119
+#: D:/TTMediaBot/bot/gui.py:129
 msgid "Default (No conversion)"
 msgstr "Mặc định (không chuyển đổi)"
 
-#: D:/TTMediaBot/bot/gui.py:524
+#: D:/TTMediaBot/bot/gui.py:146
+msgid "Default (48000 Hz - Recommended for TeamTalk)"
+msgstr "Mặc định (48000 Hz - Khuyên dùng cho TeamTalk)"
+
+#: D:/TTMediaBot/bot/gui.py:147
+msgid "48000 Hz (TeamTalk / DVD Quality)"
+msgstr "48000 Hz (Chất lượng TeamTalk / DVD)"
+
+#: D:/TTMediaBot/bot/gui.py:148
+msgid "44100 Hz (CD Audio Quality)"
+msgstr "44100 Hz (Chất lượng CD Audio)"
+
+#: D:/TTMediaBot/bot/gui.py:149
+msgid "96000 Hz (Hi-Res Studio Quality)"
+msgstr "96000 Hz (Chất lượng phòng thu Hi-Res)"
+
+#: D:/TTMediaBot/bot/gui.py:150
+msgid "32000 Hz (FM Radio Quality)"
+msgstr "32000 Hz (Chất lượng đài FM)"
+
+#: D:/TTMediaBot/bot/gui.py:151
+msgid "24000 Hz (Medium Quality)"
+msgstr "24000 Hz (Chất lượng trung bình)"
+
+#: D:/TTMediaBot/bot/gui.py:152
+msgid "16000 Hz (Voice Quality)"
+msgstr "16000 Hz (Chất lượng giọng nói)"
+
+#: D:/TTMediaBot/bot/gui.py:162
+msgid "320 kbps (Best Quality - Recommended)"
+msgstr "320 kbps (Chất lượng tốt nhất - Khuyên dùng)"
+
+#: D:/TTMediaBot/bot/gui.py:163
+msgid "256 kbps (Very High Quality)"
+msgstr "256 kbps (Chất lượng rất cao)"
+
+#: D:/TTMediaBot/bot/gui.py:164
+msgid "192 kbps (High Quality - Standard)"
+msgstr "192 kbps (Chất lượng cao - Tiêu chuẩn)"
+
+#: D:/TTMediaBot/bot/gui.py:165
+msgid "160 kbps (Good Quality)"
+msgstr "160 kbps (Chất lượng tốt)"
+
+#: D:/TTMediaBot/bot/gui.py:166
+msgid "128 kbps (Standard Quality - Small Size)"
+msgstr "128 kbps (Chất lượng chuẩn - Kích thước nhỏ)"
+
+#: D:/TTMediaBot/bot/gui.py:167
+msgid "96 kbps (Medium Quality)"
+msgstr "96 kbps (Chất lượng trung bình)"
+
+#: D:/TTMediaBot/bot/gui.py:168
+msgid "64 kbps (Voice Quality / Radio)"
+msgstr "64 kbps (Chất lượng giọng nói / Radio)"
+
+#: D:/TTMediaBot/bot/gui.py:718
 msgid "Server Connection"
 msgstr "Kết nối máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:528
+#: D:/TTMediaBot/bot/gui.py:722
 msgid "Server &Name (Required):"
 msgstr "&Tên máy chủ (Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:530
+#: D:/TTMediaBot/bot/gui.py:724
 msgid "Enter a display name for this server in the server list."
 msgstr "Nhập tên hiển thị cho máy chủ này trong danh sách máy chủ."
 
-#: D:/TTMediaBot/bot/gui.py:535
+#: D:/TTMediaBot/bot/gui.py:729
 msgid "&Host / IP Address (Required):"
 msgstr "Địa chỉ &Host / IP (Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:537
+#: D:/TTMediaBot/bot/gui.py:731
 msgid "Enter the TeamTalk server hostname or IP address."
 msgstr "Nhập tên miền hoặc địa chỉ IP của máy chủ TeamTalk."
 
-#: D:/TTMediaBot/bot/gui.py:545
+#: D:/TTMediaBot/bot/gui.py:739
 msgid "&TCP Port (Required):"
 msgstr "Cổng &TCP (Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:552
+#: D:/TTMediaBot/bot/gui.py:746
 msgid "&UDP Port (Required):"
 msgstr "Cổng &UDP (Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:561
+#: D:/TTMediaBot/bot/gui.py:755
 msgid "&Encrypted connection (SSL/TLS)"
 msgstr "Kết nối mã &hóa (SSL/TLS)"
 
-#: D:/TTMediaBot/bot/gui.py:568
+#: D:/TTMediaBot/bot/gui.py:762
 msgid "Bot & Authentication"
 msgstr "Bot & Xác thực"
 
-#: D:/TTMediaBot/bot/gui.py:572
+#: D:/TTMediaBot/bot/gui.py:766
 msgid "Bot &Nickname (Required):"
 msgstr "&Biệt danh bot (Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:579
+#: D:/TTMediaBot/bot/gui.py:773
 msgid "&Gender:"
 msgstr "&Giới tính:"
 
-#: D:/TTMediaBot/bot/gui.py:580
+#: D:/TTMediaBot/bot/gui.py:774
 msgid "None"
 msgstr "Không xác định"
 
-#: D:/TTMediaBot/bot/gui.py:580
+#: D:/TTMediaBot/bot/gui.py:774
 msgid "Male"
 msgstr "Nam"
 
-#: D:/TTMediaBot/bot/gui.py:580
+#: D:/TTMediaBot/bot/gui.py:774
 msgid "Female"
 msgstr "Nữ"
 
-#: D:/TTMediaBot/bot/gui.py:590
+#: D:/TTMediaBot/bot/gui.py:784
 msgid "&Status Message (Optional):"
 msgstr "Tin nhắn &trạng thái (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:599
+#: D:/TTMediaBot/bot/gui.py:793
 msgid "&Username (Optional):"
 msgstr "Tên &người dùng (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:606
+#: D:/TTMediaBot/bot/gui.py:800
 msgid "&Password (Optional):"
 msgstr "Mật &khẩu (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:618
+#: D:/TTMediaBot/bot/gui.py:812
 msgid "Default &Channel (Optional, default /):"
 msgstr "Kênh &mặc định (Tùy chọn, mặc định /):"
 
-#: D:/TTMediaBot/bot/gui.py:625
+#: D:/TTMediaBot/bot/gui.py:819
 msgid "Channel Pass&word (Optional):"
 msgstr "Mật khẩu kên&h (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:638
+#: D:/TTMediaBot/bot/gui.py:832
 msgid "Sound Devices"
 msgstr "Thiết bị âm thanh"
 
-#: D:/TTMediaBot/bot/gui.py:644
+#: D:/TTMediaBot/bot/gui.py:838
 msgid "Output Sound &Device:"
 msgstr "Thiết bị âm thanh đầu &ra:"
 
-#: D:/TTMediaBot/bot/gui.py:650
+#: D:/TTMediaBot/bot/gui.py:844
 msgid "Select from the list or type the output sound device index or name."
 msgstr "Chọn từ danh sách hoặc nhập tên/chỉ số thiết bị âm thanh đầu ra."
 
-#: D:/TTMediaBot/bot/gui.py:660
+#: D:/TTMediaBot/bot/gui.py:854
 msgid "Input Sound De&vice:"
 msgstr "Thiết bị âm thanh đầu &vào:"
 
-#: D:/TTMediaBot/bot/gui.py:666
+#: D:/TTMediaBot/bot/gui.py:860
 msgid "Select from the list or type the input sound device index or name."
 msgstr "Chọn từ danh sách hoặc nhập tên/chỉ số thiết bị âm thanh đầu vào."
 
 # | msgid "Stops playback"
-#: D:/TTMediaBot/bot/gui.py:678
+#: D:/TTMediaBot/bot/gui.py:872
 msgid "Audio & Playback"
 msgstr "Âm thanh & Phát nhạc"
 
-#: D:/TTMediaBot/bot/gui.py:685
+#: D:/TTMediaBot/bot/gui.py:879
 msgid "Default &Volume (0-100, Required):"
 msgstr "Âm lượng mặc đị&nh (0-100, Bắt buộc):"
 
-#: D:/TTMediaBot/bot/gui.py:689
+#: D:/TTMediaBot/bot/gui.py:883
 msgid "Default playback volume percentage when bot starts playing."
 msgstr "Phần trăm âm lượng mặc định khi bot bắt đầu phát."
 
-#: D:/TTMediaBot/bot/gui.py:695
+#: D:/TTMediaBot/bot/gui.py:889
 msgid "Max &Volume (0-100):"
 msgstr "Âm lượng &tối đa (0-100):"
 
-#: D:/TTMediaBot/bot/gui.py:699
+#: D:/TTMediaBot/bot/gui.py:893
 msgid "Maximum allowed volume percentage users can set via commands."
 msgstr "Phần trăm âm lượng tối đa người dùng có thể điều chỉnh qua lệnh."
 
-#: D:/TTMediaBot/bot/gui.py:707
+#: D:/TTMediaBot/bot/gui.py:901
 msgid "Seek Step in &Seconds:"
 msgstr "Bước tua theo &giây:"
 
-#: D:/TTMediaBot/bot/gui.py:709
+#: D:/TTMediaBot/bot/gui.py:903
 msgid "Number of seconds to jump when seeking forward or backward."
 msgstr "Số giây nhảy tới hoặc lui khi tua."
 
-#: D:/TTMediaBot/bot/gui.py:714
+#: D:/TTMediaBot/bot/gui.py:908
 msgid "Enable Volume &Fading (smooth track transitions)"
 msgstr "Bật hiệu ứng chuyển âm &lượng dần (mượt mà khi đổi bài)"
 
-#: D:/TTMediaBot/bot/gui.py:718
+#: D:/TTMediaBot/bot/gui.py:912
 msgid "Enable &Silence Trim (remove silence at start/end)"
 msgstr "Bật tự động &cắt khoảng lặng (bỏ đoạn im lặng đầu/cuối)"
 
-#: D:/TTMediaBot/bot/gui.py:725
+#: D:/TTMediaBot/bot/gui.py:919
 msgid "Bot Behavior & Services"
 msgstr "Hành vi bot & Dịch vụ"
 
-#: D:/TTMediaBot/bot/gui.py:730
+#: D:/TTMediaBot/bot/gui.py:924
 msgid "Default Music &Service:"
 msgstr "Dịch vụ âm &nhạc mặc định:"
 
-#: D:/TTMediaBot/bot/gui.py:738
+#: D:/TTMediaBot/bot/gui.py:932
 msgid "Send &Channel Messages (post notifications to channel)"
 msgstr "Gửi tin nhắn vào &kênh (thông báo vào kênh)"
 
-#: D:/TTMediaBot/bot/gui.py:742
+#: D:/TTMediaBot/bot/gui.py:936
 msgid "Search &Results Mode (choose songs interactively 1-5)"
 msgstr "&Chế độ tìm kiếm (chọn bài tương tác từ 1-5)"
 
 # | msgid "Toggles live video subtitles on bot status"
-#: D:/TTMediaBot/bot/gui.py:746
+#: D:/TTMediaBot/bot/gui.py:940
 msgid "Display Video &Subtitles in status"
 msgstr "Hiển thị &phụ đề video trên trạng thái"
 
-#: D:/TTMediaBot/bot/gui.py:751
+#: D:/TTMediaBot/bot/gui.py:945
 msgid "Startup Commands (Optional, comma-separated):"
 msgstr "Lệnh khi khởi động (Tùy chọn, phân cách bằng dấu phẩy):"
 
-#: D:/TTMediaBot/bot/gui.py:758
+#: D:/TTMediaBot/bot/gui.py:952
 msgid "Commands executed automatically upon joining the server, e.g. 'v 60'"
 msgstr "Các lệnh tự động thực thi khi vào máy chủ, ví dụ: 'v 60'"
 
-#: D:/TTMediaBot/bot/gui.py:763
+#: D:/TTMediaBot/bot/gui.py:957
 msgid "YouTube Cookies File Path (Optional):"
 msgstr "Đường dẫn tệp Cookies YouTube (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:765
+#: D:/TTMediaBot/bot/gui.py:959
 msgid "Path to cookies.txt file for YouTube authentication if needed."
 msgstr "Đường dẫn đến tệp cookies.txt để xác thực YouTube nếu cần."
 
-#: D:/TTMediaBot/bot/gui.py:772
+#: D:/TTMediaBot/bot/gui.py:966
 msgid "Advanced Settings"
 msgstr "Cài đặt nâng cao"
 
-#: D:/TTMediaBot/bot/gui.py:779
+#: D:/TTMediaBot/bot/gui.py:973
 msgid "License &Name (Optional):"
 msgstr "&Tên giấy phép (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:786
+#: D:/TTMediaBot/bot/gui.py:980
 msgid "License &Key (Optional):"
 msgstr "&Khóa giấy phép (Tùy chọn):"
 
-#: D:/TTMediaBot/bot/gui.py:795
+#: D:/TTMediaBot/bot/gui.py:989
 msgid "&Administrators (Optional, comma-separated usernames):"
 msgstr "Quản trị &viên (Tùy chọn, các tên người dùng cách nhau bằng dấu phẩy):"
 
-#: D:/TTMediaBot/bot/gui.py:806
+#: D:/TTMediaBot/bot/gui.py:1000
 msgid "Reconnection &Attempts (-1 for infinite):"
 msgstr "Số lần thử kết nối &lại (-1 là vô hạn):"
 
-#: D:/TTMediaBot/bot/gui.py:815
+#: D:/TTMediaBot/bot/gui.py:1009
 msgid "Reconnection &Timeout in seconds:"
 msgstr "Thời gian &chờ kết nối lại (giây):"
 
-#: D:/TTMediaBot/bot/gui.py:826
+#: D:/TTMediaBot/bot/gui.py:1020
 msgid "&Load Event Handlers"
 msgstr "Tải trình &xử lý sự kiện (Event Handlers)"
 
 # | msgid "Event handling is enabled"
-#: D:/TTMediaBot/bot/gui.py:830
+#: D:/TTMediaBot/bot/gui.py:1024
 msgid "Event Handlers &File Name:"
 msgstr "Tên tệp trình xử lý &sự kiện:"
 
-#: D:/TTMediaBot/bot/gui.py:844
+#: D:/TTMediaBot/bot/gui.py:1038
 msgid "&OK"
 msgstr "&Đồng ý"
 
-#: D:/TTMediaBot/bot/gui.py:845
+#: D:/TTMediaBot/bot/gui.py:1039
 msgid "&Cancel"
 msgstr "&Hủy"
 
-#: D:/TTMediaBot/bot/gui.py:908
+#: D:/TTMediaBot/bot/gui.py:1102
 msgid "Please enter a server name."
 msgstr "Vui lòng nhập tên máy chủ."
 
-#: D:/TTMediaBot/bot/gui.py:908 D:/TTMediaBot/bot/gui.py:914
-#: D:/TTMediaBot/bot/gui.py:924 D:/TTMediaBot/bot/gui.py:934
-#: D:/TTMediaBot/bot/gui.py:940 D:/TTMediaBot/bot/gui.py:951
-#: D:/TTMediaBot/bot/gui.py:961 D:/TTMediaBot/bot/gui.py:966
-#: D:/TTMediaBot/bot/gui.py:976 D:/TTMediaBot/bot/gui.py:984
-#: D:/TTMediaBot/bot/gui.py:994
+#: D:/TTMediaBot/bot/gui.py:1102 D:/TTMediaBot/bot/gui.py:1108
+#: D:/TTMediaBot/bot/gui.py:1118 D:/TTMediaBot/bot/gui.py:1128
+#: D:/TTMediaBot/bot/gui.py:1134 D:/TTMediaBot/bot/gui.py:1145
+#: D:/TTMediaBot/bot/gui.py:1155 D:/TTMediaBot/bot/gui.py:1160
+#: D:/TTMediaBot/bot/gui.py:1170 D:/TTMediaBot/bot/gui.py:1178
+#: D:/TTMediaBot/bot/gui.py:1188
 msgid "Validation Error"
 msgstr "Lỗi dữ liệu"
 
-#: D:/TTMediaBot/bot/gui.py:914
+#: D:/TTMediaBot/bot/gui.py:1108
 msgid "Please enter a host or IP address."
 msgstr "Vui lòng nhập địa chỉ host hoặc IP."
 
-#: D:/TTMediaBot/bot/gui.py:924
+#: D:/TTMediaBot/bot/gui.py:1118
 msgid "TCP Port must be an integer between 1 and 65535."
 msgstr "Cổng TCP phải là một số nguyên từ 1 đến 65535."
 
-#: D:/TTMediaBot/bot/gui.py:934
+#: D:/TTMediaBot/bot/gui.py:1128
 msgid "UDP Port must be an integer between 1 and 65535."
 msgstr "Cổng UDP phải là một số nguyên từ 1 đến 65535."
 
-#: D:/TTMediaBot/bot/gui.py:940
+#: D:/TTMediaBot/bot/gui.py:1134
 msgid "Please enter a bot nickname."
 msgstr "Vui lòng nhập biệt danh bot."
 
-#: D:/TTMediaBot/bot/gui.py:951
+#: D:/TTMediaBot/bot/gui.py:1145
 msgid "Default volume must be an integer between 0 and 100."
 msgstr "Âm lượng mặc định phải là một số nguyên từ 0 đến 100."
 
-#: D:/TTMediaBot/bot/gui.py:961
+#: D:/TTMediaBot/bot/gui.py:1155
 msgid "Max volume must be an integer between 0 and 100."
 msgstr "Âm lượng tối đa phải là một số nguyên từ 0 đến 100."
 
-#: D:/TTMediaBot/bot/gui.py:966
+#: D:/TTMediaBot/bot/gui.py:1160
 msgid "Default volume cannot be greater than max volume."
 msgstr "Âm lượng mặc định không được lớn hơn âm lượng tối đa."
 
-#: D:/TTMediaBot/bot/gui.py:976
+#: D:/TTMediaBot/bot/gui.py:1170
 msgid "Seek step must be at least 1 second."
 msgstr "Bước tua phải ít nhất là 1 giây."
 
-#: D:/TTMediaBot/bot/gui.py:984
+#: D:/TTMediaBot/bot/gui.py:1178
 msgid "Reconnection attempts must be an integer (e.g. -1 for infinite)."
 msgstr "Số lần thử kết nối lại phải là số nguyên (ví dụ: -1 để thử vô hạn)."
 
-#: D:/TTMediaBot/bot/gui.py:994
+#: D:/TTMediaBot/bot/gui.py:1188
 msgid "Reconnection timeout must be a non-negative integer."
 msgstr "Thời gian chờ kết nối lại phải là số nguyên không âm."
 
-#: D:/TTMediaBot/bot/gui.py:1166
+#: D:/TTMediaBot/bot/gui.py:1360
 msgid "TTMediaBot - Running in Background"
 msgstr "TTMediaBot - Đang chạy ngầm"
 
-#: D:/TTMediaBot/bot/gui.py:1170
+#: D:/TTMediaBot/bot/gui.py:1364
 msgid "&Show Window"
 msgstr "Hiện &cửa sổ"
 
-#: D:/TTMediaBot/bot/gui.py:1180 D:/TTMediaBot/bot/gui.py:1759
+#: D:/TTMediaBot/bot/gui.py:1374 D:/TTMediaBot/bot/gui.py:2091
 msgid "&Disconnect All Servers"
 msgstr "&Ngắt kết nối tất cả máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1183 D:/TTMediaBot/bot/gui.py:1762
+#: D:/TTMediaBot/bot/gui.py:1377 D:/TTMediaBot/bot/gui.py:2094
 msgid "&Connect All Servers"
 msgstr "&Kết nối tất cả máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1187 D:/TTMediaBot/bot/gui.py:1527
-#: D:/TTMediaBot/bot/gui.py:1770
+#: D:/TTMediaBot/bot/gui.py:1381 D:/TTMediaBot/bot/gui.py:1793
+#: D:/TTMediaBot/bot/gui.py:2102
 msgid "&View Logs..."
 msgstr "&Xem nhật ký..."
 
-#: D:/TTMediaBot/bot/gui.py:1191
+#: D:/TTMediaBot/bot/gui.py:1385
 msgid "E&xit TTMediaBot"
 msgstr "&Thoát TTMediaBot"
 
-#: D:/TTMediaBot/bot/gui.py:1218
+#: D:/TTMediaBot/bot/gui.py:1412
 msgid "Application Logs"
 msgstr "Nhật ký ứng dụng"
 
-#: D:/TTMediaBot/bot/gui.py:1228
+#: D:/TTMediaBot/bot/gui.py:1422
 msgid "&Log Content:"
 msgstr "&Nội dung nhật ký:"
 
-#: D:/TTMediaBot/bot/gui.py:1236
+#: D:/TTMediaBot/bot/gui.py:1430
 msgid "Log Content"
 msgstr "Nội dung nhật ký"
 
-#: D:/TTMediaBot/bot/gui.py:1237
+#: D:/TTMediaBot/bot/gui.py:1431
 msgid "Entire log recorded during application usage."
 msgstr "Toàn bộ nhật ký được ghi lại trong quá trình sử dụng ứng dụng."
 
-#: D:/TTMediaBot/bot/gui.py:1244
+#: D:/TTMediaBot/bot/gui.py:1438
 msgid "&Save Log..."
 msgstr "&Lưu nhật ký..."
 
-#: D:/TTMediaBot/bot/gui.py:1245
+#: D:/TTMediaBot/bot/gui.py:1439
 msgid "Save log content to a file."
 msgstr "Lưu nội dung nhật ký thành tệp."
 
-#: D:/TTMediaBot/bot/gui.py:1249
+#: D:/TTMediaBot/bot/gui.py:1443
 msgid "&Refresh"
 msgstr "&Làm mới"
 
-#: D:/TTMediaBot/bot/gui.py:1250
+#: D:/TTMediaBot/bot/gui.py:1444
 msgid "Reload latest log entries."
 msgstr "Tải lại các mục nhật ký mới nhất."
 
-#: D:/TTMediaBot/bot/gui.py:1256
+#: D:/TTMediaBot/bot/gui.py:1450
 msgid "&Close"
 msgstr "Đó&ng"
 
-#: D:/TTMediaBot/bot/gui.py:1257
+#: D:/TTMediaBot/bot/gui.py:1451
 msgid "Close the log dialog."
 msgstr "Đóng hộp thoại nhật ký."
 
-#: D:/TTMediaBot/bot/gui.py:1268
+#: D:/TTMediaBot/bot/gui.py:1462
 msgid "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
 msgstr "Tệp nhật ký (*.log)|*.log|Tệp văn bản (*.txt)|*.txt|Tất cả tệp (*.*)|*.*"
 
-#: D:/TTMediaBot/bot/gui.py:1271
+#: D:/TTMediaBot/bot/gui.py:1465
 msgid "Save Log File"
 msgstr "Lưu tệp nhật ký"
 
-#: D:/TTMediaBot/bot/gui.py:1285
+#: D:/TTMediaBot/bot/gui.py:1479
 #, python-brace-format
 msgid ""
 "Log file successfully saved to:\n"
@@ -461,11 +519,11 @@ msgstr ""
 "Đã lưu tệp nhật ký thành công vào:\n"
 "{path}"
 
-#: D:/TTMediaBot/bot/gui.py:1286
+#: D:/TTMediaBot/bot/gui.py:1480
 msgid "Save Log"
 msgstr "Lưu nhật ký"
 
-#: D:/TTMediaBot/bot/gui.py:1293
+#: D:/TTMediaBot/bot/gui.py:1487
 #, python-brace-format
 msgid ""
 "Failed to save log file:\n"
@@ -474,231 +532,261 @@ msgstr ""
 "Không thể lưu tệp nhật ký:\n"
 "{error}"
 
-#: D:/TTMediaBot/bot/gui.py:1294
+#: D:/TTMediaBot/bot/gui.py:1488
 msgid "Error"
 msgstr "Lỗi"
 
-#: D:/TTMediaBot/bot/gui.py:1313 D:/TTMediaBot/bot/gui.py:1488
+#: D:/TTMediaBot/bot/gui.py:1507 D:/TTMediaBot/bot/gui.py:1726
 msgid "TTMediaBot - Server Manager"
 msgstr "TTMediaBot - Quản lý máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1378 D:/TTMediaBot/bot/gui.py:1491
+#: D:/TTMediaBot/bot/gui.py:1574 D:/TTMediaBot/bot/gui.py:1729
 msgid "&Search:"
 msgstr "&Tìm kiếm:"
 
-#: D:/TTMediaBot/bot/gui.py:1380 D:/TTMediaBot/bot/gui.py:1494
+#: D:/TTMediaBot/bot/gui.py:1576 D:/TTMediaBot/bot/gui.py:1732
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: D:/TTMediaBot/bot/gui.py:1381 D:/TTMediaBot/bot/gui.py:1495
+#: D:/TTMediaBot/bot/gui.py:1577 D:/TTMediaBot/bot/gui.py:1733
 msgid "Type to search servers"
 msgstr "Nhập để tìm kiếm máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1382 D:/TTMediaBot/bot/gui.py:1493
+#: D:/TTMediaBot/bot/gui.py:1578 D:/TTMediaBot/bot/gui.py:1731
 msgid "Search servers..."
 msgstr "Tìm kiếm máy chủ..."
 
-#: D:/TTMediaBot/bot/gui.py:1489
+#: D:/TTMediaBot/bot/gui.py:1611 D:/TTMediaBot/bot/gui.py:1746
+msgid "&Audio Format:"
+msgstr "&Định dạng âm thanh:"
+
+#: D:/TTMediaBot/bot/gui.py:1628 D:/TTMediaBot/bot/gui.py:1758
+msgid "&MP3 Bitrate:"
+msgstr "&Bitrate MP3:"
+
+#: D:/TTMediaBot/bot/gui.py:1651 D:/TTMediaBot/bot/gui.py:1772
+msgid "&Sampling Rate:"
+msgstr "&Tần số mẫu (Sampling Rate):"
+
+#: D:/TTMediaBot/bot/gui.py:1727
 msgid "&Servers:"
 msgstr "&Máy chủ:"
 
-#: D:/TTMediaBot/bot/gui.py:1497
+#: D:/TTMediaBot/bot/gui.py:1735
 msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
-"Chọn máy chủ. Nhấn Enter để kết nối/ngắt kết nối. Nhấp chuột phải hoặc nhấn phím "
-"Applications để mở menu ngữ cảnh."
+"Chọn máy chủ. Nhấn Enter để kết nối/ngắt kết nối. Nhấp chuột phải hoặc "
+"nhấn phím Applications để mở menu ngữ cảnh."
 
-#: D:/TTMediaBot/bot/gui.py:1499
+#: D:/TTMediaBot/bot/gui.py:1737
 msgid "&Language:"
 msgstr "&Ngôn ngữ:"
 
-#: D:/TTMediaBot/bot/gui.py:1505
+#: D:/TTMediaBot/bot/gui.py:1743
 msgid "Select the active language for the bot and interface."
 msgstr "Chọn ngôn ngữ hoạt động cho bot và giao diện."
 
-#: D:/TTMediaBot/bot/gui.py:1508
-msgid "&Audio Format:"
-msgstr "&Định dạng âm thanh:"
-
-#: D:/TTMediaBot/bot/gui.py:1515
+#: D:/TTMediaBot/bot/gui.py:1755
 msgid ""
-"Select audio format for YouTube downloads and channel uploads (Default does not "
-"convert)."
+"Select audio format for YouTube downloads and channel uploads (Default "
+"does not convert)."
 msgstr ""
-"Chọn định dạng âm thanh cho các bản tải xuống YouTube và tải lên kênh (Mặc định "
-"(không chuyển đổi)."
+"Chọn định dạng âm thanh cho các bản tải xuống YouTube và tải lên kênh "
+"(Mặc định (không chuyển đổi)."
 
-#: D:/TTMediaBot/bot/gui.py:1519
+#: D:/TTMediaBot/bot/gui.py:1767
+msgid "Select MP3 audio bitrate (320 kbps offers the highest sound quality)."
+msgstr ""
+"Chọn bitrate âm thanh MP3 (320 kbps mang lại chất lượng âm thanh cao "
+"nhất)."
+
+#: D:/TTMediaBot/bot/gui.py:1781
+msgid ""
+"Select audio sampling rate for playback and conversion (48000 Hz is "
+"recommended for TeamTalk)."
+msgstr ""
+"Chọn tần số mẫu âm thanh để phát và chuyển đổi (khuyên dùng 48000 Hz cho "
+"TeamTalk)."
+
+#: D:/TTMediaBot/bot/gui.py:1785
 msgid "&Delete All Servers"
 msgstr "&Xóa tất cả máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1520
+#: D:/TTMediaBot/bot/gui.py:1786
 msgid "Delete all saved servers."
 msgstr "Xóa tất cả máy chủ đã lưu."
 
-#: D:/TTMediaBot/bot/gui.py:1521 D:/TTMediaBot/bot/gui.py:1766
+#: D:/TTMediaBot/bot/gui.py:1787 D:/TTMediaBot/bot/gui.py:2098
 msgid "&Add Server..."
 msgstr "&Thêm máy chủ..."
 
-#: D:/TTMediaBot/bot/gui.py:1522
+#: D:/TTMediaBot/bot/gui.py:1788
 msgid "Add a new server to the list."
 msgstr "Thêm máy chủ mới vào danh sách."
 
-#: D:/TTMediaBot/bot/gui.py:1523
+#: D:/TTMediaBot/bot/gui.py:1789
 msgid "&Hide Window"
 msgstr "Ẩ&n cửa sổ"
 
-#: D:/TTMediaBot/bot/gui.py:1524
+#: D:/TTMediaBot/bot/gui.py:1790
 msgid "Minimize TTMediaBot window to the system tray."
 msgstr "Thu nhỏ cửa sổ TTMediaBot xuống khay hệ thống."
 
-#: D:/TTMediaBot/bot/gui.py:1525
+#: D:/TTMediaBot/bot/gui.py:1791
 msgid "&Visit Website"
 msgstr "Truy cập &trang web"
 
-#: D:/TTMediaBot/bot/gui.py:1528
+#: D:/TTMediaBot/bot/gui.py:1794
 msgid "View application logs and errors."
 msgstr "Xem nhật ký và lỗi của ứng dụng."
 
-#: D:/TTMediaBot/bot/gui.py:1530
+#: D:/TTMediaBot/bot/gui.py:1796
 msgid "&Check for Updates"
 msgstr "&Kiểm tra cập nhật"
 
-#: D:/TTMediaBot/bot/gui.py:1531
+#: D:/TTMediaBot/bot/gui.py:1797
 msgid "Check for the latest version online."
 msgstr "Kiểm tra phiên bản mới nhất trực tuyến."
 
-#: D:/TTMediaBot/bot/gui.py:1532
+#: D:/TTMediaBot/bot/gui.py:1798
 msgid "Open website: https://smartthinh.com/en/home"
 msgstr "Mở trang web: https://smartthinh.com/en/home"
 
 # | msgid "Joining channel: {}"
-#: D:/TTMediaBot/bot/gui.py:1533
+#: D:/TTMediaBot/bot/gui.py:1799
 msgid "&Join Telegram Channel"
 msgstr "Tham gia kênh &Telegram"
 
-#: D:/TTMediaBot/bot/gui.py:1534
+#: D:/TTMediaBot/bot/gui.py:1800
 msgid "Open Telegram channel: https://t.me/accessiblevisionresources"
 msgstr "Mở kênh Telegram: https://t.me/accessiblevisionresources"
 
-#: D:/TTMediaBot/bot/gui.py:1535
+#: D:/TTMediaBot/bot/gui.py:1801
 msgid "E&xit"
 msgstr "&Thoát"
 
-#: D:/TTMediaBot/bot/gui.py:1536
+#: D:/TTMediaBot/bot/gui.py:1802
 msgid "Close TTMediaBot (or press Alt+F4)."
 msgstr "Đóng TTMediaBot (hoặc nhấn Alt+F4)."
 
-#: D:/TTMediaBot/bot/gui.py:1540
+#: D:/TTMediaBot/bot/gui.py:1804
+msgid "&Downloads Folder"
+msgstr "Thư mục &Tải xuống"
+
+#: D:/TTMediaBot/bot/gui.py:1805
+msgid "Open the downloads folder."
+msgstr "Mở thư mục tải xuống."
+
+#: D:/TTMediaBot/bot/gui.py:1809
 msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
-"Sẵn sàng. Nhấn Enter trên một máy chủ để kết nối/ngắt kết nối. Nhấp chuột phải "
-"hoặc nhấn phím Applications để mở menu ngữ cảnh."
+"Sẵn sàng. Nhấn Enter trên một máy chủ để kết nối/ngắt kết nối. Nhấp chuột"
+" phải hoặc nhấn phím Applications để mở menu ngữ cảnh."
 
-#: D:/TTMediaBot/bot/gui.py:1615 D:/TTMediaBot/bot/gui.py:1640
+#: D:/TTMediaBot/bot/gui.py:1947 D:/TTMediaBot/bot/gui.py:1972
 msgid "Unnamed Server"
 msgstr "Máy chủ chưa đặt tên"
 
-#: D:/TTMediaBot/bot/gui.py:1618 D:/TTMediaBot/bot/gui.py:1644
-#: D:/TTMediaBot/bot/gui.py:1972
+#: D:/TTMediaBot/bot/gui.py:1950 D:/TTMediaBot/bot/gui.py:1976
+#: D:/TTMediaBot/bot/gui.py:2310
 msgid "Connected"
 msgstr "Đã kết nối"
 
-#: D:/TTMediaBot/bot/gui.py:1620 D:/TTMediaBot/bot/gui.py:1646
-#: D:/TTMediaBot/bot/gui.py:1976
+#: D:/TTMediaBot/bot/gui.py:1952 D:/TTMediaBot/bot/gui.py:1978
+#: D:/TTMediaBot/bot/gui.py:2314
 msgid "Connecting"
 msgstr "Đang kết nối"
 
-#: D:/TTMediaBot/bot/gui.py:1622 D:/TTMediaBot/bot/gui.py:1648
-#: D:/TTMediaBot/bot/gui.py:1981
+#: D:/TTMediaBot/bot/gui.py:1954 D:/TTMediaBot/bot/gui.py:1980
+#: D:/TTMediaBot/bot/gui.py:2319
 msgid "Reconnecting"
 msgstr "Đang kết nối lại"
 
-#: D:/TTMediaBot/bot/gui.py:1668
+#: D:/TTMediaBot/bot/gui.py:2000
 msgid "Status"
 msgstr "Trạng thái"
 
-#: D:/TTMediaBot/bot/gui.py:1687
+#: D:/TTMediaBot/bot/gui.py:2019
 msgid "&Disconnect All"
 msgstr "&Ngắt kết nối tất cả"
 
-#: D:/TTMediaBot/bot/gui.py:1688
+#: D:/TTMediaBot/bot/gui.py:2020
 msgid "Disconnect all connected TeamTalk servers."
 msgstr "Ngắt kết nối tất cả máy chủ TeamTalk đang kết nối."
 
-#: D:/TTMediaBot/bot/gui.py:1690
+#: D:/TTMediaBot/bot/gui.py:2022
 msgid "&Connect All"
 msgstr "&Kết nối tất cả"
 
-#: D:/TTMediaBot/bot/gui.py:1691
+#: D:/TTMediaBot/bot/gui.py:2023
 msgid "Connect all configured servers to TeamTalk."
 msgstr "Kết nối tất cả máy chủ đã cấu hình vào TeamTalk."
 
-#: D:/TTMediaBot/bot/gui.py:1722 D:/TTMediaBot/bot/gui.py:1848
-#: D:/TTMediaBot/bot/gui.py:1887 D:/TTMediaBot/bot/gui.py:1971
-#: D:/TTMediaBot/bot/gui.py:1975 D:/TTMediaBot/bot/gui.py:1980
+#: D:/TTMediaBot/bot/gui.py:2054 D:/TTMediaBot/bot/gui.py:2180
+#: D:/TTMediaBot/bot/gui.py:2220 D:/TTMediaBot/bot/gui.py:2309
+#: D:/TTMediaBot/bot/gui.py:2313 D:/TTMediaBot/bot/gui.py:2318
 msgid "Server"
 msgstr "Máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1728
+#: D:/TTMediaBot/bot/gui.py:2060
 #, python-brace-format
 msgid "&Disconnect from '{server_name}'"
 msgstr "&Ngắt kết nối khỏi '{server_name}'"
 
-#: D:/TTMediaBot/bot/gui.py:1733
+#: D:/TTMediaBot/bot/gui.py:2065
 #, python-brace-format
 msgid "&Cancel Connecting to '{server_name}'"
 msgstr "&Hủy kết nối đến '{server_name}'"
 
-#: D:/TTMediaBot/bot/gui.py:1738
+#: D:/TTMediaBot/bot/gui.py:2070
 #, python-brace-format
 msgid "&Connect to '{server_name}'"
 msgstr "&Kết nối đến '{server_name}'"
 
-#: D:/TTMediaBot/bot/gui.py:1744
+#: D:/TTMediaBot/bot/gui.py:2076
 msgid "&Edit Server..."
 msgstr "&Chỉnh sửa máy chủ..."
 
-#: D:/TTMediaBot/bot/gui.py:1749
+#: D:/TTMediaBot/bot/gui.py:2081
 msgid "&Delete Server"
 msgstr "&Xóa máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:1784
+#: D:/TTMediaBot/bot/gui.py:2116
 msgid "Please select a server from the list first."
 msgstr "Vui lòng chọn một máy chủ từ danh sách trước."
 
-#: D:/TTMediaBot/bot/gui.py:1785 D:/TTMediaBot/bot/gui.py:1811
-#: D:/TTMediaBot/bot/gui.py:2055 D:/TTMediaBot/bot/gui.py:2088
-#: D:/TTMediaBot/bot/gui.py:2128
+#: D:/TTMediaBot/bot/gui.py:2117 D:/TTMediaBot/bot/gui.py:2143
+#: D:/TTMediaBot/bot/gui.py:2393 D:/TTMediaBot/bot/gui.py:2426
+#: D:/TTMediaBot/bot/gui.py:2466
 msgid "Information"
 msgstr "Thông tin"
 
-#: D:/TTMediaBot/bot/gui.py:1810
+#: D:/TTMediaBot/bot/gui.py:2142
 msgid "No servers to connect. Please add a server first."
 msgstr "Không có máy chủ nào để kết nối. Vui lòng thêm máy chủ trước."
 
-#: D:/TTMediaBot/bot/gui.py:1824
+#: D:/TTMediaBot/bot/gui.py:2156
 msgid "Connecting all servers..."
 msgstr "Đang kết nối tất cả máy chủ..."
 
-#: D:/TTMediaBot/bot/gui.py:1838
+#: D:/TTMediaBot/bot/gui.py:2170
 msgid "Disconnecting all servers..."
 msgstr "Đang ngắt kết nối tất cả máy chủ..."
 
-#: D:/TTMediaBot/bot/gui.py:1854
+#: D:/TTMediaBot/bot/gui.py:2186
 #, python-brace-format
 msgid "Connecting to '{server_name}'..."
 msgstr "Đang kết nối đến '{server_name}'..."
 
-#: D:/TTMediaBot/bot/gui.py:1933
+#: D:/TTMediaBot/bot/gui.py:2271
 msgid "Disconnected"
 msgstr "Đã ngắt kết nối"
 
-#: D:/TTMediaBot/bot/gui.py:1938
+#: D:/TTMediaBot/bot/gui.py:2276
 #, python-brace-format
 msgid ""
 "An error occurred while running the bot on '{server_name}':\n"
@@ -707,102 +795,106 @@ msgstr ""
 "Đã xảy ra lỗi khi chạy bot trên '{server_name}':\n"
 "{err_msg}"
 
-#: D:/TTMediaBot/bot/gui.py:1941
+#: D:/TTMediaBot/bot/gui.py:2279
 msgid "Connection Error"
 msgstr "Lỗi kết nối"
 
-#: D:/TTMediaBot/bot/gui.py:2005
+#: D:/TTMediaBot/bot/gui.py:2343
 msgid "TTMediaBot"
 msgstr "TTMediaBot"
 
-#: D:/TTMediaBot/bot/gui.py:2006
+#: D:/TTMediaBot/bot/gui.py:2344
 msgid "TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
-"TTMediaBot đang chạy ngầm. Nhấp vào biểu tượng ở khay hệ thống để khôi phục."
+"TTMediaBot đang chạy ngầm. Nhấp vào biểu tượng ở khay hệ thống để khôi "
+"phục."
 
-#: D:/TTMediaBot/bot/gui.py:2038
+#: D:/TTMediaBot/bot/gui.py:2376
 msgid "Add New Server"
 msgstr "Thêm máy chủ mới"
 
-#: D:/TTMediaBot/bot/gui.py:2047
+#: D:/TTMediaBot/bot/gui.py:2385
 #, python-brace-format
 msgid "Added server '{name}'"
 msgstr "Đã thêm máy chủ '{name}'"
 
-#: D:/TTMediaBot/bot/gui.py:2054
+#: D:/TTMediaBot/bot/gui.py:2392
 msgid "Please select a server to edit."
 msgstr "Vui lòng chọn máy chủ cần chỉnh sửa."
 
-#: D:/TTMediaBot/bot/gui.py:2066
+#: D:/TTMediaBot/bot/gui.py:2404
 msgid ""
-"Cannot edit the server while the bot is connected to it. Please disconnect first."
+"Cannot edit the server while the bot is connected to it. Please "
+"disconnect first."
 msgstr ""
-"Không thể chỉnh sửa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối trước."
+"Không thể chỉnh sửa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối "
+"trước."
 
-#: D:/TTMediaBot/bot/gui.py:2067 D:/TTMediaBot/bot/gui.py:2101
-#: D:/TTMediaBot/bot/gui.py:2138
+#: D:/TTMediaBot/bot/gui.py:2405 D:/TTMediaBot/bot/gui.py:2439
+#: D:/TTMediaBot/bot/gui.py:2476
 msgid "Notice"
 msgstr "Thông báo"
 
-#: D:/TTMediaBot/bot/gui.py:2073
+#: D:/TTMediaBot/bot/gui.py:2411
 msgid "Edit Server"
 msgstr "Chỉnh sửa máy chủ"
 
-#: D:/TTMediaBot/bot/gui.py:2080
+#: D:/TTMediaBot/bot/gui.py:2418
 #, python-brace-format
 msgid "Updated server '{name}'"
 msgstr "Đã cập nhật máy chủ '{name}'"
 
-#: D:/TTMediaBot/bot/gui.py:2087
+#: D:/TTMediaBot/bot/gui.py:2425
 msgid "Please select a server to delete."
 msgstr "Vui lòng chọn máy chủ cần xóa."
 
-#: D:/TTMediaBot/bot/gui.py:2100
+#: D:/TTMediaBot/bot/gui.py:2438
 msgid ""
-"Cannot delete the server while the bot is connected to it. Please disconnect "
-"first."
+"Cannot delete the server while the bot is connected to it. Please "
+"disconnect first."
 msgstr "Không thể xóa máy chủ khi bot đang kết nối. Vui lòng ngắt kết nối trước."
 
-#: D:/TTMediaBot/bot/gui.py:2107
+#: D:/TTMediaBot/bot/gui.py:2445
 msgid "this server"
 msgstr "máy chủ này"
 
-#: D:/TTMediaBot/bot/gui.py:2110
+#: D:/TTMediaBot/bot/gui.py:2448
 #, python-brace-format
 msgid "Are you sure you want to delete server '{server_name}'?"
 msgstr "Bạn có chắc chắn muốn xóa máy chủ '{server_name}' không?"
 
-#: D:/TTMediaBot/bot/gui.py:2111
+#: D:/TTMediaBot/bot/gui.py:2449
 msgid "Confirm Delete"
 msgstr "Xác nhận xóa"
 
-#: D:/TTMediaBot/bot/gui.py:2121
+#: D:/TTMediaBot/bot/gui.py:2459
 #, python-brace-format
 msgid "Deleted server '{name}'"
 msgstr "Đã xóa máy chủ '{name}'"
 
-#: D:/TTMediaBot/bot/gui.py:2127
+#: D:/TTMediaBot/bot/gui.py:2465
 msgid "No servers to delete."
 msgstr "Không có máy chủ nào để xóa."
 
-#: D:/TTMediaBot/bot/gui.py:2137
+#: D:/TTMediaBot/bot/gui.py:2475
 msgid ""
-"Some servers are currently connected. Please disconnect all servers before "
-"deleting."
+"Some servers are currently connected. Please disconnect all servers "
+"before deleting."
 msgstr ""
-"Một số máy chủ hiện đang được kết nối. Vui lòng ngắt kết nối tất cả các máy chủ "
-"trước khi xóa."
+"Một số máy chủ hiện đang được kết nối. Vui lòng ngắt kết nối tất cả các "
+"máy chủ trước khi xóa."
 
-#: D:/TTMediaBot/bot/gui.py:2146
+#: D:/TTMediaBot/bot/gui.py:2484
 msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
-"Bạn có chắc chắn muốn xóa TẤT CẢ máy chủ không? Thao tác này không thể hoàn tác."
+"Bạn có chắc chắn muốn xóa TẤT CẢ máy chủ không? Thao tác này không thể "
+"hoàn tác."
 
-#: D:/TTMediaBot/bot/gui.py:2147
+#: D:/TTMediaBot/bot/gui.py:2485
 msgid "Confirm Delete All"
 msgstr "Xác nhận xóa tất cả"
 
-#: D:/TTMediaBot/bot/gui.py:2156
+#: D:/TTMediaBot/bot/gui.py:2494
 msgid "All servers deleted."
 msgstr "Tất cả máy chủ đã bị xóa."
 
@@ -810,500 +902,590 @@ msgstr "Tất cả máy chủ đã bị xóa."
 msgid "Send \"h\" for help"
 msgstr "Gửi \"h\" để xem trợ giúp"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:170
+#: D:/TTMediaBot/bot/commands/__init__.py:172
 msgid "Unknown command. Send \"h\" for help."
 msgstr "Không có lệnh này. Gửi \"h\" để xem trợ giúp."
 
-#: D:/TTMediaBot/bot/commands/__init__.py:176
-#: D:/TTMediaBot/bot/commands/user_commands.py:851
-#: D:/TTMediaBot/bot/commands/user_commands.py:857
-#: D:/TTMediaBot/bot/commands/user_commands.py:1264
-#: D:/TTMediaBot/bot/commands/user_commands.py:1346
-#: D:/TTMediaBot/bot/commands/user_commands.py:1421
-#: D:/TTMediaBot/bot/commands/user_commands.py:1498
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:133
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:147
-#: D:/TTMediaBot/bot/modules/uploader.py:90
+#: D:/TTMediaBot/bot/commands/__init__.py:178
+#: D:/TTMediaBot/bot/commands/admin_commands.py:457
+#: D:/TTMediaBot/bot/commands/admin_commands.py:569
+#: D:/TTMediaBot/bot/commands/user_commands.py:853
+#: D:/TTMediaBot/bot/commands/user_commands.py:859
+#: D:/TTMediaBot/bot/commands/user_commands.py:1266
+#: D:/TTMediaBot/bot/commands/user_commands.py:1348
+#: D:/TTMediaBot/bot/commands/user_commands.py:1424
+#: D:/TTMediaBot/bot/commands/user_commands.py:1502
+#: D:/TTMediaBot/bot/modules/playlist_uploader.py:134
+#: D:/TTMediaBot/bot/modules/playlist_uploader.py:148
+#: D:/TTMediaBot/bot/modules/uploader.py:91
 #, python-brace-format
 msgid "Error: {}"
 msgstr "Lỗi: {}"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:188
+#: D:/TTMediaBot/bot/commands/__init__.py:190
 msgid "You are banned"
 msgstr "Bạn đã bị cấm"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:192
+#: D:/TTMediaBot/bot/commands/__init__.py:194
 msgid "You are not in bot's channel"
 msgstr "Bạn không ở trong kênh của bot"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:196
+#: D:/TTMediaBot/bot/commands/__init__.py:198
 msgid "Bot is locked"
 msgstr "Bot đang bị khóa"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:200
+#: D:/TTMediaBot/bot/commands/__init__.py:202
 msgid "This command is blocked"
 msgstr "Lệnh này đã bị chặn"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:204
-#: D:/TTMediaBot/bot/commands/admin_commands.py:26
+#: D:/TTMediaBot/bot/commands/__init__.py:206
+#: D:/TTMediaBot/bot/commands/admin_commands.py:30
+#: D:/TTMediaBot/bot/commands/admin_commands.py:420
+#: D:/TTMediaBot/bot/commands/admin_commands.py:532
 msgid "Only administrators can use this command"
 msgstr "Chỉ quản trị viên mới dùng được lệnh này"
 
-#: D:/TTMediaBot/bot/commands/__init__.py:230
-#: D:/TTMediaBot/bot/commands/__init__.py:247
+#: D:/TTMediaBot/bot/commands/__init__.py:232
+#: D:/TTMediaBot/bot/commands/__init__.py:249
 msgid "Unknown command"
 msgstr "Không có lệnh này"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:21
+#: D:/TTMediaBot/bot/commands/admin_commands.py:25
 msgid "Shows administrator commands"
 msgstr "Hiện các lệnh dành cho quản trị viên"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:35
+#: D:/TTMediaBot/bot/commands/admin_commands.py:39
 msgid ""
-"+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the blocklist. "
-"-COMMAND removes from it. Without a command shows the blocklist"
+"+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the "
+"blocklist. -COMMAND removes from it. Without a command shows the "
+"blocklist"
 msgstr ""
-"+/-COMMAND Chặn hoặc bỏ chặn các lệnh. +COMMAND thêm lệnh vào danh sách chặn. "
-"-COMMAND xóa lệnh khỏi danh sách chặn. Không có lệnh nào được nhập sẽ hiển thị "
-"danh sách chặn."
+"+/-COMMAND Chặn hoặc bỏ chặn các lệnh. +COMMAND thêm lệnh vào danh sách "
+"chặn. -COMMAND xóa lệnh khỏi danh sách chặn. Không có lệnh nào được nhập "
+"sẽ hiển thị danh sách chặn."
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:46
-#: D:/TTMediaBot/bot/commands/admin_commands.py:340
-#: D:/TTMediaBot/bot/commands/admin_commands.py:370
-#: D:/TTMediaBot/bot/commands/user_commands.py:564
-#: D:/TTMediaBot/bot/commands/user_commands.py:576
-#: D:/TTMediaBot/bot/commands/user_commands.py:666
-#: D:/TTMediaBot/bot/commands/user_commands.py:1194
-#: D:/TTMediaBot/bot/commands/user_commands.py:1216
-#: D:/TTMediaBot/bot/commands/user_commands.py:1279
+#: D:/TTMediaBot/bot/commands/admin_commands.py:50
+#: D:/TTMediaBot/bot/commands/admin_commands.py:344
+#: D:/TTMediaBot/bot/commands/admin_commands.py:374
+#: D:/TTMediaBot/bot/commands/user_commands.py:566
+#: D:/TTMediaBot/bot/commands/user_commands.py:578
+#: D:/TTMediaBot/bot/commands/user_commands.py:668
+#: D:/TTMediaBot/bot/commands/user_commands.py:1196
+#: D:/TTMediaBot/bot/commands/user_commands.py:1218
+#: D:/TTMediaBot/bot/commands/user_commands.py:1281
 msgid "The list is empty"
 msgstr "Danh sách trống"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:51
-#: D:/TTMediaBot/bot/commands/admin_commands.py:322
-#: D:/TTMediaBot/bot/commands/admin_commands.py:354
-#: D:/TTMediaBot/bot/commands/user_commands.py:527
+#: D:/TTMediaBot/bot/commands/admin_commands.py:55
+#: D:/TTMediaBot/bot/commands/admin_commands.py:326
+#: D:/TTMediaBot/bot/commands/admin_commands.py:358
+#: D:/TTMediaBot/bot/commands/user_commands.py:529
 msgid "Added"
 msgstr "Đã thêm"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:53
+#: D:/TTMediaBot/bot/commands/admin_commands.py:57
 msgid "This command is already added"
 msgstr "Lệnh này đã có trong danh sách"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:59
-#: D:/TTMediaBot/bot/commands/admin_commands.py:328
-#: D:/TTMediaBot/bot/commands/admin_commands.py:360
-#: D:/TTMediaBot/bot/commands/user_commands.py:539
+#: D:/TTMediaBot/bot/commands/admin_commands.py:63
+#: D:/TTMediaBot/bot/commands/admin_commands.py:332
+#: D:/TTMediaBot/bot/commands/admin_commands.py:364
+#: D:/TTMediaBot/bot/commands/user_commands.py:541
 msgid "Deleted"
 msgstr "Đã xóa"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:61
+#: D:/TTMediaBot/bot/commands/admin_commands.py:65
 msgid "This command is not blocked"
 msgstr "Lệnh này chưa bị chặn"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:70
+#: D:/TTMediaBot/bot/commands/admin_commands.py:74
 msgid "GENDER Changes bot's gender. n neutral, m male, f female"
 msgstr "GIỚI_TÍNH Đổi giới tính của bot. n là trung tính, m là nam, f là nữ"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:84
+#: D:/TTMediaBot/bot/commands/admin_commands.py:88
 msgid "LANGUAGE Changes bot's language"
 msgstr "NGÔN_NGỮ Đổi ngôn ngữ của bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:92
+#: D:/TTMediaBot/bot/commands/admin_commands.py:96
 msgid "The language has been changed"
 msgstr "Đã đổi ngôn ngữ"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:94
+#: D:/TTMediaBot/bot/commands/admin_commands.py:98
 msgid "Incorrect language"
 msgstr "Ngôn ngữ không hợp lệ"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:97
+#: D:/TTMediaBot/bot/commands/admin_commands.py:101
 #, python-brace-format
 msgid ""
-"Current language: {current_language}. Available languages: {available_languages}"
+"Current language: {current_language}. Available languages: "
+"{available_languages}"
 msgstr ""
 "Ngôn ngữ hiện tại: {current_language}. Các ngôn ngữ có thể chọn: "
 "{available_languages}"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:107
+#: D:/TTMediaBot/bot/commands/admin_commands.py:111
 msgid "NICKNAME Changes bot's nickname"
 msgstr "BIỆT_DANH Đổi biệt danh của bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:118
+#: D:/TTMediaBot/bot/commands/admin_commands.py:122
 msgid ""
-"r/f Clears bot's cache. r clears recents, f clears favorites, without an option "
-"clears the entire cache"
+"r/f Clears bot's cache. r clears recents, f clears favorites, without an "
+"option clears the entire cache"
 msgstr ""
-"r/f Xóa dữ liệu lưu tạm của bot. r xóa danh sách nghe gần đây, f xóa danh sách "
-"yêu thích, nếu không ghi gì thì xóa toàn bộ dữ liệu lưu tạm"
+"r/f Xóa dữ liệu lưu tạm của bot. r xóa danh sách nghe gần đây, f xóa danh"
+" sách yêu thích, nếu không ghi gì thì xóa toàn bộ dữ liệu lưu tạm"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:126
+#: D:/TTMediaBot/bot/commands/admin_commands.py:130
 msgid "Cache cleared"
 msgstr "Đã xóa dữ liệu lưu tạm"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:130
+#: D:/TTMediaBot/bot/commands/admin_commands.py:134
 msgid "Recents cleared"
 msgstr "Đã xóa danh sách nghe gần đây"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:134
+#: D:/TTMediaBot/bot/commands/admin_commands.py:138
 msgid "Favorites cleared"
 msgstr "Đã xóa danh sách yêu thích"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:141
+#: D:/TTMediaBot/bot/commands/admin_commands.py:145
 msgid ""
-"Join channel. first argument is channel name or id, second argument is password, "
-"split argument \" | \", if password is undefined, don't type second argument"
+"Join channel. first argument is channel name or id, second argument is "
+"password, split argument \" | \", if password is undefined, don't type "
+"second argument"
 msgstr ""
-"Tham gia kênh. Tham số đầu tiên là tên hoặc ID kênh, tham số thứ hai là mật "
-"khẩu, tách hai tham số bằng dấu \" | \". Nếu kênh không có mật khẩu thì không "
-"cần nhập tham số thứ hai"
+"Tham gia kênh. Tham số đầu tiên là tên hoặc ID kênh, tham số thứ hai là "
+"mật khẩu, tách hai tham số bằng dấu \" | \". Nếu kênh không có mật khẩu "
+"thì không cần nhập tham số thứ hai"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:160
+#: D:/TTMediaBot/bot/commands/admin_commands.py:164
 msgid "This channel does not exist"
 msgstr "Kênh này không tồn tại"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:174
+#: D:/TTMediaBot/bot/commands/admin_commands.py:178
 #, python-brace-format
 msgid "Error joining channel: {error}"
 msgstr "Lỗi khi vào kênh: {error}"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:222
+#: D:/TTMediaBot/bot/commands/admin_commands.py:226
 msgid "Enables or disables voice transmission"
 msgstr "Bật hoặc tắt việc truyền âm thanh"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:229
-#: D:/TTMediaBot/bot/commands/admin_commands.py:231
+#: D:/TTMediaBot/bot/commands/admin_commands.py:233
+#: D:/TTMediaBot/bot/commands/admin_commands.py:235
 msgid "Voice transmission enabled"
 msgstr "Đã bật truyền âm thanh"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:236
+#: D:/TTMediaBot/bot/commands/admin_commands.py:240
 msgid "Voice transmission disabled"
 msgstr "Đã tắt truyền âm thanh"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:242
+#: D:/TTMediaBot/bot/commands/admin_commands.py:246
 msgid "Locks or unlocks the bot"
 msgstr "Khóa hoặc mở khóa bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:247
+#: D:/TTMediaBot/bot/commands/admin_commands.py:251
 msgid "Locked"
 msgstr "Đã khóa"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:249
+#: D:/TTMediaBot/bot/commands/admin_commands.py:253
 msgid "Unlocked"
 msgstr "Đã mở khóa"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:256
+#: D:/TTMediaBot/bot/commands/admin_commands.py:260
 msgid "STATUS Changes bot's status"
 msgstr "TRẠNG_THÁI Đổi trạng thái của bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:266
+#: D:/TTMediaBot/bot/commands/admin_commands.py:270
 msgid "Enables or disables event handling"
 msgstr "Bật hoặc tắt việc xử lý sự kiện"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:273
+#: D:/TTMediaBot/bot/commands/admin_commands.py:277
 msgid "Event handling is enabled"
 msgstr "Đã bật xử lý sự kiện"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:275
+#: D:/TTMediaBot/bot/commands/admin_commands.py:279
 msgid "Event handling is disabled"
 msgstr "Đã tắt xử lý sự kiện"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:283
+#: D:/TTMediaBot/bot/commands/admin_commands.py:287
 msgid ""
-"Toggles channel messages. When disabled, notifications are sent privately "
-"instead of public channel"
+"Toggles channel messages. When disabled, notifications are sent privately"
+" instead of public channel"
 msgstr ""
-"Bật/tắt tin nhắn kênh. Khi tắt, thông báo sẽ được gửi riêng tư thay vì đến kênh "
-"công khai"
+"Bật/tắt tin nhắn kênh. Khi tắt, thông báo sẽ được gửi riêng tư thay vì "
+"đến kênh công khai"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:293
+#: D:/TTMediaBot/bot/commands/admin_commands.py:297
 msgid "Public channel messages enabled (bot will announce in channel)."
 msgstr "Đã bật tin nhắn công khai (bot sẽ thông báo trong kênh)."
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:297
+#: D:/TTMediaBot/bot/commands/admin_commands.py:301
 msgid ""
-"Private messages mode enabled (bot will send notifications privately instead of "
-"public channel)."
+"Private messages mode enabled (bot will send notifications privately "
+"instead of public channel)."
 msgstr ""
-"Chế độ tin nhắn riêng tư đã được bật (bot sẽ gửi thông báo riêng tư thay vì kênh "
-"công khai)."
+"Chế độ tin nhắn riêng tư đã được bật (bot sẽ gửi thông báo riêng tư thay "
+"vì kênh công khai)."
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:304
+#: D:/TTMediaBot/bot/commands/admin_commands.py:308
 msgid "Saves bot's configuration"
 msgstr "Lưu cấu hình của bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:308
+#: D:/TTMediaBot/bot/commands/admin_commands.py:312
 msgid "Configuration saved"
 msgstr "Đã lưu cấu hình"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:315
+#: D:/TTMediaBot/bot/commands/admin_commands.py:319
 msgid ""
-"+/-USERNAME Manages a list of administrators. +USERNAME adds a user. -USERNAME "
-"removes it. Without an option shows the list"
+"+/-USERNAME Manages a list of administrators. +USERNAME adds a user. "
+"-USERNAME removes it. Without an option shows the list"
 msgstr ""
 "+/-USERNAME Quản lý danh sách quản trị viên. +USERNAME thêm người dùng. "
-"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh sách."
+"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh "
+"sách."
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:331
+#: D:/TTMediaBot/bot/commands/admin_commands.py:335
 msgid "This user is not in the admin list"
 msgstr "Người dùng này không có trong danh sách quản trị viên"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:337
-#: D:/TTMediaBot/bot/commands/admin_commands.py:367
+#: D:/TTMediaBot/bot/commands/admin_commands.py:341
+#: D:/TTMediaBot/bot/commands/admin_commands.py:371
 msgid "<Anonymous>"
 msgstr "<Ẩn danh>"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:347
+#: D:/TTMediaBot/bot/commands/admin_commands.py:351
 msgid ""
-"+/-USERNAME Manages a list of banned users. +USERNAME adds a user. -USERNAME "
-"removes it. Without an option shows the list"
+"+/-USERNAME Manages a list of banned users. +USERNAME adds a user. "
+"-USERNAME removes it. Without an option shows the list"
 msgstr ""
-"+/-USERNAME Quản lý danh sách người dùng bị cấm. +USERNAME thêm người dùng. "
-"-USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị danh sách."
+"+/-USERNAME Quản lý danh sách người dùng bị cấm. +USERNAME thêm người "
+"dùng. -USERNAME xóa người dùng. Nếu không có tùy chọn nào, sẽ hiển thị "
+"danh sách."
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:362
+#: D:/TTMediaBot/bot/commands/admin_commands.py:366
 msgid "This user is not banned"
 msgstr "Người dùng này không bị cấm"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:376
+#: D:/TTMediaBot/bot/commands/admin_commands.py:380
 msgid "Quits the bot"
 msgstr "Tắt bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:385
+#: D:/TTMediaBot/bot/commands/admin_commands.py:389
 msgid "Restarts the bot"
 msgstr "Khởi động lại bot"
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:400
+#: D:/TTMediaBot/bot/commands/admin_commands.py:404
 msgid "Returns current channel's ID"
 msgstr "Cho biết ID của kênh hiện tại"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:414
+msgid ""
+"[QUERY|LINK] Downloads the current track or specified link/query as audio"
+" and saves it to the downloads folder."
+msgstr ""
+"[TỪ_KHÓA|LIÊN_KẾT] Tải bài hát hiện tại hoặc liên kết/từ khóa dưới dạng "
+"âm thanh và lưu vào thư mục tải xuống."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:428
+msgid "Searching and downloading audio..."
+msgstr "Đang tìm kiếm và tải âm thanh..."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:438
+msgid "Downloading audio..."
+msgstr "Đang tải âm thanh..."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:440
+#: D:/TTMediaBot/bot/commands/admin_commands.py:467
+#: D:/TTMediaBot/bot/commands/admin_commands.py:552
+#: D:/TTMediaBot/bot/commands/admin_commands.py:579
+#: D:/TTMediaBot/bot/commands/user_commands.py:688
+#: D:/TTMediaBot/bot/commands/user_commands.py:709
+msgid "Live streams cannot be downloaded"
+msgstr "Không tải được nội dung phát trực tiếp"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:442
+#: D:/TTMediaBot/bot/commands/admin_commands.py:554
+#: D:/TTMediaBot/bot/commands/user_commands.py:158
+#: D:/TTMediaBot/bot/commands/user_commands.py:191
+#: D:/TTMediaBot/bot/commands/user_commands.py:213
+#: D:/TTMediaBot/bot/commands/user_commands.py:243
+#: D:/TTMediaBot/bot/commands/user_commands.py:259
+#: D:/TTMediaBot/bot/commands/user_commands.py:271
+#: D:/TTMediaBot/bot/commands/user_commands.py:288
+#: D:/TTMediaBot/bot/commands/user_commands.py:432
+#: D:/TTMediaBot/bot/commands/user_commands.py:448
+#: D:/TTMediaBot/bot/commands/user_commands.py:459
+#: D:/TTMediaBot/bot/commands/user_commands.py:531
+#: D:/TTMediaBot/bot/commands/user_commands.py:549
+#: D:/TTMediaBot/bot/commands/user_commands.py:595
+#: D:/TTMediaBot/bot/commands/user_commands.py:629
+#: D:/TTMediaBot/bot/commands/user_commands.py:690
+#: D:/TTMediaBot/bot/commands/user_commands.py:711
+#: D:/TTMediaBot/bot/commands/user_commands.py:1003
+#: D:/TTMediaBot/bot/commands/user_commands.py:1605
+#: D:/TTMediaBot/bot/commands/user_commands.py:1735
+#: D:/TTMediaBot/bot/commands/user_commands.py:1753
+#: D:/TTMediaBot/bot/commands/user_commands.py:1828
+#: D:/TTMediaBot/bot/commands/user_commands.py:2007
+msgid "Nothing is playing"
+msgstr "Hiện không có bài nào đang phát"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:449
+#: D:/TTMediaBot/bot/commands/admin_commands.py:561
+#: D:/TTMediaBot/bot/commands/user_commands.py:85
+#: D:/TTMediaBot/bot/commands/user_commands.py:111
+#: D:/TTMediaBot/bot/commands/user_commands.py:788
+#: D:/TTMediaBot/bot/commands/user_commands.py:887
+#: D:/TTMediaBot/bot/commands/user_commands.py:1258
+#: D:/TTMediaBot/bot/commands/user_commands.py:1790
+msgid "Nothing is found for your query"
+msgstr "Không tìm thấy kết quả nào cho từ khóa của bạn"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:476
+#: D:/TTMediaBot/bot/commands/admin_commands.py:588
+msgid "Error: File not found."
+msgstr "Lỗi: Không tìm thấy tệp."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:495
+#: D:/TTMediaBot/bot/commands/admin_commands.py:607
+#: D:/TTMediaBot/bot/modules/uploader.py:64
+msgid "Error: Downloaded file not found."
+msgstr "Lỗi: Không tìm thấy file đã tải."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:508
+#, python-brace-format
+msgid ""
+"Audio downloaded successfully: {file_name}\n"
+"Saved to: {path}"
+msgstr ""
+"Tải âm thanh thành công: {file_name}\n"
+"Đã lưu vào: {path}"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:515
+#: D:/TTMediaBot/bot/commands/admin_commands.py:622
+#, python-brace-format
+msgid "Error downloading {name}: {error}"
+msgstr "Lỗi tải xuống {name}: {error}"
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:526
+msgid ""
+"[QUERY|LINK] Downloads the current track or specified link/query as video"
+" and saves it to the downloads folder."
+msgstr ""
+"[TỪ_KHÓA|LIÊN_KẾT] Tải bài hát hiện tại hoặc liên kết/từ khóa dưới dạng "
+"video và lưu vào thư mục tải xuống."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:540
+msgid "Searching and downloading video..."
+msgstr "Đang tìm kiếm và tải video..."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:550
+#: D:/TTMediaBot/bot/commands/user_commands.py:707
+msgid "Downloading video..."
+msgstr "Đang tải video..."
+
+#: D:/TTMediaBot/bot/commands/admin_commands.py:615
+#, python-brace-format
+msgid ""
+"Video downloaded successfully: {file_name}\n"
+"Saved to: {path}"
+msgstr ""
+"Tải video thành công: {file_name}\n"
+"Đã lưu vào: {path}"
 
 #: D:/TTMediaBot/bot/commands/command.py:30
 msgid "help text not found"
 msgstr "không tìm thấy nội dung trợ giúp"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:22
+#: D:/TTMediaBot/bot/commands/user_commands.py:24
 msgid "Shows command help"
 msgstr "Xem hướng dẫn của một lệnh"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:31
+#: D:/TTMediaBot/bot/commands/user_commands.py:33
 msgid "Shows information about the bot"
 msgstr "Xem thông tin về bot"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:41
+#: D:/TTMediaBot/bot/commands/user_commands.py:43
 msgid ""
-"QUERY Plays tracks found for the query. If no query is given, plays or pauses "
-"current track. When search results mode (sr) is active, shows a numbered list "
-"instead"
+"QUERY Plays tracks found for the query. If no query is given, plays or "
+"pauses current track. When search results mode (sr) is active, shows a "
+"numbered list instead"
 msgstr ""
-"TỪ_KHÓA Phát các bài tìm được theo từ khóa. Nếu không ghi từ khóa, sẽ phát hoặc "
-"tạm dừng bài hiện tại. Khi chế độ kết quả tìm kiếm (sr) đang bật, sẽ hiện danh "
-"sách có đánh số thay vì phát ngay"
+"TỪ_KHÓA Phát các bài tìm được theo từ khóa. Nếu không ghi từ khóa, sẽ "
+"phát hoặc tạm dừng bài hiện tại. Khi chế độ kết quả tìm kiếm (sr) đang "
+"bật, sẽ hiện danh sách có đánh số thay vì phát ngay"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:47
-#: D:/TTMediaBot/bot/commands/user_commands.py:778
-#: D:/TTMediaBot/bot/commands/user_commands.py:878
+#: D:/TTMediaBot/bot/commands/user_commands.py:49
+#: D:/TTMediaBot/bot/commands/user_commands.py:780
+#: D:/TTMediaBot/bot/commands/user_commands.py:880
 msgid "Searching..."
 msgstr "Đang tìm kiếm..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:56
+#: D:/TTMediaBot/bot/commands/user_commands.py:58
 msgid "Search results:"
 msgstr "Kết quả tìm kiếm:"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:59
+#: D:/TTMediaBot/bot/commands/user_commands.py:61
 msgid "Use 'sl NUMBER' to select a track"
 msgstr "Dùng 'sl SỐ' để chọn một bài"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:75
+#: D:/TTMediaBot/bot/commands/user_commands.py:77
 #, python-brace-format
 msgid "{nickname} requested {request}"
 msgstr "{nickname} đã yêu cầu {request}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:79
-#: D:/TTMediaBot/bot/commands/user_commands.py:237
-#: D:/TTMediaBot/bot/commands/user_commands.py:263
-#: D:/TTMediaBot/bot/commands/user_commands.py:280
-#: D:/TTMediaBot/bot/commands/user_commands.py:426
-#: D:/TTMediaBot/bot/commands/user_commands.py:904
-#: D:/TTMediaBot/bot/commands/user_commands.py:1014
-#: D:/TTMediaBot/bot/commands/user_commands.py:1102
+#: D:/TTMediaBot/bot/commands/user_commands.py:81
+#: D:/TTMediaBot/bot/commands/user_commands.py:239
+#: D:/TTMediaBot/bot/commands/user_commands.py:265
+#: D:/TTMediaBot/bot/commands/user_commands.py:282
+#: D:/TTMediaBot/bot/commands/user_commands.py:428
+#: D:/TTMediaBot/bot/commands/user_commands.py:906
+#: D:/TTMediaBot/bot/commands/user_commands.py:1016
+#: D:/TTMediaBot/bot/commands/user_commands.py:1104
 #, python-brace-format
 msgid "Playing {}"
 msgstr "Đang phát {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:83
-#: D:/TTMediaBot/bot/commands/user_commands.py:109
-#: D:/TTMediaBot/bot/commands/user_commands.py:786
-#: D:/TTMediaBot/bot/commands/user_commands.py:885
-#: D:/TTMediaBot/bot/commands/user_commands.py:1256
-#: D:/TTMediaBot/bot/commands/user_commands.py:1786
-msgid "Nothing is found for your query"
-msgstr "Không tìm thấy kết quả nào cho từ khóa của bạn"
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:86
-#: D:/TTMediaBot/bot/commands/user_commands.py:888
+#: D:/TTMediaBot/bot/commands/user_commands.py:88
+#: D:/TTMediaBot/bot/commands/user_commands.py:890
 msgid "The selected service is currently unavailable"
 msgstr "Dịch vụ đã chọn hiện không dùng được"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:98
+#: D:/TTMediaBot/bot/commands/user_commands.py:100
 msgid "URL Plays a stream from a given URL"
 msgstr "URL Phát nội dung từ một đường link"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:103
+#: D:/TTMediaBot/bot/commands/user_commands.py:105
 msgid "Loading URL / playlist..."
 msgstr "Đang tải link / danh sách phát..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:114
+#: D:/TTMediaBot/bot/commands/user_commands.py:116
 #, python-brace-format
 msgid "{nickname} requested playing from a URL ({count} tracks)"
 msgstr "{nickname} đã yêu cầu phát từ một link ({count} bài)"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:121
+#: D:/TTMediaBot/bot/commands/user_commands.py:123
 #, python-brace-format
 msgid "Loaded {count} tracks"
 msgstr "Đã tải {count} bài"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:126
+#: D:/TTMediaBot/bot/commands/user_commands.py:128
 msgid "Incorrect protocol"
 msgstr "Giao thức của link không hợp lệ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:128
+#: D:/TTMediaBot/bot/commands/user_commands.py:130
 msgid "Cannot process stream URL"
 msgstr "Không xử lý được link phát này"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:130
+#: D:/TTMediaBot/bot/commands/user_commands.py:132
 msgid "The path cannot be found"
 msgstr "Không tìm thấy đường dẫn"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:138
+#: D:/TTMediaBot/bot/commands/user_commands.py:140
 msgid "Stops playback"
 msgstr "Dừng phát nhạc"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:145
+#: D:/TTMediaBot/bot/commands/user_commands.py:147
 #, python-brace-format
 msgid "{nickname} stopped playback"
 msgstr "{nickname} đã dừng phát nhạc"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:152
+#: D:/TTMediaBot/bot/commands/user_commands.py:154
 msgid "Playback stopped"
 msgstr "Đã dừng phát nhạc"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:156
-#: D:/TTMediaBot/bot/commands/user_commands.py:189
-#: D:/TTMediaBot/bot/commands/user_commands.py:211
-#: D:/TTMediaBot/bot/commands/user_commands.py:241
-#: D:/TTMediaBot/bot/commands/user_commands.py:257
-#: D:/TTMediaBot/bot/commands/user_commands.py:269
-#: D:/TTMediaBot/bot/commands/user_commands.py:286
-#: D:/TTMediaBot/bot/commands/user_commands.py:430
-#: D:/TTMediaBot/bot/commands/user_commands.py:446
-#: D:/TTMediaBot/bot/commands/user_commands.py:457
-#: D:/TTMediaBot/bot/commands/user_commands.py:529
-#: D:/TTMediaBot/bot/commands/user_commands.py:547
-#: D:/TTMediaBot/bot/commands/user_commands.py:593
-#: D:/TTMediaBot/bot/commands/user_commands.py:627
-#: D:/TTMediaBot/bot/commands/user_commands.py:688
-#: D:/TTMediaBot/bot/commands/user_commands.py:709
-#: D:/TTMediaBot/bot/commands/user_commands.py:1001
-#: D:/TTMediaBot/bot/commands/user_commands.py:1601
-#: D:/TTMediaBot/bot/commands/user_commands.py:1731
-#: D:/TTMediaBot/bot/commands/user_commands.py:1749
-#: D:/TTMediaBot/bot/commands/user_commands.py:1824
-#: D:/TTMediaBot/bot/commands/user_commands.py:2003
-msgid "Nothing is playing"
-msgstr "Hiện không có bài nào đang phát"
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:163
+#: D:/TTMediaBot/bot/commands/user_commands.py:165
 #, python-brace-format
 msgid ""
-"VOLUME Sets the volume to a value between 0 and {max_volume}. If no volume is "
-"specified, the current volume level is displayed"
+"VOLUME Sets the volume to a value between 0 and {max_volume}. If no "
+"volume is specified, the current volume level is displayed"
 msgstr ""
-"ÂM_LƯỢNG Đặt âm lượng từ 0 đến {max_volume}. Nếu không ghi, sẽ hiện mức âm lượng "
-"hiện tại"
+"ÂM_LƯỢNG Đặt âm lượng từ 0 đến {max_volume}. Nếu không ghi, sẽ hiện mức "
+"âm lượng hiện tại"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:184
+#: D:/TTMediaBot/bot/commands/user_commands.py:186
 #, python-brace-format
 msgid "STEP Seeks current track backward. the default step is {seek_step} seconds"
 msgstr "SỐ_GIÂY Tua lùi bài hiện tại. Nếu không ghi, mặc định tua {seek_step} giây"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:206
+#: D:/TTMediaBot/bot/commands/user_commands.py:208
 #, python-brace-format
 msgid "STEP Seeks current track forward. the default step is {seek_step} seconds"
 msgstr "SỐ_GIÂY Tua tới bài hiện tại. Nếu không ghi, mặc định tua {seek_step} giây"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:227
+#: D:/TTMediaBot/bot/commands/user_commands.py:229
 msgid ""
-"[NUMBER|?] Plays next track, jumps to track number, or shows current position "
-"with ?"
+"[NUMBER|?] Plays next track, jumps to track number, or shows current "
+"position with ?"
 msgstr ""
-"[SỐ|?] Phát bài kế tiếp, nhảy đến bài theo số, hoặc ghi ? để xem đang ở bài số "
-"mấy ?"
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:249
-#: D:/TTMediaBot/bot/commands/user_commands.py:438
-msgid "Incorrect number"
-msgstr "Số không hợp lệ"
+"[SỐ|?] Phát bài kế tiếp, nhảy đến bài theo số, hoặc ghi ? để xem đang ở "
+"bài số mấy ?"
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:251
 #: D:/TTMediaBot/bot/commands/user_commands.py:440
-#: D:/TTMediaBot/bot/commands/user_commands.py:453
+msgid "Incorrect number"
+msgstr "Số không hợp lệ"
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:253
+#: D:/TTMediaBot/bot/commands/user_commands.py:442
+#: D:/TTMediaBot/bot/commands/user_commands.py:455
 #, python-brace-format
 msgid "Playing {} {}"
 msgstr "Đang phát {} {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:255
-#: D:/TTMediaBot/bot/commands/user_commands.py:444
-#: D:/TTMediaBot/bot/commands/user_commands.py:541
-#: D:/TTMediaBot/bot/commands/user_commands.py:574
-#: D:/TTMediaBot/bot/commands/user_commands.py:647
-#: D:/TTMediaBot/bot/commands/user_commands.py:969
-#: D:/TTMediaBot/bot/commands/user_commands.py:1086
-#: D:/TTMediaBot/bot/commands/user_commands.py:1223
+#: D:/TTMediaBot/bot/commands/user_commands.py:257
+#: D:/TTMediaBot/bot/commands/user_commands.py:446
+#: D:/TTMediaBot/bot/commands/user_commands.py:543
+#: D:/TTMediaBot/bot/commands/user_commands.py:576
+#: D:/TTMediaBot/bot/commands/user_commands.py:649
+#: D:/TTMediaBot/bot/commands/user_commands.py:971
+#: D:/TTMediaBot/bot/commands/user_commands.py:1088
+#: D:/TTMediaBot/bot/commands/user_commands.py:1225
 msgid "Out of list"
 msgstr "Số vượt quá danh sách"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:267
-#: D:/TTMediaBot/bot/commands/user_commands.py:1018
+#: D:/TTMediaBot/bot/commands/user_commands.py:269
+#: D:/TTMediaBot/bot/commands/user_commands.py:1020
 msgid "No next track"
 msgstr "Không có bài kế tiếp"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:275
+#: D:/TTMediaBot/bot/commands/user_commands.py:277
 msgid "Plays previous track"
 msgstr "Phát bài trước đó"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:284
+#: D:/TTMediaBot/bot/commands/user_commands.py:286
 msgid "No previous track"
 msgstr "Không có bài trước đó"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:293
+#: D:/TTMediaBot/bot/commands/user_commands.py:295
 msgid ""
-"MODE Sets the playback mode. If no mode is specified, the current mode and a "
-"list of modes are displayed"
+"MODE Sets the playback mode. If no mode is specified, the current mode "
+"and a list of modes are displayed"
 msgstr ""
-"CHẾ_ĐỘ Chọn chế độ phát nhạc. Nếu không ghi chế độ, sẽ hiện chế độ hiện tại và "
-"danh sách các chế độ"
+"CHẾ_ĐỘ Chọn chế độ phát nhạc. Nếu không ghi chế độ, sẽ hiện chế độ hiện "
+"tại và danh sách các chế độ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:298
+#: D:/TTMediaBot/bot/commands/user_commands.py:300
 msgid "Single Track"
 msgstr "Phát một bài"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:299
+#: D:/TTMediaBot/bot/commands/user_commands.py:301
 msgid "Repeat Track"
 msgstr "Lặp lại một bài"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:300
+#: D:/TTMediaBot/bot/commands/user_commands.py:302
 msgid "Track list"
 msgstr "Phát hết danh sách"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:301
+#: D:/TTMediaBot/bot/commands/user_commands.py:303
 msgid "Repeat track list"
 msgstr "Lặp lại danh sách"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:302
+#: D:/TTMediaBot/bot/commands/user_commands.py:304
 msgid "Random"
 msgstr "Ngẫu nhiên"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:305
+#: D:/TTMediaBot/bot/commands/user_commands.py:307
 #, python-brace-format
 msgid ""
 "Current mode: {current_mode}\n"
@@ -1312,25 +1494,26 @@ msgstr ""
 "Chế độ hiện tại: {current_mode}\n"
 "{modes}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:323
+#: D:/TTMediaBot/bot/commands/user_commands.py:325
 #, python-brace-format
 msgid "Current mode: {mode}"
 msgstr "Chế độ hiện tại: {mode}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:327
+#: D:/TTMediaBot/bot/commands/user_commands.py:329
 msgid "Incorrect mode"
 msgstr "Chế độ không hợp lệ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:336
+#: D:/TTMediaBot/bot/commands/user_commands.py:338
 msgid ""
-"SERVICE Selects the service to play from, sv SERVICE h returns additional help. "
-"If no service is specified, the current service and a list of available services "
-"are displayed"
+"SERVICE Selects the service to play from, sv SERVICE h returns additional"
+" help. If no service is specified, the current service and a list of "
+"available services are displayed"
 msgstr ""
-"DỊCH_VỤ Chọn dịch vụ để phát nhạc. Gửi sv DỊCH_VỤ h để xem hướng dẫn thêm. Nếu "
-"không ghi dịch vụ, sẽ hiện dịch vụ hiện tại và danh sách các dịch vụ có thể chọn"
+"DỊCH_VỤ Chọn dịch vụ để phát nhạc. Gửi sv DỊCH_VỤ h để xem hướng dẫn "
+"thêm. Nếu không ghi dịch vụ, sẽ hiện dịch vụ hiện tại và danh sách các "
+"dịch vụ có thể chọn"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:344
+#: D:/TTMediaBot/bot/commands/user_commands.py:346
 #, python-brace-format
 msgid ""
 "Unknown service.\n"
@@ -1339,7 +1522,7 @@ msgstr ""
 "Không có dịch vụ này.\n"
 "{}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:353
+#: D:/TTMediaBot/bot/commands/user_commands.py:355
 #, python-brace-format
 msgid ""
 "Current service: {}\n"
@@ -1348,12 +1531,12 @@ msgstr ""
 "Dịch vụ hiện tại: {}\n"
 "Cảnh báo: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:355
+#: D:/TTMediaBot/bot/commands/user_commands.py:357
 #, python-brace-format
 msgid "Current service: {}"
 msgstr "Dịch vụ hiện tại: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:361
+#: D:/TTMediaBot/bot/commands/user_commands.py:363
 #, python-brace-format
 msgid ""
 "Error: {error}\n"
@@ -1362,26 +1545,26 @@ msgstr ""
 "Lỗi: {error}\n"
 "{service} đang bị tắt"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:368
+#: D:/TTMediaBot/bot/commands/user_commands.py:370
 #, python-brace-format
 msgid "{service} is disabled"
 msgstr "{service} đang bị tắt"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:375
+#: D:/TTMediaBot/bot/commands/user_commands.py:377
 msgid "This service has no additional help"
 msgstr "Dịch vụ này không có hướng dẫn thêm"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:392
+#: D:/TTMediaBot/bot/commands/user_commands.py:394
 #, python-brace-format
 msgid "{} (Error)"
 msgstr "{} (Lỗi)"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:396
+#: D:/TTMediaBot/bot/commands/user_commands.py:398
 #, python-brace-format
 msgid "{} (Warning: {})"
 msgstr "{} (Cảnh báo: {})"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:403
+#: D:/TTMediaBot/bot/commands/user_commands.py:405
 #, python-brace-format
 msgid ""
 "Current service: {current_service}\n"
@@ -1394,335 +1577,330 @@ msgstr ""
 "{available_services}\n"
 "Gửi sv DỊCH_VỤ h để xem hướng dẫn thêm"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:415
+#: D:/TTMediaBot/bot/commands/user_commands.py:417
 msgid "[NUMBER|?] Selects track by number, or shows current position with ?"
 msgstr "[SỐ|?] Chọn bài theo số, hoặc ghi ? để xem đang ở bài số mấy ?"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:464
+#: D:/TTMediaBot/bot/commands/user_commands.py:466
 msgid ""
-"SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows current "
-"speed"
+"SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows "
+"current speed"
 msgstr ""
-"TỐC_ĐỘ Chỉnh tốc độ phát từ 0.25 đến 4. Nếu không ghi số, sẽ hiện tốc độ hiện tại"
+"TỐC_ĐỘ Chỉnh tốc độ phát từ 0.25 đến 4. Nếu không ghi số, sẽ hiện tốc độ "
+"hiện tại"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:469
+#: D:/TTMediaBot/bot/commands/user_commands.py:471
 #, python-brace-format
 msgid "Current rate: {}"
 msgstr "Tốc độ hiện tại: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:483
+#: D:/TTMediaBot/bot/commands/user_commands.py:485
 msgid ""
-"SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is given, "
-"shows current pitch"
+"SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is "
+"given, shows current pitch"
 msgstr ""
-"NỬA_CUNG Chỉnh cao độ (độ trầm bổng) từ -12 đến 12 nửa cung. Nếu không ghi số, "
-"sẽ hiện cao độ hiện tại"
+"NỬA_CUNG Chỉnh cao độ (độ trầm bổng) từ -12 đến 12 nửa cung. Nếu không "
+"ghi số, sẽ hiện cao độ hiện tại"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:488
+#: D:/TTMediaBot/bot/commands/user_commands.py:490
 #, python-brace-format
 msgid "Current pitch: {}"
 msgstr "Cao độ hiện tại: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:502
+#: D:/TTMediaBot/bot/commands/user_commands.py:504
 msgid ""
-"+/-NUMBER Manages favorite tracks. + adds the current track to favorites. - "
-"removes a track requested from favorites. If a number is specified after +/-, "
-"adds/removes a track with that number"
+"+/-NUMBER Manages favorite tracks. + adds the current track to favorites."
+" - removes a track requested from favorites. If a number is specified "
+"after +/-, adds/removes a track with that number"
 msgstr ""
-"+/-SỐ Quản lý bài hát yêu thích. Dấu + thêm bài hiện tại vào danh sách yêu "
-"thích. Dấu - xóa bài khỏi danh sách yêu thích. Nếu ghi số sau dấu +/-, sẽ thêm "
-"hoặc xóa bài có số đó"
+"+/-SỐ Quản lý bài hát yêu thích. Dấu + thêm bài hiện tại vào danh sách "
+"yêu thích. Dấu - xóa bài khỏi danh sách yêu thích. Nếu ghi số sau dấu "
+"+/-, sẽ thêm hoặc xóa bài có số đó"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:508
-#: D:/TTMediaBot/bot/commands/user_commands.py:1813
-#: D:/TTMediaBot/bot/commands/user_commands.py:1833
-#: D:/TTMediaBot/bot/commands/user_commands.py:1858
+#: D:/TTMediaBot/bot/commands/user_commands.py:510
+#: D:/TTMediaBot/bot/commands/user_commands.py:1817
+#: D:/TTMediaBot/bot/commands/user_commands.py:1837
+#: D:/TTMediaBot/bot/commands/user_commands.py:1862
 msgid "This command is not available for guest users"
 msgstr "Lệnh này không dành cho người dùng khách"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:545
+#: D:/TTMediaBot/bot/commands/user_commands.py:547
 msgid "This track is not in favorites"
 msgstr "Bài này không có trong danh sách yêu thích"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:554
-#: D:/TTMediaBot/bot/commands/user_commands.py:653
+#: D:/TTMediaBot/bot/commands/user_commands.py:556
+#: D:/TTMediaBot/bot/commands/user_commands.py:655
 #, python-brace-format
 msgid "{number}: {track_name}"
 msgstr "{number}: {track_name}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:582
+#: D:/TTMediaBot/bot/commands/user_commands.py:584
 msgid "Gets a direct link to the current track"
 msgstr "Lấy link trực tiếp của bài đang phát"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:591
+#: D:/TTMediaBot/bot/commands/user_commands.py:593
 msgid "URL is not available"
 msgstr "Không có link cho bài này"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:599
+#: D:/TTMediaBot/bot/commands/user_commands.py:601
 msgid "Gets the original YouTube link to the current track"
 msgstr "Lấy link YouTube gốc của bài đang phát"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:625
+#: D:/TTMediaBot/bot/commands/user_commands.py:627
 msgid "Current track is not from YouTube"
 msgstr "Bài đang phát không đến từ YouTube"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:634
+#: D:/TTMediaBot/bot/commands/user_commands.py:636
 msgid ""
-"NUMBER Plays a track with  the given number from a list of recent tracks. "
-"Without a number shows recent tracks"
+"NUMBER Plays a track with  the given number from a list of recent tracks."
+" Without a number shows recent tracks"
 msgstr ""
-"SỐ Phát bài có số đó trong danh sách nghe gần đây. Nếu không ghi số, sẽ hiện "
-"danh sách nghe gần đây"
+"SỐ Phát bài có số đó trong danh sách nghe gần đây. Nếu không ghi số, sẽ "
+"hiện danh sách nghe gần đây"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:659
+#: D:/TTMediaBot/bot/commands/user_commands.py:661
 #, python-brace-format
 msgid "{number}: {track_url}"
 msgstr "{number}: {track_url}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:674
+#: D:/TTMediaBot/bot/commands/user_commands.py:676
 msgid "Downloads the current track and uploads it to the channel."
 msgstr "Tải bài đang phát về rồi gửi lên kênh."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:684
+#: D:/TTMediaBot/bot/commands/user_commands.py:686
 msgid "Downloading..."
 msgstr "Đang tải xuống..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:686
-#: D:/TTMediaBot/bot/commands/user_commands.py:707
-msgid "Live streams cannot be downloaded"
-msgstr "Không tải được nội dung phát trực tiếp"
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:695
+#: D:/TTMediaBot/bot/commands/user_commands.py:697
 msgid "Downloads the current track as video and uploads it to the channel."
 msgstr "Tải bài đang phát dưới dạng video rồi gửi lên kênh."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:705
-msgid "Downloading video..."
-msgstr "Đang tải video..."
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:715
+#: D:/TTMediaBot/bot/commands/user_commands.py:717
 msgid "Makes the bot join your current channel"
 msgstr "Cho bot vào kênh mà bạn đang ở"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:736
-#: D:/TTMediaBot/bot/commands/user_commands.py:753
+#: D:/TTMediaBot/bot/commands/user_commands.py:738
+#: D:/TTMediaBot/bot/commands/user_commands.py:755
 #, python-brace-format
 msgid "Joining channel: {}"
 msgstr "Đang vào kênh: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:745
+#: D:/TTMediaBot/bot/commands/user_commands.py:747
 #, python-brace-format
 msgid "Failed to join channel. Error: {}"
 msgstr "Không vào được kênh. Lỗi: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:756
+#: D:/TTMediaBot/bot/commands/user_commands.py:758
 #, python-brace-format
 msgid "Failed to join channel: {}"
 msgstr "Không vào được kênh: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:763
+#: D:/TTMediaBot/bot/commands/user_commands.py:765
 msgid ""
-"Downloads all tracks from a playlist/album URL, zips them, and uploads to the "
-"channel."
+"Downloads all tracks from a playlist/album URL, zips them, and uploads to"
+" the channel."
 msgstr ""
-"Tải tất cả bài trong một link danh sách phát hoặc album, nén thành file ZIP rồi "
-"gửi lên kênh."
+"Tải tất cả bài trong một link danh sách phát hoặc album, nén thành file "
+"ZIP rồi gửi lên kênh."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:771
+#: D:/TTMediaBot/bot/commands/user_commands.py:773
 #, python-brace-format
 msgid "Current progress: {}"
 msgstr "Tiến độ hiện tại: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:775
+#: D:/TTMediaBot/bot/commands/user_commands.py:777
 msgid "Please send the link to the playlist or album."
 msgstr "Vui lòng gửi link của danh sách phát hoặc album."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:794
+#: D:/TTMediaBot/bot/commands/user_commands.py:796
 msgid ""
-"This command is for playlists, albums, and channels. For single tracks, use 'dl'."
+"This command is for playlists, albums, and channels. For single tracks, "
+"use 'dl'."
 msgstr ""
-"Lệnh này dùng cho danh sách phát, album và kênh. Nếu chỉ tải một bài, hãy dùng "
-"lệnh 'dl'."
+"Lệnh này dùng cho danh sách phát, album và kênh. Nếu chỉ tải một bài, hãy"
+" dùng lệnh 'dl'."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:869
+#: D:/TTMediaBot/bot/commands/user_commands.py:871
 msgid ""
-"QUERY Searches for a track and adds it to the queue. If nothing is playing, "
-"starts immediately"
+"QUERY Searches for a track and adds it to the queue. If nothing is "
+"playing, starts immediately"
 msgstr ""
-"TỪ_KHÓA Tìm một bài và thêm vào hàng chờ. Nếu chưa có bài nào đang phát, sẽ phát "
-"ngay"
+"TỪ_KHÓA Tìm một bài và thêm vào hàng chờ. Nếu chưa có bài nào đang phát, "
+"sẽ phát ngay"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:913
+#: D:/TTMediaBot/bot/commands/user_commands.py:915
 #, python-brace-format
 msgid "{nickname} added to queue: {track}"
 msgstr "{nickname} đã thêm vào hàng chờ: {track}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:919
+#: D:/TTMediaBot/bot/commands/user_commands.py:921
 #, python-brace-format
 msgid "Added to queue [{position}]: {track}"
 msgstr "Đã thêm vào hàng chờ [{position}]: {track}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:926
+#: D:/TTMediaBot/bot/commands/user_commands.py:928
 msgid "Lists all tracks in the queue"
 msgstr "Hiện tất cả bài trong hàng chờ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:932
+#: D:/TTMediaBot/bot/commands/user_commands.py:934
 msgid "The queue is empty"
 msgstr "Hàng chờ đang trống"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:940
+#: D:/TTMediaBot/bot/commands/user_commands.py:942
 #, python-brace-format
 msgid "Queue ({count} track(s)):"
 msgstr "Hàng chờ ({count} bài):"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:950
+#: D:/TTMediaBot/bot/commands/user_commands.py:952
 msgid "NUMBER Removes track number NUMBER from the queue"
 msgstr "SỐ Xóa bài có số đó khỏi hàng chờ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:975
+#: D:/TTMediaBot/bot/commands/user_commands.py:977
 #, python-brace-format
 msgid "Removed from queue: {track}"
 msgstr "Đã xóa khỏi hàng chờ: {track}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:982
+#: D:/TTMediaBot/bot/commands/user_commands.py:984
 msgid "Clears the entire queue"
 msgstr "Xóa toàn bộ hàng chờ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:986
+#: D:/TTMediaBot/bot/commands/user_commands.py:988
 msgid "The queue is already empty"
 msgstr "Hàng chờ đã trống"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:989
+#: D:/TTMediaBot/bot/commands/user_commands.py:991
 msgid "Queue cleared"
 msgstr "Đã xóa hàng chờ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:996
+#: D:/TTMediaBot/bot/commands/user_commands.py:998
 msgid ""
-"Skips current track and plays the next one from the queue. Falls back to normal "
-"next if queue is empty"
+"Skips current track and plays the next one from the queue. Falls back to "
+"normal next if queue is empty"
 msgstr ""
-"Bỏ qua bài hiện tại và phát bài kế tiếp trong hàng chờ. Nếu hàng chờ trống thì "
-"phát bài kế tiếp như bình thường"
+"Bỏ qua bài hiện tại và phát bài kế tiếp trong hàng chờ. Nếu hàng chờ "
+"trống thì phát bài kế tiếp như bình thường"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1007
+#: D:/TTMediaBot/bot/commands/user_commands.py:1009
 #, python-brace-format
 msgid "Playing next from queue: {}"
 msgstr "Đang phát bài kế tiếp trong hàng chờ: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1031
+#: D:/TTMediaBot/bot/commands/user_commands.py:1033
 msgid ""
-"Toggles search results mode. When active, 'p QUERY' shows a numbered list. Use "
-"'sr on' or 'sr off' to set explicitly. Save permanently with 'sc'"
+"Toggles search results mode. When active, 'p QUERY' shows a numbered "
+"list. Use 'sr on' or 'sr off' to set explicitly. Save permanently with "
+"'sc'"
 msgstr ""
-"Bật hoặc tắt chế độ hiện kết quả tìm kiếm. Khi bật, lệnh 'p TỪ_KHÓA' sẽ hiện "
-"danh sách có đánh số. Dùng 'sr on' để bật hoặc 'sr off' để tắt. Dùng 'sc' để lưu "
-"lâu dài"
+"Bật hoặc tắt chế độ hiện kết quả tìm kiếm. Khi bật, lệnh 'p TỪ_KHÓA' sẽ "
+"hiện danh sách có đánh số. Dùng 'sr on' để bật hoặc 'sr off' để tắt. Dùng"
+" 'sc' để lưu lâu dài"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1039
-#: D:/TTMediaBot/bot/commands/user_commands.py:1049
+#: D:/TTMediaBot/bot/commands/user_commands.py:1041
+#: D:/TTMediaBot/bot/commands/user_commands.py:1051
 msgid "Search results mode: ON"
 msgstr "Chế độ hiện kết quả tìm kiếm: BẬT"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1043
-#: D:/TTMediaBot/bot/commands/user_commands.py:1051
+#: D:/TTMediaBot/bot/commands/user_commands.py:1045
+#: D:/TTMediaBot/bot/commands/user_commands.py:1053
 msgid "Search results mode: OFF"
 msgstr "Chế độ hiện kết quả tìm kiếm: TẮT"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1063
+#: D:/TTMediaBot/bot/commands/user_commands.py:1065
 msgid ""
-"NUMBER Selects and plays result NUMBER from the last search list (requires "
-"search results mode to be active)"
+"NUMBER Selects and plays result NUMBER from the last search list "
+"(requires search results mode to be active)"
 msgstr ""
-"SỐ Chọn và phát kết quả có số đó trong danh sách tìm kiếm gần nhất (cần bật chế "
-"độ hiện kết quả tìm kiếm)"
+"SỐ Chọn và phát kết quả có số đó trong danh sách tìm kiếm gần nhất (cần "
+"bật chế độ hiện kết quả tìm kiếm)"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1082
+#: D:/TTMediaBot/bot/commands/user_commands.py:1084
 msgid "No search results available. Use 'p QUERY' to search first"
 msgstr "Chưa có kết quả tìm kiếm. Hãy dùng 'p TỪ_KHÓA' để tìm trước"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1096
+#: D:/TTMediaBot/bot/commands/user_commands.py:1098
 #, python-brace-format
 msgid "{nickname} selected: {track}"
 msgstr "{nickname} đã chọn: {track}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1113
+#: D:/TTMediaBot/bot/commands/user_commands.py:1115
 msgid ""
-"NUMBER Sets how many results are shown when search results mode is active. "
-"Without a number shows current count. Resets to 1 on restart"
+"NUMBER Sets how many results are shown when search results mode is "
+"active. Without a number shows current count. Resets to 1 on restart"
 msgstr ""
-"SỐ Đặt số kết quả được hiện khi chế độ hiện kết quả tìm kiếm đang bật. Nếu không "
-"ghi số, sẽ hiện số lượng hiện tại. Sau khi khởi động lại, số này trở về 1"
+"SỐ Đặt số kết quả được hiện khi chế độ hiện kết quả tìm kiếm đang bật. "
+"Nếu không ghi số, sẽ hiện số lượng hiện tại. Sau khi khởi động lại, số "
+"này trở về 1"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1119
+#: D:/TTMediaBot/bot/commands/user_commands.py:1121
 #, python-brace-format
 msgid "Search results count: {count}"
 msgstr "Số kết quả tìm kiếm: {count}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1129
+#: D:/TTMediaBot/bot/commands/user_commands.py:1131
 msgid "Invalid count. Please enter a number greater than 0"
 msgstr "Số không hợp lệ. Vui lòng nhập một số lớn hơn 0"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1134
+#: D:/TTMediaBot/bot/commands/user_commands.py:1136
 #, python-brace-format
 msgid "Search results count set to {count}"
 msgstr "Đã đặt số kết quả tìm kiếm là {count}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1142
+#: D:/TTMediaBot/bot/commands/user_commands.py:1144
 msgid "LINK Adds a link to the download list."
 msgstr "LINK Thêm một link vào danh sách tải."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1154
+#: D:/TTMediaBot/bot/commands/user_commands.py:1156
 #, python-brace-format
 msgid "Added link to the list. Total: {count}"
 msgstr "Đã thêm link vào danh sách. Tổng cộng: {count}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1163
+#: D:/TTMediaBot/bot/commands/user_commands.py:1165
 msgid "LINK1 LINK2 ... Adds multiple space-separated links to the download list."
 msgstr ""
-"LINK1 LINK2 ... Thêm nhiều link cùng lúc vào danh sách tải, các link cách nhau "
-"bằng dấu cách."
+"LINK1 LINK2 ... Thêm nhiều link cùng lúc vào danh sách tải, các link cách"
+" nhau bằng dấu cách."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1178
+#: D:/TTMediaBot/bot/commands/user_commands.py:1180
 #, python-brace-format
 msgid "Added {added_count} links. Total list size: {count}"
 msgstr "Đã thêm {added_count} link. Tổng số link trong danh sách: {count}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1188
+#: D:/TTMediaBot/bot/commands/user_commands.py:1190
 msgid "Lists all links in the download list."
 msgstr "Hiện tất cả link trong danh sách tải."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1207
+#: D:/TTMediaBot/bot/commands/user_commands.py:1209
 msgid "NUMBER_OR_LINK Removes a link from the download list by its index or URL."
 msgstr ""
-"SỐ_HOẶC_LINK Xóa một link khỏi danh sách tải, theo số thứ tự hoặc theo chính "
-"link đó."
+"SỐ_HOẶC_LINK Xóa một link khỏi danh sách tải, theo số thứ tự hoặc theo "
+"chính link đó."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1232
+#: D:/TTMediaBot/bot/commands/user_commands.py:1234
 msgid "Link not found in the list"
 msgstr "Không tìm thấy link này trong danh sách"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1234
+#: D:/TTMediaBot/bot/commands/user_commands.py:1236
 #, python-brace-format
 msgid "Removed link: {link}"
 msgstr "Đã xóa link: {link}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1241
+#: D:/TTMediaBot/bot/commands/user_commands.py:1243
 msgid "LINK Downloads a link directly and uploads it to the channel."
 msgstr "LINK Tải ngay một link rồi gửi lên kênh."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1249
+#: D:/TTMediaBot/bot/commands/user_commands.py:1251
 msgid "Searching and downloading..."
 msgstr "Đang tìm và tải xuống..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1273
+#: D:/TTMediaBot/bot/commands/user_commands.py:1275
 msgid ""
-"Downloads all links in your list and uploads them to the channel. Can download "
-"normally or as a ZIP archive."
+"Downloads all links in your list and uploads them to the channel. Can "
+"download normally or as a ZIP archive."
 msgstr ""
-"Tải tất cả link trong danh sách của bạn rồi gửi lên kênh. Có thể tải từng file "
-"riêng hoặc nén thành một file ZIP."
+"Tải tất cả link trong danh sách của bạn rồi gửi lên kênh. Có thể tải từng"
+" file riêng hoặc nén thành một file ZIP."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1285
+#: D:/TTMediaBot/bot/commands/user_commands.py:1287
 msgid ""
 "How do you want to download these links?\n"
 "1. Download individually (Normal)\n"
@@ -1734,351 +1912,355 @@ msgstr ""
 "2. Nén tất cả thành một file ZIP\n"
 "Chỉ trả lời 1 hoặc 2."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1296
+#: D:/TTMediaBot/bot/commands/user_commands.py:1298
 #, python-brace-format
 msgid "Starting local download of {count} links..."
 msgstr "Bắt đầu tải {count} link về máy chủ..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1299
+#: D:/TTMediaBot/bot/commands/user_commands.py:1301
 #, python-brace-format
 msgid "Starting download of {count} links..."
 msgstr "Bắt đầu tải {count} link..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1305
+#: D:/TTMediaBot/bot/commands/user_commands.py:1307
 #, python-brace-format
 msgid "Resolving and zipping locally {count} links..."
 msgstr "Đang xử lý và nén {count} link trên máy chủ..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1308
+#: D:/TTMediaBot/bot/commands/user_commands.py:1310
 #, python-brace-format
 msgid "Resolving and zipping {count} links..."
 msgstr "Đang xử lý và nén {count} link..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1310
+#: D:/TTMediaBot/bot/commands/user_commands.py:1312
 msgid "Invalid option. Please send 'ads' again to select."
 msgstr "Lựa chọn không hợp lệ. Vui lòng gửi lại lệnh 'ads' để chọn lại."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1316
-#: D:/TTMediaBot/bot/commands/user_commands.py:1354
+#: D:/TTMediaBot/bot/commands/user_commands.py:1318
+#: D:/TTMediaBot/bot/commands/user_commands.py:1356
 #, python-brace-format
 msgid "Processing link {number}/{total}: {link}"
 msgstr "Đang xử lý link {number}/{total}: {link}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1324
-#: D:/TTMediaBot/bot/commands/user_commands.py:1362
+#: D:/TTMediaBot/bot/commands/user_commands.py:1326
+#: D:/TTMediaBot/bot/commands/user_commands.py:1364
 #, python-brace-format
 msgid "Nothing is found for: {link}"
 msgstr "Không tìm thấy kết quả cho: {link}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1332
+#: D:/TTMediaBot/bot/commands/user_commands.py:1334
 #, python-brace-format
 msgid "Error downloading {link}: {error}"
 msgstr "Lỗi khi tải {link}: {error}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1385
-#: D:/TTMediaBot/bot/commands/user_commands.py:1505
+#: D:/TTMediaBot/bot/commands/user_commands.py:1388
+#: D:/TTMediaBot/bot/commands/user_commands.py:1509
 msgid "All downloads completed successfully!"
 msgstr "Đã tải xong tất cả, không có lỗi!"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1390
-#: D:/TTMediaBot/bot/commands/user_commands.py:1510
+#: D:/TTMediaBot/bot/commands/user_commands.py:1393
+#: D:/TTMediaBot/bot/commands/user_commands.py:1514
 #, python-brace-format
 msgid "Downloads completed with {error_count} error(s)."
 msgstr "Đã tải xong nhưng có {error_count} lỗi."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1399
-#: D:/TTMediaBot/bot/commands/user_commands.py:1429
+#: D:/TTMediaBot/bot/commands/user_commands.py:1402
+#: D:/TTMediaBot/bot/commands/user_commands.py:1432
 msgid "Resolving links..."
 msgstr "Đang xử lý các link..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1413
-#: D:/TTMediaBot/bot/commands/user_commands.py:1446
+#: D:/TTMediaBot/bot/commands/user_commands.py:1416
+#: D:/TTMediaBot/bot/commands/user_commands.py:1449
 msgid "Error: No valid tracks found to download."
 msgstr "Lỗi: Không tìm thấy bài nào hợp lệ để tải."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1469
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:91
+#: D:/TTMediaBot/bot/commands/user_commands.py:1473
+#: D:/TTMediaBot/bot/modules/playlist_uploader.py:92
 msgid "Error: Failed to download any tracks from this playlist."
 msgstr "Lỗi: Không tải được bài nào từ danh sách phát này."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1521
+#: D:/TTMediaBot/bot/commands/user_commands.py:1525
 msgid ""
-"Toggles local download mode for the 'ads' command. When active, files are saved "
-"locally to the VPS instead of uploaded to TeamTalk."
+"Toggles local download mode for the 'ads' command. When active, files are"
+" saved locally to the VPS instead of uploaded to TeamTalk."
 msgstr ""
-"Bật hoặc tắt chế độ tải về máy chủ cho lệnh 'ads'. Khi bật, file sẽ được lưu "
-"trên máy chủ (VPS) thay vì gửi lên TeamTalk."
+"Bật hoặc tắt chế độ tải về máy chủ cho lệnh 'ads'. Khi bật, file sẽ được "
+"lưu trên máy chủ (VPS) thay vì gửi lên TeamTalk."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1527
+#: D:/TTMediaBot/bot/commands/user_commands.py:1531
 msgid "Local download mode (adsc) enabled."
 msgstr "Đã bật chế độ tải về máy chủ (adsc)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1529
+#: D:/TTMediaBot/bot/commands/user_commands.py:1533
 msgid "Local download mode (adsc) disabled."
 msgstr "Đã tắt chế độ tải về máy chủ (adsc)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1536
+#: D:/TTMediaBot/bot/commands/user_commands.py:1540
 msgid ""
-"Toggles silence trimming mode. When active, automatically removes leading and "
-"trailing silence from tracks."
+"Toggles silence trimming mode. When active, automatically removes leading"
+" and trailing silence from tracks."
 msgstr ""
-"Bật hoặc tắt chế độ cắt khoảng lặng. Khi bật, bot tự động cắt phần im lặng ở đầu "
-"và cuối bài."
+"Bật hoặc tắt chế độ cắt khoảng lặng. Khi bật, bot tự động cắt phần im "
+"lặng ở đầu và cuối bài."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1543
+#: D:/TTMediaBot/bot/commands/user_commands.py:1547
 msgid "Silence trimming (ts) enabled."
 msgstr "Đã bật cắt khoảng lặng (ts)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1545
+#: D:/TTMediaBot/bot/commands/user_commands.py:1549
 msgid "Silence trimming (ts) disabled."
 msgstr "Đã tắt cắt khoảng lặng (ts)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1552
+#: D:/TTMediaBot/bot/commands/user_commands.py:1556
 msgid ""
-"[-s] Identifies the currently playing song in a mix or compilation using YouTube "
-"Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force audio/voice "
-"recognition."
+"[-s] Identifies the currently playing song in a mix or compilation using "
+"YouTube Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force "
+"audio/voice recognition."
 msgstr ""
-"[-s] Nhận diện bài đang phát trong một bản mix hoặc tuyển tập, dựa vào chương "
-"của YouTube, Shazam hoặc AI giọng nói của Google. Dùng 'ws -s' để bắt buộc nhận "
-"diện bằng âm thanh/giọng nói."
+"[-s] Nhận diện bài đang phát trong một bản mix hoặc tuyển tập, dựa vào "
+"chương của YouTube, Shazam hoặc AI giọng nói của Google. Dùng 'ws -s' để "
+"bắt buộc nhận diện bằng âm thanh/giọng nói."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1561
+#: D:/TTMediaBot/bot/commands/user_commands.py:1565
 msgid ""
-"Could not identify the song. If this is a song with lyrics, please try again "
-"when the vocals/lyrics are clearly heard."
+"Could not identify the song. If this is a song with lyrics, please try "
+"again when the vocals/lyrics are clearly heard."
 msgstr ""
-"Không nhận diện được bài hát. Nếu bài có lời, hãy thử lại vào lúc nghe rõ giọng "
-"hát."
+"Không nhận diện được bài hát. Nếu bài có lời, hãy thử lại vào lúc nghe rõ"
+" giọng hát."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1576
-#: D:/TTMediaBot/bot/commands/user_commands.py:1619
+#: D:/TTMediaBot/bot/commands/user_commands.py:1580
+#: D:/TTMediaBot/bot/commands/user_commands.py:1623
 msgid "Song"
 msgstr "Bài hát"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1579
-#: D:/TTMediaBot/bot/commands/user_commands.py:1622
+#: D:/TTMediaBot/bot/commands/user_commands.py:1583
+#: D:/TTMediaBot/bot/commands/user_commands.py:1626
 msgid "Artist"
 msgstr "Nghệ sĩ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1581
+#: D:/TTMediaBot/bot/commands/user_commands.py:1585
 msgid "Lyrics heard"
 msgstr "Lời bài hát nghe được"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1582
-#: D:/TTMediaBot/bot/commands/user_commands.py:1623
+#: D:/TTMediaBot/bot/commands/user_commands.py:1586
+#: D:/TTMediaBot/bot/commands/user_commands.py:1627
 msgid "Position"
 msgstr "Vị trí"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1583
-#: D:/TTMediaBot/bot/commands/user_commands.py:1624
+#: D:/TTMediaBot/bot/commands/user_commands.py:1587
+#: D:/TTMediaBot/bot/commands/user_commands.py:1628
 msgid "Source"
 msgstr "Nguồn"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1595
+#: D:/TTMediaBot/bot/commands/user_commands.py:1599
 #, python-brace-format
 msgid "Error identifying song: {}"
 msgstr "Lỗi khi nhận diện bài hát: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1632
+#: D:/TTMediaBot/bot/commands/user_commands.py:1636
 msgid "🔍 Listening and identifying the currently playing song..."
 msgstr "🔍 Đang nghe và nhận diện bài hát đang phát..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1643
+#: D:/TTMediaBot/bot/commands/user_commands.py:1647
 msgid "[NAME] Gets lyrics for the currently playing song or specified song name"
 msgstr "[TÊN] Lấy lời bài hát đang phát, hoặc lời của bài hát có tên bạn ghi"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1705
+#: D:/TTMediaBot/bot/commands/user_commands.py:1709
 #, python-brace-format
 msgid "Lyrics not found for '{}'"
 msgstr "Không tìm thấy lời bài hát '{}'"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1711
+#: D:/TTMediaBot/bot/commands/user_commands.py:1715
 msgid "Lyrics"
 msgstr "Lời bài hát"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1719
+#: D:/TTMediaBot/bot/commands/user_commands.py:1723
 #, python-brace-format
 msgid "Error fetching lyrics: {}"
 msgstr "Lỗi khi lấy lời bài hát: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1752
+#: D:/TTMediaBot/bot/commands/user_commands.py:1756
 #, python-brace-format
 msgid "🔍 Fetching lyrics for '{}'..."
 msgstr "🔍 Đang lấy lời bài hát '{}'..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1762
+#: D:/TTMediaBot/bot/commands/user_commands.py:1766
 msgid "Toggles live video subtitles on bot status"
 msgstr "Bật hoặc tắt phụ đề video trực tiếp trên trạng thái của bot"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1767
+#: D:/TTMediaBot/bot/commands/user_commands.py:1771
 msgid "Video subtitles (sub) enabled."
 msgstr "Đã bật phụ đề video (sub)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1769
+#: D:/TTMediaBot/bot/commands/user_commands.py:1773
 msgid "Video subtitles (sub) disabled."
 msgstr "Đã tắt phụ đề video (sub)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1775
+#: D:/TTMediaBot/bot/commands/user_commands.py:1779
 msgid "QUERY Searches and plays a radio station"
 msgstr "TỪ_KHÓA Tìm và phát một đài radio"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1780
+#: D:/TTMediaBot/bot/commands/user_commands.py:1784
 msgid "Searching radio..."
 msgstr "Đang tìm kiếm radio..."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1798
+#: D:/TTMediaBot/bot/commands/user_commands.py:1802
 #, python-brace-format
 msgid "{nickname} requested radio {request}"
 msgstr "{nickname} đã yêu cầu radio {request}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1802
+#: D:/TTMediaBot/bot/commands/user_commands.py:1806
 #, python-brace-format
 msgid "Playing radio: {}"
 msgstr "Đang phát radio: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1804
+#: D:/TTMediaBot/bot/commands/user_commands.py:1808
 #, python-brace-format
 msgid "Error playing radio: {}"
 msgstr "Lỗi phát radio: {}"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1809
+#: D:/TTMediaBot/bot/commands/user_commands.py:1813
 msgid "Adds currently playing radio to favorites"
 msgstr "Thêm radio đang phát vào mục yêu thích"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1823
+#: D:/TTMediaBot/bot/commands/user_commands.py:1827
 msgid "Added radio to favorites"
 msgstr "Đã thêm radio vào mục yêu thích"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1829
+#: D:/TTMediaBot/bot/commands/user_commands.py:1833
 msgid "NUMBER Removes a radio from favorites by number"
 msgstr "SỐ Xóa radio khỏi mục yêu thích theo số thứ tự"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1835
-#: D:/TTMediaBot/bot/commands/user_commands.py:1860
+#: D:/TTMediaBot/bot/commands/user_commands.py:1839
+#: D:/TTMediaBot/bot/commands/user_commands.py:1864
 msgid "The radio favorites list is empty"
 msgstr "Danh sách yêu thích radio đang trống"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1847
+#: D:/TTMediaBot/bot/commands/user_commands.py:1851
 msgid "Removed radio from favorites"
 msgstr "Đã xóa radio khỏi mục yêu thích"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1849
-#: D:/TTMediaBot/bot/commands/user_commands.py:1873
+#: D:/TTMediaBot/bot/commands/user_commands.py:1853
+#: D:/TTMediaBot/bot/commands/user_commands.py:1877
 msgid "Invalid number"
 msgstr "Số không hợp lệ"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1854
+#: D:/TTMediaBot/bot/commands/user_commands.py:1858
 msgid "NUMBER Plays a radio from favorites by number"
 msgstr "SỐ Phát radio yêu thích theo số thứ tự"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1871
+#: D:/TTMediaBot/bot/commands/user_commands.py:1875
 msgid "Playing radio from favorites"
 msgstr "Đang phát radio từ mục yêu thích"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1880
+#: D:/TTMediaBot/bot/commands/user_commands.py:1884
 msgid ""
-"[on/off/<source> <target>] Checks translation status, enables/disables public "
-"channel translation, or sets language pair (e.g. tr auto en, tr vi en)"
+"[on/off/<source> <target>] Checks translation status, enables/disables "
+"public channel translation, or sets language pair (e.g. tr auto en, tr vi"
+" en)"
 msgstr ""
-"[on/off/<NGUỒN> <ĐÍCH>] Xem trạng thái dịch kênh, bật/tắt dịch tin nhắn trong "
-"kênh công khai, hoặc đặt cặp ngôn ngữ (ví dụ: tr auto en, tr vi en)"
+"[on/off/<NGUỒN> <ĐÍCH>] Xem trạng thái dịch kênh, bật/tắt dịch tin nhắn "
+"trong kênh công khai, hoặc đặt cặp ngôn ngữ (ví dụ: tr auto en, tr vi en)"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1892
+#: D:/TTMediaBot/bot/commands/user_commands.py:1896
 #, python-brace-format
 msgid "Channel translation is enabled ({lang_from} {arrow} {lang_to})."
 msgstr "Dịch kênh đang bật ({lang_from} {arrow} {lang_to})."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1894
+#: D:/TTMediaBot/bot/commands/user_commands.py:1898
 #, python-brace-format
 msgid "Channel translation is disabled ({lang_from} {arrow} {lang_to})."
 msgstr "Dịch kênh đang tắt ({lang_from} {arrow} {lang_to})."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1910
+#: D:/TTMediaBot/bot/commands/user_commands.py:1914
 #, python-brace-format
 msgid "Channel translation enabled ({lang_from} {arrow} {lang_to})."
 msgstr "Đã bật dịch kênh ({lang_from} {arrow} {lang_to})."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1918
+#: D:/TTMediaBot/bot/commands/user_commands.py:1922
 msgid "Channel translation disabled."
 msgstr "Đã tắt dịch kênh."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1927
+#: D:/TTMediaBot/bot/commands/user_commands.py:1931
 msgid ""
-"Error: Target language cannot be 'auto'. Please specify a valid target language."
+"Error: Target language cannot be 'auto'. Please specify a valid target "
+"language."
 msgstr ""
-"Lỗi: Ngôn ngữ đích không được là 'auto'. Vui lòng chọn một ngôn ngữ đích cụ thể."
+"Lỗi: Ngôn ngữ đích không được là 'auto'. Vui lòng chọn một ngôn ngữ đích "
+"cụ thể."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1930
+#: D:/TTMediaBot/bot/commands/user_commands.py:1934
 msgid "Error: Source and target languages cannot be the same."
 msgstr "Lỗi: Ngôn ngữ nguồn và ngôn ngữ đích không được giống nhau."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1942
+#: D:/TTMediaBot/bot/commands/user_commands.py:1946
 #, python-brace-format
 msgid "Channel translation set to {lang_from} {arrow} {lang_to} (Enabled)."
 msgstr "Đã đặt dịch kênh là {lang_from} {arrow} {lang_to} (đang bật)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1952
+#: D:/TTMediaBot/bot/commands/user_commands.py:1956
 msgid ""
-"[on/off/end/MINUTES] Checks timer status, enables/disables timer, stops after "
-"current video/track ends, or sets timer in minutes (e.g., tm end, tm 30, tm on, "
-"tm off)"
+"[on/off/end/MINUTES] Checks timer status, enables/disables timer, stops "
+"after current video/track ends, or sets timer in minutes (e.g., tm end, "
+"tm 30, tm on, tm off)"
 msgstr ""
-"[on/off/end/SỐ_PHÚT] Xem trạng thái hẹn giờ, bật/tắt hẹn giờ, dừng sau khi video/"
-"bài hiện tại kết thúc, hoặc hẹn giờ theo số phút (ví dụ: tm end, tm 30, tm on, "
-"tm off)"
+"[on/off/end/SỐ_PHÚT] Xem trạng thái hẹn giờ, bật/tắt hẹn giờ, dừng sau "
+"khi video/bài hiện tại kết thúc, hoặc hẹn giờ theo số phút (ví dụ: tm "
+"end, tm 30, tm on, tm off)"
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1958
+#: D:/TTMediaBot/bot/commands/user_commands.py:1962
 msgid "Sleep timer is not available."
 msgstr "Chức năng hẹn giờ ngủ không khả dụng."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1964
+#: D:/TTMediaBot/bot/commands/user_commands.py:1968
 msgid "No sleep timer is currently active."
 msgstr "Hiện không có hẹn giờ ngủ nào đang bật."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1975
+#: D:/TTMediaBot/bot/commands/user_commands.py:1979
 #, python-brace-format
 msgid ""
-"Sleep timer is active: playback will stop when current track ends{time_part}."
+"Sleep timer is active: playback will stop when current track "
+"ends{time_part}."
 msgstr "Hẹn giờ ngủ đang bật: nhạc sẽ dừng khi bài hiện tại kết thúc{time_part}."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1980
+#: D:/TTMediaBot/bot/commands/user_commands.py:1984
 msgid "Sleep timer is about to stop playback."
 msgstr "Hẹn giờ ngủ sắp dừng phát nhạc."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1990
+#: D:/TTMediaBot/bot/commands/user_commands.py:1994
 #, python-brace-format
 msgid "Sleep timer is active: {time_str} remaining."
 msgstr "Hẹn giờ ngủ đang bật: còn lại {time_str}."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1996
+#: D:/TTMediaBot/bot/commands/user_commands.py:2000
 msgid "Sleep timer has been cancelled."
 msgstr "Đã hủy hẹn giờ ngủ."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1998
+#: D:/TTMediaBot/bot/commands/user_commands.py:2002
 msgid "No sleep timer was active."
 msgstr "Hiện không có hẹn giờ ngủ nào đang bật."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2010
+#: D:/TTMediaBot/bot/commands/user_commands.py:2014
 #, python-brace-format
 msgid "Sleep timer set: playback will stop when current track ends{track_info}."
 msgstr "Đã cài hẹn giờ ngủ: nhạc sẽ dừng khi bài hiện tại kết thúc{track_info}."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2016
+#: D:/TTMediaBot/bot/commands/user_commands.py:2020
 #, python-brace-format
 msgid "{nickname} set a sleep timer to stop music when current track ends."
 msgstr "{nickname} đã cài hẹn giờ ngủ: nhạc sẽ dừng khi bài hiện tại kết thúc."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2037
+#: D:/TTMediaBot/bot/commands/user_commands.py:2041
 msgid "Error: Timer cannot be set for more than 24 hours (1440 minutes)."
 msgstr "Lỗi: Không thể cài hẹn giờ quá 24 giờ (1440 phút)."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2044
+#: D:/TTMediaBot/bot/commands/user_commands.py:2048
 #, python-brace-format
 msgid "Sleep timer set: music will stop in {duration}."
 msgstr "Đã cài hẹn giờ ngủ: nhạc sẽ dừng sau {duration}."
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2051
+#: D:/TTMediaBot/bot/commands/user_commands.py:2055
 #, python-brace-format
 msgid "{nickname} set a sleep timer to stop music in {duration}."
 msgstr "{nickname} đã cài hẹn giờ ngủ: nhạc sẽ dừng sau {duration}."
@@ -2113,29 +2295,26 @@ msgstr "Đang tải danh sách phát: {}"
 msgid "Downloading track {}: {}"
 msgstr "Đang tải bài {}: {}"
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:97
+#: D:/TTMediaBot/bot/modules/playlist_uploader.py:98
 msgid "Zipping tracks..."
 msgstr "Đang nén các bài hát..."
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:112
+#: D:/TTMediaBot/bot/modules/playlist_uploader.py:113
 #, python-brace-format
 msgid "Uploading ZIP: {}"
 msgstr "Đang gửi file ZIP: {}"
-
-#: D:/TTMediaBot/bot/modules/uploader.py:64
-msgid "Error: Downloaded file not found."
-msgstr "Lỗi: Không tìm thấy file đã tải."
 
 #: D:/TTMediaBot/bot/player/sleep_timer.py:172
 msgid "Sleep timer expired. Playback stopped."
 msgstr "Hết giờ hẹn ngủ. Đã dừng phát nhạc."
 
-#: D:/TTMediaBot/bot/services/yt.py:112 D:/TTMediaBot/bot/services/yt.py:144
-#: D:/TTMediaBot/bot/services/yt.py:219 D:/TTMediaBot/bot/services/yt.py:268
-#: D:/TTMediaBot/bot/services/yt.py:326
+#: D:/TTMediaBot/bot/services/yt.py:228 D:/TTMediaBot/bot/services/yt.py:409
+#: D:/TTMediaBot/bot/services/yt.py:443 D:/TTMediaBot/bot/services/yt.py:520
+#: D:/TTMediaBot/bot/services/yt.py:604 D:/TTMediaBot/bot/services/yt.py:671
 msgid "Unknown Title"
 msgstr "Không rõ tiêu đề"
 
-#: D:/TTMediaBot/bot/services/yt.py:244
+#: D:/TTMediaBot/bot/services/yt.py:545
 msgid "YouTube Track"
 msgstr "Bài hát YouTube"
+

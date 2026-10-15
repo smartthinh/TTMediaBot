@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from bot.translator import Translator
 
 app_name = "TTMediaBot"
-app_version = "3.4.0"
+app_version = "3.5.0"
 client_name = app_name + "-V" + app_version
 about_text: Callable[[Translator], str] = lambda translator: translator.translate(
     """\
@@ -41,6 +41,7 @@ cache_dir = os.path.join(data_dir, "cache")
 temp_dir = os.path.join(data_dir, "temp")
 downloads_dir = os.path.join(data_dir, "downloads")
 music_downloads_dir = os.path.join(downloads_dir, "music")
+video_downloads_dir = os.path.join(downloads_dir, "videos")
 zip_downloads_dir = os.path.join(downloads_dir, "zips")
 default_config_path = os.path.join(data_dir, "config.json")
 
@@ -50,6 +51,7 @@ os.makedirs(cache_dir, exist_ok=True)
 os.makedirs(temp_dir, exist_ok=True)
 os.makedirs(downloads_dir, exist_ok=True)
 os.makedirs(music_downloads_dir, exist_ok=True)
+os.makedirs(video_downloads_dir, exist_ok=True)
 os.makedirs(zip_downloads_dir, exist_ok=True)
 
 

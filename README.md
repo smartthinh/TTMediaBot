@@ -195,6 +195,8 @@ Restricted to accounts listed in the teamtalk.users.admins array in config.json.
 | rs | | Restarts the bot process. |
 | q | | Shuts down the bot. |
 | gcid | | Outputs the current channel ID. |
+| da | [query/link] | Downloads the current track (or specified query/link) as audio and saves it locally to the host machine's downloads folder without uploading to TeamTalk. |
+| dv | [query/link] | Downloads the current track (or specified query/link) as video (.mp4) and saves it locally to the host machine's downloads folder without uploading to TeamTalk. |
 
 ---
 

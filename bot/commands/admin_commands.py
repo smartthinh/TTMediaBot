@@ -1,15 +1,19 @@
 from __future__ import annotations
+import logging
 import os
+import shutil
 import subprocess
 import sys
+import threading
 import time
 from typing import Optional, TYPE_CHECKING
 from queue import Empty
 
 from bot.commands.command import Command
-from bot.player.enums import State
+from bot.player.enums import State, TrackType
+from bot.player.track import Track
 from bot.TeamTalk.structs import UserType
-from bot import app_vars, errors
+from bot import app_vars, errors, utils
 
 if TYPE_CHECKING:
     from bot.TeamTalk.structs import User
@@ -401,3 +405,222 @@ class GetChannelIDCommand(Command):
 
     def __call__(self, arg: str, user: User) -> Optional[str]:
         return str(self.ttclient.channel.id)
+
+
+class DownloadLocalAudioCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "[QUERY|LINK] Downloads the current track or specified link/query as audio and saves it to the downloads folder."
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        if not (user.is_admin or user.type == UserType.Admin):
+            raise errors.AccessDeniedError(
+                self.translator.translate("Only administrators can use this command")
+            )
+        if arg:
+            threading.Thread(
+                target=self._process_query,
+                args=(arg, user),
+                daemon=True,
+            ).start()
+            return self.translator.translate("Searching and downloading audio...")
+        else:
+            if self.player.state != State.Stopped:
+                track = self.player.track
+                if track.url and track.type != TrackType.Live:
+                    threading.Thread(
+                        target=self._process_track,
+                        args=(track, user),
+                        daemon=True,
+                    ).start()
+                    return self.translator.translate("Downloading audio...")
+                else:
+                    return self.translator.translate("Live streams cannot be downloaded")
+            else:
+                return self.translator.translate("Nothing is playing")
+
+    def _process_query(self, query: str, user: User) -> None:
+        try:
+            tracks = self.module_manager.streamer.get(query, user.is_admin)
+            if not tracks:
+                self.ttclient.send_message(
+                    self.translator.translate("Nothing is found for your query"),
+                    user,
+                )
+                return
+            self._process_track(tracks[0], user)
+        except Exception as e:
+            logging.error(f"DownloadLocalAudio error for query '{query}': {e}", exc_info=True)
+            self.ttclient.send_message(
+                self.translator.translate("Error: {}").format(str(e)),
+                user,
+            )
+
+    def _process_track(self, track: Track, user: User) -> None:
+        try:
+            dest_dir = app_vars.music_downloads_dir
+            os.makedirs(dest_dir, exist_ok=True)
+            if track.type == TrackType.Live:
+                self.ttclient.send_message(
+                    self.translator.translate("Live streams cannot be downloaded"),
+                    user,
+                )
+                return
+
+            if track.type == TrackType.Local:
+                source_file = track.url
+                if not os.path.exists(source_file):
+                    self.ttclient.send_message(
+                        self.translator.translate("Error: File not found."),
+                        user,
+                    )
+                    return
+                dest_file = os.path.join(dest_dir, os.path.basename(source_file))
+                shutil.copy2(source_file, dest_file)
+                file_path = dest_file
+            else:
+                if track.type == TrackType.Dynamic:
+                    _ = track.url
+                file_path = track.download(dest_dir, video=False)
+                if not os.path.exists(file_path):
+                    base_path = file_path.rsplit(".", 1)[0]
+                    for ext in ["mp3", "m4a", "opus", "webm", "wav", "flac"]:
+                        if os.path.exists(f"{base_path}.{ext}"):
+                            file_path = f"{base_path}.{ext}"
+                            break
+                if not os.path.exists(file_path):
+                    self.ttclient.send_message(
+                        self.translator.translate("Error: Downloaded file not found."),
+                        user,
+                    )
+                    return
+
+            target_format = getattr(self.config.general, "download_audio_format", "default")
+            target_rate = getattr(self.config.general, "sampling_rate", "default")
+            target_bitrate = getattr(self.config.general, "mp3_bitrate", "320k")
+            file_path = utils.convert_audio(file_path, target_format, target_rate, target_bitrate)
+
+            file_name = os.path.basename(file_path)
+            self.ttclient.send_message(
+                self.translator.translate(
+                    "Audio downloaded successfully: {file_name}\nSaved to: {path}"
+                ).format(file_name=file_name, path=file_path),
+                user,
+            )
+        except Exception as e:
+            logging.error(f"DownloadLocalAudio error for track '{track.name}': {e}", exc_info=True)
+            self.ttclient.send_message(
+                self.translator.translate("Error downloading {name}: {error}").format(
+                    name=track.name, error=str(e)
+                ),
+                user,
+            )
+
+
+class DownloadLocalVideoCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "[QUERY|LINK] Downloads the current track or specified link/query as video and saves it to the downloads folder."
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        if not (user.is_admin or user.type == UserType.Admin):
+            raise errors.AccessDeniedError(
+                self.translator.translate("Only administrators can use this command")
+            )
+        if arg:
+            threading.Thread(
+                target=self._process_query,
+                args=(arg, user),
+                daemon=True,
+            ).start()
+            return self.translator.translate("Searching and downloading video...")
+        else:
+            if self.player.state != State.Stopped:
+                track = self.player.track
+                if track.url and track.type != TrackType.Live:
+                    threading.Thread(
+                        target=self._process_track,
+                        args=(track, user),
+                        daemon=True,
+                    ).start()
+                    return self.translator.translate("Downloading video...")
+                else:
+                    return self.translator.translate("Live streams cannot be downloaded")
+            else:
+                return self.translator.translate("Nothing is playing")
+
+    def _process_query(self, query: str, user: User) -> None:
+        try:
+            tracks = self.module_manager.streamer.get(query, user.is_admin)
+            if not tracks:
+                self.ttclient.send_message(
+                    self.translator.translate("Nothing is found for your query"),
+                    user,
+                )
+                return
+            self._process_track(tracks[0], user)
+        except Exception as e:
+            logging.error(f"DownloadLocalVideo error for query '{query}': {e}", exc_info=True)
+            self.ttclient.send_message(
+                self.translator.translate("Error: {}").format(str(e)),
+                user,
+            )
+
+    def _process_track(self, track: Track, user: User) -> None:
+        try:
+            dest_dir = app_vars.video_downloads_dir
+            os.makedirs(dest_dir, exist_ok=True)
+            if track.type == TrackType.Live:
+                self.ttclient.send_message(
+                    self.translator.translate("Live streams cannot be downloaded"),
+                    user,
+                )
+                return
+
+            if track.type == TrackType.Local:
+                source_file = track.url
+                if not os.path.exists(source_file):
+                    self.ttclient.send_message(
+                        self.translator.translate("Error: File not found."),
+                        user,
+                    )
+                    return
+                dest_file = os.path.join(dest_dir, os.path.basename(source_file))
+                shutil.copy2(source_file, dest_file)
+                file_path = dest_file
+            else:
+                if track.type == TrackType.Dynamic:
+                    _ = track.url
+                file_path = track.download(dest_dir, video=True)
+                if not os.path.exists(file_path):
+                    base_path = file_path.rsplit(".", 1)[0]
+                    for ext in ["mp4", "mkv", "webm", "avi"]:
+                        if os.path.exists(f"{base_path}.{ext}"):
+                            file_path = f"{base_path}.{ext}"
+                            break
+                if not os.path.exists(file_path):
+                    self.ttclient.send_message(
+                        self.translator.translate("Error: Downloaded file not found."),
+                        user,
+                    )
+                    return
+
+            file_name = os.path.basename(file_path)
+            self.ttclient.send_message(
+                self.translator.translate(
+                    "Video downloaded successfully: {file_name}\nSaved to: {path}"
+                ).format(file_name=file_name, path=file_path),
+                user,
+            )
+        except Exception as e:
+            logging.error(f"DownloadLocalVideo error for track '{track.name}': {e}", exc_info=True)
+            self.ttclient.send_message(
+                self.translator.translate("Error downloading {name}: {error}").format(
+                    name=track.name, error=str(e)
+                ),
+                user,
+            )

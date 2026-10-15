@@ -2,7 +2,9 @@ from __future__ import annotations
 import logging
 import os
 import re
+import shutil
 import tempfile
+import threading
 import zipfile
 from typing import List, Optional, TYPE_CHECKING
 
