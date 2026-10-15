@@ -624,3 +624,197 @@ class DownloadLocalVideoCommand(Command):
                 ),
                 user,
             )
+
+
+class UploadFileCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "FILE_PATH Uploads a local file to the current TeamTalk channel"
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        if not (user.is_admin or user.type == UserType.Admin):
+            raise errors.AccessDeniedError(
+                self.translator.translate("Only administrators can use this command")
+            )
+        if not arg or not arg.strip():
+            return self.translator.translate("Error: Please specify the path of the file to upload.")
+
+        file_path = arg.strip().strip('"\'')
+        if not os.path.exists(file_path):
+            return self.translator.translate("Error: File not found at '{path}'.").format(
+                path=file_path
+            )
+        if os.path.isdir(file_path):
+            return self.translator.translate(
+                "Error: The specified path is a folder, not a file. Please provide a direct file path."
+            )
+        if not os.path.isfile(file_path):
+            return self.translator.translate("Error: The specified path is not a valid file.")
+        if not os.access(file_path, os.R_OK):
+            return self.translator.translate("Error: Cannot read file '{path}'. Permission denied.").format(
+                path=file_path
+            )
+        if not self.ttclient.channel or self.ttclient.channel.id == 0:
+            return self.translator.translate("Error: Bot is not currently in any channel.")
+
+        channel_id = self.ttclient.channel.id
+        file_name = os.path.basename(file_path)
+
+        threading.Thread(
+            target=self._upload_worker,
+            args=(file_path, user, channel_id),
+            daemon=True,
+        ).start()
+
+        return self.translator.translate("Uploading file: {file_name}...").format(
+            file_name=file_name
+        )
+
+    def _upload_worker(self, file_path: str, user: User, channel_id: int) -> None:
+        file_name = os.path.basename(file_path)
+        try:
+            file_size = os.path.getsize(file_path)
+            logging.info(
+                f"UploadFileCommand: Starting upload of '{file_path}' ({file_size} bytes) to channel {channel_id} requested by {user.username}"
+            )
+            command_id = self.ttclient.send_file(channel_id, file_path)
+            error_exit = False
+
+            while True:
+                try:
+                    file = self.ttclient.uploaded_files_queue.get_nowait()
+                    if file.name == file_name:
+                        logging.info(f"UploadFileCommand: File '{file_name}' successfully uploaded")
+                        break
+                    else:
+                        self.ttclient.uploaded_files_queue.put(file)
+                except Empty:
+                    pass
+                try:
+                    error = self.ttclient.errors_queue.get_nowait()
+                    if error.command_id == command_id:
+                        logging.error(
+                            f"UploadFileCommand: Error uploading file: {error.message} (Type: {error.type})"
+                        )
+                        self.ttclient.send_message(
+                            self.translator.translate("Error uploading file: {error}").format(
+                                error=error.message
+                            ),
+                            user,
+                        )
+                        error_exit = True
+                        break
+                    else:
+                        self.ttclient.errors_queue.put(error)
+                except Empty:
+                    pass
+                time.sleep(app_vars.loop_timeout)
+
+            if error_exit:
+                return
+
+            size_str = utils.format_file_size(file_size)
+            self.ttclient.send_message(
+                self.translator.translate("File uploaded successfully: {file_name} ({size})").format(
+                    file_name=file_name, size=size_str
+                ),
+                user,
+            )
+        except Exception as e:
+            logging.error(f"UploadFileCommand error for file '{file_path}': {e}", exc_info=True)
+            self.ttclient.send_message(
+                self.translator.translate("Error uploading file: {error}").format(error=str(e)),
+                user,
+            )
+
+
+class DeleteFilesCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate(
+            "[FILE_NAME] Deletes a specific file or all files in the current channel"
+        )
+
+    def __call__(self, arg: str, user: User) -> Optional[str]:
+        if not (user.is_admin or user.type == UserType.Admin):
+            raise errors.AccessDeniedError(
+                self.translator.translate("Only administrators can use this command")
+            )
+        if not self.ttclient.channel or self.ttclient.channel.id == 0:
+            return self.translator.translate("Error: Bot is not currently in any channel.")
+
+        channel_id = self.ttclient.channel.id
+        files = self.ttclient.get_channel_files(channel_id)
+        if not files:
+            return self.translator.translate("No files found in the current channel.")
+
+        target = arg.strip().strip('"\'') if arg else ""
+
+        if target:
+            # Delete specific file(s)
+            matching_files = [f for f in files if f.name.lower() == target.lower()]
+            if not matching_files and target.isdigit():
+                matching_files = [f for f in files if str(f.id) == target]
+            if not matching_files:
+                partial_matches = [f for f in files if target.lower() in f.name.lower()]
+                if len(partial_matches) == 1:
+                    matching_files = partial_matches
+
+            if not matching_files:
+                return self.translator.translate(
+                    "Error: File '{name}' not found in the current channel."
+                ).format(name=target)
+
+            deleted_files = []
+            failed_files = []
+            for file in matching_files:
+                try:
+                    self.ttclient.delete_file(channel_id, file.id)
+                    deleted_files.append(file.name)
+                    time.sleep(0.02)
+                except Exception as e:
+                    logging.error(
+                        f"DeleteFilesCommand: Failed to delete file '{file.name}' (id: {file.id}): {e}"
+                    )
+                    failed_files.append(file.name)
+
+            if failed_files and not deleted_files:
+                return self.translator.translate("Error deleting file '{name}'.").format(
+                    name=target
+                )
+            elif len(deleted_files) == 1:
+                return self.translator.translate("Successfully deleted file: {name}").format(
+                    name=deleted_files[0]
+                )
+            else:
+                return self.translator.translate(
+                    "Successfully deleted {count} file(s) matching '{name}'."
+                ).format(count=len(deleted_files), name=target)
+
+        # No argument: delete all files
+        deleted_count = 0
+        failed_count = 0
+        for file in files:
+            try:
+                self.ttclient.delete_file(channel_id, file.id)
+                deleted_count += 1
+                time.sleep(0.02)
+            except Exception as e:
+                logging.error(
+                    f"DeleteFilesCommand: Failed to delete file '{file.name}' (id: {file.id}): {e}"
+                )
+                failed_count += 1
+
+        if failed_count == 0:
+            return self.translator.translate(
+                "Successfully deleted all {count} file(s) from the channel."
+            ).format(count=deleted_count)
+        else:
+            return self.translator.translate(
+                "Deleted {deleted} file(s), failed to delete {failed} file(s)."
+            ).format(deleted=deleted_count, failed=failed_count)
+
+
+DeleteAllFilesCommand = DeleteFilesCommand

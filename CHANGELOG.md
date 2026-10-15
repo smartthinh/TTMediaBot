@@ -20,7 +20,6 @@ All notable updates to this fork are documented here, in reverse chronological o
   - `96000 Hz (Hi-Res Studio Quality)`: High-resolution audio for advanced sound cards.
   - `32000 Hz (FM Radio Quality)`, `24000 Hz (Medium Quality)`, and `16000 Hz (Voice Quality)` for lighter bandwidth usage.
 - **Real-Time Effect:** Changing the sampling rate immediately updates active bot players in real time and automatically applies to all music downloads.
-- **Full Multilingual & Screen Reader Support:** Fully accessible for NVDA and JAWS, with complete translations in English, Vietnamese, and Portuguese.
 
 ### 🎵 Smart MP3 Bitrate Selector
 - **Appears Automatically When Needed:** When you select **MP3 (`.mp3`)** as your audio format, a dedicated **MP3 Bitrate** dropdown menu immediately appears right below it. If you choose any other format, it automatically hides away to keep your screen clean and clutter-free.
@@ -32,7 +31,6 @@ All notable updates to this fork are documented here, in reverse chronological o
   - `128 kbps (Standard Quality - Small Size)`: Traditional lightweight MP3 for fast sharing.
   - `96 kbps (Medium Quality)` & `64 kbps (Voice Quality / Radio)`: Super lightweight for spoken words, radio, and podcasts.
 - **Automatic Audio Processing:** Downloaded songs are automatically encoded with your chosen bitrate before being uploaded to your TeamTalk channel.
-- **Fully Accessible:** Works seamlessly with keyboard navigation and screen readers across all supported languages.
 
 ### 📥 Administrator Local Audio & Video Downloads (Direct to Host Machine)
 - **Two Standard Admin Commands:** Bot administrators can now download songs or videos directly to the host machine's storage without uploading them back to the TeamTalk server channel. To keep things clean, concise, and aligned with international standards, exactly two dedicated commands are provided:
@@ -41,7 +39,6 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Strict Permission Protection:** Only bot administrators can execute `da` and `dv`. If a regular (non-admin) user attempts to run these commands, the bot politely blocks the action with an *"Only administrators can use this command"* message to protect host storage.
 - **Clear Status & File Path Notifications:** The bot notifies the administrator in TeamTalk chat when the download starts and when it finishes, providing the exact file name and the saved location on the host computer.
 - **1-Click "Downloads Folder" Button:** Added a **"Downloads Folder"** button directly to the main interface grid, allowing the bot host to open the folder containing downloaded files in File Explorer with a single click or keyboard shortcut.
-- **Full Multilingual & Accessibility Support:** Complete translations in Vietnamese, Portuguese, and English with full screen reader support.
 
 ### 🎶 Unified Smart Play Command (`p`) & Removal of Redundant `u` Command
 - **Unified All-in-One Playback (`p`):** The `p` command now intelligently detects and plays any type of input:
@@ -51,7 +48,18 @@ All notable updates to this fork are documented here, in reverse chronological o
   - **No Arguments:** Toggles Pause / Resume on the currently playing track as before.
 - **Removed Redundant `u` Command:** Since `p` now handles URLs and local files with automatic detection, the legacy `u` command has been removed to keep the bot interface modern, clean, and unified.
 - **Enhanced Queue Addition (`qa`):** Command `qa` now shares the same smart detection, allowing you to add songs to the queue using search keywords, direct links, or local paths.
-
+### 📤 Administrator Channel File Management (`uf` & `df`)
+- **Direct File Upload to Channel (`uf <file_path>`):** Bot administrators can upload any local file from the host computer directly to the current TeamTalk server channel by typing `uf` followed by the file path (e.g., `uf "D:\Music\song.mp3"`).
+  - **Comprehensive Safety Checks:** The bot strictly verifies the input to prevent accidental errors:
+    - **Rejects Directories:** If an administrator accidentally enters a folder path instead of a file, the bot clearly explains that the path is a folder and requests a direct file path.
+    - **Path Existence & Validity:** Verifies that the file exists and is a readable file before attempting any upload.
+    - **Channel Connection:** Ensures the bot is connected to a valid channel.
+  - **Asynchronous Background Upload:** The upload runs in the background so the bot remains fully responsive, and sends a notification message with the file name and size once the upload finishes.
+- **Delete Files in Channel (`df [file_name]`):** A single, powerful administrator command to manage and clean up channel files:
+  - **Delete a Specific File:** Type `df <file_name>` (e.g., `df song.mp3` or `df "track name.mp3"`) or file ID to delete only that specific file from the TeamTalk channel.
+  - **Single-Command Cleanup for All Files:** Type `df` alone without any arguments, and the bot automatically retrieves and deletes all uploaded files currently present in the channel.
+  - **Detailed Report:** Notifies the administrator with the exact name of the deleted file, or the total count of successfully removed files.
+- **Strict Administrator Protection:** Restricted exclusively to authorized bot administrators to prevent unauthorized file manipulation.
 
 ---
 

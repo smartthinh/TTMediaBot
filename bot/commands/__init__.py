@@ -115,6 +115,8 @@ class CommandProcessor:
             "gcid": admin_commands.GetChannelIDCommand,
             "da": admin_commands.DownloadLocalAudioCommand,
             "dv": admin_commands.DownloadLocalVideoCommand,
+            "uf": admin_commands.UploadFileCommand,
+            "df": admin_commands.DeleteFilesCommand,
         }
 
     def run(self):

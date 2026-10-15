@@ -227,6 +227,20 @@ class TeamTalk:
                 raise ValueError()
         return self.tt.doDeleteFile(channel_id, file_id)
 
+    def get_channel_files(self, channel: Union[int, str]) -> List[File]:
+        if isinstance(channel, int):
+            channel_id = channel
+        else:
+            channel_id = self.tt.getChannelIDFromPath(_str(channel))
+            if channel_id == 0:
+                raise ValueError()
+        try:
+            raw_files = self.tt.getChannelFiles(channel_id)
+            return [self.get_file(f) for f in raw_files]
+        except Exception as e:
+            logging.error(f"Error getting files for channel {channel_id}: {e}")
+            return []
+
     def join_channel(self, channel: Union[str, int], password: str) -> int:
         if isinstance(channel, int):
             channel_id = channel

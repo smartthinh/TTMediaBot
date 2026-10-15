@@ -112,3 +112,14 @@ def convert_audio(input_path: str, target_format: str, sampling_rate: str = "def
         logging.error(f"[AudioConverter] Failed to convert audio: {e}")
         return input_path
 
+
+def format_file_size(size_bytes: int) -> str:
+    if size_bytes < 1024:
+        return f"{size_bytes} B"
+    elif size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f} KB"
+    elif size_bytes < 1024 * 1024 * 1024:
+        return f"{size_bytes / (1024 * 1024):.1f} MB"
+    else:
+        return f"{size_bytes / (1024 * 1024 * 1024):.2f} GB"
+

@@ -196,6 +196,8 @@ Restricted to accounts listed in the teamtalk.users.admins array in config.json.
 | gcid | | Outputs the current channel ID. |
 | da | [query/link] | Downloads the current track (or specified query/link) as audio and saves it locally to the host machine's downloads folder without uploading to TeamTalk. |
 | dv | [query/link] | Downloads the current track (or specified query/link) as video (.mp4) and saves it locally to the host machine's downloads folder without uploading to TeamTalk. |
+| uf | <file_path> | Uploads a specified local file to the current TeamTalk channel (strict validation: rejects folders and missing paths). |
+| df | [file_name] | Deletes a specific file by name/ID, or deletes all uploaded files currently present in the TeamTalk channel if no argument is given. |
 
 ---
 
