@@ -122,8 +122,7 @@ Send commands via private message (PM) to the bot or directly in the channel (if
 | Command | Arguments | Description |
 | :--- | :--- | :--- |
 | h | [command] | Shows the general help menu or detailed instructions for a specific command. |
-| p | [query/url] | Searches and plays tracks. If called without an argument, toggles Pause / Resume. |
-| u | [url] | Plays an audio stream or file directly from a URL. |
+| p | [query/url/path] | Plays tracks from a search query, web URL (YouTube, streams, etc.), or local file/folder path. Without arguments, toggles Pause / Resume. |
 | s | | Stops playback. |
 | n | [number/?] | Plays the next track, jumps to a track index, or reports current position with ?. |
 | b | | Plays the previous track. |

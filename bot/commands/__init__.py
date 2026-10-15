@@ -45,7 +45,6 @@ class CommandProcessor:
             "adh": admin_commands.AdminHelpCommand,
             "a": user_commands.AboutCommand,
             "p": user_commands.PlayPauseCommand,
-            "u": user_commands.PlayUrlCommand,
             "sv": user_commands.ServiceCommand,
             "s": user_commands.StopCommand,
             "b": user_commands.PreviousTrackCommand,

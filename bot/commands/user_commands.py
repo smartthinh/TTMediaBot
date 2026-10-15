@@ -7,6 +7,7 @@ import tempfile
 import threading
 import zipfile
 from typing import List, Optional, TYPE_CHECKING
+from urllib.parse import urlparse
 
 from bot.commands.command import Command
 from bot.player.enums import Mode, State, TrackType
@@ -40,98 +41,116 @@ class PlayPauseCommand(Command):
     @property
     def help(self) -> str:
         return self.translator.translate(
-            "QUERY Plays tracks found for the query. If no query is given, plays or pauses current track. When search results mode (sr) is active, shows a numbered list instead"
+            "[QUERY|URL|PATH] Plays tracks found for a query, URL, or local path. If no query is given, plays or pauses current track. When search results mode (sr) is active, shows a numbered list instead"
         )
 
     def __call__(self, arg: str, user: User) -> Optional[str]:
         if arg:
-            self.send_message_async(
-                self.translator.translate("Searching..."),
-                user,
-            )
-            try:
-                # Search results mode: request more results from the service directly
-                if self.config.general.search_results_mode:
-                    count = self.command_processor.search_results_count
-                    track_list = self.search_tracks(arg, limit=count)
-                    self.command_processor.pending_search_results[user.id] = track_list
-                    lines = [self.translator.translate("Search results:")]
-                    for i, track in enumerate(track_list):
-                        lines.append(f"{i + 1}: {track.name}")
-                    lines.append(self.translator.translate("Use 'sl NUMBER' to select a track"))
-                    return "\n".join(lines)
+            clean_arg = arg.strip().strip('"\'')
+            norm_arg = clean_arg
+            if norm_arg.startswith("www."):
+                norm_arg = "https://" + norm_arg
 
-                # Normal mode: request only 1 result and play immediately
-                track_list = self.search_tracks(arg)
-                self.player.play(
-                    track_list,
-                    timing_context={
-                        "kind": "search",
-                        "started_at": self._last_search_started_at,
-                        "query": self._last_search_query,
-                    },
+            parsed = urlparse(norm_arg)
+            is_url = parsed.scheme in ("http", "https", "rtmp", "rtsp")
+            is_local = user.is_admin and os.path.exists(clean_arg)
+
+            if is_url or is_local:
+                self.send_message_async(
+                    self.translator.translate("Loading URL / playlist..."),
+                    user,
                 )
-                if self.config.general.send_channel_messages:
-                    self.send_message_async(
-                        self.translator.translate(
-                            "{nickname} requested {request}"
-                        ).format(nickname=user.nickname, request=arg),
-                        type=2,
+                try:
+                    target = norm_arg if is_url else clean_arg
+                    tracks = self.module_manager.streamer.get(target, user.is_admin)
+                    if not tracks:
+                        return self.translator.translate("Nothing is found for your query")
+                    self.player.play(tracks)
+                    if len(tracks) > 1:
+                        if self.config.general.send_channel_messages:
+                            self.send_message_async(
+                                self.translator.translate(
+                                    "{nickname} requested playing from a URL ({count} tracks)"
+                                ).format(nickname=user.nickname, count=len(tracks)),
+                                type=2,
+                            )
+                        else:
+                            self.send_message_async(
+                                self.translator.translate(
+                                    "Loaded {count} tracks"
+                                ).format(count=len(tracks)),
+                                user,
+                            )
+                        return self.translator.translate("Playing {}").format(
+                            tracks[0].name
+                        )
+                    else:
+                        if self.config.general.send_channel_messages:
+                            self.send_message_async(
+                                self.translator.translate(
+                                    "{nickname} requested {request}"
+                                ).format(nickname=user.nickname, request=arg),
+                                type=2,
+                            )
+                        return self.translator.translate("Playing {}").format(
+                            tracks[0].name
+                        )
+                except errors.IncorrectProtocolError:
+                    return self.translator.translate("Incorrect protocol")
+                except errors.ServiceError:
+                    return self.translator.translate("Cannot process stream URL")
+                except errors.PathNotFoundError:
+                    return self.translator.translate("The path cannot be found")
+            else:
+                self.send_message_async(
+                    self.translator.translate("Searching..."),
+                    user,
+                )
+                try:
+                    # Search results mode: request more results from the service directly
+                    if self.config.general.search_results_mode:
+                        count = self.command_processor.search_results_count
+                        track_list = self.search_tracks(arg, limit=count)
+                        self.command_processor.pending_search_results[user.id] = track_list
+                        lines = [self.translator.translate("Search results:")]
+                        for i, track in enumerate(track_list):
+                            lines.append(f"{i + 1}: {track.name}")
+                        lines.append(self.translator.translate("Use 'sl NUMBER' to select a track"))
+                        return "\n".join(lines)
+
+                    # Normal mode: request only 1 result and play immediately
+                    track_list = self.search_tracks(arg)
+                    self.player.play(
+                        track_list,
+                        timing_context={
+                            "kind": "search",
+                            "started_at": self._last_search_started_at,
+                            "query": self._last_search_query,
+                        },
                     )
-                return self.translator.translate("Playing {}").format(
-                    track_list[0].name
-                )
-            except errors.NothingFoundError:
-                return self.translator.translate("Nothing is found for your query")
-            except errors.ServiceError:
-                return self.translator.translate(
-                    "The selected service is currently unavailable"
-                )
+                    if self.config.general.send_channel_messages:
+                        self.send_message_async(
+                            self.translator.translate(
+                                "{nickname} requested {request}"
+                            ).format(nickname=user.nickname, request=arg),
+                            type=2,
+                        )
+                    return self.translator.translate("Playing {}").format(
+                        track_list[0].name
+                    )
+                except errors.NothingFoundError:
+                    return self.translator.translate("Nothing is found for your query")
+                except errors.ServiceError:
+                    return self.translator.translate(
+                        "The selected service is currently unavailable"
+                    )
         else:
             if self.player.state == State.Playing:
                 self.player.pause()
             elif self.player.state == State.Paused:
                 self.player.play()
-
-
-class PlayUrlCommand(Command):
-    @property
-    def help(self) -> str:
-        return self.translator.translate("URL Plays a stream from a given URL")
-
-    def __call__(self, arg: str, user: User) -> Optional[str]:
-        if arg:
-            self.send_message_async(
-                self.translator.translate("Loading URL / playlist..."),
-                user,
-            )
-            try:
-                tracks = self.module_manager.streamer.get(arg, user.is_admin)
-                if not tracks:
-                    return self.translator.translate("Nothing is found for your query")
-                self.player.play(tracks)
-                if self.config.general.send_channel_messages:
-                    self.send_message_async(
-                        self.translator.translate(
-                            "{nickname} requested playing from a URL ({count} tracks)"
-                        ).format(nickname=user.nickname, count=len(tracks)),
-                        type=2,
-                    )
-                else:
-                    self.send_message_async(
-                        self.translator.translate(
-                            "Loaded {count} tracks"
-                        ).format(count=len(tracks)),
-                        user,
-                    )
-            except errors.IncorrectProtocolError:
-                return self.translator.translate("Incorrect protocol")
-            except errors.ServiceError:
-                return self.translator.translate("Cannot process stream URL")
-            except errors.PathNotFoundError:
-                return self.translator.translate("The path cannot be found")
-        else:
-            raise errors.InvalidArgumentError
+            elif self.player.state == State.Stopped:
+                return self.translator.translate("Nothing is playing")
 
 
 class StopCommand(Command):
@@ -875,51 +894,91 @@ class QueueAddCommand(Command):
         if not arg:
             raise errors.InvalidArgumentError()
 
-        self.run_async(
-            self.ttclient.send_message,
-            self.translator.translate("Searching..."),
-            user,
-        )
+        clean_arg = arg.strip().strip('"\'')
+        norm_arg = clean_arg
+        if norm_arg.startswith("www."):
+            norm_arg = "https://" + norm_arg
 
-        try:
-            track_list = self.search_tracks(arg)
-        except errors.NothingFoundError:
-            return self.translator.translate("Nothing is found for your query")
-        except errors.ServiceError:
-            return self.translator.translate(
-                "The selected service is currently unavailable"
-            )
+        parsed = urlparse(norm_arg)
+        is_url = parsed.scheme in ("http", "https", "rtmp", "rtsp")
+        is_local = user.is_admin and os.path.exists(clean_arg)
 
-        track = track_list[0]
+        if is_url or is_local:
+            target = norm_arg if is_url else clean_arg
+            try:
+                tracks = self.module_manager.streamer.get(target, user.is_admin)
+                if not tracks:
+                    return self.translator.translate("Nothing is found for your query")
+            except Exception as e:
+                return self.translator.translate("Error: {}").format(str(e))
 
-        # Se nada está tocando, inicia imediatamente
-        if self.player.state == State.Stopped:
-            self.run_async(
-                self.player.play,
-                [track],
-                timing_context={
-                    "kind": "search",
-                    "started_at": self._last_search_started_at,
-                    "query": self._last_search_query,
-                },
-            )
-            return self.translator.translate("Playing {}").format(track.name)
-
-        # Caso contrário, enfileira
-        position = self.player.queue.add(track)
-
-        if self.config.general.send_channel_messages:
+            if self.player.state == State.Stopped:
+                self.run_async(self.player.play, tracks)
+                return self.translator.translate("Playing {}").format(tracks[0].name)
+            else:
+                last_pos = 1
+                for t in tracks:
+                    last_pos = self.player.queue.add(t)
+                if len(tracks) == 1:
+                    if self.config.general.send_channel_messages:
+                        self.run_async(
+                            self.ttclient.send_message,
+                            self.translator.translate(
+                                "{nickname} added to queue: {track}"
+                            ).format(nickname=user.nickname, track=tracks[0].name),
+                            type=2,
+                        )
+                    return self.translator.translate(
+                        "Added to queue [{position}]: {track}"
+                    ).format(position=last_pos, track=tracks[0].name)
+                else:
+                    return self.translator.translate("Added {count} tracks to queue").format(count=len(tracks))
+        else:
             self.run_async(
                 self.ttclient.send_message,
-                self.translator.translate(
-                    "{nickname} added to queue: {track}"
-                ).format(nickname=user.nickname, track=track.name),
-                type=2,
+                self.translator.translate("Searching..."),
+                user,
             )
 
-        return self.translator.translate(
-            "Added to queue [{position}]: {track}"
-        ).format(position=position, track=track.name)
+            try:
+                track_list = self.search_tracks(arg)
+            except errors.NothingFoundError:
+                return self.translator.translate("Nothing is found for your query")
+            except errors.ServiceError:
+                return self.translator.translate(
+                    "The selected service is currently unavailable"
+                )
+
+            track = track_list[0]
+
+            # Se nada está tocando, inicia imediatamente
+            if self.player.state == State.Stopped:
+                self.run_async(
+                    self.player.play,
+                    [track],
+                    timing_context={
+                        "kind": "search",
+                        "started_at": self._last_search_started_at,
+                        "query": self._last_search_query,
+                    },
+                )
+                return self.translator.translate("Playing {}").format(track.name)
+
+            # Caso contrário, enfileira
+            position = self.player.queue.add(track)
+
+            if self.config.general.send_channel_messages:
+                self.run_async(
+                    self.ttclient.send_message,
+                    self.translator.translate(
+                        "{nickname} added to queue: {track}"
+                    ).format(nickname=user.nickname, track=track.name),
+                    type=2,
+                )
+
+            return self.translator.translate(
+                "Added to queue [{position}]: {track}"
+            ).format(position=position, track=track.name)
 
 
 class QueueListCommand(Command):
