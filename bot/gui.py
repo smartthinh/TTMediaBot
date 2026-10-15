@@ -2572,6 +2572,8 @@ class MainFrame(wx.Frame):
 
 def run_gui(config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
     """Entry point for running the wx GUI."""
+    from bot.utils import optimize_process_priority
+    optimize_process_priority()
     from bot.logger import setup_gui_logging
     setup_gui_logging()
     logging.info(f"TTMediaBot {app_vars.app_version} GUI starting")

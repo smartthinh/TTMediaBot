@@ -44,6 +44,7 @@ from bot import (
     sound_devices,
     translator,
     app_vars,
+    utils,
 )
 
 
@@ -100,6 +101,7 @@ class Bot:
         self.is_updating = False
 
     def initialize(self):
+        utils.optimize_process_priority()
         if self.config.logger.log:
             logger.initialize_logger(self)
         logging.debug("Initializing")

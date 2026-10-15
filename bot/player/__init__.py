@@ -43,18 +43,23 @@ class Player:
             "audio_channels": "stereo",
             "audio_format": "s16",
             "gapless_audio": "yes",
+            # --- Ultra-Resilient Audio Buffering & Instant Playback Startup ---
+            "audio_buffer": 0.5,
+            "audio_stream_silence": "yes",
+            # --- High-Capacity Network & Demuxer Caching (256MB in RAM, prevents stuttering) ---
             "cache": "yes",
-            "cache_secs": 3600,
-            "demuxer_max_bytes": 134217728,
+            "cache_pause": "no",
+            "cache_pause_initial": "no",
+            "demuxer_thread": "yes",
+            "demuxer_max_bytes": 268435456,
             "demuxer_max_back_bytes": 134217728,
             "demuxer_readahead_secs": 3600,
+            "stream_lavf_o": "reconnect=1,reconnect_streamed=1,reconnect_delay_max=5",
             "demuxer_seekable_cache": "yes",
             "force_seekable": "yes",
-            "audio_stream_silence": "yes",
-            "stream_buffer_size": 524288,
             "network_timeout": 30,
             "video": False,
-            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
             "ytdl": False,
         }
         mpv_options.update(self.config.player_options)
@@ -67,6 +72,11 @@ class Player:
                 "audio_stream_silence",
                 "force_seekable",
                 "demuxer_max_back_bytes",
+                "audio_buffer",
+                "demuxer_thread",
+                "stream_lavf_o",
+                "cache_pause",
+                "cache_pause_initial",
             ]:
                 mpv_options.pop(opt, None)
             self._player = mpv.MPV(**mpv_options, log_handler=self.log_handler)

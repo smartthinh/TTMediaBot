@@ -123,3 +123,35 @@ def format_file_size(size_bytes: int) -> str:
     else:
         return f"{size_bytes / (1024 * 1024 * 1024):.2f} GB"
 
+
+def optimize_process_priority() -> None:
+    """
+    Elevates process priority to HIGH_PRIORITY_CLASS and sets 1ms Windows timer resolution.
+    This guarantees that audio decoding and playback threads are never starved of CPU cycles
+    even under intense system load (e.g. user opening dozens of browser tabs or running heavy tasks).
+    """
+    import sys
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+        import ctypes.wintypes
+
+        # 1. Set Windows system timer resolution to 1ms
+        try:
+            ctypes.windll.winmm.timeBeginPeriod(1)
+        except Exception:
+            pass
+
+        # 2. Elevate process priority to HIGH_PRIORITY_CLASS (0x00000080)
+        # Fall back to ABOVE_NORMAL_PRIORITY_CLASS (0x00008000) if needed
+        k32 = ctypes.windll.kernel32
+        k32.GetCurrentProcess.restype = ctypes.wintypes.HANDLE
+        k32.SetPriorityClass.argtypes = [ctypes.wintypes.HANDLE, ctypes.wintypes.DWORD]
+        k32.SetPriorityClass.restype = ctypes.wintypes.BOOL
+        handle = k32.GetCurrentProcess()
+        if not k32.SetPriorityClass(handle, 0x00000080):
+            k32.SetPriorityClass(handle, 0x00008000)
+    except Exception:
+        pass
+

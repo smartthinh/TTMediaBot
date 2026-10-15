@@ -16,6 +16,11 @@ if sys.platform == "win32":
         sys.stderr.reconfigure(encoding="utf-8")
     except Exception:
         pass
+    try:
+        from bot.utils import optimize_process_priority
+        optimize_process_priority()
+    except Exception:
+        pass
 
 from typing import Optional
 

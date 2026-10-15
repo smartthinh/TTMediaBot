@@ -35,7 +35,7 @@ Compared to the original Linux/Docker implementation, this edition has been comp
    - Automated Silence Trimming (ts): Strips leading and trailing dead silence from streams to ensure seamless track transitions.
 
 5. Seamless Audio Seeking and High-Performance Caching:
-   - Built-in 128MB RAM demuxer cache with up to 3600 seconds of lookahead buffer prevents audio dropouts, stuttering, and pauses during forward and backward seeks (sf and sb).
+   - Built-in 256MB RAM demuxer cache with up to 3600 seconds of lookahead buffer, multi-tier audio buffering, and Windows HIGH_PRIORITY_CLASS scheduling prevents audio dropouts and stuttering even under heavy multitasking or opening dozens of browser tabs.
    - Safe boundary seeking clamped within valid track duration, preventing track skipping or player stalls.
 
 6. Self-Contained Direct yt-dlp Media Engine:
@@ -142,7 +142,7 @@ Send commands via private message (PM) to the bot or directly in the channel (if
 | sp | [0.25-4] | Adjusts playback speed. |
 | f | [+/-][num] | Manages Favorites: f lists, f + adds current track, f - removes, f [num] plays. |
 | r | [num] | Manages playback history (Recents): r lists recent tracks, r [num] plays. |
-| qa | [query] | Adds a track to the playback queue. |
+| qa | [query/url/path] | Adds a track to the playback queue from a search query, web URL, or local file/folder path. |
 | ql | | Lists all tracks currently waiting in the queue. |
 | qr | [num] | Removes a specific track from the queue by index. |
 | qc | | Clears the entire playback queue. |
@@ -200,6 +200,38 @@ Restricted to accounts listed in the teamtalk.users.admins array in config.json.
 | df | [file_name] | Deletes a specific file by name/ID, or deletes all uploaded files currently present in the TeamTalk channel if no argument is given. |
 
 ---
+
+## ⌨️ GUI Keyboard Shortcuts and Access Keys
+
+The Server Manager interface (`TTMediaBot-GUI`) is fully accessible for keyboard power users and screen readers (NVDA, JAWS, Narrator):
+
+### Server List Navigation
+| Key | Action |
+| :--- | :--- |
+| `Enter` / `Numpad Enter` | Connect to or disconnect from the selected server. |
+| `Applications` / `Shift + F10` | Opens the context menu for the selected server (Connect/Disconnect, Edit Server, Delete Server). |
+| `Delete` | Deletes the selected server profile (with confirmation). |
+| `Up` / `Down` arrows | Navigates through the server list. |
+
+### Access Keys (Alt Mnemonics)
+| Shortcut | Control / Action | Description |
+| :--- | :--- | :--- |
+| `Alt + S` | **Servers List** | Jumps focus directly to the server list. |
+| `Alt + E` | **Search** | Focuses the search box to filter servers in real-time. |
+| `Alt + L` | **Language** | Selects the active interface and bot language (`vi`, `en`, `pt_BR`). |
+| `Alt + A` | **Audio Format** | Selects the downloaded audio format (`mp3`, `ogg`, `wav`, `flac`, `m4a`, `opus`, `aac`, `wma`). |
+| `Alt + M` | **MP3 Bitrate** | Selects MP3 bitrate (e.g., 320 kbps, 256 kbps). Automatically visible when MP3 format is active. |
+| `Alt + P` | **Sampling Rate** | Selects playback and download audio sampling rate (e.g., `48000 Hz`, `44100 Hz`, `96000 Hz`). |
+| `Alt + C` | **Connect All / Disconnect All** | Connects or disconnects all configured servers at once. |
+| `Alt + D` | **Delete All Servers** | Deletes all saved server profiles after confirmation. |
+| `Alt + A` / Add Server | **Add Server...** | Opens the dialog to add a new TeamTalk server. |
+| `Alt + H` | **Hide Window** | Minimizes the application window to the Windows System Tray. |
+| `Alt + V` | **View Logs...** | Opens the live diagnostic log viewer window. |
+| `Alt + K` | **Check for Updates** | Checks for new software releases with visible installation progress. |
+| `Alt + O` | **Downloads Folder** | Opens the local downloads folder (`downloads/music` and `downloads/videos`) in File Explorer. |
+| `Alt + W` | **Visit Website** | Opens the official GitHub repository in your default web browser. |
+| `Alt + J` | **Join Telegram Channel** | Opens the official Telegram support channel. |
+| `Alt + X` | **Exit** | Fully shuts down all active bot instances and closes TTMediaBot. |
 
 ## 🍪 YouTube and YouTube Music Cookies Configuration (Recommended)
 
