@@ -141,6 +141,38 @@ def get_audio_format_labels() -> List[str]:
     return [translate(label) for _, label in SUPPORTED_AUDIO_FORMATS]
 
 
+# Audio sampling rate choices for playback and conversion
+SUPPORTED_SAMPLING_RATES = [
+    ("default", translate_noop("Default (48000 Hz - Recommended for TeamTalk)")),
+    ("48000", translate_noop("48000 Hz (TeamTalk / DVD Quality)")),
+    ("44100", translate_noop("44100 Hz (CD Audio Quality)")),
+    ("96000", translate_noop("96000 Hz (Hi-Res Studio Quality)")),
+    ("32000", translate_noop("32000 Hz (FM Radio Quality)")),
+    ("24000", translate_noop("24000 Hz (Medium Quality)")),
+    ("16000", translate_noop("16000 Hz (Voice Quality)")),
+]
+
+def get_sampling_rate_labels() -> List[str]:
+    """Returns the sampling rate labels translated into the active language."""
+    return [translate(label) for _, label in SUPPORTED_SAMPLING_RATES]
+
+
+# MP3 Bitrate choices for MP3 audio downloads and conversion
+SUPPORTED_MP3_BITRATES = [
+    ("320k", translate_noop("320 kbps (Best Quality - Recommended)")),
+    ("256k", translate_noop("256 kbps (Very High Quality)")),
+    ("192k", translate_noop("192 kbps (High Quality - Standard)")),
+    ("160k", translate_noop("160 kbps (Good Quality)")),
+    ("128k", translate_noop("128 kbps (Standard Quality - Small Size)")),
+    ("96k", translate_noop("96 kbps (Medium Quality)")),
+    ("64k", translate_noop("64 kbps (Voice Quality / Radio)")),
+]
+
+def get_mp3_bitrate_labels() -> List[str]:
+    """Returns the MP3 bitrate labels translated into the active language."""
+    return [translate(label) for _, label in SUPPORTED_MP3_BITRATES]
+
+
 DEFAULT_SERVER_CONFIG: Dict[str, Any] = {
     "id": "",
     "name": "",
@@ -359,6 +391,142 @@ class ServerManager:
 
         if not saved:
             logging.error(f"Failed to save download audio format '{audio_format}' to any config location")
+
+    def get_sampling_rate(self) -> str:
+        """Reads global audio sampling rate from config.json. Defaults to 'default'."""
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    rate = data.get("general", {}).get("sampling_rate")
+                    if rate:
+                        return str(rate)
+                except Exception as e:
+                    logging.error(f"Error reading sampling_rate from {p}: {e}")
+        return "default"
+
+    def set_sampling_rate(self, sampling_rate: str) -> None:
+        """Saves global audio sampling rate to config.json immediately."""
+        data = {}
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
+            try:
+                with open(load_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                logging.error(f"Error reading {load_path}: {e}")
+
+        if "general" not in data or not isinstance(data["general"], dict):
+            data["general"] = {}
+        data["general"]["sampling_rate"] = sampling_rate
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        saved = False
+        for target in targets:
+            try:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"Sampling rate '{sampling_rate}' saved immediately to {target}")
+                saved = True
+                break
+            except Exception as e:
+                logging.error(f"Error writing sampling rate to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"Sampling rate '{sampling_rate}' saved (fallback) to {target}")
+                    saved = True
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
+        if not saved:
+            logging.error(f"Failed to save sampling rate '{sampling_rate}' to any config location")
+
+    def get_mp3_bitrate(self) -> str:
+        """Reads global MP3 bitrate from config.json. Defaults to '320k'."""
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    rate = data.get("general", {}).get("mp3_bitrate")
+                    if rate:
+                        return str(rate)
+                except Exception as e:
+                    logging.error(f"Error reading mp3_bitrate from {p}: {e}")
+        return "320k"
+
+    def set_mp3_bitrate(self, mp3_bitrate: str) -> None:
+        """Saves global MP3 bitrate to config.json immediately."""
+        data = {}
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
+            try:
+                with open(load_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                logging.error(f"Error reading {load_path}: {e}")
+
+        if "general" not in data or not isinstance(data["general"], dict):
+            data["general"] = {}
+        data["general"]["mp3_bitrate"] = mp3_bitrate
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        saved = False
+        for target in targets:
+            try:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"MP3 bitrate '{mp3_bitrate}' saved immediately to {target}")
+                saved = True
+                break
+            except Exception as e:
+                logging.error(f"Error writing MP3 bitrate to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"MP3 bitrate '{mp3_bitrate}' saved (fallback) to {target}")
+                    saved = True
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
+        if not saved:
+            logging.error(f"Failed to save MP3 bitrate '{mp3_bitrate}' to any config location")
 
     def load_servers(self) -> List[Dict[str, Any]]:
         """Loads servers from servers.json. By default, starts with an empty list."""
@@ -1337,7 +1505,7 @@ class MainFrame(wx.Frame):
 
     def __init__(self, config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
         super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 650))
-        self.SetMinSize((480, 500))
+        self.SetMinSize((480, 535))
         self.config_path = config_path
         self.cache_path = cache_path
         self.log_path = log_path
@@ -1348,10 +1516,12 @@ class MainFrame(wx.Frame):
         self.visible_servers = list(self.servers)
         self.search_query = ""
 
-        # Global language and download audio format
+        # Global language, download audio format and sampling rate
         self.current_language = self.server_mgr.get_language()
         set_gui_locale(self.current_language)
         self.current_audio_format = self.server_mgr.get_audio_format()
+        self.current_sampling_rate = self.server_mgr.get_sampling_rate()
+        self.current_mp3_bitrate = self.server_mgr.get_mp3_bitrate()
 
         # Multi-server tracking
         self.active_bots: Dict[str, Bot] = {}
@@ -1453,6 +1623,46 @@ class MainFrame(wx.Frame):
         format_sizer.Add(self.choice_audio_format, 1, wx.EXPAND)
         main_sizer.Add(format_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
 
+        # MP3 Bitrate Selection Row (Only visible when Audio Format is MP3)
+        self.mp3_bitrate_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_mp3_bitrate = wx.StaticText(panel, label=translate("&MP3 Bitrate:"))
+        self.choice_mp3_bitrate = wx.Choice(panel, choices=get_mp3_bitrate_labels())
+        self.choice_mp3_bitrate.Bind(wx.EVT_CHOICE, self.on_mp3_bitrate_changed)
+
+        bitrate_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
+            if code == self.current_mp3_bitrate:
+                bitrate_idx = i
+                break
+        self.choice_mp3_bitrate.SetSelection(bitrate_idx)
+
+        self.mp3_bitrate_sizer.Add(self.lbl_mp3_bitrate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        self.mp3_bitrate_sizer.Add(self.choice_mp3_bitrate, 1, wx.EXPAND)
+        main_sizer.Add(self.mp3_bitrate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
+        # Show or hide MP3 bitrate row initially
+        is_mp3 = (self.current_audio_format == "mp3")
+        self.lbl_mp3_bitrate.Show(is_mp3)
+        self.choice_mp3_bitrate.Show(is_mp3)
+        main_sizer.Show(self.mp3_bitrate_sizer, is_mp3)
+
+        # Sampling Rate Selection Row
+        rate_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_sampling_rate = wx.StaticText(panel, label=translate("&Sampling Rate:"))
+        self.choice_sampling_rate = wx.Choice(panel, choices=get_sampling_rate_labels())
+        self.choice_sampling_rate.Bind(wx.EVT_CHOICE, self.on_sampling_rate_changed)
+
+        rate_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
+            if code == self.current_sampling_rate:
+                rate_idx = i
+                break
+        self.choice_sampling_rate.SetSelection(rate_idx)
+
+        rate_sizer.Add(self.lbl_sampling_rate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        rate_sizer.Add(self.choice_sampling_rate, 1, wx.EXPAND)
+        main_sizer.Add(rate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
         # Buttons Grid (5 rows x 2 columns)
         self.btn_sizer = wx.GridSizer(cols=2, vgap=6, hgap=8)
 
@@ -1505,6 +1715,7 @@ class MainFrame(wx.Frame):
         main_sizer.Add(self.lbl_status, 0, wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
 
         self.panel = panel
+        self.main_sizer = main_sizer
         self.panel.SetSizer(main_sizer)
         self.CreateStatusBar(1)
 
@@ -1540,6 +1751,32 @@ class MainFrame(wx.Frame):
                     break
             self.choice_audio_format.SetToolTip(
                 translate("Select audio format for YouTube downloads and channel uploads (Default does not convert).")
+            )
+        if hasattr(self, 'lbl_mp3_bitrate'):
+            self.lbl_mp3_bitrate.SetLabel(translate("&MP3 Bitrate:"))
+        if hasattr(self, 'choice_mp3_bitrate'):
+            for i, label in enumerate(get_mp3_bitrate_labels()):
+                self.choice_mp3_bitrate.SetString(i, label)
+            for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
+                if code == self.current_mp3_bitrate:
+                    self.choice_mp3_bitrate.SetSelection(i)
+                    break
+            self.choice_mp3_bitrate.SetToolTip(
+                translate("Select MP3 audio bitrate (320 kbps offers the highest sound quality).")
+            )
+        self.update_mp3_bitrate_visibility()
+
+        if hasattr(self, 'lbl_sampling_rate'):
+            self.lbl_sampling_rate.SetLabel(translate("&Sampling Rate:"))
+        if hasattr(self, 'choice_sampling_rate'):
+            for i, label in enumerate(get_sampling_rate_labels()):
+                self.choice_sampling_rate.SetString(i, label)
+            for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
+                if code == self.current_sampling_rate:
+                    self.choice_sampling_rate.SetSelection(i)
+                    break
+            self.choice_sampling_rate.SetToolTip(
+                translate("Select audio sampling rate for playback and conversion (48000 Hz is recommended for TeamTalk).")
             )
 
         if hasattr(self, 'btn_delete_all'):
@@ -1604,10 +1841,27 @@ class MainFrame(wx.Frame):
             new_fmt = SUPPORTED_AUDIO_FORMATS[sel_idx][0]
             if new_fmt != self.current_audio_format:
                 self.set_audio_format(new_fmt)
+        self.update_mp3_bitrate_visibility()
+
+    def update_mp3_bitrate_visibility(self):
+        is_mp3 = (self.current_audio_format == "mp3")
+        if hasattr(self, 'mp3_bitrate_sizer') and hasattr(self, 'main_sizer'):
+            self.lbl_mp3_bitrate.Show(is_mp3)
+            self.choice_mp3_bitrate.Show(is_mp3)
+            self.main_sizer.Show(self.mp3_bitrate_sizer, is_mp3, recursive=True)
+            self.panel.Layout()
+            self.Layout()
 
     def set_audio_format(self, new_fmt: str):
         self.current_audio_format = new_fmt
         self.server_mgr.set_audio_format(new_fmt)
+
+        if hasattr(self, 'choice_audio_format'):
+            for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
+                if code == new_fmt:
+                    self.choice_audio_format.SetSelection(i)
+                    break
+        self.update_mp3_bitrate_visibility()
 
         # Update all active bots in real time
         for bot in self.active_bots.values():
@@ -1619,6 +1873,52 @@ class MainFrame(wx.Frame):
                 except Exception:
                     pass
         logging.info(f"Updated global download audio format to: {new_fmt}")
+
+    def on_mp3_bitrate_changed(self, event=None):
+        sel_idx = self.choice_mp3_bitrate.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_MP3_BITRATES):
+            new_bitrate = SUPPORTED_MP3_BITRATES[sel_idx][0]
+            if new_bitrate != self.current_mp3_bitrate:
+                self.set_mp3_bitrate(new_bitrate)
+
+    def set_mp3_bitrate(self, new_bitrate: str):
+        self.current_mp3_bitrate = new_bitrate
+        self.server_mgr.set_mp3_bitrate(new_bitrate)
+
+        # Update all active bots in real time
+        for bot in self.active_bots.values():
+            if hasattr(bot, "config") and hasattr(bot.config, "general"):
+                bot.config.general.mp3_bitrate = new_bitrate
+            if hasattr(bot, "config_manager"):
+                try:
+                    bot.config_manager.save()
+                except Exception:
+                    pass
+        logging.info(f"Updated global MP3 bitrate to: {new_bitrate}")
+
+    def on_sampling_rate_changed(self, event=None):
+        sel_idx = self.choice_sampling_rate.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_SAMPLING_RATES):
+            new_rate = SUPPORTED_SAMPLING_RATES[sel_idx][0]
+            if new_rate != self.current_sampling_rate:
+                self.set_sampling_rate(new_rate)
+
+    def set_sampling_rate(self, new_rate: str):
+        self.current_sampling_rate = new_rate
+        self.server_mgr.set_sampling_rate(new_rate)
+
+        # Update all active bots in real time
+        for bot in self.active_bots.values():
+            if hasattr(bot, "config") and hasattr(bot.config, "general"):
+                bot.config.general.sampling_rate = new_rate
+            if hasattr(bot, "player") and bot.player:
+                bot.player.set_sampling_rate(new_rate)
+            if hasattr(bot, "config_manager"):
+                try:
+                    bot.config_manager.save()
+                except Exception:
+                    pass
+        logging.info(f"Updated global sampling rate to: {new_rate}")
 
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()

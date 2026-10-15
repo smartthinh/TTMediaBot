@@ -18,21 +18,25 @@ def get_abs_path(file_name: str) -> str:
     return os.path.join(app_vars.data_dir, file_name)
 
 
-def convert_audio(input_path: str, target_format: str) -> str:
+def convert_audio(input_path: str, target_format: str, sampling_rate: str = "default", mp3_bitrate: str = "320k") -> str:
     """
     Converts input audio file to target_format (e.g. 'mp3', 'wav', 'flac', 'ogg', 'opus', 'aac').
-    If target_format is 'default' or matches input extension, returns input_path untouched.
+    Optionally resamples audio to specified sampling_rate (e.g. '48000', '44100') and applies mp3_bitrate.
+    If target_format is 'default' and sampling_rate is 'default', returns input_path untouched.
     On successful conversion, removes the original input file and returns the new file path.
     """
     import logging
     import subprocess
 
-    if not target_format or target_format.lower() in ("default", ""):
+    format_needed = bool(target_format and target_format.lower() not in ("default", ""))
+    rate_needed = bool(sampling_rate and str(sampling_rate).isdigit() and int(sampling_rate) > 0)
+
+    if not format_needed and not rate_needed:
         return input_path
 
-    target_ext = target_format.lower().lstrip(".")
+    target_ext = target_format.lower().lstrip(".") if format_needed else os.path.splitext(input_path)[1].lower().lstrip(".")
     current_ext = os.path.splitext(input_path)[1].lower().lstrip(".")
-    if current_ext == target_ext:
+    if current_ext == target_ext and not rate_needed:
         return input_path
 
     app_vars.ensure_ffmpeg_in_path()
@@ -54,7 +58,11 @@ def convert_audio(input_path: str, target_format: str) -> str:
 
     # Optimized codec flags for popular formats
     if target_ext == "mp3":
-        cmd.extend(["-c:a", "libmp3lame", "-q:a", "2"])
+        cmd.extend(["-c:a", "libmp3lame"])
+        bitrate_val = mp3_bitrate if mp3_bitrate else "320k"
+        if not bitrate_val.endswith("k"):
+            bitrate_val = f"{bitrate_val}k"
+        cmd.extend(["-b:a", bitrate_val])
     elif target_ext == "ogg":
         cmd.extend(["-c:a", "libvorbis", "-q:a", "4"])
     elif target_ext == "opus":
@@ -67,6 +75,9 @@ def convert_audio(input_path: str, target_format: str) -> str:
         cmd.extend(["-c:a", "aac", "-b:a", "192k"])
     elif target_ext == "wma":
         cmd.extend(["-c:a", "wmav2", "-b:a", "192k"])
+
+    if rate_needed:
+        cmd.extend(["-ar", str(sampling_rate)])
 
     cmd.append(output_path)
 

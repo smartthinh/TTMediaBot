@@ -29,10 +29,17 @@ class Player:
         self.bot = bot
         self.config = bot.config.player
         self.cache = bot.cache
-        self.cache_manager = bot.cache_manager
+        audio_samplerate = 48000
+        if hasattr(self.bot.config, "general") and hasattr(self.bot.config.general, "sampling_rate"):
+            cfg_rate = str(self.bot.config.general.sampling_rate).lower()
+            if cfg_rate.isdigit() and int(cfg_rate) > 0:
+                audio_samplerate = int(cfg_rate)
+            elif cfg_rate in ("default", "auto", ""):
+                audio_samplerate = 48000
+
         mpv_options = {
             "ao": "wasapi" if sys.platform == "win32" else "pulse",
-            "audio_samplerate": 48000,
+            "audio_samplerate": audio_samplerate,
             "audio_channels": "stereo",
             "audio_format": "s16",
             "gapless_audio": "yes",
@@ -789,6 +796,15 @@ class Player:
 
     def set_output_device(self, id: str) -> None:
         self._player.audio_device = id
+
+    def set_sampling_rate(self, rate: Union[int, str]) -> None:
+        try:
+            val = int(rate) if str(rate).isdigit() and int(rate) > 0 else 48000
+            if hasattr(self, "_player") and self._player:
+                self._player.audio_samplerate = val
+                logging.info(f"Player audio samplerate updated to {val} Hz")
+        except Exception as e:
+            logging.error(f"Error setting player audio samplerate: {e}")
 
     def shuffle(self, enable: bool, preserve_current: bool = False) -> None:
         if enable:

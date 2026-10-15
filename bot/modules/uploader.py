@@ -66,8 +66,9 @@ class Uploader:
 
             if not video:
                 target_format = getattr(self.config.general, "download_audio_format", "default")
-                if target_format and target_format.lower() not in ("default", ""):
-                    file_path = utils.convert_audio(file_path, target_format)
+                target_rate = getattr(self.config.general, "sampling_rate", "default")
+                target_bitrate = getattr(self.config.general, "mp3_bitrate", "320k")
+                file_path = utils.convert_audio(file_path, target_format, target_rate, target_bitrate)
 
             logging.info(f"Uploader: Sending file '{file_path}' to channel {self.ttclient.channel.id}")
             command_id = self.ttclient.send_file(self.ttclient.channel.id, file_path)

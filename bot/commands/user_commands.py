@@ -1371,8 +1371,9 @@ class DownloadListCommand(Command):
                         track.url
                     downloaded_path = track.download(dest_dir)
                     target_format = getattr(self.config.general, "download_audio_format", "default")
-                    if target_format and target_format.lower() not in ("default", ""):
-                        downloaded_path = utils.convert_audio(downloaded_path, target_format)
+                    target_rate = getattr(self.config.general, "sampling_rate", "default")
+                    target_bitrate = getattr(self.config.general, "mp3_bitrate", "320k")
+                    downloaded_path = utils.convert_audio(downloaded_path, target_format, target_rate, target_bitrate)
                 except Exception as download_err:
                     logging.error(f"Local download failed for track {track.name}: {download_err}")
                     error_count += 1
@@ -1457,8 +1458,9 @@ class DownloadListCommand(Command):
                         track.url
                     file_path = track.download(temp_dir.name)
                     target_format = getattr(self.config.general, "download_audio_format", "default")
-                    if target_format and target_format.lower() not in ("default", ""):
-                        file_path = utils.convert_audio(file_path, target_format)
+                    target_rate = getattr(self.config.general, "sampling_rate", "default")
+                    target_bitrate = getattr(self.config.general, "mp3_bitrate", "320k")
+                    file_path = utils.convert_audio(file_path, target_format, target_rate, target_bitrate)
                     downloaded_files.append(file_path)
                 except Exception as e:
                     logging.error(f"ADSC ZIP: Failed to download track {track.name}: {e}")

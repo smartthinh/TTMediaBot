@@ -11,6 +11,30 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Visible Installation Progress:** The updater now displays a visible installation progress window with a progress bar while installing files. You can see the progress directly and no longer have to guess when the background installation is finished.
 - **Reliable Automatic Restart:** Once the installation completes, TTMediaBot automatically reopens with the new version ready to use, preventing accidental launches of the old version while updating.
 
+### 🎚️ Audio Sampling Rate Selector
+- **Sampling Rate Selector on Main Window:** Added an intuitive dropdown menu on the main interface allowing you to easily select the audio sampling rate for bot playback and downloaded music.
+- **Simple, Everyday Descriptions for Everyone:** You don't need any sound engineering knowledge — each option clearly explains its everyday purpose:
+  - `Default (48000 Hz - Recommended for TeamTalk)`: Best and most optimized for TeamTalk (matches TeamTalk's native Opus audio standard).
+  - `48000 Hz (TeamTalk / DVD Quality)`: High fidelity, studio and broadcast standard.
+  - `44100 Hz (CD Audio Quality)`: Standard compact disc quality for legacy audio equipment.
+  - `96000 Hz (Hi-Res Studio Quality)`: High-resolution audio for advanced sound cards.
+  - `32000 Hz (FM Radio Quality)`, `24000 Hz (Medium Quality)`, and `16000 Hz (Voice Quality)` for lighter bandwidth usage.
+- **Real-Time Effect:** Changing the sampling rate immediately updates active bot players in real time and automatically applies to all music downloads.
+- **Full Multilingual & Screen Reader Support:** Fully accessible for NVDA and JAWS, with complete translations in English, Vietnamese, and Portuguese.
+
+### 🎵 Smart MP3 Bitrate Selector
+- **Appears Automatically When Needed:** When you select **MP3 (`.mp3`)** as your audio format, a dedicated **MP3 Bitrate** dropdown menu immediately appears right below it. If you choose any other format, it automatically hides away to keep your screen clean and clutter-free.
+- **Easy-to-Understand Quality Options:** Choose the perfect balance between great sound quality and lightweight file size:
+  - `320 kbps (Best Quality - Recommended)`: The highest quality available for MP3 files — crystal-clear, rich studio sound.
+  - `256 kbps (Very High Quality)`: Excellent sound fidelity.
+  - `192 kbps (High Quality - Standard)`: Great sound with balanced, fast upload speeds.
+  - `160 kbps (Good Quality)`: Good listening experience with moderate file sizes.
+  - `128 kbps (Standard Quality - Small Size)`: Traditional lightweight MP3 for fast sharing.
+  - `96 kbps (Medium Quality)` & `64 kbps (Voice Quality / Radio)`: Super lightweight for spoken words, radio, and podcasts.
+- **Automatic Audio Processing:** Downloaded songs are automatically encoded with your chosen bitrate before being uploaded to your TeamTalk channel.
+- **Fully Accessible:** Works seamlessly with keyboard navigation and screen readers across all supported languages.
+
+
 ---
 
 ## 🆕 v3.5.0 — Ultra-Fast Playback, Worldwide Access, Channel Translation & Audio Converter *(14/10/2026)*

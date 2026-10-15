@@ -17,6 +17,8 @@ class GeneralModel(BaseModel):
     channel_translation_from: str = "auto"
     channel_translation_to: str = "en"
     download_audio_format: str = "default"
+    sampling_rate: str = "default"
+    mp3_bitrate: str = "320k"
 
 class SoundDevicesModel(BaseModel):
     output_device: int = 0
