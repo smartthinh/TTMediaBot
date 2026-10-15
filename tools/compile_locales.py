@@ -77,7 +77,7 @@ def extract():
             *source_paths,
             "-o",
             pot_file_path,
-            "--keywords=translate translate_func",
+            "--keywords=translate translate_func translate_noop",
             "-c",
             "translators:",
             "--copyright-holder=TTMediaBot-team",

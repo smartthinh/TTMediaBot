@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTMediaBot 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-10-13 10:24+0700\n"
-"PO-Revision-Date: 2026-10-13 10:28+0700\n"
+"PO-Revision-Date: 2026-10-15 07:38+0700\n"
 "Last-Translator: \n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: D:/TTMediaBot/bot/__init__.py:139
 msgid "Update completed successfully! I am back online."
@@ -482,9 +482,8 @@ msgstr ""
 
 # | msgid "Error: {}"
 #: D:/TTMediaBot/bot/gui.py:1294
-#, fuzzy
 msgid "Error"
-msgstr "Erro: {}"
+msgstr "Erro"
 
 #: D:/TTMediaBot/bot/gui.py:1313 D:/TTMediaBot/bot/gui.py:1488
 msgid "TTMediaBot - Server Manager"
