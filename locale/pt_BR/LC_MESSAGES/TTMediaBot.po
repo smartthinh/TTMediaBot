@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-15 12:06+0700\n"
-"PO-Revision-Date: 2026-10-15 07:38+0700\n"
+"POT-Creation-Date: 2026-10-15 12:58+0700\n"
+"PO-Revision-Date: 2026-10-15 07:36+0700\n"
 "Last-Translator: \n"
 "Language: pt_BR\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -118,59 +118,59 @@ msgstr "Padrão (Sem conversão)"
 
 #: D:/TTMediaBot/bot/gui.py:146
 msgid "Default (48000 Hz - Recommended for TeamTalk)"
-msgstr "Padrão (48000 Hz - Recomendado para TeamTalk)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:147
 msgid "48000 Hz (TeamTalk / DVD Quality)"
-msgstr "48000 Hz (Qualidade TeamTalk / DVD)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:148
 msgid "44100 Hz (CD Audio Quality)"
-msgstr "44100 Hz (Qualidade de Áudio de CD)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:149
 msgid "96000 Hz (Hi-Res Studio Quality)"
-msgstr "96000 Hz (Qualidade de Estúdio Hi-Res)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:150
 msgid "32000 Hz (FM Radio Quality)"
-msgstr "32000 Hz (Qualidade de Rádio FM)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:151
 msgid "24000 Hz (Medium Quality)"
-msgstr "24000 Hz (Qualidade Média)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:152
 msgid "16000 Hz (Voice Quality)"
-msgstr "16000 Hz (Qualidade de Voz)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:162
 msgid "320 kbps (Best Quality - Recommended)"
-msgstr "320 kbps (Melhor Qualidade - Recomendado)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:163
 msgid "256 kbps (Very High Quality)"
-msgstr "256 kbps (Qualidade Muito Alta)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:164
 msgid "192 kbps (High Quality - Standard)"
-msgstr "192 kbps (Alta Qualidade - Padrão)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:165
 msgid "160 kbps (Good Quality)"
-msgstr "160 kbps (Boa Qualidade)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:166
 msgid "128 kbps (Standard Quality - Small Size)"
-msgstr "128 kbps (Qualidade Padrão - Tamanho Reduzido)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:167
 msgid "96 kbps (Medium Quality)"
-msgstr "96 kbps (Qualidade Média)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:168
 msgid "64 kbps (Voice Quality / Radio)"
-msgstr "64 kbps (Qualidade de Voz / Rádio)"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:718
 msgid "Server Connection"
@@ -573,11 +573,11 @@ msgstr "Formato de áudio:"
 
 #: D:/TTMediaBot/bot/gui.py:1628 D:/TTMediaBot/bot/gui.py:1758
 msgid "&MP3 Bitrate:"
-msgstr "&Taxa de Bits MP3:"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1651 D:/TTMediaBot/bot/gui.py:1772
 msgid "&Sampling Rate:"
-msgstr "&Taxa de Amostragem:"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1727
 msgid "&Servers:"
@@ -611,16 +611,12 @@ msgstr ""
 #: D:/TTMediaBot/bot/gui.py:1767
 msgid "Select MP3 audio bitrate (320 kbps offers the highest sound quality)."
 msgstr ""
-"Selecione a taxa de bits de áudio MP3 (320 kbps oferece a mais alta "
-"qualidade sonora)."
 
 #: D:/TTMediaBot/bot/gui.py:1781
 msgid ""
 "Select audio sampling rate for playback and conversion (48000 Hz is "
 "recommended for TeamTalk)."
 msgstr ""
-"Selecione a taxa de amostragem de áudio para reprodução e conversão "
-"(48000 Hz é recomendado para o TeamTalk)."
 
 #: D:/TTMediaBot/bot/gui.py:1785
 msgid "&Delete All Servers"
@@ -684,11 +680,11 @@ msgstr "Fechar o TTMediaBot (ou pressione Alt+F4)."
 
 #: D:/TTMediaBot/bot/gui.py:1804
 msgid "&Downloads Folder"
-msgstr "Pasta de &Downloads"
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1805
 msgid "Open the downloads folder."
-msgstr "Abrir a pasta de downloads."
+msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1809
 msgid ""
@@ -1195,16 +1191,14 @@ msgid ""
 "[QUERY|LINK] Downloads the current track or specified link/query as audio"
 " and saves it to the downloads folder."
 msgstr ""
-"[BUSCA|LINK] Baixa a faixa atual ou o link/termo de busca especificado "
-"como áudio e salva na pasta de downloads."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:428
 msgid "Searching and downloading audio..."
-msgstr "Pesquisando e baixando áudio..."
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:438
 msgid "Downloading audio..."
-msgstr "Baixando áudio..."
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:440
 #: D:/TTMediaBot/bot/commands/admin_commands.py:467
@@ -1256,7 +1250,7 @@ msgstr "Nenhum resultado encontrado para sua consulta"
 #: D:/TTMediaBot/bot/commands/admin_commands.py:476
 #: D:/TTMediaBot/bot/commands/admin_commands.py:588
 msgid "Error: File not found."
-msgstr "Erro: Arquivo não encontrado."
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:495
 #: D:/TTMediaBot/bot/commands/admin_commands.py:607
@@ -1270,26 +1264,22 @@ msgid ""
 "Audio downloaded successfully: {file_name}\n"
 "Saved to: {path}"
 msgstr ""
-"Áudio baixado com sucesso: {file_name}\n"
-"Salvo em: {path}"
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:515
 #: D:/TTMediaBot/bot/commands/admin_commands.py:622
 #, python-brace-format
 msgid "Error downloading {name}: {error}"
-msgstr "Erro ao baixar {name}: {error}"
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:526
 msgid ""
 "[QUERY|LINK] Downloads the current track or specified link/query as video"
 " and saves it to the downloads folder."
 msgstr ""
-"[BUSCA|LINK] Baixa a faixa atual ou o link/termo de busca especificado "
-"como vídeo e salva na pasta de downloads."
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:540
 msgid "Searching and downloading video..."
-msgstr "Pesquisando e baixando vídeo..."
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/admin_commands.py:550
 #: D:/TTMediaBot/bot/commands/user_commands.py:707
@@ -1302,8 +1292,6 @@ msgid ""
 "Video downloaded successfully: {file_name}\n"
 "Saved to: {path}"
 msgstr ""
-"Vídeo baixado com sucesso: {file_name}\n"
-"Salvo em: {path}"
 
 #: D:/TTMediaBot/bot/commands/command.py:30
 msgid "help text not found"
