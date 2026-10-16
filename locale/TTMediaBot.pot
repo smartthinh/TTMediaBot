@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-16 06:48+0700\n"
+"POT-Creation-Date: 2026-10-15 16:45+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: D:/TTMediaBot/bot/__init__.py:141
+#: D:/TTMediaBot/bot/__init__.py:139
 msgid "Update completed successfully! I am back online."
 msgstr ""
 
-#: D:/TTMediaBot/bot/__init__.py:181
+#: D:/TTMediaBot/bot/__init__.py:179
 msgid ""
 "The bot is starting an update process and will restart shortly. It may go"
 " offline at any moment."
 msgstr ""
 
-#: D:/TTMediaBot/bot/__init__.py:219
+#: D:/TTMediaBot/bot/__init__.py:217
 msgid "The bot is restarting now to apply the update. See you in a moment!"
 msgstr ""
 
@@ -2255,13 +2255,13 @@ msgstr ""
 msgid "Sleep timer expired. Playback stopped."
 msgstr ""
 
-#: D:/TTMediaBot/bot/services/yt.py:250 D:/TTMediaBot/bot/services/yt.py:435
-#: D:/TTMediaBot/bot/services/yt.py:469 D:/TTMediaBot/bot/services/yt.py:546
-#: D:/TTMediaBot/bot/services/yt.py:630 D:/TTMediaBot/bot/services/yt.py:697
+#: D:/TTMediaBot/bot/services/yt.py:228 D:/TTMediaBot/bot/services/yt.py:409
+#: D:/TTMediaBot/bot/services/yt.py:443 D:/TTMediaBot/bot/services/yt.py:520
+#: D:/TTMediaBot/bot/services/yt.py:604 D:/TTMediaBot/bot/services/yt.py:671
 msgid "Unknown Title"
 msgstr ""
 
-#: D:/TTMediaBot/bot/services/yt.py:571
+#: D:/TTMediaBot/bot/services/yt.py:545
 msgid "YouTube Track"
 msgstr ""
 
