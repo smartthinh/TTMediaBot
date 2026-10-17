@@ -1500,12 +1500,297 @@ class LogDialog(wx.Dialog):
         self.EndModal(wx.ID_CANCEL)
 
 
+class SettingsDialog(wx.Dialog):
+    """Dialog for configuring global settings and accessing tools & support."""
+
+    def __init__(self, parent: "MainFrame"):
+        super().__init__(
+            parent,
+            title=translate("Settings"),
+            size=(480, 420),
+            style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER,
+        )
+        self.SetMinSize((420, 360))
+        self.main_frame = parent
+
+        self._init_ui()
+        self.retranslate_ui()
+        self.CentreOnParent()
+
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+        self.Bind(wx.EVT_CHAR_HOOK, self.on_char_hook)
+
+    def on_char_hook(self, event):
+        key = event.GetKeyCode()
+        if key == wx.WXK_ESCAPE:
+            self.on_close()
+            return
+        if key == wx.WXK_F4 and event.AltDown():
+            self.on_close()
+            if hasattr(self, 'main_frame') and self.main_frame:
+                wx.CallAfter(self.main_frame.Close)
+            return
+        event.Skip()
+
+    def on_close(self, event=None):
+        if self.IsModal():
+            self.EndModal(wx.ID_CANCEL)
+        else:
+            self.Destroy()
+
+    def _init_ui(self):
+        panel = wx.Panel(self)
+        main_sizer = wx.BoxSizer(wx.VERTICAL)
+        self.notebook = wx.Notebook(panel)
+
+        # ---------------- Tab 1: General & Audio ----------------
+        self.tab_general = wx.Panel(self.notebook)
+        self.tab_general_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        # Language Selection Row
+        lang_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_language = wx.StaticText(self.tab_general, label=translate("&Language:"))
+        lang_labels = [label for _, label in SUPPORTED_LANGUAGES]
+        self.choice_language = wx.Choice(self.tab_general, choices=lang_labels)
+        self.choice_language.Bind(wx.EVT_CHOICE, self.on_language_changed)
+
+        lang_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_LANGUAGES):
+            if code == self.main_frame.current_language:
+                lang_idx = i
+                break
+        self.choice_language.SetSelection(lang_idx)
+
+        lang_sizer.Add(self.lbl_language, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        lang_sizer.Add(self.choice_language, 1, wx.EXPAND)
+        self.tab_general_sizer.Add(lang_sizer, 0, wx.EXPAND | wx.ALL, 12)
+
+        # Download Audio Format Selection Row
+        format_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_audio_format = wx.StaticText(self.tab_general, label=translate("&Audio Format:"))
+        self.choice_audio_format = wx.Choice(self.tab_general, choices=get_audio_format_labels())
+        self.choice_audio_format.Bind(wx.EVT_CHOICE, self.on_audio_format_changed)
+
+        fmt_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
+            if code == self.main_frame.current_audio_format:
+                fmt_idx = i
+                break
+        self.choice_audio_format.SetSelection(fmt_idx)
+
+        format_sizer.Add(self.lbl_audio_format, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        format_sizer.Add(self.choice_audio_format, 1, wx.EXPAND)
+        self.tab_general_sizer.Add(format_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
+
+        # MP3 Bitrate Selection Row (Only visible when Audio Format is MP3)
+        self.mp3_bitrate_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_mp3_bitrate = wx.StaticText(self.tab_general, label=translate("&MP3 Bitrate:"))
+        self.choice_mp3_bitrate = wx.Choice(self.tab_general, choices=get_mp3_bitrate_labels())
+        self.choice_mp3_bitrate.Bind(wx.EVT_CHOICE, self.on_mp3_bitrate_changed)
+
+        bitrate_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
+            if code == self.main_frame.current_mp3_bitrate:
+                bitrate_idx = i
+                break
+        self.choice_mp3_bitrate.SetSelection(bitrate_idx)
+
+        self.mp3_bitrate_sizer.Add(self.lbl_mp3_bitrate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        self.mp3_bitrate_sizer.Add(self.choice_mp3_bitrate, 1, wx.EXPAND)
+        self.tab_general_sizer.Add(self.mp3_bitrate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
+
+        # Sampling Rate Selection Row
+        rate_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_sampling_rate = wx.StaticText(self.tab_general, label=translate("&Sampling Rate:"))
+        self.choice_sampling_rate = wx.Choice(self.tab_general, choices=get_sampling_rate_labels())
+        self.choice_sampling_rate.Bind(wx.EVT_CHOICE, self.on_sampling_rate_changed)
+
+        rate_idx = 0
+        for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
+            if code == self.main_frame.current_sampling_rate:
+                rate_idx = i
+                break
+        self.choice_sampling_rate.SetSelection(rate_idx)
+
+        rate_sizer.Add(self.lbl_sampling_rate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        rate_sizer.Add(self.choice_sampling_rate, 1, wx.EXPAND)
+        self.tab_general_sizer.Add(rate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
+
+        self.tab_general.SetSizer(self.tab_general_sizer)
+        self.notebook.AddPage(self.tab_general, translate("General & Audio"))
+
+        # ---------------- Tab 2: Information & Support ----------------
+        self.tab_tools = wx.Panel(self.notebook)
+        tab_tools_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        # 2x2 grid for action buttons
+        tools_grid = wx.GridSizer(cols=2, vgap=10, hgap=10)
+
+        self.btn_view_logs = wx.Button(self.tab_tools, label=translate("&View Logs..."))
+        self.btn_check_update = wx.Button(self.tab_tools, label=translate("&Check for Updates"))
+        self.btn_website = wx.Button(self.tab_tools, label=translate("&Visit Website"))
+        self.btn_telegram = wx.Button(self.tab_tools, label=translate("&Join Telegram Channel"))
+
+        self.btn_view_logs.Bind(wx.EVT_BUTTON, self.on_view_logs)
+        self.btn_check_update.Bind(wx.EVT_BUTTON, self.on_check_update)
+        self.btn_website.Bind(wx.EVT_BUTTON, self.on_visit_website)
+        self.btn_telegram.Bind(wx.EVT_BUTTON, self.on_join_telegram)
+
+        tools_grid.Add(self.btn_view_logs, 1, wx.EXPAND)
+        tools_grid.Add(self.btn_check_update, 1, wx.EXPAND)
+        tools_grid.Add(self.btn_website, 1, wx.EXPAND)
+        tools_grid.Add(self.btn_telegram, 1, wx.EXPAND)
+
+        tab_tools_sizer.Add(tools_grid, 0, wx.EXPAND | wx.ALL, 16)
+        self.tab_tools.SetSizer(tab_tools_sizer)
+        self.notebook.AddPage(self.tab_tools, translate("Information & Support"))
+
+        main_sizer.Add(self.notebook, 1, wx.EXPAND | wx.ALL, 10)
+
+        # Bottom Close Button
+        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        btn_sizer.AddStretchSpacer(1)
+        self.btn_close = wx.Button(panel, wx.ID_CANCEL, label=translate("&Close"))
+        self.btn_close.Bind(wx.EVT_BUTTON, self.on_close)
+        btn_sizer.Add(self.btn_close, 0)
+        main_sizer.Add(btn_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+
+        panel.SetSizer(main_sizer)
+
+    def update_mp3_bitrate_visibility(self):
+        is_mp3 = (self.main_frame.current_audio_format == "mp3")
+        if hasattr(self, 'mp3_bitrate_sizer') and hasattr(self, 'tab_general_sizer'):
+            self.lbl_mp3_bitrate.Show(is_mp3)
+            self.choice_mp3_bitrate.Show(is_mp3)
+            self.tab_general_sizer.Show(self.mp3_bitrate_sizer, is_mp3, recursive=True)
+            self.tab_general.Layout()
+            self.Layout()
+
+    def on_language_changed(self, event=None):
+        sel_idx = self.choice_language.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_LANGUAGES):
+            new_lang = SUPPORTED_LANGUAGES[sel_idx][0]
+            if new_lang != self.main_frame.current_language:
+                self.main_frame.set_language(new_lang)
+                self.retranslate_ui()
+
+    def on_audio_format_changed(self, event=None):
+        sel_idx = self.choice_audio_format.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_AUDIO_FORMATS):
+            new_fmt = SUPPORTED_AUDIO_FORMATS[sel_idx][0]
+            if new_fmt != self.main_frame.current_audio_format:
+                self.main_frame.set_audio_format(new_fmt)
+        self.update_mp3_bitrate_visibility()
+
+    def on_mp3_bitrate_changed(self, event=None):
+        sel_idx = self.choice_mp3_bitrate.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_MP3_BITRATES):
+            new_bitrate = SUPPORTED_MP3_BITRATES[sel_idx][0]
+            if new_bitrate != self.main_frame.current_mp3_bitrate:
+                self.main_frame.set_mp3_bitrate(new_bitrate)
+
+    def on_sampling_rate_changed(self, event=None):
+        sel_idx = self.choice_sampling_rate.GetSelection()
+        if 0 <= sel_idx < len(SUPPORTED_SAMPLING_RATES):
+            new_rate = SUPPORTED_SAMPLING_RATES[sel_idx][0]
+            if new_rate != self.main_frame.current_sampling_rate:
+                self.main_frame.set_sampling_rate(new_rate)
+
+    def on_view_logs(self, event=None):
+        self.main_frame.on_view_logs(event)
+
+    def on_check_update(self, event=None):
+        self.main_frame.on_check_update(event)
+
+    def on_visit_website(self, event=None):
+        self.main_frame.on_visit_website(event)
+
+    def on_join_telegram(self, event=None):
+        self.main_frame.on_join_telegram(event)
+
+    def retranslate_ui(self):
+        self.SetTitle(translate("Settings"))
+        if hasattr(self, 'notebook'):
+            self.notebook.SetPageText(0, translate("General & Audio"))
+            self.notebook.SetPageText(1, translate("Information & Support"))
+        if hasattr(self, 'lbl_language'):
+            self.lbl_language.SetLabel(translate("&Language:"))
+        if hasattr(self, 'choice_language'):
+            for i, (code, _) in enumerate(SUPPORTED_LANGUAGES):
+                if code == self.main_frame.current_language:
+                    self.choice_language.SetSelection(i)
+                    break
+            self.choice_language.SetToolTip(
+                translate("Select the active language for the bot and interface.")
+            )
+        if hasattr(self, 'lbl_audio_format'):
+            self.lbl_audio_format.SetLabel(translate("&Audio Format:"))
+        if hasattr(self, 'choice_audio_format'):
+            for i, label in enumerate(get_audio_format_labels()):
+                self.choice_audio_format.SetString(i, label)
+            for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
+                if code == self.main_frame.current_audio_format:
+                    self.choice_audio_format.SetSelection(i)
+                    break
+            self.choice_audio_format.SetToolTip(
+                translate("Select audio format for YouTube downloads and channel uploads (Default does not convert).")
+            )
+        if hasattr(self, 'lbl_mp3_bitrate'):
+            self.lbl_mp3_bitrate.SetLabel(translate("&MP3 Bitrate:"))
+        if hasattr(self, 'choice_mp3_bitrate'):
+            for i, label in enumerate(get_mp3_bitrate_labels()):
+                self.choice_mp3_bitrate.SetString(i, label)
+            for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
+                if code == self.main_frame.current_mp3_bitrate:
+                    self.choice_mp3_bitrate.SetSelection(i)
+                    break
+            self.choice_mp3_bitrate.SetToolTip(
+                translate("Select MP3 audio bitrate (320 kbps offers the highest sound quality).")
+            )
+        self.update_mp3_bitrate_visibility()
+
+        if hasattr(self, 'lbl_sampling_rate'):
+            self.lbl_sampling_rate.SetLabel(translate("&Sampling Rate:"))
+        if hasattr(self, 'choice_sampling_rate'):
+            for i, label in enumerate(get_sampling_rate_labels()):
+                self.choice_sampling_rate.SetString(i, label)
+            for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
+                if code == self.main_frame.current_sampling_rate:
+                    self.choice_sampling_rate.SetSelection(i)
+                    break
+            self.choice_sampling_rate.SetToolTip(
+                translate("Select audio sampling rate for playback and conversion (48000 Hz is recommended for TeamTalk).")
+            )
+
+        if hasattr(self, 'btn_view_logs'):
+            self.btn_view_logs.SetLabel(translate("&View Logs..."))
+            self.btn_view_logs.SetToolTip(translate("View application logs and errors."))
+        if hasattr(self, 'btn_check_update'):
+            self.btn_check_update.SetLabel(translate("&Check for Updates"))
+            self.btn_check_update.SetToolTip(translate("Check for the latest version online."))
+        if hasattr(self, 'btn_website'):
+            self.btn_website.SetLabel(translate("&Visit Website"))
+            self.btn_website.SetToolTip(translate("Open website: https://smartthinh.com/en/home"))
+        if hasattr(self, 'btn_telegram'):
+            self.btn_telegram.SetLabel(translate("&Join Telegram Channel"))
+            self.btn_telegram.SetToolTip(translate("Open Telegram channel: https://t.me/accessiblevisionresources"))
+        if hasattr(self, 'btn_close'):
+            self.btn_close.SetLabel(translate("&Close"))
+            self.btn_close.SetToolTip(translate("Close the settings dialog."))
+
+        if hasattr(self, 'tab_general'):
+            self.tab_general.Layout()
+        if hasattr(self, 'tab_tools'):
+            self.tab_tools.Layout()
+        self.Layout()
+
+
 class MainFrame(wx.Frame):
     """Main window displaying the server list and connection controls."""
 
     def __init__(self, config_path: str, cache_path: Optional[str] = None, log_path: Optional[str] = None):
-        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(580, 650))
-        self.SetMinSize((480, 535))
+        super().__init__(None, title=translate("TTMediaBot - Server Manager"), size=(540, 480))
+        self.SetMinSize((440, 380))
         self.config_path = config_path
         self.cache_path = cache_path
         self.log_path = log_path
@@ -1588,129 +1873,48 @@ class MainFrame(wx.Frame):
         self.server_list.Bind(wx.EVT_CONTEXT_MENU, self.on_context_menu)
         main_sizer.Add(self.server_list, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
 
-        # Language Selection Row
-        lang_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.lbl_language = wx.StaticText(panel, label="&Language:")
-        lang_labels = [label for _, label in SUPPORTED_LANGUAGES]
-        self.choice_language = wx.Choice(panel, choices=lang_labels)
-        self.choice_language.Bind(wx.EVT_CHOICE, self.on_language_changed)
-
-        lang_idx = 0
-        for i, (code, _) in enumerate(SUPPORTED_LANGUAGES):
-            if code == self.current_language:
-                lang_idx = i
-                break
-        self.choice_language.SetSelection(lang_idx)
-
-        lang_sizer.Add(self.lbl_language, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
-        lang_sizer.Add(self.choice_language, 1, wx.EXPAND)
-        main_sizer.Add(lang_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
-
-        # Download Audio Format Selection Row
-        format_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.lbl_audio_format = wx.StaticText(panel, label=translate("&Audio Format:"))
-        self.choice_audio_format = wx.Choice(panel, choices=get_audio_format_labels())
-        self.choice_audio_format.Bind(wx.EVT_CHOICE, self.on_audio_format_changed)
-
-        fmt_idx = 0
-        for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
-            if code == self.current_audio_format:
-                fmt_idx = i
-                break
-        self.choice_audio_format.SetSelection(fmt_idx)
-
-        format_sizer.Add(self.lbl_audio_format, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
-        format_sizer.Add(self.choice_audio_format, 1, wx.EXPAND)
-        main_sizer.Add(format_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
-
-        # MP3 Bitrate Selection Row (Only visible when Audio Format is MP3)
-        self.mp3_bitrate_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.lbl_mp3_bitrate = wx.StaticText(panel, label=translate("&MP3 Bitrate:"))
-        self.choice_mp3_bitrate = wx.Choice(panel, choices=get_mp3_bitrate_labels())
-        self.choice_mp3_bitrate.Bind(wx.EVT_CHOICE, self.on_mp3_bitrate_changed)
-
-        bitrate_idx = 0
-        for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
-            if code == self.current_mp3_bitrate:
-                bitrate_idx = i
-                break
-        self.choice_mp3_bitrate.SetSelection(bitrate_idx)
-
-        self.mp3_bitrate_sizer.Add(self.lbl_mp3_bitrate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
-        self.mp3_bitrate_sizer.Add(self.choice_mp3_bitrate, 1, wx.EXPAND)
-        main_sizer.Add(self.mp3_bitrate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
-
-        # Show or hide MP3 bitrate row initially
-        is_mp3 = (self.current_audio_format == "mp3")
-        self.lbl_mp3_bitrate.Show(is_mp3)
-        self.choice_mp3_bitrate.Show(is_mp3)
-        main_sizer.Show(self.mp3_bitrate_sizer, is_mp3)
-
-        # Sampling Rate Selection Row
-        rate_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.lbl_sampling_rate = wx.StaticText(panel, label=translate("&Sampling Rate:"))
-        self.choice_sampling_rate = wx.Choice(panel, choices=get_sampling_rate_labels())
-        self.choice_sampling_rate.Bind(wx.EVT_CHOICE, self.on_sampling_rate_changed)
-
-        rate_idx = 0
-        for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
-            if code == self.current_sampling_rate:
-                rate_idx = i
-                break
-        self.choice_sampling_rate.SetSelection(rate_idx)
-
-        rate_sizer.Add(self.lbl_sampling_rate, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
-        rate_sizer.Add(self.choice_sampling_rate, 1, wx.EXPAND)
-        main_sizer.Add(rate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
-
-        # Buttons Grid (5 rows x 2 columns)
-        self.btn_sizer = wx.GridSizer(cols=2, vgap=6, hgap=8)
-
-        # Row 1: Connect All & Delete All
+        # Multi-server actions row (Connect All & Delete All)
+        self.multi_btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.btn_connect_all = wx.Button(panel, label="&Connect All")
-        self.btn_connect_all.Show(len(self.servers) >= 2)
         self.btn_delete_all = wx.Button(panel, label="&Delete All Servers")
-        self.btn_delete_all.Show(len(self.servers) >= 2)
-
-        # Row 2: Add Server & Hide Window
-        self.btn_add = wx.Button(panel, label="&Add Server...")
-        self.btn_hide = wx.Button(panel, label="&Hide Window")
-
-        # Row 3: View Logs & Check for Updates
-        self.btn_view_logs = wx.Button(panel, label="&View Logs...")
-        self.btn_check_update = wx.Button(panel, label="&Check for Updates")
-
-        # Row 4: Visit Website & Join Telegram Channel
-        self.btn_website = wx.Button(panel, label="&Visit Website")
-        self.btn_telegram = wx.Button(panel, label="&Join Telegram Channel")
-
-        # Row 5: Exit & Downloads Folder
-        self.btn_exit = wx.Button(panel, label="E&xit")
-        self.btn_open_downloads = wx.Button(panel, label="&Downloads Folder")
-
         self.btn_connect_all.Bind(wx.EVT_BUTTON, self.on_connect_all_toggle)
         self.btn_delete_all.Bind(wx.EVT_BUTTON, self.on_delete_all)
+        self.multi_btn_sizer.Add(self.btn_connect_all, 1, wx.RIGHT, 4)
+        self.multi_btn_sizer.Add(self.btn_delete_all, 1, wx.LEFT, 4)
+        main_sizer.Add(self.multi_btn_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
+        show_multi = len(self.servers) >= 2
+        self.btn_connect_all.Show(show_multi)
+        self.btn_delete_all.Show(show_multi)
+        main_sizer.Show(self.multi_btn_sizer, show_multi)
+
+        # Main Action Buttons Grid (2 rows x 2 columns)
+        self.btn_sizer = wx.GridSizer(cols=2, vgap=6, hgap=8)
+
+        # Row 1: Add Server & Settings
+        self.btn_add = wx.Button(panel, label="&Add Server...")
+        self.btn_settings = wx.Button(panel, label="Se&ttings...")
+
+        # Row 2: Downloads Folder & Hide Window
+        self.btn_open_downloads = wx.Button(panel, label="&Downloads Folder")
+        self.btn_hide = wx.Button(panel, label="&Hide Window")
+
         self.btn_add.Bind(wx.EVT_BUTTON, self.on_add_server)
-        self.btn_hide.Bind(wx.EVT_BUTTON, self.on_hide_window)
-        self.btn_view_logs.Bind(wx.EVT_BUTTON, self.on_view_logs)
-        self.btn_check_update.Bind(wx.EVT_BUTTON, self.on_check_update)
-        self.btn_website.Bind(wx.EVT_BUTTON, self.on_visit_website)
-        self.btn_telegram.Bind(wx.EVT_BUTTON, self.on_join_telegram)
-        self.btn_exit.Bind(wx.EVT_BUTTON, self.on_exit)
+        self.btn_settings.Bind(wx.EVT_BUTTON, self.on_settings)
         self.btn_open_downloads.Bind(wx.EVT_BUTTON, self.on_open_downloads)
+        self.btn_hide.Bind(wx.EVT_BUTTON, self.on_hide_window)
 
-        self.btn_sizer.Add(self.btn_connect_all, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_delete_all, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_add, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_hide, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_view_logs, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_check_update, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_website, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_telegram, 1, wx.EXPAND)
-        self.btn_sizer.Add(self.btn_exit, 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_settings, 1, wx.EXPAND)
         self.btn_sizer.Add(self.btn_open_downloads, 1, wx.EXPAND)
+        self.btn_sizer.Add(self.btn_hide, 1, wx.EXPAND)
 
-        main_sizer.Add(self.btn_sizer, 0, wx.EXPAND | wx.ALL, 10)
+        main_sizer.Add(self.btn_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
+
+        # Exit Button (Full width row)
+        self.btn_exit = wx.Button(panel, label="E&xit")
+        self.btn_exit.Bind(wx.EVT_BUTTON, self.on_exit)
+        main_sizer.Add(self.btn_exit, 0, wx.EXPAND | wx.ALL, 10)
 
         # Status text label
         self.lbl_status = wx.StaticText(panel, label="Status: Disconnected")
@@ -1724,82 +1928,34 @@ class MainFrame(wx.Frame):
     def retranslate_ui(self):
         """Retranslates all UI strings to the active language."""
         self.SetTitle(translate("TTMediaBot - Server Manager"))
-        self.lbl_servers.SetLabel(translate("&Servers:"))
+        if hasattr(self, 'lbl_servers'):
+            self.lbl_servers.SetLabel(translate("&Servers:"))
         if hasattr(self, "lbl_search"):
             self.lbl_search.SetLabel(translate("&Search:"))
         if hasattr(self, "txt_search"):
             self.txt_search.SetDescriptiveText(translate("Search servers..."))
             self.txt_search.SetName(translate("Search"))
             self.txt_search.SetToolTip(translate("Type to search servers"))
-        self.server_list.SetToolTip(
-            translate("Select a server. Press Enter to connect/disconnect. Right-click or press Applications key for Context Menu.")
-        )
-        self.lbl_language.SetLabel(translate("&Language:"))
-        for i, (code, _) in enumerate(SUPPORTED_LANGUAGES):
-            if code == self.current_language:
-                self.choice_language.SetSelection(i)
-                break
-        self.choice_language.SetToolTip(
-            translate("Select the active language for the bot and interface.")
-        )
-        if hasattr(self, 'lbl_audio_format'):
-            self.lbl_audio_format.SetLabel(translate("&Audio Format:"))
-        if hasattr(self, 'choice_audio_format'):
-            for i, label in enumerate(get_audio_format_labels()):
-                self.choice_audio_format.SetString(i, label)
-            for i, (code, _) in enumerate(SUPPORTED_AUDIO_FORMATS):
-                if code == self.current_audio_format:
-                    self.choice_audio_format.SetSelection(i)
-                    break
-            self.choice_audio_format.SetToolTip(
-                translate("Select audio format for YouTube downloads and channel uploads (Default does not convert).")
-            )
-        if hasattr(self, 'lbl_mp3_bitrate'):
-            self.lbl_mp3_bitrate.SetLabel(translate("&MP3 Bitrate:"))
-        if hasattr(self, 'choice_mp3_bitrate'):
-            for i, label in enumerate(get_mp3_bitrate_labels()):
-                self.choice_mp3_bitrate.SetString(i, label)
-            for i, (code, _) in enumerate(SUPPORTED_MP3_BITRATES):
-                if code == self.current_mp3_bitrate:
-                    self.choice_mp3_bitrate.SetSelection(i)
-                    break
-            self.choice_mp3_bitrate.SetToolTip(
-                translate("Select MP3 audio bitrate (320 kbps offers the highest sound quality).")
-            )
-        self.update_mp3_bitrate_visibility()
-
-        if hasattr(self, 'lbl_sampling_rate'):
-            self.lbl_sampling_rate.SetLabel(translate("&Sampling Rate:"))
-        if hasattr(self, 'choice_sampling_rate'):
-            for i, label in enumerate(get_sampling_rate_labels()):
-                self.choice_sampling_rate.SetString(i, label)
-            for i, (code, _) in enumerate(SUPPORTED_SAMPLING_RATES):
-                if code == self.current_sampling_rate:
-                    self.choice_sampling_rate.SetSelection(i)
-                    break
-            self.choice_sampling_rate.SetToolTip(
-                translate("Select audio sampling rate for playback and conversion (48000 Hz is recommended for TeamTalk).")
+        if hasattr(self, 'server_list'):
+            self.server_list.SetToolTip(
+                translate("Select a server. Press Enter to connect/disconnect. Right-click or press Applications key for Context Menu.")
             )
 
         if hasattr(self, 'btn_delete_all'):
             self.btn_delete_all.SetLabel(translate("&Delete All Servers"))
             self.btn_delete_all.SetToolTip(translate("Delete all saved servers."))
-        self.btn_add.SetLabel(translate("&Add Server..."))
-        self.btn_add.SetToolTip(translate("Add a new server to the list."))
-        self.btn_hide.SetLabel(translate("&Hide Window"))
-        self.btn_hide.SetToolTip(translate("Minimize TTMediaBot window to the system tray."))
-        self.btn_website.SetLabel(translate("&Visit Website"))
-        if hasattr(self, 'btn_view_logs'):
-            self.btn_view_logs.SetLabel(translate("&View Logs..."))
-            self.btn_view_logs.SetToolTip(translate("View application logs and errors."))
-        if hasattr(self, 'btn_check_update'):
-            self.btn_check_update.SetLabel(translate("&Check for Updates"))
-            self.btn_check_update.SetToolTip(translate("Check for the latest version online."))
-        self.btn_website.SetToolTip(translate("Open website: https://smartthinh.com/en/home"))
-        self.btn_telegram.SetLabel(translate("&Join Telegram Channel"))
-        self.btn_telegram.SetToolTip(translate("Open Telegram channel: https://t.me/accessiblevisionresources"))
-        self.btn_exit.SetLabel(translate("E&xit"))
-        self.btn_exit.SetToolTip(translate("Close TTMediaBot (or press Alt+F4)."))
+        if hasattr(self, 'btn_add'):
+            self.btn_add.SetLabel(translate("&Add Server..."))
+            self.btn_add.SetToolTip(translate("Add a new server to the list."))
+        if hasattr(self, 'btn_settings'):
+            self.btn_settings.SetLabel(translate("Se&ttings..."))
+            self.btn_settings.SetToolTip(translate("Configure language, audio format, and access tools."))
+        if hasattr(self, 'btn_hide'):
+            self.btn_hide.SetLabel(translate("&Hide Window"))
+            self.btn_hide.SetToolTip(translate("Minimize TTMediaBot window to the system tray."))
+        if hasattr(self, 'btn_exit'):
+            self.btn_exit.SetLabel(translate("E&xit"))
+            self.btn_exit.SetToolTip(translate("Close TTMediaBot (or press Alt+F4)."))
         if hasattr(self, 'btn_open_downloads'):
             self.btn_open_downloads.SetLabel(translate("&Downloads Folder"))
             self.btn_open_downloads.SetToolTip(translate("Open the downloads folder."))
@@ -2006,10 +2162,13 @@ class MainFrame(wx.Frame):
             self.btn_connect_all.Show(show_btn)
             if hasattr(self, 'btn_delete_all'):
                 self.btn_delete_all.Show(show_btn)
+            if hasattr(self, 'multi_btn_sizer') and hasattr(self, 'main_sizer'):
+                self.main_sizer.Show(self.multi_btn_sizer, show_btn)
             if hasattr(self, "btn_sizer"):
                 self.btn_sizer.Layout()
             if hasattr(self, "panel"):
                 self.panel.Layout()
+            self.Layout()
 
         has_active = any(
             state in ("connected", "connecting")
@@ -2097,6 +2256,9 @@ class MainFrame(wx.Frame):
 
         item_add = menu.Append(wx.ID_ANY, translate("&Add Server..."))
         self.Bind(wx.EVT_MENU, self.on_add_server, item_add)
+
+        item_settings = menu.Append(wx.ID_ANY, translate("Se&ttings..."))
+        self.Bind(wx.EVT_MENU, self.on_settings, item_settings)
 
         menu.AppendSeparator()
         item_logs = menu.Append(wx.ID_ANY, translate("&View Logs..."))
@@ -2383,6 +2545,11 @@ class MainFrame(wx.Frame):
             self._populate_server_list()
             self.server_list.SetSelection(self.server_list.GetCount() - 1)
             self.update_status(translate("Added server '{name}'").format(name=dlg.result_data['name']))
+        dlg.Destroy()
+
+    def on_settings(self, event=None):
+        dlg = SettingsDialog(self)
+        dlg.ShowModal()
         dlg.Destroy()
 
     def on_edit_server(self, event):

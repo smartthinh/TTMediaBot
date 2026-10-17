@@ -4,6 +4,30 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
+## 🚀 [Unreleased] — Cleaner Look, Dedicated Settings & Easier Navigation
+
+### 🧹 Cleaner, Clutter-Free Main Screen
+- **More Room for Your Servers:** We moved all audio options, language settings, and extra buttons into their own clean **Settings** window. The main screen is now much tidier, giving you a clear view of your servers without feeling crowded.
+- **Neat & Balanced Buttons:** Buttons on the main screen are now organized in a simple, balanced grid:
+  - You can quickly add a server, open settings, visit your downloads folder, hide the window, or exit.
+  - When you have two or more servers, the **Connect All** and **Delete All Servers** buttons neatly appear together and disappear when not needed, leaving no blank empty spaces.
+
+### ⚙️ Brand New, Easy-to-Use Settings Window
+- **Everything in One Place:** You can open Settings anytime by clicking the new **Settings...** button on the main screen, pressing **`Alt + T`**, or choosing **Settings...** from the server right-click menu.
+- **Two Simple Tabs for Effortless Browsing:** To keep things organized and easy to navigate, settings are split into two clear tabs:
+  - **General & Audio Tab:** All your listening and language choices:
+    - **Language:** Pick your preferred language; the entire app updates instantly.
+    - **Audio Format:** Choose how music is saved (MP3, WAV, FLAC, and more).
+    - **MP3 Sound Quality (Bitrate):** Automatically appears whenever you select MP3, letting you choose between studio-quality sound (320 kbps) or smaller file sizes.
+    - **Sampling Rate:** Adjust audio quality to match your listening setup (recommended 48000 Hz for TeamTalk).
+  - **Information & Support Tab:** Helpful tools and community links:
+    - **View Logs...:** Check recent activity and errors if you ever need troubleshooting help.
+    - **Check for Updates:** Easily check if a newer version of TTMediaBot is available.
+    - **Visit Website & Telegram:** One-click links to visit our official website or join the helpful Telegram community.
+- **Great for Screen Readers (NVDA & JAWS):** Instead of pressing Tab through a long list of options, visually impaired users can simply switch between the two tabs with **`Ctrl + Tab`** or the **Left/Right Arrow** keys.
+
+---
+
 ## 🆕 v3.6.0 — Unified Smart Play, Audio Stability & Bitrate Control, Admin File Management & Direct Downloads *(16/10/2026)*
 
 ### 🔄 Improved Auto-Updater & Clear Installation Progress
