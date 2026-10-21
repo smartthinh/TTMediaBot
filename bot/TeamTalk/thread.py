@@ -42,7 +42,8 @@ class TeamTalkThread(Thread):
         event = self.ttclient.get_event(self.ttclient.tt.getMessage())
         if event.event_type == EventType.NONE:
             return
-        elif (
+        self.ttclient.dispatch_event(event)
+        if (
             event.event_type == EventType.ERROR
             and self.ttclient.state == State.CONNECTED
         ):
@@ -61,6 +62,9 @@ class TeamTalkThread(Thread):
             event.event_type == EventType.USER_TEXT_MESSAGE
             and event.message.type == MessageType.Channel
         ):
+            text = (event.message.text or "").strip()
+            if text.lower().startswith("pm "):
+                self.ttclient.message_queue.put(event.message)
             self._handle_channel_message(event.message)
         elif (
             event.event_type == EventType.FILE_NEW

@@ -3,7 +3,8 @@ import logging
 import os
 import re
 import sys
-from typing import AnyStr, List, TYPE_CHECKING, Optional, Union
+from typing import AnyStr, Callable, List, TYPE_CHECKING, Optional, Union
+import threading
 from queue import Queue
 
 from bot import app_vars
@@ -83,6 +84,7 @@ def split(text: str, max_length: int = app_vars.max_message_length) -> List[str]
 
 class TeamTalk:
     def __init__(self, bot: Bot) -> None:
+        self.bot = bot
         self.config = bot.config.teamtalk
         self.translator = bot.translator
         TeamTalkPy.setLicense(
@@ -91,6 +93,13 @@ class TeamTalk:
         self.tt = TeamTalkPy.TeamTalk()
         self.state = State.NOT_CONNECTED
         self.is_voice_transmission_enabled = False
+        self.is_sound_output_enabled = False
+        self.is_mic_active = False
+        self.current_input_device_id: Optional[int] = None
+        self.current_output_device_id: Optional[int] = None
+        self.default_bot_input_device_id: Optional[int] = None
+        self._event_listeners: List[Callable[[Event], None]] = []
+        self._listener_lock = threading.Lock()
         self.nickname = self.config.nickname
         self.gender = UserStatusMode.__members__[self.config.gender.upper()]
         self.status = self.default_status
@@ -112,6 +121,9 @@ class TeamTalk:
 
     def close(self) -> None:
         logging.debug("Closing teamtalk")
+        if self.is_mic_active:
+            self.restore_input_device()
+        self.disable_sound_output()
         self.thread.close()
         self.disconnect()
         self.state = State.NOT_CONNECTED
@@ -414,15 +426,30 @@ class TeamTalk:
             user_account,
         )
 
-    def get_input_devices(self) -> List[SoundDevice]:
+    def get_input_devices(self, sound_system: Optional[int] = None) -> List[SoundDevice]:
         devices: List[SoundDevice] = []
         device_list = [i for i in self.tt.getSoundDevices()]
         for device in device_list:
-            if sys.platform == "win32":
-                if (
-                    device.nSoundSystem == TeamTalkPy.SoundSystem.SOUNDSYSTEM_WASAPI
-                    and device.nMaxInputChannels > 0
-                ):
+            if device.nMaxInputChannels > 0:
+                if sound_system is not None:
+                    if device.nSoundSystem == sound_system:
+                        devices.append(
+                            SoundDevice(
+                                _str(device.szDeviceName),
+                                device.nDeviceID,
+                                SoundDeviceType.Input,
+                            )
+                        )
+                elif sys.platform == "win32":
+                    if device.nSoundSystem == TeamTalkPy.SoundSystem.SOUNDSYSTEM_WASAPI:
+                        devices.append(
+                            SoundDevice(
+                                _str(device.szDeviceName),
+                                device.nDeviceID,
+                                SoundDeviceType.Input,
+                            )
+                        )
+                else:
                     devices.append(
                         SoundDevice(
                             _str(device.szDeviceName),
@@ -430,15 +457,7 @@ class TeamTalk:
                             SoundDeviceType.Input,
                         )
                     )
-            else:
-                devices.append(
-                    SoundDevice(
-                        _str(device.szDeviceName),
-                        device.nDeviceID,
-                        SoundDeviceType.Input,
-                    )
-                )
-        if sys.platform == "win32" and not devices:
+        if sys.platform == "win32" and not devices and sound_system is None:
             for device in device_list:
                 if device.nMaxInputChannels > 0:
                     devices.append(
@@ -450,7 +469,118 @@ class TeamTalk:
                     )
         return devices
 
+    def get_output_devices(self, sound_system: Optional[int] = None) -> List[SoundDevice]:
+        devices: List[SoundDevice] = []
+        device_list = [i for i in self.tt.getSoundDevices()]
+        for device in device_list:
+            if device.nMaxOutputChannels > 0:
+                if sound_system is not None:
+                    if device.nSoundSystem == sound_system:
+                        devices.append(
+                            SoundDevice(
+                                _str(device.szDeviceName),
+                                device.nDeviceID,
+                                SoundDeviceType.Output,
+                            )
+                        )
+                elif sys.platform == "win32":
+                    if device.nSoundSystem == TeamTalkPy.SoundSystem.SOUNDSYSTEM_WASAPI:
+                        devices.append(
+                            SoundDevice(
+                                _str(device.szDeviceName),
+                                device.nDeviceID,
+                                SoundDeviceType.Output,
+                            )
+                        )
+                else:
+                    devices.append(
+                        SoundDevice(
+                            _str(device.szDeviceName),
+                            device.nDeviceID,
+                            SoundDeviceType.Output,
+                        )
+                    )
+        if sys.platform == "win32" and not devices and sound_system is None:
+            for device in device_list:
+                if device.nMaxOutputChannels > 0:
+                    devices.append(
+                        SoundDevice(
+                            _str(device.szDeviceName),
+                            device.nDeviceID,
+                            SoundDeviceType.Output,
+                        )
+                    )
+        return devices
+
+    def set_output_device(self, id: int) -> bool:
+        """Sets the sound output device for TeamTalk audio playback."""
+        try:
+            import TeamTalkPy
+            dll = TeamTalkPy.TeamTalk5.dll
+            try:
+                dll.TT_CloseSoundOutputDevice(self.tt._tt)
+            except Exception:
+                pass
+            res = self.tt.initSoundOutputDevice(id)
+            if res:
+                self.current_output_device_id = id
+                self.is_sound_output_enabled = True
+                try:
+                    dll.TT_SetSoundOutputMute(self.tt._tt, False)
+                except Exception:
+                    pass
+                logging.info(f"TeamTalk sound output device set to ID {id}")
+                return True
+            else:
+                logging.error(f"Failed to set TeamTalk sound output device to ID {id}")
+                return False
+        except Exception as e:
+            logging.error(f"Error setting output device: {e}")
+            return False
+
+    def set_input_device_live(self, id: int) -> bool:
+        """Changes the sound input device live while connected."""
+        try:
+            import TeamTalkPy
+            dll = TeamTalkPy.TeamTalk5.dll
+            try:
+                dll.TT_CloseSoundInputDevice(self.tt._tt)
+            except Exception:
+                pass
+            res = self.tt.initSoundInputDevice(id)
+            if res:
+                self.current_input_device_id = id
+                try:
+                    dll.TT_EnableVoiceActivation(self.tt._tt, False)
+                except Exception:
+                    pass
+                logging.info(f"TeamTalk sound input device set to ID {id}")
+
+                # If changed to a virtual audio cable, also align player output device
+                if hasattr(self, "bot") and hasattr(self.bot, "sound_device_manager") and hasattr(self.bot, "player"):
+                    try:
+                        sdm = self.bot.sound_device_manager
+                        in_dev_obj = next((d for d in sdm.input_devices if int(d.id) == id), None)
+                        if in_dev_obj and ("virtual audio cable" in in_dev_obj.name.lower() or "line " in in_dev_obj.name.lower()):
+                            matched_out = sdm._find_matching_cable(in_dev_obj.name, sdm.output_devices)
+                            if matched_out:
+                                self.bot.player.set_output_device(str(matched_out.id))
+                                logging.info(f"Auto-aligned live player output device to: {matched_out.name}")
+                    except Exception as ex:
+                        logging.debug(f"Notice auto-aligning player output on live input switch: {ex}")
+
+                return True
+            else:
+                logging.error(f"Failed to set TeamTalk sound input device to ID {id}")
+                return False
+        except Exception as e:
+            logging.error(f"Error setting input device live: {e}")
+            return False
+
     def set_input_device(self, id: int) -> None:
+        self.current_input_device_id = id
+        if not self.is_mic_active:
+            self.default_bot_input_device_id = id
         self.tt.initSoundInputDevice(id)
 
     def enable_voice_transmission(self) -> None:
@@ -460,3 +590,185 @@ class TeamTalk:
     def disable_voice_transmission(self) -> None:
         self.tt.enableVoiceTransmission(False)
         self.is_voice_transmission_enabled = False
+
+    def get_microphone_device_id(self) -> Optional[int]:
+        """Finds the most suitable microphone device ID for voice chat."""
+        devices = self.get_input_devices()
+        # 1. Prefer an input device with 'mic' or 'micro' in name that isn't loopback or line
+        for dev in devices:
+            name_lower = dev.name.lower()
+            if any(x in name_lower for x in ["loopback", "line", "stereo mix", "wave", "what u hear"]):
+                continue
+            if "mic" in name_lower or "micro" in name_lower:
+                return dev.id
+
+        # 2. Check system default input device from TeamTalk
+        try:
+            in_dev, _ = self.tt.getDefaultSoundDevices()
+            if in_dev.value > 0:
+                return in_dev.value
+        except Exception:
+            pass
+
+        # 3. Fallback to any non-loopback device
+        for dev in devices:
+            name_lower = dev.name.lower()
+            if "loopback" not in name_lower and "line" not in name_lower:
+                return dev.id
+
+        if devices:
+            return devices[0].id
+        return None
+
+    def switch_to_microphone(self, mic_device_id: Optional[int] = None) -> bool:
+        """Switches the TeamTalk input device to the user's physical microphone and enables voice transmission."""
+        try:
+            import TeamTalkPy
+            dll = TeamTalkPy.TeamTalk5.dll
+
+            if mic_device_id is None or mic_device_id <= 0:
+                mic_device_id = self.get_microphone_device_id()
+
+            if mic_device_id is None or mic_device_id <= 0:
+                logging.error("No suitable microphone device found")
+                return False
+
+            logging.info(f"Switching input device to microphone ID {mic_device_id}")
+
+            # Close existing sound input device before re-initializing
+            try:
+                dll.TT_CloseSoundInputDevice(self.tt._tt)
+            except Exception as e:
+                logging.debug(f"TT_CloseSoundInputDevice notice: {e}")
+
+            # Initialize microphone sound input device
+            res = self.tt.initSoundInputDevice(mic_device_id)
+            if not res:
+                logging.error(f"Failed to initSoundInputDevice with ID {mic_device_id}")
+                return False
+
+            self.current_input_device_id = mic_device_id
+            self.is_mic_active = True
+
+            # Disable VAD (Voice Activation Detection) so audio is transmitted continuously without threshold cut-off
+            try:
+                dll.TT_EnableVoiceActivation(self.tt._tt, False)
+            except Exception as e:
+                logging.debug(f"TT_EnableVoiceActivation notice: {e}")
+
+            # Ensure input gain level is standard or higher (1000 is 100%)
+            try:
+                gain = dll.TT_GetSoundInputGainLevel(self.tt._tt)
+                if gain < 1000:
+                    dll.TT_SetSoundInputGainLevel(self.tt._tt, 1000)
+            except Exception as e:
+                logging.debug(f"TT_SetSoundInputGainLevel notice: {e}")
+
+            # Start voice transmission
+            self.enable_voice_transmission()
+            logging.info("Microphone voice transmission successfully activated")
+            return True
+        except Exception as e:
+            logging.error(f"Error in switch_to_microphone: {e}")
+            return False
+
+    def restore_input_device(self) -> None:
+        """Restores the bot's original sound input device (e.g. VAC) and resets voice transmission."""
+        try:
+            import TeamTalkPy
+            dll = TeamTalkPy.TeamTalk5.dll
+
+            self.is_mic_active = False
+
+            # Stop microphone voice transmission
+            self.disable_voice_transmission()
+
+            # Target device: default bot input device
+            target_device = self.default_bot_input_device_id
+            if target_device is None:
+                try:
+                    if hasattr(self, "bot") and hasattr(self.bot, "sound_device_manager"):
+                        sdm = self.bot.sound_device_manager
+                        idx = sdm.input_device_index
+                        target_device = int(sdm.input_devices[idx].id)
+                except Exception:
+                    pass
+
+            if target_device is not None:
+                try:
+                    dll.TT_CloseSoundInputDevice(self.tt._tt)
+                except Exception as e:
+                    logging.debug(f"TT_CloseSoundInputDevice notice: {e}")
+
+                res = self.tt.initSoundInputDevice(target_device)
+                if res:
+                    self.current_input_device_id = target_device
+                    logging.info(f"Restored sound input device to ID {target_device}")
+                else:
+                    logging.error(f"Failed to restore sound input device to ID {target_device}")
+
+            # If the media player is currently playing, resume voice transmission for the music
+            if hasattr(self, "bot") and hasattr(self.bot, "player") and self.bot.player:
+                try:
+                    from bot.player.enums import State as PlayerState
+                    if getattr(self.bot.player, "state", None) == PlayerState.Playing:
+                        self.enable_voice_transmission()
+                except Exception:
+                    pass
+        except Exception as e:
+            logging.error(f"Error in restore_input_device: {e}")
+
+    def add_event_listener(self, listener: Callable[[Event], None]) -> None:
+        with self._listener_lock:
+            if listener not in self._event_listeners:
+                self._event_listeners.append(listener)
+
+    def remove_event_listener(self, listener: Callable[[Event], None]) -> None:
+        with self._listener_lock:
+            if listener in self._event_listeners:
+                self._event_listeners.remove(listener)
+
+    def dispatch_event(self, event: Event) -> None:
+        with self._listener_lock:
+            listeners = list(self._event_listeners)
+        for listener in listeners:
+            try:
+                listener(event)
+            except Exception as e:
+                logging.error(f"Error in event listener: {e}")
+
+    def enable_sound_output(self, device_id: Optional[int] = None) -> bool:
+        try:
+            if device_id is None or device_id <= 0:
+                if self.current_output_device_id and self.current_output_device_id > 0:
+                    device_id = self.current_output_device_id
+                else:
+                    _, out_dev = self.tt.getDefaultSoundDevices()
+                    device_id = out_dev.value
+                    if device_id <= 0:
+                        devs = [d for d in self.tt.getSoundDevices() if d.nMaxOutputChannels > 0]
+                        if devs:
+                            device_id = devs[0].nDeviceID
+            if device_id and device_id > 0:
+                self.tt.initSoundOutputDevice(device_id)
+                self.current_output_device_id = device_id
+                try:
+                    import TeamTalkPy
+                    TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputMute(self.tt._tt, False)
+                except Exception:
+                    pass
+                self.is_sound_output_enabled = True
+                logging.info(f"TeamTalk sound output enabled on device {device_id}")
+                return True
+        except Exception as e:
+            logging.error(f"Error enabling sound output: {e}")
+        return False
+
+    def disable_sound_output(self) -> None:
+        try:
+            import TeamTalkPy
+            TeamTalkPy.TeamTalk5.dll.TT_CloseSoundOutputDevice(self.tt._tt)
+            self.is_sound_output_enabled = False
+            logging.info("TeamTalk sound output disabled")
+        except Exception as e:
+            logging.error(f"Error disabling sound output: {e}")

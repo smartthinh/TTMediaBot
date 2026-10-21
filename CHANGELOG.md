@@ -4,7 +4,26 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🚀 [Unreleased] — Cleaner Look, Dedicated Settings & Easier Navigation
+## 🚀 [Unreleased] — Interactive Sessions, Private Chat, Saved Audio & Direct Messaging
+
+### 💬 Interactive Server Sessions & Private Chat Windows
+- **Dedicated Server Session Window:** When you connect to a server, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
+- **Detailed User List:** The channel user list displays each person's nickname along with their gender (Male, Female, or None) and status mode (such as Away, Question, or custom status text).
+- **Instant Private Chat on Enter:** Simply press **Enter** or double-click on any user in the channel list to immediately open a separate private chat window with them. The cursor automatically lands in the message box, allowing you to start typing and send messages right away.
+- **Alt + Tab Friendly & Easy to Close:** The private chat window appears as its own independent window in Alt + Tab. Pressing **Escape** closes the private chat without disturbing your main session.
+- **Persistent Chat History:** Private chat conversations are safely kept for every person you talk to, so switching between users or reopening a chat window keeps your conversation history intact until you disconnect.
+- **Consistent Message Timestamps:** All public and private chat entries now place timestamps clearly at the end of each message (`Nickname: Message [HH:MM:SS]`), making conversations clean and easy to read.
+
+### 🎙️ Remembered Audio Settings & Instant Microphone
+- **Settings Saved Per Server:** Your choices for sound output (speakers/headphones), sound input (microphone), sound system, and input gain level are now automatically remembered for each server.
+- **Microphone Stays Ready:** If you turn on your microphone, it stays preserved. When you return to that server, your microphone is ready to use immediately without having to configure it again.
+- **Clear Device Identification:** In the audio devices window, every microphone and speaker displays its unique device ID (e.g. `[ID: 27]`), so you can easily choose the exact physical device you want even if two sound cards have identical names.
+
+### 📬 Direct Operator Messaging Command (`pm`)
+- **Single, Simple Command for Everyone:** Channel members can now reach the bot operator at any time using the unified command:
+  - `pm <your message>`
+- **Instant Notification on Your Screen:** Whenever someone sends a `pm` message, the bot automatically pops up the private chat window with that user on your screen, places the message in your chat history, and sets your cursor in the reply box so you can answer right away.
+- **Immediate Sender Confirmation:** The sender receives a prompt confirmation from the bot letting them know their message was successfully delivered to the operator.
 
 ### 🧹 Cleaner, Clutter-Free Main Screen
 - **More Room for Your Servers:** We moved all audio options, language settings, and extra buttons into their own clean **Settings** window. The main screen is now much tidier, giving you a clear view of your servers without feeling crowded.

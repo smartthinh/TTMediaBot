@@ -1690,6 +1690,7 @@ class WhatSongCommand(Command):
                     self.send_message_async(msg, type=2)
                 return msg
 
+
         # Run AI recognition in background
         self.send_message_async(
             self.translator.translate("🔍 Listening and identifying the currently playing song..."),
@@ -2082,6 +2083,7 @@ class TimerCommand(Command):
                 )
             return msg
 
+
         # Handle 'on': turn on timer with default duration (30 minutes)
         if arg == "on":
             minutes = 30.0
@@ -2118,3 +2120,32 @@ class TimerCommand(Command):
 
         return msg
 
+
+class PrivateMessageCommand(Command):
+    @property
+    def help(self) -> str:
+        return self.translator.translate("[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>")
+
+    def __call__(self, arg: str, user: User) -> str:
+        if not arg or not arg.strip():
+            raise errors.InvalidArgumentError
+
+        msg_content = arg.strip()
+        u_name = user.nickname or user.username or f"User #{user.id}"
+
+        # Notify active session GUI window(s) to open and display the private chat window
+        try:
+            import wx
+            app = wx.GetApp()
+            if app:
+                top_win = app.GetTopWindow()
+                if top_win and hasattr(top_win, "session_windows"):
+                    for s_id, s_win in top_win.session_windows.items():
+                        if s_win and hasattr(s_win, "bot") and s_win.bot == self.bot:
+                            wx.CallAfter(s_win.receive_user_pm_command, user.id, u_name, msg_content)
+        except Exception as e:
+            logging.error(f"Error forwarding PM command to GUI: {e}")
+
+        return self.translator.translate(
+            "Your message has been sent to the bot operator: '{message}'"
+        ).format(message=msg_content)

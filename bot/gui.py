@@ -1215,7 +1215,8 @@ class ServerDialog(wx.Dialog):
         start_cmds_raw = self.txt_start_commands.GetValue().strip()
         start_commands = [c.strip() for c in start_cmds_raw.split(",") if c.strip()]
 
-        self.result_data = {
+        res_data = dict(self.server_data)
+        res_data.update({
             "name": name,
             "hostname": hostname,
             "tcp_port": tcp_port,
@@ -1250,7 +1251,8 @@ class ServerDialog(wx.Dialog):
             "start_commands": start_commands,
             "cookiefile_path": self.txt_cookiefile.GetValue().strip(),
             "id": self.server_data.get("id") or str(uuid.uuid4()),
-        }
+        })
+        self.result_data = res_data
         if self.IsModal():
             self.EndModal(wx.ID_OK)
         else:
@@ -1812,6 +1814,7 @@ class MainFrame(wx.Frame):
         self.active_bots: Dict[str, Bot] = {}
         self.bot_threads: Dict[str, threading.Thread] = {}
         self.server_states: Dict[str, str] = {}  # s_id -> "disconnected" | "connecting" | "connected" | "reconnecting"
+        self.session_windows: Dict[str, Any] = {}
         self._closing = False
         self.taskbar_icon: Optional[BotTaskBarIcon] = None
         self._current_status_text = "Disconnected"
@@ -1843,7 +1846,7 @@ class MainFrame(wx.Frame):
         if key in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
             focused = self.FindFocus()
             if focused == self.server_list or focused == self:
-                self.on_connect_toggle(event)
+                self.on_server_activated(event)
                 return
         event.Skip()
 
@@ -1868,7 +1871,7 @@ class MainFrame(wx.Frame):
 
         # Server ListBox
         self.server_list = wx.ListBox(panel, style=wx.LB_SINGLE)
-        self.server_list.Bind(wx.EVT_LISTBOX_DCLICK, self.on_connect_toggle)
+        self.server_list.Bind(wx.EVT_LISTBOX_DCLICK, self.on_server_activated)
         self.server_list.Bind(wx.EVT_KEY_DOWN, self.on_list_key_down)
         self.server_list.Bind(wx.EVT_CONTEXT_MENU, self.on_context_menu)
         main_sizer.Add(self.server_list, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
@@ -2184,7 +2187,7 @@ class MainFrame(wx.Frame):
     def on_list_key_down(self, event):
         key = event.GetKeyCode()
         if key in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
-            self.on_connect_toggle(event)
+            self.on_server_activated(event)
         elif (key in (wx.WXK_WINDOWS_MENU, wx.WXK_MENU)) or (key == wx.WXK_F10 and event.ShiftDown()):
             self.show_context_menu(wx.DefaultPosition)
         elif key == wx.WXK_DELETE:
@@ -2212,6 +2215,12 @@ class MainFrame(wx.Frame):
             s_id = self.get_server_id(server)
             server_name = server.get("name", translate("Server"))
             state = self.server_states.get(s_id, "disconnected")
+
+            item_open = menu.Append(
+                wx.ID_ANY,
+                translate("&Open Session Window for '{server_name}'").format(server_name=server_name),
+            )
+            self.Bind(wx.EVT_MENU, lambda e, s=server: self.open_server_session(s), item_open)
 
             if state == "connected":
                 item_conn = menu.Append(
@@ -2269,6 +2278,48 @@ class MainFrame(wx.Frame):
         else:
             self.server_list.PopupMenu(menu)
         menu.Destroy()
+
+    def on_server_activated(self, event=None):
+        """Called when user presses Enter or double-clicks on a server in the server list."""
+        sel = self.server_list.GetSelection()
+        if sel == wx.NOT_FOUND or sel < 0 or sel >= len(self.visible_servers):
+            wx.MessageBox(
+                translate("Please select a server from the list first."),
+                translate("Information"),
+                wx.OK | wx.ICON_INFORMATION,
+                self,
+            )
+            return
+
+        server = self.visible_servers[sel]
+        s_id = self.get_server_id(server)
+        state = self.server_states.get(s_id, "disconnected")
+
+        if state == "disconnected":
+            self.connect_single_server(server)
+
+        self.open_server_session(server)
+
+    def open_server_session(self, server: dict):
+        """Opens or brings to front the dedicated session window for this server."""
+        if not server:
+            return None
+        s_id = self.get_server_id(server)
+        if hasattr(self, "session_windows") and s_id in self.session_windows:
+            win = self.session_windows[s_id]
+            if win.IsIconized():
+                win.Iconize(False)
+            win.Show(True)
+            win.Raise()
+            if hasattr(win, "txt_message"):
+                wx.CallAfter(win.txt_message.SetFocus)
+            return win
+
+        from bot.session_gui import ServerSessionDialog
+        win = ServerSessionDialog(self, s_id, server)
+        self.session_windows[s_id] = win
+        win.ShowModal()
+        return win
 
     def on_connect_toggle(self, event=None):
         """Toggles connection for the selected server."""
@@ -2427,6 +2478,12 @@ class MainFrame(wx.Frame):
 
         self.server_states[s_id] = "disconnected"
         self._update_listbox_item(s_id)
+
+        if hasattr(self, "session_windows") and s_id in self.session_windows:
+            try:
+                self.session_windows[s_id].on_bot_disconnected()
+            except Exception:
+                pass
 
         self.update_connect_all_button()
         if not any(st in ("connected", "connecting") for st in self.server_states.values()):
@@ -2713,6 +2770,14 @@ class MainFrame(wx.Frame):
             except Exception:
                 pass
             self.taskbar_icon = None
+
+        if hasattr(self, "session_windows"):
+            for s_id, win in list(self.session_windows.items()):
+                try:
+                    win.Close()
+                except Exception:
+                    pass
+            self.session_windows.clear()
 
         bots_to_close = list(self.active_bots.values())
         self.active_bots.clear()

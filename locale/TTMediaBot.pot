@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-17 12:57+0700\n"
+"POT-Creation-Date: 2026-10-19 18:13+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,15 +196,15 @@ msgstr ""
 msgid "&Gender:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:774
+#: D:/TTMediaBot/bot/gui.py:774 D:/TTMediaBot/bot/session_gui.py:468
 msgid "None"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:774
+#: D:/TTMediaBot/bot/gui.py:774 D:/TTMediaBot/bot/session_gui.py:470
 msgid "Male"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:774
+#: D:/TTMediaBot/bot/gui.py:774 D:/TTMediaBot/bot/session_gui.py:466
 msgid "Female"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "Event Handlers &File Name:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1038
+#: D:/TTMediaBot/bot/gui.py:1038 D:/TTMediaBot/bot/session_gui.py:999
 msgid "&OK"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1039
+#: D:/TTMediaBot/bot/gui.py:1039 D:/TTMediaBot/bot/session_gui.py:1002
 msgid "&Cancel"
 msgstr ""
 
@@ -421,16 +421,16 @@ msgstr ""
 msgid "&Show Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1374 D:/TTMediaBot/bot/gui.py:2250
+#: D:/TTMediaBot/bot/gui.py:1374 D:/TTMediaBot/bot/gui.py:2257
 msgid "&Disconnect All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1377 D:/TTMediaBot/bot/gui.py:2253
+#: D:/TTMediaBot/bot/gui.py:1377 D:/TTMediaBot/bot/gui.py:2260
 msgid "&Connect All Servers"
 msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1381 D:/TTMediaBot/bot/gui.py:1629
-#: D:/TTMediaBot/bot/gui.py:1766 D:/TTMediaBot/bot/gui.py:2264
+#: D:/TTMediaBot/bot/gui.py:1766 D:/TTMediaBot/bot/gui.py:2271
 msgid "&View Logs..."
 msgstr ""
 
@@ -471,7 +471,8 @@ msgid "Reload latest log entries."
 msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1450 D:/TTMediaBot/bot/gui.py:1653
-#: D:/TTMediaBot/bot/gui.py:1778
+#: D:/TTMediaBot/bot/gui.py:1778 D:/TTMediaBot/bot/session_gui.py:155
+#: D:/TTMediaBot/bot/session_gui.py:788
 msgid "&Close"
 msgstr ""
 
@@ -505,7 +506,8 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1488
+#: D:/TTMediaBot/bot/gui.py:1488 D:/TTMediaBot/bot/session_gui.py:589
+#: D:/TTMediaBot/bot/session_gui.py:861
 msgid "Error"
 msgstr ""
 
@@ -589,292 +591,683 @@ msgstr ""
 msgid "Close the settings dialog."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1792 D:/TTMediaBot/bot/gui.py:1930
+#: D:/TTMediaBot/bot/gui.py:1792 D:/TTMediaBot/bot/gui.py:1931
 msgid "TTMediaBot - Server Manager"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1859 D:/TTMediaBot/bot/gui.py:1934
+#: D:/TTMediaBot/bot/gui.py:1860 D:/TTMediaBot/bot/gui.py:1935
 msgid "&Search:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1861 D:/TTMediaBot/bot/gui.py:1937
+#: D:/TTMediaBot/bot/gui.py:1862 D:/TTMediaBot/bot/gui.py:1938
 msgid "Search"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1862 D:/TTMediaBot/bot/gui.py:1938
+#: D:/TTMediaBot/bot/gui.py:1863 D:/TTMediaBot/bot/gui.py:1939
 msgid "Type to search servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1863 D:/TTMediaBot/bot/gui.py:1936
+#: D:/TTMediaBot/bot/gui.py:1864 D:/TTMediaBot/bot/gui.py:1937
 msgid "Search servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1932
+#: D:/TTMediaBot/bot/gui.py:1933
 msgid "&Servers:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1941
+#: D:/TTMediaBot/bot/gui.py:1942
 msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1945
+#: D:/TTMediaBot/bot/gui.py:1946
 msgid "&Delete All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1946
+#: D:/TTMediaBot/bot/gui.py:1947
 msgid "Delete all saved servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1948 D:/TTMediaBot/bot/gui.py:2257
+#: D:/TTMediaBot/bot/gui.py:1949 D:/TTMediaBot/bot/gui.py:2264
 msgid "&Add Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1949
+#: D:/TTMediaBot/bot/gui.py:1950
 msgid "Add a new server to the list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1951 D:/TTMediaBot/bot/gui.py:2260
+#: D:/TTMediaBot/bot/gui.py:1952 D:/TTMediaBot/bot/gui.py:2267
 msgid "Se&ttings..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1952
+#: D:/TTMediaBot/bot/gui.py:1953
 msgid "Configure language, audio format, and access tools."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1954
+#: D:/TTMediaBot/bot/gui.py:1955
 msgid "&Hide Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1955
+#: D:/TTMediaBot/bot/gui.py:1956
 msgid "Minimize TTMediaBot window to the system tray."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1957
+#: D:/TTMediaBot/bot/gui.py:1958
 msgid "E&xit"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1958
+#: D:/TTMediaBot/bot/gui.py:1959
 msgid "Close TTMediaBot (or press Alt+F4)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1960
+#: D:/TTMediaBot/bot/gui.py:1961
 msgid "&Downloads Folder"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1961
+#: D:/TTMediaBot/bot/gui.py:1962
 msgid "Open the downloads folder."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1965
+#: D:/TTMediaBot/bot/gui.py:1966
 msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2103 D:/TTMediaBot/bot/gui.py:2128
+#: D:/TTMediaBot/bot/gui.py:2104 D:/TTMediaBot/bot/gui.py:2129
 msgid "Unnamed Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2106 D:/TTMediaBot/bot/gui.py:2132
-#: D:/TTMediaBot/bot/gui.py:2472
+#: D:/TTMediaBot/bot/gui.py:2107 D:/TTMediaBot/bot/gui.py:2133
+#: D:/TTMediaBot/bot/gui.py:2530
 msgid "Connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2108 D:/TTMediaBot/bot/gui.py:2134
-#: D:/TTMediaBot/bot/gui.py:2476
+#: D:/TTMediaBot/bot/gui.py:2109 D:/TTMediaBot/bot/gui.py:2135
+#: D:/TTMediaBot/bot/gui.py:2534
 msgid "Connecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2110 D:/TTMediaBot/bot/gui.py:2136
-#: D:/TTMediaBot/bot/gui.py:2481
+#: D:/TTMediaBot/bot/gui.py:2111 D:/TTMediaBot/bot/gui.py:2137
+#: D:/TTMediaBot/bot/gui.py:2539
 msgid "Reconnecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2156
+#: D:/TTMediaBot/bot/gui.py:2157
 msgid "Status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2178
+#: D:/TTMediaBot/bot/gui.py:2179
 msgid "&Disconnect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2179
+#: D:/TTMediaBot/bot/gui.py:2180
 msgid "Disconnect all connected TeamTalk servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2181
+#: D:/TTMediaBot/bot/gui.py:2182
 msgid "&Connect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2182
+#: D:/TTMediaBot/bot/gui.py:2183
 msgid "Connect all configured servers to TeamTalk."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2213 D:/TTMediaBot/bot/gui.py:2342
-#: D:/TTMediaBot/bot/gui.py:2382 D:/TTMediaBot/bot/gui.py:2471
-#: D:/TTMediaBot/bot/gui.py:2475 D:/TTMediaBot/bot/gui.py:2480
+#: D:/TTMediaBot/bot/gui.py:2214 D:/TTMediaBot/bot/gui.py:2394
+#: D:/TTMediaBot/bot/gui.py:2434 D:/TTMediaBot/bot/gui.py:2529
+#: D:/TTMediaBot/bot/gui.py:2533 D:/TTMediaBot/bot/gui.py:2538
+#: D:/TTMediaBot/bot/session_gui.py:40
 msgid "Server"
 msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:2219
 #, python-brace-format
+msgid "&Open Session Window for '{server_name}'"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:2226
+#, python-brace-format
 msgid "&Disconnect from '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2224
+#: D:/TTMediaBot/bot/gui.py:2231
 #, python-brace-format
 msgid "&Cancel Connecting to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2229
+#: D:/TTMediaBot/bot/gui.py:2236
 #, python-brace-format
 msgid "&Connect to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2235
+#: D:/TTMediaBot/bot/gui.py:2242
 msgid "&Edit Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2240
+#: D:/TTMediaBot/bot/gui.py:2247
 msgid "&Delete Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2278
+#: D:/TTMediaBot/bot/gui.py:2285 D:/TTMediaBot/bot/gui.py:2330
 msgid "Please select a server from the list first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2279 D:/TTMediaBot/bot/gui.py:2305
-#: D:/TTMediaBot/bot/gui.py:2560 D:/TTMediaBot/bot/gui.py:2593
-#: D:/TTMediaBot/bot/gui.py:2633
+#: D:/TTMediaBot/bot/gui.py:2286 D:/TTMediaBot/bot/gui.py:2331
+#: D:/TTMediaBot/bot/gui.py:2357 D:/TTMediaBot/bot/gui.py:2618
+#: D:/TTMediaBot/bot/gui.py:2651 D:/TTMediaBot/bot/gui.py:2691
 msgid "Information"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2304
+#: D:/TTMediaBot/bot/gui.py:2356
 msgid "No servers to connect. Please add a server first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2318
+#: D:/TTMediaBot/bot/gui.py:2370
 msgid "Connecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2332
+#: D:/TTMediaBot/bot/gui.py:2384
 msgid "Disconnecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2348
+#: D:/TTMediaBot/bot/gui.py:2400
 #, python-brace-format
 msgid "Connecting to '{server_name}'..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2433
+#: D:/TTMediaBot/bot/gui.py:2491
 msgid "Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2438
+#: D:/TTMediaBot/bot/gui.py:2496
 #, python-brace-format
 msgid ""
 "An error occurred while running the bot on '{server_name}':\n"
 "{err_msg}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2441
+#: D:/TTMediaBot/bot/gui.py:2499
 msgid "Connection Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2505
+#: D:/TTMediaBot/bot/gui.py:2563
 msgid "TTMediaBot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2506
+#: D:/TTMediaBot/bot/gui.py:2564
 msgid "TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2538
+#: D:/TTMediaBot/bot/gui.py:2596
 msgid "Add New Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2547
+#: D:/TTMediaBot/bot/gui.py:2605
 #, python-brace-format
 msgid "Added server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2559
+#: D:/TTMediaBot/bot/gui.py:2617
 msgid "Please select a server to edit."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2571
+#: D:/TTMediaBot/bot/gui.py:2629
 msgid ""
 "Cannot edit the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2572 D:/TTMediaBot/bot/gui.py:2606
-#: D:/TTMediaBot/bot/gui.py:2643
+#: D:/TTMediaBot/bot/gui.py:2630 D:/TTMediaBot/bot/gui.py:2664
+#: D:/TTMediaBot/bot/gui.py:2701
 msgid "Notice"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2578
+#: D:/TTMediaBot/bot/gui.py:2636
 msgid "Edit Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2585
+#: D:/TTMediaBot/bot/gui.py:2643
 #, python-brace-format
 msgid "Updated server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2592
+#: D:/TTMediaBot/bot/gui.py:2650
 msgid "Please select a server to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2605
+#: D:/TTMediaBot/bot/gui.py:2663
 msgid ""
 "Cannot delete the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2612
+#: D:/TTMediaBot/bot/gui.py:2670
 msgid "this server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2615
+#: D:/TTMediaBot/bot/gui.py:2673
 #, python-brace-format
 msgid "Are you sure you want to delete server '{server_name}'?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2616
+#: D:/TTMediaBot/bot/gui.py:2674
 msgid "Confirm Delete"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2626
+#: D:/TTMediaBot/bot/gui.py:2684
 #, python-brace-format
 msgid "Deleted server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2632
+#: D:/TTMediaBot/bot/gui.py:2690
 msgid "No servers to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2642
+#: D:/TTMediaBot/bot/gui.py:2700
 msgid ""
 "Some servers are currently connected. Please disconnect all servers "
 "before deleting."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2651
+#: D:/TTMediaBot/bot/gui.py:2709
 msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2652
+#: D:/TTMediaBot/bot/gui.py:2710
 msgid "Confirm Delete All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2661
+#: D:/TTMediaBot/bot/gui.py:2719
 msgid "All servers deleted."
 msgstr ""
 
-#: D:/TTMediaBot/bot/TeamTalk/__init__.py:189
+#: D:/TTMediaBot/bot/session_gui.py:41
+#, python-brace-format
+msgid "{server_name} - TeamTalk Session"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:88 D:/TTMediaBot/bot/session_gui.py:267
+msgid "Status: Connecting..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:94
+msgid "Channel: Waiting for connection..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:102
+msgid "&Server and Channel History:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:104
+msgid "Server and Channel History"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:109
+msgid "&Public Message:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:111
+msgid "Public Message"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:112
+msgid "Type message here and press Enter to send..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:117 D:/TTMediaBot/bot/session_gui.py:782
+msgid "&Send"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:118 D:/TTMediaBot/bot/session_gui.py:783
+msgid "Send"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:119
+msgid "Send public message to the current channel (Enter)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:124
+msgid "&Users in channel (0):"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:126
+msgid "Users in channel"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:133
+msgid "&Microphone (Voice)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:134
+msgid "Microphone transmission"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:135
+msgid "Toggle voice transmission through the bot's microphone (Hotkey: F8)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:139
+msgid "M&ute Audio"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:140
+msgid "Mute TeamTalk audio"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:141
+msgid "Temporarily mute incoming audio from TeamTalk"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:145
+msgid "&Input & Output Devices..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:146
+msgid "Input and Output Devices"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:147
+msgid ""
+"Configure sound input and output devices for TeamTalk (Hotkeys, computer "
+"audio, mic)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:150
+msgid "&Disconnect"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:151
+msgid "Disconnect"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:152
+msgid "Disconnect from this TeamTalk server"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:156 D:/TTMediaBot/bot/session_gui.py:789
+msgid "Close"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:157
+msgid "Close this session window"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:203
+#, python-brace-format
+msgid "Connecting to {server_name} ({host}:{port})..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:260 D:/TTMediaBot/bot/session_gui.py:427
+msgid "Channel:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:278
+msgid "Status: Connected"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:302
+#, python-brace-format
+msgid "Connected to '{server_name}'! Listening to channel: {channel}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:315
+msgid "Status: Disconnected"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:316
+msgid "Channel: Disconnected"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:325 D:/TTMediaBot/bot/session_gui.py:490
+#: D:/TTMediaBot/bot/session_gui.py:498 D:/TTMediaBot/bot/session_gui.py:531
+msgid "&Users in channel"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:326
+msgid "Connection closed or lost."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:345
+#, python-brace-format
+msgid "{name} entered the channel"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:347
+#, python-brace-format
+msgid "{name} joined channel '{channel}'"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:355
+#, python-brace-format
+msgid "{name} left the channel"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:357
+#, python-brace-format
+msgid "{name} left channel '{channel}'"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:362
+#, python-brace-format
+msgid "{name} connected to the server"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:366
+#, python-brace-format
+msgid "{name} disconnected from server"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:373
+#, python-brace-format
+msgid "{name} updated status: {status}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:375
+#, python-brace-format
+msgid "{name} updated profile"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:405
+msgid "Private"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:407
+msgid "Broadcast"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:420
+#, python-brace-format
+msgid "Channel created: {channel}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:424
+#, python-brace-format
+msgid "Channel updated: {channel}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:433
+#, python-brace-format
+msgid "Channel removed: {channel}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:436
+msgid "Server properties updated"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:440
+#, python-brace-format
+msgid "{name} was banned"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:443
+msgid "Bot was kicked from channel/server!"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:447
+msgid "Connection lost to server."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:475
+msgid "Away"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:477
+msgid "Question"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:560 D:/TTMediaBot/bot/session_gui.py:837
+msgid "Cannot send message: Not connected to server."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:561 D:/TTMediaBot/bot/session_gui.py:838
+msgid "Warning"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:588 D:/TTMediaBot/bot/session_gui.py:860
+msgid "Failed to send message:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:633
+msgid "&Private Message..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:636
+#, python-brace-format
+msgid "&Mention '{name}'"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:639
+msgid "&Copy User Info"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:669 D:/TTMediaBot/bot/session_gui.py:887
+msgid "&Copy Selected Line"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:672 D:/TTMediaBot/bot/session_gui.py:890
+msgid "Clear &History"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:743
+#, python-brace-format
+msgid "Private Chat - {user}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:764
+msgid "&Message History:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:766
+msgid "Message History"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:774
+msgid "&Message:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:776
+msgid "Message"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:777
+msgid "Type private message and press Enter..."
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:784
+msgid "Send private message (Enter)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:790
+msgid "Close this chat window (Escape)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:920
+msgid "Audio Devices (Input & Output) - TeamTalk"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:934 D:/TTMediaBot/bot/session_gui.py:939
+msgid "Windows Audio Session (WASAPI) [Recommended]"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:935
+msgid "DirectSound"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:936
+msgid "Windows Multimedia (WaveIn/WaveOut)"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:942
+msgid "Default Sound System"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:949
+msgid "Sound &System:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:954
+msgid "Sound System"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:964
+msgid "&Input Device (Microphone / Computer Audio / VAC):"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:966
+msgid "Input Device"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:973
+msgid "&Output Device (Headphones / Speakers):"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:975
+msgid "Output Device"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:984
+msgid "Input &Gain (%):"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:986
+msgid "Input Gain Percent"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:990
+msgid "Enable &Voice Transmission"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:991
+msgid "Enable Voice Transmission"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1054
+msgid "Computer Audio / Stereo Mix"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1056
+msgid "Bot Music Player"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1058
+msgid "Microphone"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1076
+msgid "Headphones"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1078
+msgid "Speakers"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1135
+#, python-brace-format
+msgid "Audio devices updated: Input: {input}, Output: {output}"
+msgstr ""
+
+#: D:/TTMediaBot/bot/TeamTalk/__init__.py:201
 msgid "Send \"h\" for help"
 msgstr ""
 
