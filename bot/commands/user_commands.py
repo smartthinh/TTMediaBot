@@ -2127,6 +2127,9 @@ class PrivateMessageCommand(Command):
         return self.translator.translate("[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>")
 
     def __call__(self, arg: str, user: User) -> str:
+        if not getattr(self.config.general, "session_chat_enabled", False):
+            return self.translator.translate("The operator private messaging feature is currently disabled.")
+
         if not arg or not arg.strip():
             raise errors.InvalidArgumentError
 

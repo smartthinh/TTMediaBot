@@ -528,6 +528,68 @@ class ServerManager:
         if not saved:
             logging.error(f"Failed to save MP3 bitrate '{mp3_bitrate}' to any config location")
 
+    def get_session_chat_enabled(self) -> bool:
+        """Reads global session chat enabled state from config.json. Defaults to False."""
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    val = data.get("general", {}).get("session_chat_enabled")
+                    if val is not None:
+                        return bool(val)
+                except Exception as e:
+                    logging.error(f"Error reading session_chat_enabled from {p}: {e}")
+        return False
+
+    def set_session_chat_enabled(self, enabled: bool) -> None:
+        """Saves global session chat enabled state to config.json immediately."""
+        data = {}
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
+            try:
+                with open(load_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                logging.error(f"Error reading {load_path}: {e}")
+
+        if "general" not in data or not isinstance(data["general"], dict):
+            data["general"] = {}
+        data["general"]["session_chat_enabled"] = bool(enabled)
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        for target in targets:
+            try:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"session_chat_enabled '{enabled}' saved immediately to {target}")
+                break
+            except Exception as e:
+                logging.error(f"Error writing session_chat_enabled to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"session_chat_enabled '{enabled}' saved (fallback) to {target}")
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
     def load_servers(self) -> List[Dict[str, Any]]:
         """Loads servers from servers.json. By default, starts with an empty list."""
         old_servers_file = os.path.join(app_vars.directory, "servers.json")
@@ -676,6 +738,7 @@ class ServerManager:
         if isinstance(start_cmds, str):
             start_cmds = [c.strip() for c in start_cmds.split(",") if c.strip()]
         gen["start_commands"] = start_cmds
+        gen["session_chat_enabled"] = bool(self.get_session_chat_enabled())
 
         # 5. Services section
         if "services" not in data or not isinstance(data["services"], dict):
@@ -1618,6 +1681,15 @@ class SettingsDialog(wx.Dialog):
         rate_sizer.Add(self.choice_sampling_rate, 1, wx.EXPAND)
         self.tab_general_sizer.Add(rate_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
 
+        # Session Chat Interface Checkbox (Experimental)
+        self.chk_session_chat = wx.CheckBox(
+            self.tab_general,
+            label=translate("Enable interactive session chat window (Experimental)"),
+        )
+        self.chk_session_chat.SetValue(self.main_frame.current_session_chat_enabled)
+        self.chk_session_chat.Bind(wx.EVT_CHECKBOX, self.on_session_chat_toggled)
+        self.tab_general_sizer.Add(self.chk_session_chat, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
+
         self.tab_general.SetSizer(self.tab_general_sizer)
         self.notebook.AddPage(self.tab_general, translate("General & Audio"))
 
@@ -1698,6 +1770,10 @@ class SettingsDialog(wx.Dialog):
             if new_rate != self.main_frame.current_sampling_rate:
                 self.main_frame.set_sampling_rate(new_rate)
 
+    def on_session_chat_toggled(self, event=None):
+        val = self.chk_session_chat.IsChecked()
+        self.main_frame.set_session_chat_enabled(val)
+
     def on_view_logs(self, event=None):
         self.main_frame.on_view_logs(event)
 
@@ -1764,6 +1840,15 @@ class SettingsDialog(wx.Dialog):
                 translate("Select audio sampling rate for playback and conversion (48000 Hz is recommended for TeamTalk).")
             )
 
+        if hasattr(self, 'chk_session_chat'):
+            self.chk_session_chat.SetLabel(
+                translate("Enable interactive session chat window (Experimental)")
+            )
+            self.chk_session_chat.SetValue(self.main_frame.current_session_chat_enabled)
+            self.chk_session_chat.SetToolTip(
+                translate("Enable the interactive session chat interface when connecting to a server (Experimental).")
+            )
+
         if hasattr(self, 'btn_view_logs'):
             self.btn_view_logs.SetLabel(translate("&View Logs..."))
             self.btn_view_logs.SetToolTip(translate("View application logs and errors."))
@@ -1809,6 +1894,7 @@ class MainFrame(wx.Frame):
         self.current_audio_format = self.server_mgr.get_audio_format()
         self.current_sampling_rate = self.server_mgr.get_sampling_rate()
         self.current_mp3_bitrate = self.server_mgr.get_mp3_bitrate()
+        self.current_session_chat_enabled = self.server_mgr.get_session_chat_enabled()
 
         # Multi-server tracking
         self.active_bots: Dict[str, Bot] = {}
@@ -2084,6 +2170,21 @@ class MainFrame(wx.Frame):
                     pass
         logging.info(f"Updated global sampling rate to: {new_rate}")
 
+    def set_session_chat_enabled(self, enabled: bool):
+        self.current_session_chat_enabled = bool(enabled)
+        self.server_mgr.set_session_chat_enabled(bool(enabled))
+
+        # Update all active bots in real time
+        for bot in self.active_bots.values():
+            if hasattr(bot, "config") and hasattr(bot.config, "general"):
+                bot.config.general.session_chat_enabled = bool(enabled)
+            if hasattr(bot, "config_manager"):
+                try:
+                    bot.config_manager.save()
+                except Exception:
+                    pass
+        logging.info(f"Updated global session_chat_enabled to: {enabled}")
+
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()
         self._populate_server_list()
@@ -2216,11 +2317,12 @@ class MainFrame(wx.Frame):
             server_name = server.get("name", translate("Server"))
             state = self.server_states.get(s_id, "disconnected")
 
-            item_open = menu.Append(
-                wx.ID_ANY,
-                translate("&Open Session Window for '{server_name}'").format(server_name=server_name),
-            )
-            self.Bind(wx.EVT_MENU, lambda e, s=server: self.open_server_session(s), item_open)
+            if self.current_session_chat_enabled:
+                item_open = menu.Append(
+                    wx.ID_ANY,
+                    translate("&Open Session Window for '{server_name}'").format(server_name=server_name),
+                )
+                self.Bind(wx.EVT_MENU, lambda e, s=server: self.open_server_session(s), item_open)
 
             if state == "connected":
                 item_conn = menu.Append(
@@ -2294,6 +2396,14 @@ class MainFrame(wx.Frame):
         server = self.visible_servers[sel]
         s_id = self.get_server_id(server)
         state = self.server_states.get(s_id, "disconnected")
+
+        if not self.current_session_chat_enabled:
+            # When session chat is disabled, pressing Enter silently connects/disconnects without opening any window
+            if state in ("connected", "connecting"):
+                self.disconnect_single_server(server)
+            else:
+                self.connect_single_server(server)
+            return
 
         if state == "disconnected":
             self.connect_single_server(server)

@@ -7,7 +7,10 @@ All notable updates to this fork are documented here, in reverse chronological o
 ## 🚀 [Unreleased] — Interactive Sessions, Private Chat, Saved Audio & Direct Messaging
 
 ### 💬 Interactive Server Sessions & Private Chat Windows
-- **Dedicated Server Session Window:** When you connect to a server, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
+- **Interactive Session Chat Toggle (Experimental):** Added a new checkbox in the **Settings** window labeled **Enable interactive session chat window (Experimental)**.
+  - **Disabled by default:** When disabled, pressing **Enter** on any server in the list simply connects the bot quietly in the background without opening any extra windows. The operator messaging command (`pm`) is also disabled to keep things simple and silent.
+  - **Turn on whenever you want:** Enabling the checkbox brings back the full interactive session window on connection, user lists, and allows channel members to contact you using `pm`.
+- **Dedicated Server Session Window:** When you connect to a server with the session window enabled, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
 - **Detailed User List:** The channel user list displays each person's nickname along with their gender (Male, Female, or None) and status mode (such as Away, Question, or custom status text).
 - **Instant Private Chat on Enter:** Simply press **Enter** or double-click on any user in the channel list to immediately open a separate private chat window with them. The cursor automatically lands in the message box, allowing you to start typing and send messages right away.
 - **Alt + Tab Friendly & Easy to Close:** The private chat window appears as its own independent window in Alt + Tab. Pressing **Escape** closes the private chat without disturbing your main session.

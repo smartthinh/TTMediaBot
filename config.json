@@ -15,7 +15,8 @@
         "channel_translation_to": "en",
         "download_audio_format": "mp3",
         "sampling_rate": "default",
-        "mp3_bitrate": "320k"
+        "mp3_bitrate": "320k",
+        "session_chat_enabled": false
     },
     "sound_devices": {
         "output_device": 0,

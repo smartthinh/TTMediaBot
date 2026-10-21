@@ -2890,3 +2890,20 @@ msgstr "Bài hát YouTube"
 #~ msgid "&Copy Nickname"
 #~ msgstr "&Sao chép biệt danh"
 
+msgid "Enable interactive session chat window (Experimental)"
+msgstr "Bật giao diện trò chuyện phiên máy chủ (thử nghiệm)"
+
+msgid "Enable the interactive session chat interface when connecting to a server (Experimental)."
+msgstr "Bật giao diện trò chuyện phiên tương tác khi kết nối tới máy chủ (thử nghiệm)."
+
+msgid "The operator private messaging feature is currently disabled."
+msgstr "Chức năng nhắn tin riêng cho người điều hành hiện đang bị tắt."
+
+msgid "[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>"
+msgstr "[NỘI DUNG] Gửi tin nhắn riêng tới người điều hành bot. Cách dùng: pm <nội dung>"
+
+#, python-brace-format
+msgid "Your message has been sent to the bot operator: '{message}'"
+msgstr "Tin nhắn của bạn đã được gửi tới người điều hành bot: '{message}'"
+
+

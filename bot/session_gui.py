@@ -521,8 +521,9 @@ class ServerSessionDialog(wx.Dialog):
             # Check if this message is a command to send private message to bot operator (strictly 'pm <content>')
             text_stripped = msg_text.strip()
             is_pm_cmd = text_stripped.lower().startswith("pm ")
+            session_enabled = getattr(self.bot.config.general, "session_chat_enabled", False) if (self.bot and hasattr(self.bot, "config")) else True
 
-            if is_pm_cmd and my_uid > 0 and msg.user.id != my_uid:
+            if session_enabled and is_pm_cmd and my_uid > 0 and msg.user.id != my_uid:
                 pm_content = text_stripped[3:].strip()
                 if pm_content:
                     self.receive_user_pm_command(msg.user.id, u_name, pm_content)
