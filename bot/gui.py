@@ -234,12 +234,15 @@ class ServerManager:
 
         if getattr(sys, "frozen", False) or not _is_writable(target_path):
             if not os.path.exists(user_config):
+                exe_dir = os.path.dirname(os.path.abspath(sys.executable)) if getattr(sys, "frozen", False) else app_vars.directory
                 for candidate in [
                     target_path,
                     os.path.join(app_vars.directory, "config.json"),
                     os.path.join(app_vars.directory, "config_default.json"),
+                    os.path.join(exe_dir, "config_default.json"),
+                    os.path.join(exe_dir, "_internal", "config_default.json"),
                 ]:
-                    if os.path.exists(candidate):
+                    if candidate and os.path.exists(candidate):
                         try:
                             import shutil
                             shutil.copy2(candidate, user_config)
@@ -247,6 +250,13 @@ class ServerManager:
                             break
                         except Exception as e:
                             logging.error(f"Error copying config template: {e}")
+            if not os.path.exists(user_config):
+                try:
+                    from bot.config.models import ConfigModel
+                    with open(user_config, "w", encoding="utf-8") as f:
+                        json.dump(ConfigModel().dict(), f, indent=4, ensure_ascii=False)
+                except Exception as e:
+                    logging.error(f"Error creating default user config: {e}")
             self.config_path = user_config
         else:
             self.config_path = target_path

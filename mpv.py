@@ -32,17 +32,30 @@ if os.name == "nt":
     base_dir = os.path.dirname(os.path.abspath(__file__))
     search_dirs = [os.getcwd(), base_dir]
     if getattr(sys, "frozen", False):
-        if hasattr(sys, "_MEIPASS"):
-            search_dirs.append(sys._MEIPASS)
-        search_dirs.append(os.path.dirname(os.path.abspath(sys.executable)))
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        search_dirs.extend([
+            exe_dir,
+            os.path.join(exe_dir, "_internal"),
+            getattr(sys, "_MEIPASS", ""),
+        ])
+    else:
+        search_dirs.append(os.path.join(base_dir, "_internal"))
+
+    search_dirs = [d for d in search_dirs if d and os.path.exists(d)]
+
     if sys.version_info.major == 3 and sys.version_info.minor >= 8:
         for d in search_dirs:
-            if os.path.exists(d):
-                try:
-                    os.add_dll_directory(d)
-                except Exception:
-                    pass
+            try:
+                os.add_dll_directory(d)
+            except Exception:
+                pass
+
+    for d in search_dirs:
+        if d not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = d + os.pathsep + os.environ.get("PATH", "")
+
     backend = None
+    last_mpv_err = None
     for name in ["mpv.dll", "libmpv-2.dll", "libmpv-1.dll"]:
         for folder in search_dirs:
             p = os.path.join(folder, name)
@@ -50,12 +63,17 @@ if os.name == "nt":
                 try:
                     backend = cdll.LoadLibrary(p)
                     break
-                except Exception:
-                    pass
+                except Exception as err:
+                    last_mpv_err = err
         if backend is not None:
             break
     if backend is None:
-        backend = cdll.LoadLibrary("mpv.dll")
+        try:
+            backend = cdll.LoadLibrary("mpv.dll")
+        except Exception as err:
+            last_mpv_err = err
+    if backend is None:
+        raise RuntimeError(f"Không thể nạp mpv.dll. Chi tiết lỗi: {last_mpv_err}")
     fs_enc = "utf-8"
 else:
     import locale

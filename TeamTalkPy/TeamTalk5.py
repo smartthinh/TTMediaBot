@@ -47,40 +47,73 @@ if sys.platform == "win32":
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     search_dirs = [base_dir, os.getcwd()]
     if getattr(sys, "frozen", False):
-        if hasattr(sys, "_MEIPASS"):
-            search_dirs.append(sys._MEIPASS)
-        search_dirs.append(os.path.dirname(os.path.abspath(sys.executable)))
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        search_dirs.extend([
+            exe_dir,
+            os.path.join(exe_dir, "_internal"),
+            getattr(sys, "_MEIPASS", ""),
+        ])
+    else:
+        search_dirs.extend([
+            os.path.join(base_dir, "_internal"),
+            os.path.join(base_dir, "TeamTalkPy"),
+        ])
+
+    search_dirs = [d for d in search_dirs if d and os.path.exists(d)]
+
     if sys.version_info.major == 3 and sys.version_info.minor >= 8:
         for d in search_dirs:
-            if os.path.exists(d):
-                try:
-                    os.add_dll_directory(d)
-                except Exception:
-                    pass
+            try:
+                os.add_dll_directory(d)
+            except Exception:
+                pass
         tt_install = r"C:\Program Files\TeamTalk5"
         if os.path.exists(tt_install):
             try:
                 os.add_dll_directory(tt_install)
             except Exception:
                 pass
-    try:
-        dll = cdll.TeamTalk5
-    except Exception:
-        dll = None
-        for d in search_dirs:
-            local_dll = os.path.join(d, "TeamTalk5.dll")
-            if os.path.exists(local_dll):
-                try:
-                    dll = cdll.LoadLibrary(local_dll)
-                    break
-                except Exception:
-                    pass
-        if dll is None:
-            tt_inst_dll = r"C:\Program Files\TeamTalk5\TeamTalk5.dll"
-            if os.path.exists(tt_inst_dll):
+
+    for d in search_dirs:
+        if d not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = d + os.pathsep + os.environ.get("PATH", "")
+
+    dll = None
+    last_error = None
+
+    for d in search_dirs:
+        local_dll = os.path.join(d, "TeamTalk5.dll")
+        if os.path.exists(local_dll):
+            try:
+                dll = cdll.LoadLibrary(local_dll)
+                break
+            except Exception as err:
+                last_error = err
+
+    if dll is None:
+        try:
+            dll = cdll.TeamTalk5
+        except Exception as err:
+            last_error = err
+
+    if dll is None:
+        tt_inst_dll = r"C:\Program Files\TeamTalk5\TeamTalk5.dll"
+        if os.path.exists(tt_inst_dll):
+            try:
                 dll = cdll.LoadLibrary(tt_inst_dll)
-            else:
-                raise
+            except Exception as err:
+                last_error = err
+
+    if dll is None:
+        sys32 = os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32")
+        extra_hint = ""
+        if not os.path.exists(os.path.join(sys32, "MFPlat.dll")):
+            extra_hint = (
+                "\n\n[LƯU Ý QUAN TRỌNG] Hệ thống Windows đang thiếu thư viện Media Foundation (MFPlat.dll).\n"
+                "Nếu đang dùng Windows 10/11 N hoặc Windows Lite (Ghost), vui lòng cài đặt gói 'Media Feature Pack':\n"
+                "Windows Settings -> Apps -> Optional features -> Add a feature -> 'Media Feature Pack' và khởi động lại máy."
+            )
+        raise RuntimeError(f"Không thể nạp thư viện TeamTalk5.dll. Chi tiết lỗi: {last_error}{extra_hint}") from last_error
     TTCHAR = c_wchar
     TTCHAR_P = c_wchar_p
     from ctypes.wintypes import BOOL

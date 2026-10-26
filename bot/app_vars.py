@@ -66,17 +66,28 @@ def get_config_path() -> str:
     user_config = os.path.join(data_dir, "config.json")
     if getattr(sys, "frozen", False):
         if not os.path.exists(user_config):
+            exe_dir = os.path.dirname(os.path.abspath(sys.executable))
             for candidate in [
                 os.path.join(directory, "config.json"),
                 os.path.join(directory, "config_default.json"),
+                os.path.join(exe_dir, "config_default.json"),
+                os.path.join(exe_dir, "_internal", "config_default.json"),
             ]:
-                if os.path.exists(candidate):
+                if candidate and os.path.exists(candidate):
                     try:
                         import shutil
                         shutil.copy2(candidate, user_config)
                         break
                     except Exception:
                         pass
+        if not os.path.exists(user_config):
+            try:
+                from bot.config.models import ConfigModel
+                import json
+                with open(user_config, "w", encoding="utf-8") as f:
+                    json.dump(ConfigModel().dict(), f, indent=4, ensure_ascii=False)
+            except Exception:
+                pass
         return user_config
     else:
         dev_config = os.path.join(directory, "config.json")
