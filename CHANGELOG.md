@@ -50,6 +50,19 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
+## 🆕 v3.7.0 — Pure Windows Build, Clean Public Chat History & Packaging Optimization *(29/10/2026)*
+
+### 💬 Pure Public Channel Chat History
+- **Public Messages Only:** In the TeamTalk interactive session chat dialog, the message history list now exclusively displays public channel messages (both from users in the channel and the bot).
+- **Zero Event Clutter:** Eliminated all extraneous system notifications (user joins/leaves, profile changes, microphone state logs, connection/disconnection logs, channel changes) from the chat history list, providing a clean, accessible, and distraction-free conversation log.
+
+### 📦 Pure Windows Build & Packaging Optimization
+- **100% Native Windows Bundle:** Completely stripped all non-Windows binaries and modules (Linux and macOS binaries, unused offline pocketsphinx models, unneeded metadata, and redundant translation source files).
+- **Zero Redundancy & Duplicate Removal:** Resolved duplicated DLL files between root dist and `_internal`, cutting application folder size by over 217 MB and installer size by over 71 MB.
+- **Automatic Environment Verification:** Inno Setup installer now automatically verifies and installs Microsoft Visual C++ 2015-2022 Redistributable (x64) and checks Windows Media Foundation (`MFPlat.dll`).
+
+---
+
 ## 🆕 v3.6.0 — Unified Smart Play, Audio Stability & Bitrate Control, Admin File Management & Direct Downloads *(16/10/2026)*
 
 ### 🔄 Improved Auto-Updater & Clear Installation Progress

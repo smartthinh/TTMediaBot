@@ -100,9 +100,9 @@ class ServerSessionDialog(wx.Dialog):
 
         # ---------------- Create Controls in EXACT Tab Order ----------------
         # 1. History List (Shift+Tab from Message input lands here)
-        self.lbl_history = wx.StaticText(panel, label=translate("&Server and Channel History:"))
+        self.lbl_history = wx.StaticText(panel, label=translate("&Public Chat History:"))
         self.list_history = wx.ListBox(panel, style=wx.LB_SINGLE | wx.LB_HSCROLL)
-        self.list_history.SetName(translate("Server and Channel History"))
+        self.list_history.SetName(translate("Public Chat History"))
         self.list_history.Bind(wx.EVT_CONTEXT_MENU, self.on_history_context_menu)
         self.list_history.Bind(wx.EVT_KEY_DOWN, self.on_history_key_down)
 
@@ -199,14 +199,6 @@ class ServerSessionDialog(wx.Dialog):
         self.SetSizer(dialog_sizer)
         self.Layout()
 
-        # Initial log entry
-        srv_name = self.server_data.get("name") or "TeamTalk"
-        host = self.server_data.get("hostname", "")
-        port = self.server_data.get("tcp_port", 10333)
-        self.add_history(translate("Connecting to {server_name} ({host}:{port})...").format(
-            server_name=srv_name, host=host, port=port
-        ))
-
         # Focus initial message field for rapid typing
         wx.CallAfter(self.txt_message.SetFocus)
 
@@ -229,9 +221,14 @@ class ServerSessionDialog(wx.Dialog):
         event.Skip()
 
     def add_history(self, text: str):
-        """Appends a timestamped entry to the history list box with time at the end."""
-        now_str = time.strftime("%H:%M:%S")
-        entry = f"{text} [{now_str}]"
+        """No-op: History list is strictly reserved for public channel messages only."""
+        logging.debug(f"[SessionDialog] Non-public event ignored for history: {text}")
+
+    def add_public_message(self, sender: str, text: str, timestamp: str = ""):
+        """Appends a public channel message to the history list box."""
+        if not timestamp:
+            timestamp = time.strftime("%H:%M:%S")
+        entry = f"{sender}: {text} [{timestamp}]"
         self.list_history.Append(entry)
 
         # Auto-scroll to the newest item if the user isn't actively navigating the history list
@@ -376,10 +373,7 @@ class ServerSessionDialog(wx.Dialog):
             if saved_mic_state:
                 self.chk_mic.SetValue(True)
                 res = bot.ttclient.switch_to_microphone(self.selected_mic_device_id)
-                if res:
-                    now_str = time.strftime("%H:%M:%S")
-                    self.add_history(f"{translate('Microphone turned on')} [{now_str}]")
-                else:
+                if not res:
                     self.chk_mic.SetValue(False)
             else:
                 self.chk_mic.SetValue(False)
@@ -403,10 +397,6 @@ class ServerSessionDialog(wx.Dialog):
         if c_name:
             self.SetTitle(f"{self.server_name} - {c_name} - TeamTalk")
 
-        welcome_msg = translate("Connected to '{server_name}'! Listening to channel: {channel}").format(
-            server_name=srv_name, channel=c_name or str(cid)
-        )
-        self.add_history(welcome_msg)
         self.refresh_users_in_channel()
 
     def on_bot_disconnected(self):
@@ -427,7 +417,6 @@ class ServerSessionDialog(wx.Dialog):
                 pass
         self.list_users.Clear()
         self.lbl_users.SetLabel(f"{translate('&Users in channel')} (0):")
-        self.add_history(translate("Connection closed or lost."))
         # Clear private chat histories only when bot disconnects from server
         self.private_chat_histories.clear()
         if self.private_chat_window:
@@ -446,11 +435,6 @@ class ServerSessionDialog(wx.Dialog):
         if user_id not in self.private_chat_histories:
             self.private_chat_histories[user_id] = []
         self.private_chat_histories[user_id].append(formatted_line)
-
-        # Log in server session history
-        self.add_history(translate("Private message from {user}: {msg}").format(
-            user=user_nickname, msg=text
-        ))
 
         # Open and bring to front the dedicated private chat window
         self.open_private_chat(user_id, user_nickname)
@@ -472,41 +456,18 @@ class ServerSessionDialog(wx.Dialog):
         ev_type = event.event_type
 
         if ev_type == EventType.USER_JOINED:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or f"User #{event.user.id}"
-            c_name = _safe_str(event.channel.name) or f"Channel #{event.channel.id}"
-            my_cid = self.bot.ttclient.tt.getMyChannelID() if self.bot else 0
-            if event.channel.id == my_cid:
-                self.add_history(translate("{name} entered the channel").format(name=u_name))
-            else:
-                self.add_history(translate("{name} joined channel '{channel}'").format(name=u_name, channel=c_name))
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_LEFT:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or f"User #{event.user.id}"
-            c_name = _safe_str(event.channel.name)
-            my_cid = self.bot.ttclient.tt.getMyChannelID() if self.bot else 0
-            if event.channel.id == my_cid or not c_name:
-                self.add_history(translate("{name} left the channel").format(name=u_name))
-            else:
-                self.add_history(translate("{name} left channel '{channel}'").format(name=u_name, channel=c_name))
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_LOGGEDIN:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or f"User #{event.user.id}"
-            self.add_history(translate("{name} connected to the server").format(name=u_name))
+            pass
 
         elif ev_type == EventType.USER_LOGGEDOUT:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or f"User #{event.user.id}"
-            self.add_history(translate("{name} disconnected from server").format(name=u_name))
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_UPDATE:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or f"User #{event.user.id}"
-            status = _safe_str(event.user.status)
-            if status:
-                self.add_history(translate("{name} updated status: {status}").format(name=u_name, status=status))
-            else:
-                self.add_history(translate("{name} updated profile").format(name=u_name))
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_TEXT_MESSAGE:
@@ -559,29 +520,15 @@ class ServerSessionDialog(wx.Dialog):
             if my_uid > 0 and msg.user.id == my_uid:
                 return
 
+            # Chỉ lưu trữ và hiển thị tin nhắn công khai trong kênh (MessageType.Channel)
             if msg.type == MessageType.Channel:
-                self.list_history.Append(f"{u_name}: {msg_text} [{time_str}]")
-            elif msg.type == MessageType.User:
-                self.list_history.Append(f"[{translate('Private')}] {u_name}: {msg_text} [{time_str}]")
-            elif msg.type == MessageType.Broadcast:
-                self.list_history.Append(f"[{translate('Broadcast')}] {u_name}: {msg_text} [{time_str}]")
-            else:
-                self.list_history.Append(f"{u_name}: {msg_text} [{time_str}]")
-
-            # Auto-scroll history
-            focused = self.FindFocus()
-            if focused != self.list_history:
-                cnt = self.list_history.GetCount()
-                if cnt > 0:
-                    self.list_history.SetSelection(cnt - 1)
+                self.add_public_message(u_name, msg_text, time_str)
 
         elif ev_type == EventType.CHANNEL_NEW:
-            c_name = _safe_str(event.channel.name) or f"#{event.channel.id}"
-            self.add_history(translate("Channel created: {channel}").format(channel=c_name))
+            pass
 
         elif ev_type == EventType.CHANNEL_UPDATE:
             c_name = _safe_str(event.channel.name) or f"#{event.channel.id}"
-            self.add_history(translate("Channel updated: {channel}").format(channel=c_name))
             my_cid = self.bot.ttclient.tt.getMyChannelID() if self.bot else 0
             if event.channel.id == my_cid:
                 self.lbl_channel.SetLabel(f"{translate('Channel:')} {c_name}")
@@ -589,22 +536,18 @@ class ServerSessionDialog(wx.Dialog):
                 self.refresh_users_in_channel()
 
         elif ev_type == EventType.CHANNEL_REMOVE:
-            c_name = _safe_str(event.channel.name) or f"#{event.channel.id}"
-            self.add_history(translate("Channel removed: {channel}").format(channel=c_name))
+            pass
 
         elif ev_type == EventType.SERVER_UPDATE:
-            self.add_history(translate("Server properties updated"))
+            pass
 
         elif ev_type == EventType.BANNED_USER:
-            u_name = _safe_str(event.user.nickname) or _safe_str(event.user.username) or "User"
-            self.add_history(translate("{name} was banned").format(name=u_name))
+            pass
 
         elif ev_type == EventType.MYSELF_KICKED:
-            self.add_history(translate("Bot was kicked from channel/server!"))
             self.refresh_users_in_channel()
 
         elif ev_type in (EventType.CON_LOST, EventType.CON_FAILED):
-            self.add_history(translate("Connection lost to server."))
             self.on_bot_disconnected()
 
     def _format_user_display(self, u) -> str:
@@ -729,10 +672,7 @@ class ServerSessionDialog(wx.Dialog):
             self.bot.ttclient.send_message(msg, type=2)
             my_nick = _safe_str(self.bot.ttclient.nickname) or "Bot"
             now_str = time.strftime("%H:%M:%S")
-            self.list_history.Append(f"{my_nick}: {msg} [{now_str}]")
-            cnt = self.list_history.GetCount()
-            if cnt > 0:
-                self.list_history.SetSelection(cnt - 1)
+            self.add_public_message(my_nick, msg, now_str)
 
             self.txt_message.Clear()
             if self.btn_send.IsShown():
@@ -844,14 +784,10 @@ class ServerSessionDialog(wx.Dialog):
                     self.server_data["mic_enabled"] = True
                     self.server_data["selected_mic_device_id"] = self.selected_mic_device_id
                     self.save_server_settings()
-                    now_str = time.strftime("%H:%M:%S")
-                    self.list_history.Append(f"{translate('Microphone turned on')} [{now_str}]")
             else:
                 self.bot.ttclient.restore_input_device()
                 self.server_data["mic_enabled"] = False
                 self.save_server_settings()
-                now_str = time.strftime("%H:%M:%S")
-                self.list_history.Append(f"{translate('Microphone turned off')} [{now_str}]")
         except Exception as e:
             logging.error(f"Error toggling voice transmission: {e}")
             self.chk_mic.SetValue(False)
@@ -1552,14 +1488,5 @@ class SessionAudioDevicesDialog(wx.Dialog):
         # Persist all audio settings to servers.json
         if hasattr(self.parent, "save_server_settings"):
             self.parent.save_server_settings()
-
-        # 5. Log change to session history
-        if hasattr(self.parent, "add_history"):
-            in_name = in_dev.name if in_dev else "Default"
-            out_name = out_dev.name if out_dev else "Default"
-            msg = translate("Audio devices updated: Input: {input}, Output: {output}").format(
-                input=in_name, output=out_name
-            )
-            self.parent.add_history(msg)
 
         self.EndModal(wx.ID_OK)

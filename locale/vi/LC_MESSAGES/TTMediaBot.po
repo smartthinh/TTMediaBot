@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-27 06:45+0700\n"
+"POT-Creation-Date: 2026-10-29 17:07+0700\n"
 "PO-Revision-Date: 2026-10-21 13:35+0700\n"
 "Last-Translator: \n"
 "Language: vi\n"
@@ -217,15 +217,15 @@ msgstr "&Biệt danh bot (Bắt buộc):"
 msgid "&Gender:"
 msgstr "&Giới tính:"
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:628
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:571
 msgid "None"
 msgstr "Không xác định"
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:630
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:573
 msgid "Male"
 msgstr "Nam"
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:626
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:569
 msgid "Female"
 msgstr "Nữ"
 
@@ -376,11 +376,11 @@ msgstr "Tải trình &xử lý sự kiện (Event Handlers)"
 msgid "Event Handlers &File Name:"
 msgstr "Tên tệp trình xử &lý sự kiện:"
 
-#: D:/TTMediaBot/bot/gui.py:1111 D:/TTMediaBot/bot/session_gui.py:1384
+#: D:/TTMediaBot/bot/gui.py:1111 D:/TTMediaBot/bot/session_gui.py:1320
 msgid "&OK"
 msgstr "Đồ&ng ý"
 
-#: D:/TTMediaBot/bot/gui.py:1112 D:/TTMediaBot/bot/session_gui.py:1387
+#: D:/TTMediaBot/bot/gui.py:1112 D:/TTMediaBot/bot/session_gui.py:1323
 msgid "&Cancel"
 msgstr "Hủ&y"
 
@@ -496,7 +496,7 @@ msgstr "Tải lại các mục nhật ký mới nhất."
 
 #: D:/TTMediaBot/bot/gui.py:1525 D:/TTMediaBot/bot/gui.py:1737
 #: D:/TTMediaBot/bot/gui.py:1875 D:/TTMediaBot/bot/session_gui.py:158
-#: D:/TTMediaBot/bot/session_gui.py:1147
+#: D:/TTMediaBot/bot/session_gui.py:1083
 msgid "&Close"
 msgstr "Đón&g"
 
@@ -534,8 +534,8 @@ msgstr ""
 "Không thể lưu tệp nhật ký:\n"
 "{error}"
 
-#: D:/TTMediaBot/bot/gui.py:1563 D:/TTMediaBot/bot/session_gui.py:749
-#: D:/TTMediaBot/bot/session_gui.py:839 D:/TTMediaBot/bot/session_gui.py:1228
+#: D:/TTMediaBot/bot/gui.py:1563 D:/TTMediaBot/bot/session_gui.py:689
+#: D:/TTMediaBot/bot/session_gui.py:779 D:/TTMediaBot/bot/session_gui.py:1164
 msgid "Error"
 msgstr "Lỗi"
 
@@ -728,6 +728,25 @@ msgstr ""
 msgid "Unnamed Server"
 msgstr "Máy chủ chưa đặt tên"
 
+#: D:/TTMediaBot/bot/gui.py:2220 D:/TTMediaBot/bot/gui.py:2246
+#: D:/TTMediaBot/bot/gui.py:2649
+msgid "Connected"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:2222 D:/TTMediaBot/bot/gui.py:2248
+#: D:/TTMediaBot/bot/gui.py:2653
+msgid "Connecting"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:2224 D:/TTMediaBot/bot/gui.py:2250
+#: D:/TTMediaBot/bot/gui.py:2658
+msgid "Reconnecting"
+msgstr ""
+
+#: D:/TTMediaBot/bot/gui.py:2270
+msgid "Status"
+msgstr ""
+
 #: D:/TTMediaBot/bot/gui.py:2292
 msgid "&Disconnect All"
 msgstr "&Ngắt kết nối tất cả"
@@ -855,7 +874,7 @@ msgstr ""
 "trước."
 
 #: D:/TTMediaBot/bot/gui.py:2749 D:/TTMediaBot/bot/gui.py:2783
-#: D:/TTMediaBot/bot/gui.py:2820 D:/TTMediaBot/bot/session_gui.py:876
+#: D:/TTMediaBot/bot/gui.py:2820 D:/TTMediaBot/bot/session_gui.py:812
 msgid "Notice"
 msgstr "Thông báo"
 
@@ -927,7 +946,7 @@ msgstr "Tất cả máy chủ đã bị xóa."
 msgid "{server_name} - TeamTalk Session"
 msgstr "{server_name} - Phiên TeamTalk"
 
-#: D:/TTMediaBot/bot/session_gui.py:89 D:/TTMediaBot/bot/session_gui.py:276
+#: D:/TTMediaBot/bot/session_gui.py:89 D:/TTMediaBot/bot/session_gui.py:273
 msgid "Status: Connecting..."
 msgstr "Trạng thái: Đang kết nối..."
 
@@ -936,12 +955,12 @@ msgid "Channel: Waiting for connection..."
 msgstr "Kênh: Đang chờ kết nối..."
 
 #: D:/TTMediaBot/bot/session_gui.py:103
-msgid "&Server and Channel History:"
-msgstr "Lịch &sử máy chủ và kênh:"
+msgid "&Public Chat History:"
+msgstr "Lịch &sử trò chuyện công khai:"
 
 #: D:/TTMediaBot/bot/session_gui.py:105
-msgid "Server and Channel History"
-msgstr "Lịch sử máy chủ và kênh"
+msgid "Public Chat History"
+msgstr "Lịch sử trò chuyện công khai"
 
 #: D:/TTMediaBot/bot/session_gui.py:110
 msgid "&Public Message:"
@@ -955,11 +974,11 @@ msgstr "Tin nhắn công khai"
 msgid "Type message here and press Enter to send..."
 msgstr "Nhập tin nhắn tại đây rồi nhấn Enter để gửi..."
 
-#: D:/TTMediaBot/bot/session_gui.py:118 D:/TTMediaBot/bot/session_gui.py:1141
+#: D:/TTMediaBot/bot/session_gui.py:118 D:/TTMediaBot/bot/session_gui.py:1077
 msgid "&Send"
 msgstr "Gử&i"
 
-#: D:/TTMediaBot/bot/session_gui.py:119 D:/TTMediaBot/bot/session_gui.py:1142
+#: D:/TTMediaBot/bot/session_gui.py:119 D:/TTMediaBot/bot/session_gui.py:1078
 msgid "Send"
 msgstr "Gửi"
 
@@ -1027,7 +1046,7 @@ msgstr "Ngắt kết nối"
 msgid "Disconnect from this TeamTalk server"
 msgstr "Ngắt kết nối khỏi máy chủ TeamTalk này"
 
-#: D:/TTMediaBot/bot/session_gui.py:159 D:/TTMediaBot/bot/session_gui.py:1148
+#: D:/TTMediaBot/bot/session_gui.py:159 D:/TTMediaBot/bot/session_gui.py:1084
 msgid "Close"
 msgstr "Đóng"
 
@@ -1035,259 +1054,196 @@ msgstr "Đóng"
 msgid "Close this session window"
 msgstr "Đóng cửa sổ phiên này"
 
-#: D:/TTMediaBot/bot/session_gui.py:206
-#, python-brace-format
-msgid "Connecting to {server_name} ({host}:{port})..."
-msgstr "Đang kết nối đến {server_name} ({host}:{port})..."
+#: D:/TTMediaBot/bot/session_gui.py:266 D:/TTMediaBot/bot/session_gui.py:534
+msgid "Channel:"
+msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:287
+#: D:/TTMediaBot/bot/session_gui.py:284
 msgid "Status: Connected"
 msgstr "Trạng thái: Đã kết nối"
 
-#: D:/TTMediaBot/bot/session_gui.py:406
-#, python-brace-format
-msgid "Connected to '{server_name}'! Listening to channel: {channel}"
-msgstr "Đã kết nối đến '{server_name}'! Đang lắng nghe kênh: {channel}"
-
-#: D:/TTMediaBot/bot/session_gui.py:419
+#: D:/TTMediaBot/bot/session_gui.py:409
 msgid "Status: Disconnected"
 msgstr "Trạng thái: Đã ngắt kết nối"
 
-#: D:/TTMediaBot/bot/session_gui.py:420
+#: D:/TTMediaBot/bot/session_gui.py:410
 msgid "Channel: Disconnected"
 msgstr "Kênh: Đã ngắt kết nối"
 
-#: D:/TTMediaBot/bot/session_gui.py:430
-msgid "Connection closed or lost."
-msgstr "Kết nối đã đóng hoặc bị mất."
+#: D:/TTMediaBot/bot/session_gui.py:419 D:/TTMediaBot/bot/session_gui.py:593
+#: D:/TTMediaBot/bot/session_gui.py:601 D:/TTMediaBot/bot/session_gui.py:634
+msgid "&Users in channel"
+msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:451
-#, python-brace-format
-msgid "Private message from {user}: {msg}"
-msgstr "Tin nhắn riêng từ {user}: {msg}"
-
-#: D:/TTMediaBot/bot/session_gui.py:479
-#, python-brace-format
-msgid "{name} entered the channel"
-msgstr "{name} đã vào kênh"
-
-#: D:/TTMediaBot/bot/session_gui.py:481
-#, python-brace-format
-msgid "{name} joined channel '{channel}'"
-msgstr "{name} đã vào kênh '{channel}'"
-
-#: D:/TTMediaBot/bot/session_gui.py:489
-#, python-brace-format
-msgid "{name} left the channel"
-msgstr "{name} đã rời kênh"
-
-#: D:/TTMediaBot/bot/session_gui.py:491
-#, python-brace-format
-msgid "{name} left channel '{channel}'"
-msgstr "{name} đã rời kênh '{channel}'"
-
-#: D:/TTMediaBot/bot/session_gui.py:496
-#, python-brace-format
-msgid "{name} connected to the server"
-msgstr "{name} đã kết nối đến máy chủ"
-
-#: D:/TTMediaBot/bot/session_gui.py:500
-#, python-brace-format
-msgid "{name} disconnected from server"
-msgstr "{name} đã ngắt kết nối khỏi máy chủ"
-
-#: D:/TTMediaBot/bot/session_gui.py:507
-#, python-brace-format
-msgid "{name} updated status: {status}"
-msgstr "{name} đã cập nhật trạng thái: {status}"
-
-#: D:/TTMediaBot/bot/session_gui.py:509
-#, python-brace-format
-msgid "{name} updated profile"
-msgstr "{name} đã cập nhật hồ sơ"
-
-#: D:/TTMediaBot/bot/session_gui.py:580
-#, python-brace-format
-msgid "Channel created: {channel}"
-msgstr "Đã tạo kênh: {channel}"
-
-#: D:/TTMediaBot/bot/session_gui.py:584
-#, python-brace-format
-msgid "Channel updated: {channel}"
-msgstr "Đã cập nhật kênh: {channel}"
-
-#: D:/TTMediaBot/bot/session_gui.py:593
-#, python-brace-format
-msgid "Channel removed: {channel}"
-msgstr "Đã xóa kênh: {channel}"
-
-#: D:/TTMediaBot/bot/session_gui.py:596
-msgid "Server properties updated"
-msgstr "Đã cập nhật thuộc tính máy chủ"
-
-#: D:/TTMediaBot/bot/session_gui.py:600
-#, python-brace-format
-msgid "{name} was banned"
-msgstr "{name} đã bị cấm"
-
-#: D:/TTMediaBot/bot/session_gui.py:603
-msgid "Bot was kicked from channel/server!"
-msgstr "Bot đã bị đuổi khỏi kênh/máy chủ!"
-
-#: D:/TTMediaBot/bot/session_gui.py:607
-msgid "Connection lost to server."
-msgstr "Mất kết nối đến máy chủ."
-
-#: D:/TTMediaBot/bot/session_gui.py:635
+#: D:/TTMediaBot/bot/session_gui.py:578
 msgid "Away"
 msgstr "Vắng mặt"
 
-#: D:/TTMediaBot/bot/session_gui.py:637
+#: D:/TTMediaBot/bot/session_gui.py:580
 msgid "Question"
 msgstr "Câu hỏi"
 
-#: D:/TTMediaBot/bot/session_gui.py:720 D:/TTMediaBot/bot/session_gui.py:1204
+#: D:/TTMediaBot/bot/session_gui.py:663 D:/TTMediaBot/bot/session_gui.py:1140
 msgid "Cannot send message: Not connected to server."
 msgstr "Không thể gửi tin nhắn: Chưa kết nối đến máy chủ."
 
-#: D:/TTMediaBot/bot/session_gui.py:721 D:/TTMediaBot/bot/session_gui.py:1205
+#: D:/TTMediaBot/bot/session_gui.py:664 D:/TTMediaBot/bot/session_gui.py:1141
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: D:/TTMediaBot/bot/session_gui.py:838
+#: D:/TTMediaBot/bot/session_gui.py:688 D:/TTMediaBot/bot/session_gui.py:1163
+msgid "Failed to send message:"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:778
 msgid "Failed to activate microphone. Please check your microphone connection."
 msgstr "Không bật được micro. Vui lòng kiểm tra kết nối micro của bạn."
 
-#: D:/TTMediaBot/bot/session_gui.py:875
+#: D:/TTMediaBot/bot/session_gui.py:811
 msgid "Not connected to server."
 msgstr "Chưa kết nối đến máy chủ."
 
-#: D:/TTMediaBot/bot/session_gui.py:889
+#: D:/TTMediaBot/bot/session_gui.py:825
 msgid "Are you sure you want to disconnect from this server?"
 msgstr "Bạn có chắc chắn muốn ngắt kết nối khỏi máy chủ này không?"
 
-#: D:/TTMediaBot/bot/session_gui.py:890
+#: D:/TTMediaBot/bot/session_gui.py:826
 msgid "Confirm Disconnect"
 msgstr "Xác nhận ngắt kết nối"
 
-#: D:/TTMediaBot/bot/session_gui.py:961
+#: D:/TTMediaBot/bot/session_gui.py:897
 msgid "&Private Message..."
 msgstr "Tin nhắn &riêng..."
 
-#: D:/TTMediaBot/bot/session_gui.py:964
+#: D:/TTMediaBot/bot/session_gui.py:900
 #, python-brace-format
 msgid "&Mention '{name}'"
 msgstr "&Nhắc đến '{name}'"
 
-#: D:/TTMediaBot/bot/session_gui.py:967
+#: D:/TTMediaBot/bot/session_gui.py:903
 msgid "&Copy User Info"
 msgstr "&Sao chép thông tin người dùng"
 
-#: D:/TTMediaBot/bot/session_gui.py:997 D:/TTMediaBot/bot/session_gui.py:1254
+#: D:/TTMediaBot/bot/session_gui.py:933 D:/TTMediaBot/bot/session_gui.py:1190
 msgid "&Copy Selected Line"
 msgstr "Sao &chép dòng đã chọn"
 
-#: D:/TTMediaBot/bot/session_gui.py:1000 D:/TTMediaBot/bot/session_gui.py:1257
+#: D:/TTMediaBot/bot/session_gui.py:936 D:/TTMediaBot/bot/session_gui.py:1193
 msgid "Clear &History"
 msgstr "Xóa &lịch sử"
 
-#: D:/TTMediaBot/bot/session_gui.py:1072 D:/TTMediaBot/bot/session_gui.py:1096
+#: D:/TTMediaBot/bot/session_gui.py:1008 D:/TTMediaBot/bot/session_gui.py:1032
 #, python-brace-format
 msgid "Private Chat - {user}"
 msgstr "Trò chuyện riêng - {user}"
 
-#: D:/TTMediaBot/bot/session_gui.py:1123
+#: D:/TTMediaBot/bot/session_gui.py:1059
 msgid "&Message History:"
 msgstr "Lịch &sử tin nhắn:"
 
-#: D:/TTMediaBot/bot/session_gui.py:1125
+#: D:/TTMediaBot/bot/session_gui.py:1061
 msgid "Message History"
 msgstr "Lịch sử tin nhắn"
 
-#: D:/TTMediaBot/bot/session_gui.py:1133
+#: D:/TTMediaBot/bot/session_gui.py:1069
 msgid "&Message:"
 msgstr "&Tin nhắn:"
 
-#: D:/TTMediaBot/bot/session_gui.py:1135
+#: D:/TTMediaBot/bot/session_gui.py:1071
 msgid "Message"
 msgstr "Tin nhắn"
 
-#: D:/TTMediaBot/bot/session_gui.py:1136
+#: D:/TTMediaBot/bot/session_gui.py:1072
 msgid "Type private message and press Enter..."
 msgstr "Nhập tin nhắn riêng rồi nhấn Enter..."
 
-#: D:/TTMediaBot/bot/session_gui.py:1143
+#: D:/TTMediaBot/bot/session_gui.py:1079
 msgid "Send private message (Enter)"
 msgstr "Gửi tin nhắn riêng (Enter)"
 
-#: D:/TTMediaBot/bot/session_gui.py:1149
+#: D:/TTMediaBot/bot/session_gui.py:1085
 msgid "Close this chat window (Escape)"
 msgstr "Đóng cửa sổ trò chuyện này (Escape)"
 
-#: D:/TTMediaBot/bot/session_gui.py:1292
+#: D:/TTMediaBot/bot/session_gui.py:1228
 msgid "Audio Devices (Input & Output) - TeamTalk"
 msgstr "Thiết bị âm thanh (đầu vào & đầu ra) - TeamTalk"
 
-#: D:/TTMediaBot/bot/session_gui.py:1306 D:/TTMediaBot/bot/session_gui.py:1311
+#: D:/TTMediaBot/bot/session_gui.py:1242 D:/TTMediaBot/bot/session_gui.py:1247
 msgid "Windows Audio Session (WASAPI) [Recommended]"
 msgstr "Windows Audio Session (WASAPI) [Khuyên dùng]"
 
-#: D:/TTMediaBot/bot/session_gui.py:1307
+#: D:/TTMediaBot/bot/session_gui.py:1243
 msgid "DirectSound"
 msgstr "DirectSound"
 
-#: D:/TTMediaBot/bot/session_gui.py:1308
+#: D:/TTMediaBot/bot/session_gui.py:1244
 msgid "Windows Multimedia (WaveIn/WaveOut)"
 msgstr "Windows Multimedia (WaveIn/WaveOut)"
 
-#: D:/TTMediaBot/bot/session_gui.py:1314
+#: D:/TTMediaBot/bot/session_gui.py:1250
 msgid "Default Sound System"
 msgstr "Hệ thống âm thanh mặc định"
 
-#: D:/TTMediaBot/bot/session_gui.py:1321
+#: D:/TTMediaBot/bot/session_gui.py:1257
 msgid "Sound &System:"
 msgstr "&Hệ thống âm thanh:"
 
-#: D:/TTMediaBot/bot/session_gui.py:1326
+#: D:/TTMediaBot/bot/session_gui.py:1262
 msgid "Sound System"
 msgstr "Hệ thống âm thanh"
 
-#: D:/TTMediaBot/bot/session_gui.py:1346
+#: D:/TTMediaBot/bot/session_gui.py:1282
 msgid "&Input Device (Microphone / Computer Audio / VAC):"
 msgstr "Thiết bị đầu &vào (Micro / Âm thanh máy tính / VAC):"
 
-#: D:/TTMediaBot/bot/session_gui.py:1348
+#: D:/TTMediaBot/bot/session_gui.py:1284
 msgid "Input Device"
 msgstr "Thiết bị đầu vào"
 
-#: D:/TTMediaBot/bot/session_gui.py:1355
+#: D:/TTMediaBot/bot/session_gui.py:1291
 msgid "&Output Device (Headphones / Speakers):"
 msgstr "Thiết bị đầu &ra (Tai nghe / Loa):"
 
-#: D:/TTMediaBot/bot/session_gui.py:1357
+#: D:/TTMediaBot/bot/session_gui.py:1293
 msgid "Output Device"
 msgstr "Thiết bị đầu ra"
 
-#: D:/TTMediaBot/bot/session_gui.py:1366
+#: D:/TTMediaBot/bot/session_gui.py:1302
 msgid "Input &Gain (%):"
 msgstr "Độ &khuếch đại đầu vào (%):"
 
-#: D:/TTMediaBot/bot/session_gui.py:1368
+#: D:/TTMediaBot/bot/session_gui.py:1304
 msgid "Input Gain Percent"
 msgstr "Phần trăm độ khuếch đại đầu vào"
 
-#: D:/TTMediaBot/bot/session_gui.py:1372
+#: D:/TTMediaBot/bot/session_gui.py:1308
 msgid "Enable &Voice Transmission"
 msgstr "Bật truyền &giọng nói"
 
-#: D:/TTMediaBot/bot/session_gui.py:1373
+#: D:/TTMediaBot/bot/session_gui.py:1309
 msgid "Enable Voice Transmission"
 msgstr "Bật truyền giọng nói"
 
-#: D:/TTMediaBot/bot/session_gui.py:1560
-#, python-brace-format
-msgid "Audio devices updated: Input: {input}, Output: {output}"
-msgstr "Đã cập nhật thiết bị âm thanh: Đầu vào: {input}, Đầu ra: {output}"
+#: D:/TTMediaBot/bot/session_gui.py:1384
+msgid "Computer Audio / Stereo Mix"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1386
+msgid "Bot Music Player"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1388
+msgid "Microphone"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1412
+msgid "Headphones"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:1414
+msgid "Speakers"
+msgstr ""
 
 #: D:/TTMediaBot/bot/TeamTalk/__init__.py:201
 msgid "Send \"h\" for help"
@@ -2523,6 +2479,30 @@ msgstr ""
 "Không nhận diện được bài hát. Nếu bài có lời, hãy thử lại vào lúc nghe rõ"
 " giọng hát."
 
+#: D:/TTMediaBot/bot/commands/user_commands.py:1639
+#: D:/TTMediaBot/bot/commands/user_commands.py:1682
+msgid "Song"
+msgstr ""
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:1642
+#: D:/TTMediaBot/bot/commands/user_commands.py:1685
+msgid "Artist"
+msgstr ""
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:1644
+msgid "Lyrics heard"
+msgstr ""
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:1645
+#: D:/TTMediaBot/bot/commands/user_commands.py:1686
+msgid "Position"
+msgstr ""
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:1646
+#: D:/TTMediaBot/bot/commands/user_commands.py:1687
+msgid "Source"
+msgstr ""
+
 #: D:/TTMediaBot/bot/commands/user_commands.py:1658
 #, python-brace-format
 msgid "Error identifying song: {}"
@@ -2540,6 +2520,10 @@ msgstr "[TÊN] Lấy lời bài hát đang phát, hoặc lời của bài hát c
 #, python-brace-format
 msgid "Lyrics not found for '{}'"
 msgstr "Không tìm thấy lời bài hát '{}'"
+
+#: D:/TTMediaBot/bot/commands/user_commands.py:1775
+msgid "Lyrics"
+msgstr ""
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1783
 #, python-brace-format
@@ -2798,4 +2782,82 @@ msgstr "Không rõ tiêu đề"
 #: D:/TTMediaBot/bot/services/yt.py:571
 msgid "YouTube Track"
 msgstr "Bài hát YouTube"
+
+#~ msgid "&Server and Channel History:"
+#~ msgstr "Lịch &sử máy chủ và kênh:"
+
+#~ msgid "Server and Channel History"
+#~ msgstr "Lịch sử máy chủ và kênh"
+
+#~ msgid "Connecting to {server_name} ({host}:{port})..."
+#~ msgstr "Đang kết nối đến {server_name} ({host}:{port})..."
+
+#~ msgid "Microphone turned on"
+#~ msgstr ""
+
+#~ msgid "Connected to '{server_name}'! Listening to channel: {channel}"
+#~ msgstr "Đã kết nối đến '{server_name}'! Đang lắng nghe kênh: {channel}"
+
+#~ msgid "Connection closed or lost."
+#~ msgstr "Kết nối đã đóng hoặc bị mất."
+
+#~ msgid "Private message from {user}: {msg}"
+#~ msgstr "Tin nhắn riêng từ {user}: {msg}"
+
+#~ msgid "{name} entered the channel"
+#~ msgstr "{name} đã vào kênh"
+
+#~ msgid "{name} joined channel '{channel}'"
+#~ msgstr "{name} đã vào kênh '{channel}'"
+
+#~ msgid "{name} left the channel"
+#~ msgstr "{name} đã rời kênh"
+
+#~ msgid "{name} left channel '{channel}'"
+#~ msgstr "{name} đã rời kênh '{channel}'"
+
+#~ msgid "{name} connected to the server"
+#~ msgstr "{name} đã kết nối đến máy chủ"
+
+#~ msgid "{name} disconnected from server"
+#~ msgstr "{name} đã ngắt kết nối khỏi máy chủ"
+
+#~ msgid "{name} updated status: {status}"
+#~ msgstr "{name} đã cập nhật trạng thái: {status}"
+
+#~ msgid "{name} updated profile"
+#~ msgstr "{name} đã cập nhật hồ sơ"
+
+#~ msgid "Private"
+#~ msgstr ""
+
+#~ msgid "Broadcast"
+#~ msgstr ""
+
+#~ msgid "Channel created: {channel}"
+#~ msgstr "Đã tạo kênh: {channel}"
+
+#~ msgid "Channel updated: {channel}"
+#~ msgstr "Đã cập nhật kênh: {channel}"
+
+#~ msgid "Channel removed: {channel}"
+#~ msgstr "Đã xóa kênh: {channel}"
+
+#~ msgid "Server properties updated"
+#~ msgstr "Đã cập nhật thuộc tính máy chủ"
+
+#~ msgid "{name} was banned"
+#~ msgstr "{name} đã bị cấm"
+
+#~ msgid "Bot was kicked from channel/server!"
+#~ msgstr "Bot đã bị đuổi khỏi kênh/máy chủ!"
+
+#~ msgid "Connection lost to server."
+#~ msgstr "Mất kết nối đến máy chủ."
+
+#~ msgid "Microphone turned off"
+#~ msgstr ""
+
+#~ msgid "Audio devices updated: Input: {input}, Output: {output}"
+#~ msgstr "Đã cập nhật thiết bị âm thanh: Đầu vào: {input}, Đầu ra: {output}"
 
