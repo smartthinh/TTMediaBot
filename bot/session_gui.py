@@ -9,6 +9,7 @@ import wx.adv
 
 from bot.TeamTalk.structs import Event, EventType, MessageType, State
 from bot.gui import translate
+from bot import sound_events
 
 
 def _safe_str(val: Any) -> str:
@@ -54,6 +55,7 @@ class ServerSessionDialog(wx.Dialog):
         self.bot = None
         self._is_attached = False
         self._last_channel_id = -1
+        self._last_channel_uids: Optional[set] = None
         self._last_users: List[tuple] = []
         self._is_muted = False
         self._closing = False
@@ -73,6 +75,11 @@ class ServerSessionDialog(wx.Dialog):
 
         # Trigger initial check immediately
         self._check_bot_connection()
+
+    def is_sound_events_enabled(self) -> bool:
+        if hasattr(self, "chk_sound_events") and bool(self.chk_sound_events):
+            return self.chk_sound_events.GetValue()
+        return bool(self.server_data.get("sound_events_enabled", True))
 
     def _init_ui(self):
         # Dialog-level sizer
@@ -144,6 +151,12 @@ class ServerSessionDialog(wx.Dialog):
         self.chk_mute_out.SetToolTip(translate("Temporarily mute incoming audio from TeamTalk"))
         self.chk_mute_out.Bind(wx.EVT_CHECKBOX, self.on_toggle_mute_out)
 
+        self.chk_sound_events = wx.CheckBox(panel, label=translate("Sound &Events"))
+        self.chk_sound_events.SetValue(self.server_data.get("sound_events_enabled", True))
+        self.chk_sound_events.SetName(translate("Sound Events"))
+        self.chk_sound_events.SetToolTip(translate("Play TeamTalk sound notifications for messages, users joining/leaving, etc."))
+        self.chk_sound_events.Bind(wx.EVT_CHECKBOX, self.on_toggle_sound_events)
+
         # 6. Action Buttons (Tab from Checkboxes lands here)
         self.btn_audio_devices = wx.Button(panel, label=translate("&Sound Configuration..."))
         self.btn_audio_devices.SetName(translate("Sound Configuration"))
@@ -179,6 +192,7 @@ class ServerSessionDialog(wx.Dialog):
         ctrls_row = wx.BoxSizer(wx.HORIZONTAL)
         ctrls_row.Add(self.chk_mic, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 12)
         ctrls_row.Add(self.chk_mute_out, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 12)
+        ctrls_row.Add(self.chk_sound_events, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 12)
         ctrls_row.AddStretchSpacer(1)
         ctrls_row.Add(self.btn_audio_devices, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
         ctrls_row.Add(self.btn_disconnect, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
@@ -261,6 +275,7 @@ class ServerSessionDialog(wx.Dialog):
                     cid = bot.ttclient.tt.getMyChannelID()
                     if cid != self._last_channel_id:
                         self._last_channel_id = cid
+                        self._last_channel_uids = None
                         channel_obj = bot.ttclient.get_channel(cid)
                         c_name = channel_obj.name if channel_obj and channel_obj.name else f"Channel #{cid}"
                         self.lbl_channel.SetLabel(f"{translate('Channel:')} {c_name}")
@@ -409,7 +424,9 @@ class ServerSessionDialog(wx.Dialog):
             return
         self._is_attached = False
         self._last_channel_id = -1
+        self._last_channel_uids = None
         self._last_users = []
+        sound_events.play_sound(sound_events.SOUND_SERVER_LOST, enabled=self.is_sound_events_enabled())
         self.lbl_status.SetLabel(translate("Status: Disconnected"))
         self.lbl_channel.SetLabel(translate("Channel: Disconnected"))
         self.chk_mic.SetValue(False)
@@ -441,6 +458,7 @@ class ServerSessionDialog(wx.Dialog):
         self.private_chat_histories[user_id].append(formatted_line)
 
         # Open and bring to front the dedicated private chat window
+        sound_events.play_sound(sound_events.SOUND_USER_MSG, enabled=self.is_sound_events_enabled())
         self.open_private_chat(user_id, user_nickname)
         if self.private_chat_window and self.private_chat_window.user_id == user_id:
             cnt = self.private_chat_window.list_history.GetCount()
@@ -508,6 +526,7 @@ class ServerSessionDialog(wx.Dialog):
 
                 # If this message was sent from someone else to us, automatically open the private chat window
                 if my_uid > 0 and sender_uid != my_uid:
+                    sound_events.play_sound(sound_events.SOUND_USER_MSG, enabled=self.is_sound_events_enabled())
                     self.open_private_chat(sender_uid, u_name)
                     # If window was just opened or already active, add the message to the active list
                     if self.private_chat_window and self.private_chat_window.user_id == sender_uid:
@@ -527,6 +546,7 @@ class ServerSessionDialog(wx.Dialog):
             # Chỉ lưu trữ và hiển thị tin nhắn công khai trong kênh (MessageType.Channel)
             if msg.type == MessageType.Channel:
                 self.add_public_message(u_name, msg_text, time_str)
+                sound_events.play_sound(sound_events.SOUND_CHANNEL_MSG, enabled=self.is_sound_events_enabled())
 
         elif ev_type == EventType.CHANNEL_NEW:
             pass
@@ -535,6 +555,9 @@ class ServerSessionDialog(wx.Dialog):
             c_name = _safe_str(event.channel.name) or f"#{event.channel.id}"
             my_cid = self.bot.ttclient.tt.getMyChannelID() if self.bot else 0
             if event.channel.id == my_cid:
+                if event.channel.id != self._last_channel_id:
+                    self._last_channel_id = event.channel.id
+                    self._last_channel_uids = None
                 self.lbl_channel.SetLabel(f"{translate('Channel:')} {c_name}")
                 self.SetTitle(f"{self.server_name} - {c_name} - TeamTalk")
                 self.refresh_users_in_channel()
@@ -658,6 +681,24 @@ class ServerSessionDialog(wx.Dialog):
 
             users_data.sort(key=lambda item: item[2].lower())
 
+            curr_uids = {u[0] for u in users_data}
+            my_uid = self.bot.ttclient.tt.getMyUserID() if (self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient) else 0
+
+            # Play sound events for users joining or leaving the channel
+            if self._last_channel_uids is not None:
+                joined_uids = curr_uids - self._last_channel_uids
+                joined_uids.discard(my_uid)
+
+                left_uids = self._last_channel_uids - curr_uids
+                left_uids.discard(my_uid)
+
+                if joined_uids:
+                    sound_events.play_sound(sound_events.SOUND_NEW_USER, enabled=self.is_sound_events_enabled())
+                elif left_uids:
+                    sound_events.play_sound(sound_events.SOUND_REMOVE_USER, enabled=self.is_sound_events_enabled())
+
+            self._last_channel_uids = curr_uids
+
             # Only refresh if the user list has actually changed
             if users_data != self._last_users:
                 curr_sel = self.list_users.GetSelection()
@@ -719,6 +760,7 @@ class ServerSessionDialog(wx.Dialog):
             my_nick = _safe_str(self.bot.ttclient.nickname) or "Bot"
             now_str = time.strftime("%H:%M:%S")
             self.add_public_message(my_nick, msg, now_str)
+            sound_events.play_sound(sound_events.SOUND_CHANNEL_MSG_SENT, enabled=self.is_sound_events_enabled())
 
             self.txt_message.Clear()
             if self.btn_send.IsShown():
@@ -830,10 +872,12 @@ class ServerSessionDialog(wx.Dialog):
                     self.server_data["mic_enabled"] = True
                     self.server_data["selected_mic_device_id"] = self.selected_mic_device_id
                     self.save_server_settings()
+                    sound_events.play_sound(sound_events.SOUND_VOICEACT_ON, enabled=self.is_sound_events_enabled())
             else:
                 self.bot.ttclient.restore_input_device()
                 self.server_data["mic_enabled"] = False
                 self.save_server_settings()
+                sound_events.play_sound(sound_events.SOUND_VOICEACT_OFF, enabled=self.is_sound_events_enabled())
         except Exception as e:
             logging.error(f"Error toggling voice transmission: {e}")
             self.chk_mic.SetValue(False)
@@ -851,6 +895,12 @@ class ServerSessionDialog(wx.Dialog):
                 TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputMute(self.bot.ttclient.tt._tt, self._is_muted)
             except Exception as e:
                 logging.error(f"Error setting sound output mute: {e}")
+
+    def on_toggle_sound_events(self, event=None):
+        """Toggles TeamTalk sound events on or off."""
+        val = self.chk_sound_events.GetValue()
+        self.server_data["sound_events_enabled"] = val
+        self.save_server_settings()
 
     def on_audio_devices_click(self, event=None):
         """Opens the sound input/output devices configuration dialog."""
@@ -1235,6 +1285,11 @@ class PrivateChatDialog(wx.Frame):
             my_nick = _safe_str(ttclient.nickname) or "Bot"
             now_str = time.strftime("%H:%M:%S")
             self.add_message(my_nick, msg, now_str)
+
+            sound_enabled = True
+            if hasattr(self.session_dialog, "is_sound_events_enabled"):
+                sound_enabled = self.session_dialog.is_sound_events_enabled()
+            sound_events.play_sound(sound_events.SOUND_USER_MSG_SENT, enabled=sound_enabled)
 
             self.txt_message.Clear()
             if self.btn_send.IsShown():

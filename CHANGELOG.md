@@ -17,6 +17,24 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Persistent Chat History:** Private chat conversations are safely kept for every person you talk to, so switching between users or reopening a chat window keeps your conversation history intact until you disconnect.
 - **Consistent Message Timestamps:** All public and private chat entries now place timestamps clearly at the end of each message (`Nickname: Message [HH:MM:SS]`), making conversations clean and easy to read.
 
+### 🔔 Familiar TeamTalk Sound Events in Chat Sessions
+- **Feels Just Like Classic TeamTalk:** You now get familiar, friendly sound notifications right inside the chat window, exactly as you are used to in the official TeamTalk client.
+- **Never Miss a Message:**
+  - **New Channel Message:** Plays a crisp notification sound whenever someone sends a message in the channel.
+  - **Message Sent:** Plays a gentle confirmation tone when you press Enter to send a channel message, letting you know it went through successfully.
+  - **Private Message Alert:** Plays a distinct sound whenever someone sends you a private message or uses the `pm` command.
+  - **Private Message Sent:** Plays a soft confirmation tone when you send a reply in a private chat window.
+- **Know Who Enters and Leaves:**
+  - **User Joined Channel:** A friendly chime sounds when someone enters or moves into your channel.
+  - **User Left Channel:** A chime sounds when someone leaves the channel or disconnects.
+  - *(Smart & Quiet):* Changing channels yourself won't trigger noisy alerts for everyone already sitting in the room.
+- **Voice & Connection Feedback:**
+  - **Microphone On / Off:** Plays audio feedback when you press **F8** or toggle your microphone, so you always know whether you are live or muted.
+  - **Server Disconnected:** Plays a distinct sound alert if the connection to the server drops.
+- **Easy One-Click Toggle (Alt + E):**
+  - Prefer complete silence? Just press **`Alt + E`** or uncheck **Sound Events** in the session window anytime. Your choice is remembered automatically for each server.
+- **Screen Reader & Keyboard Friendly:** All sound events play quietly in the background without interrupting your screen reader (NVDA, JAWS) or slowing down typing.
+
 ### 🎙️ Sound Configuration & Dual Volume Sliders
 - **Instant Save & Sound Configuration Dialog:** Replaced the legacy input/output devices dialog with **Sound Configuration**, removing the manual OK button. Any selection for sound system, input device, output device, or volume level is applied and saved immediately in real time.
 - **Master Volume Slider (Global Output):** Added a master playback volume slider (0%–100%) to control all incoming TeamTalk sound. Defaults to **50%** (TeamTalk's baseline `1000` level), allowing you to either soften audio or amplify it above normal.
