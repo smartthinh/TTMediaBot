@@ -10,6 +10,16 @@ from bot.app_vars import app_version, temp_dir
 GITHUB_API_URL = "https://api.github.com/repos/smartthinh/TTMediaBot/releases/latest"
 CHANGELOG_URL = "https://raw.githubusercontent.com/smartthinh/TTMediaBot/master/CHANGELOG.md"
 
+
+def _is_valid_window(win):
+    if win is None:
+        return False
+    try:
+        return bool(win) and not win.IsBeingDeleted()
+    except Exception:
+        return False
+
+
 def check_for_updates():
     try:
         req = urllib.request.Request(GITHUB_API_URL, headers={'User-Agent': 'TTMediaBot-AutoUpdater'})
@@ -43,10 +53,12 @@ def check_for_updates():
                             except Exception:
                                 pass
                         
-                    return latest_version, download_url, changelog_text
+                    return latest_version, download_url, changelog_text, None
+        return None, None, None, None
     except Exception as e:
         print(f"Error checking for updates: {e}")
-    return None, None, None
+        return None, None, None, str(e)
+
 
 def is_newer_version(current, latest):
     def parse_version(v):
@@ -55,6 +67,7 @@ def is_newer_version(current, latest):
         return parse_version(latest) > parse_version(current)
     except Exception:
         return False
+
 
 class UpdateDialog(wx.Dialog):
     def __init__(self, parent, latest_version, download_url, changelog_text, translate):
@@ -65,17 +78,16 @@ class UpdateDialog(wx.Dialog):
         
         sizer = wx.BoxSizer(wx.VERTICAL)
         
-        info_text = self.translate("A new version of TTMediaBot (v{version}) is available.\
-Would you like to update now?").format(version=latest_version)
+        info_text = self.translate("A new version of TTMediaBot (v{version}) is available.\nWould you like to update now?").format(version=latest_version)
         self.lbl_info = wx.StaticText(self, label=info_text)
         sizer.Add(self.lbl_info, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 15)
         
         # Read-only multiline textbox for changelog
-        self.txt_changelog = wx.TextCtrl(self, style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
+        self.txt_changelog = wx.TextCtrl(self, value="", style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
         if changelog_text:
-            self.txt_changelog.SetValue(changelog_text)
+            self.txt_changelog.ChangeValue(changelog_text)
         else:
-            self.txt_changelog.SetValue(self.translate("Release notes are not available."))
+            self.txt_changelog.ChangeValue(self.translate("Release notes are not available."))
         sizer.Add(self.txt_changelog, 1, wx.EXPAND | wx.LEFT | wx.RIGHT, 15)
         
         self.progress = wx.Gauge(self, range=100, style=wx.GA_HORIZONTAL)
@@ -96,8 +108,21 @@ Would you like to update now?").format(version=latest_version)
         self.SetSizer(sizer)
         self.CenterOnScreen()
 
-    def on_cancel(self, event):
-        self.EndModal(wx.ID_CANCEL)
+        self.Bind(wx.EVT_CLOSE, self.on_cancel)
+        self.Bind(wx.EVT_CHAR_HOOK, self.on_char_hook)
+
+    def on_char_hook(self, event):
+        key = event.GetKeyCode()
+        if key == wx.WXK_ESCAPE or (key == wx.WXK_F4 and event.AltDown()):
+            self.on_cancel()
+            return
+        event.Skip()
+
+    def on_cancel(self, event=None):
+        if self.IsModal():
+            self.EndModal(wx.ID_CANCEL)
+        else:
+            self.Destroy()
         
     def on_update(self, event):
         self.btn_update.Disable()
@@ -137,6 +162,8 @@ Would you like to update now?").format(version=latest_version)
             wx.CallAfter(self.show_error, str(e))
 
     def on_download_finished(self, exe_path):
+        if not _is_valid_window(self):
+            return
         self.progress.SetValue(100)
         self.lbl_info.SetLabel(self.translate("Installing update... Please wait."))
         self.Layout()
@@ -145,8 +172,11 @@ Would you like to update now?").format(version=latest_version)
         wx.CallLater(1500, self.install_and_restart, exe_path)
 
     def show_error(self, err_msg):
-        wx.MessageBox(self.translate("Failed to download update:") + f" {err_msg}", self.translate("Update Error"), wx.OK | wx.ICON_ERROR)
-        self.EndModal(wx.ID_CANCEL)
+        wx.MessageBox(self.translate("Failed to download update:") + f" {err_msg}", self.translate("Update Error"), wx.OK | wx.ICON_ERROR, self)
+        if self.IsModal():
+            self.EndModal(wx.ID_CANCEL)
+        else:
+            self.Destroy()
 
     def install_and_restart(self, exe_path):
         bat_path = os.path.join(temp_dir, "ttmediabot_update.bat")
@@ -196,16 +226,69 @@ Would you like to update now?").format(version=latest_version)
                 top_window.Close(True)
         sys.exit(0)
 
-def run_auto_updater(translate_func, parent=None, manual=False):
-    latest_version, download_url, changelog_text = check_for_updates()
-    if latest_version and download_url:
-        dlg = UpdateDialog(parent, latest_version, download_url, changelog_text, translate_func)
-        dlg.ShowModal()
-        dlg.Destroy()
-    elif manual:
-        wx.MessageBox(
-            translate_func("You are using the latest version of TTMediaBot (v{version}).").format(version=app_version),
-            translate_func("Update Check"),
-            wx.OK | wx.ICON_INFORMATION,
-            parent
-        )
+
+def run_auto_updater(translate_func, parent=None, manual=False, callback_done=None):
+    """
+    Checks for updates and displays update dialog or status message.
+    If manual=True, runs asynchronously in a background thread to keep the UI completely responsive.
+    """
+    if manual:
+        def _worker():
+            latest_version, download_url, changelog_text, error_msg = check_for_updates()
+
+            def _on_ui():
+                target_parent = parent if _is_valid_window(parent) else None
+                if target_parent is None:
+                    app = wx.GetApp()
+                    if app:
+                        top = app.GetTopWindow()
+                        if _is_valid_window(top):
+                            target_parent = top
+
+                try:
+                    if callback_done:
+                        try:
+                            callback_done()
+                        except Exception:
+                            pass
+
+                    if latest_version and download_url:
+                        dlg = UpdateDialog(target_parent, latest_version, download_url, changelog_text, translate_func)
+                        try:
+                            dlg.ShowModal()
+                        finally:
+                            dlg.Destroy()
+                    elif error_msg:
+                        wx.MessageBox(
+                            translate_func("Could not check for updates. Please check your internet connection.\n{error}").format(error=error_msg),
+                            translate_func("Update Check"),
+                            wx.OK | wx.ICON_WARNING,
+                            target_parent
+                        )
+                    else:
+                        wx.MessageBox(
+                            translate_func("You are using the latest version of TTMediaBot (v{version}).").format(version=app_version),
+                            translate_func("Update Check"),
+                            wx.OK | wx.ICON_INFORMATION,
+                            target_parent
+                        )
+                finally:
+                    if _is_valid_window(target_parent):
+                        try:
+                            target_parent.Raise()
+                            target_parent.SetFocus()
+                        except Exception:
+                            pass
+
+            wx.CallAfter(_on_ui)
+
+        threading.Thread(target=_worker, daemon=True).start()
+    else:
+        latest_version, download_url, changelog_text, _ = check_for_updates()
+        if latest_version and download_url:
+            target_parent = parent if _is_valid_window(parent) else None
+            dlg = UpdateDialog(target_parent, latest_version, download_url, changelog_text, translate_func)
+            try:
+                dlg.ShowModal()
+            finally:
+                dlg.Destroy()

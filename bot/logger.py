@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 import os
 import sys
 import threading
-from typing import TYPE_CHECKING, Any, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional, Tuple, Union
 
 from bot import app_vars
 
@@ -141,10 +141,15 @@ def initialize_logger(bot: Bot) -> None:
     logging.basicConfig(level=level, format=config.format, handlers=handlers)
 
 
-def get_session_logs(server_log_path: Optional[str] = None) -> str:
+def get_session_logs(
+    server_log_path: Optional[str] = None,
+    max_bytes: int = 150_000,
+    max_lines: int = 1000,
+    return_path: bool = False,
+) -> Union[str, Tuple[str, Optional[str]]]:
     """
-    Returns full logs for inspection directly from disk log files.
-    Preserves all historical logs across application launches.
+    Returns recent logs directly from disk log files for fast, responsive inspection.
+    Bounds the read size to the most recent entries to prevent UI freezing and memory pressure.
     Falls back to in-memory logs if no disk logs exist yet.
     """
     candidate_files = []
@@ -166,13 +171,51 @@ def get_session_logs(server_log_path: Optional[str] = None) -> str:
 
     for fpath in candidate_files:
         try:
-            with open(fpath, "r", encoding="utf-8", errors="replace") as f:
-                content = f.read().strip()
+            if not os.path.isfile(fpath):
+                continue
+            fsize = os.path.getsize(fpath)
+            if fsize == 0:
+                continue
+
+            is_truncated = fsize > max_bytes
+            with open(fpath, "rb") as f:
+                if is_truncated:
+                    f.seek(fsize - max_bytes)
+                    raw = f.read(max_bytes)
+                    text = raw.decode("utf-8", errors="replace")
+                    lines = text.splitlines()
+                    if len(lines) > 1:
+                        lines = lines[1:]  # discard potential incomplete line
+                else:
+                    raw = f.read()
+                    text = raw.decode("utf-8", errors="replace")
+                    lines = text.splitlines()
+
+                if max_lines and len(lines) > max_lines:
+                    lines = lines[-max_lines:]
+                    is_truncated = True
+
+                content = "\n".join(lines).strip()
+                if is_truncated:
+                    def _fmt_size(n: int) -> str:
+                        val = float(n)
+                        for u in ["B", "KB", "MB", "GB"]:
+                            if val < 1024.0:
+                                return f"{val:.1f} {u}"
+                            val /= 1024.0
+                        return f"{val:.1f} TB"
+                    banner = f"--- [Showing latest {len(lines)} log entries ({_fmt_size(fsize)} total). Click 'Open Log File' or 'Save Log...' for complete logs] ---\n\n"
+                    content = banner + content
+
                 if content:
-                    return content
+                    return (content, fpath) if return_path else content
         except Exception:
             continue
 
     # Fallback to in-memory session logs if disk logs are empty or not created yet
     mem_logs = in_memory_log_handler.get_logs().strip()
-    return mem_logs
+    if max_lines and mem_logs:
+        mem_lines = mem_logs.splitlines()
+        if len(mem_lines) > max_lines:
+            mem_logs = "\n".join(mem_lines[-max_lines:])
+    return (mem_logs, None) if return_path else mem_logs

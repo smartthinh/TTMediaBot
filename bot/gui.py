@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import shutil
 import sys
 import threading
 import time
@@ -1497,13 +1498,16 @@ class LogDialog(wx.Dialog):
         self.lbl_log = wx.StaticText(panel, label=translate("&Log Content:"))
         main_sizer.Add(self.lbl_log, 0, wx.LEFT | wx.TOP | wx.RIGHT, 10)
 
+        # Avoid passing large string directly to value in constructor to prevent C++ CreateWindowEx failure
         self.txt_log = wx.TextCtrl(
             panel,
-            value=log_content,
-            style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL,
+            value="",
+            style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2 | wx.HSCROLL,
         )
+        if log_content:
+            self.txt_log.ChangeValue(log_content)
         self.txt_log.SetName(translate("Log Content"))
-        self.txt_log.SetToolTip(translate("Entire log recorded during application usage."))
+        self.txt_log.SetToolTip(translate("Recent log recorded during application usage."))
         self.txt_log.SetInsertionPointEnd()
         main_sizer.Add(self.txt_log, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, 10)
 
@@ -1520,6 +1524,16 @@ class LogDialog(wx.Dialog):
         self.btn_refresh.Bind(wx.EVT_BUTTON, self.on_refresh)
         btn_sizer.Add(self.btn_refresh, 0, wx.RIGHT, 8)
 
+        self.btn_open_file = wx.Button(panel, label=translate("&Open Log File"))
+        self.btn_open_file.SetToolTip(translate("Open the full log file in your default text editor."))
+        self.btn_open_file.Bind(wx.EVT_BUTTON, self.on_open_log_file)
+        btn_sizer.Add(self.btn_open_file, 0, wx.RIGHT, 8)
+
+        self.btn_open_folder = wx.Button(panel, label=translate("&Open Logs Folder"))
+        self.btn_open_folder.SetToolTip(translate("Open directory containing application logs."))
+        self.btn_open_folder.Bind(wx.EVT_BUTTON, self.on_open_logs_folder)
+        btn_sizer.Add(self.btn_open_folder, 0, wx.RIGHT, 8)
+
         btn_sizer.AddStretchSpacer(1)
 
         self.btn_close = wx.Button(panel, id=wx.ID_CANCEL, label=translate("&Close"))
@@ -1531,6 +1545,51 @@ class LogDialog(wx.Dialog):
 
         panel.SetSizer(main_sizer)
         self.CentreOnParent()
+
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+        self.Bind(wx.EVT_CHAR_HOOK, self.on_char_hook)
+
+    def on_char_hook(self, event):
+        key = event.GetKeyCode()
+        if key == wx.WXK_ESCAPE or (key == wx.WXK_F4 and event.AltDown()):
+            self.on_close()
+            return
+        event.Skip()
+
+    def on_open_log_file(self, event=None):
+        if self.server_log_path and os.path.isfile(self.server_log_path):
+            try:
+                if sys.platform == "win32":
+                    os.startfile(self.server_log_path)
+                else:
+                    import subprocess
+                    subprocess.Popen(["xdg-open", self.server_log_path])
+            except Exception as e:
+                logging.error(f"Error opening log file: {e}")
+                wx.MessageBox(
+                    translate("Failed to open log file:\n{error}").format(error=str(e)),
+                    translate("Error"),
+                    wx.OK | wx.ICON_ERROR,
+                    self,
+                )
+        else:
+            wx.MessageBox(
+                translate("No log file found on disk yet."),
+                translate("Notice"),
+                wx.OK | wx.ICON_INFORMATION,
+                self,
+            )
+
+    def on_open_logs_folder(self, event=None):
+        try:
+            os.makedirs(app_vars.logs_dir, exist_ok=True)
+            if sys.platform == "win32":
+                os.startfile(app_vars.logs_dir)
+            else:
+                import subprocess
+                subprocess.Popen(["xdg-open", app_vars.logs_dir])
+        except Exception as e:
+            logging.error(f"Error opening logs directory: {e}")
 
     def on_save(self, event=None):
         default_file = f"TTMediaBot_log_{time.strftime('%Y%m%d_%H%M%S')}.log"
@@ -1547,9 +1606,12 @@ class LogDialog(wx.Dialog):
                 return
             save_path = file_dialog.GetPath()
             try:
-                content = self.txt_log.GetValue()
-                with open(save_path, "w", encoding="utf-8") as f:
-                    f.write(content)
+                if self.server_log_path and os.path.isfile(self.server_log_path):
+                    shutil.copy2(self.server_log_path, save_path)
+                else:
+                    content = self.txt_log.GetValue()
+                    with open(save_path, "w", encoding="utf-8") as f:
+                        f.write(content)
                 wx.MessageBox(
                     translate("Log file successfully saved to:\n{path}").format(path=save_path),
                     translate("Save Log"),
@@ -1567,12 +1629,17 @@ class LogDialog(wx.Dialog):
 
     def on_refresh(self, event=None):
         from bot.logger import get_session_logs
-        logs = get_session_logs(self.server_log_path)
-        self.txt_log.SetValue(logs)
+        logs, active_path = get_session_logs(self.server_log_path, return_path=True)
+        if active_path:
+            self.server_log_path = active_path
+        self.txt_log.ChangeValue(logs)
         self.txt_log.SetInsertionPointEnd()
 
     def on_close(self, event=None):
-        self.EndModal(wx.ID_CANCEL)
+        if self.IsModal():
+            self.EndModal(wx.ID_CANCEL)
+        else:
+            self.Destroy()
 
 
 class SettingsDialog(wx.Dialog):
@@ -1597,13 +1664,8 @@ class SettingsDialog(wx.Dialog):
 
     def on_char_hook(self, event):
         key = event.GetKeyCode()
-        if key == wx.WXK_ESCAPE:
+        if key == wx.WXK_ESCAPE or (key == wx.WXK_F4 and event.AltDown()):
             self.on_close()
-            return
-        if key == wx.WXK_F4 and event.AltDown():
-            self.on_close()
-            if hasattr(self, 'main_frame') and self.main_frame:
-                wx.CallAfter(self.main_frame.Close)
             return
         event.Skip()
 
@@ -1785,10 +1847,30 @@ class SettingsDialog(wx.Dialog):
         self.main_frame.set_session_chat_enabled(val)
 
     def on_view_logs(self, event=None):
-        self.main_frame.on_view_logs(event)
+        self.btn_view_logs.Disable()
+        try:
+            self.main_frame.on_view_logs(event, parent=self)
+        finally:
+            if hasattr(self, 'btn_view_logs') and bool(self.btn_view_logs):
+                try:
+                    self.btn_view_logs.Enable()
+                except Exception:
+                    pass
 
     def on_check_update(self, event=None):
-        self.main_frame.on_check_update(event)
+        self.btn_check_update.Disable()
+        orig_label = self.btn_check_update.GetLabel()
+        self.btn_check_update.SetLabel(translate("Checking for updates..."))
+
+        def on_done():
+            if hasattr(self, 'btn_check_update') and bool(self.btn_check_update):
+                try:
+                    self.btn_check_update.SetLabel(orig_label)
+                    self.btn_check_update.Enable()
+                except Exception:
+                    pass
+
+        self.main_frame.on_check_update(event, parent=self, callback_done=on_done)
 
     def on_visit_website(self, event=None):
         self.main_frame.on_visit_website(event)
@@ -2845,8 +2927,9 @@ class MainFrame(wx.Frame):
         webbrowser.open("https://t.me/accessiblevisionresources")
 
 
-    def on_view_logs(self, event=None):
+    def on_view_logs(self, event=None, parent=None):
         """Opens the log viewer dialog showing full application session logs."""
+        target_parent = parent or self
         server_log_path = None
         sel_idx = self.server_list.GetSelection()
         if 0 <= sel_idx < len(self.visible_servers):
@@ -2855,14 +2938,23 @@ class MainFrame(wx.Frame):
             server_log_path = os.path.join(app_vars.logs_dir, f"TTMediaBot_server_{s_id}.log")
 
         from bot.logger import get_session_logs
-        log_content = get_session_logs(server_log_path)
-        dlg = LogDialog(self, log_content=log_content, server_log_path=server_log_path)
-        dlg.ShowModal()
-        dlg.Destroy()
+        log_content, active_log_path = get_session_logs(server_log_path, return_path=True)
+        dlg = LogDialog(target_parent, log_content=log_content, server_log_path=active_log_path)
+        try:
+            dlg.ShowModal()
+        finally:
+            dlg.Destroy()
+            if target_parent and bool(target_parent):
+                try:
+                    target_parent.Raise()
+                    target_parent.SetFocus()
+                except Exception:
+                    pass
 
-    def on_check_update(self, event=None):
+    def on_check_update(self, event=None, parent=None, callback_done=None):
+        target_parent = parent or self
         from bot.auto_updater import run_auto_updater
-        run_auto_updater(translate_func=translate, parent=self, manual=True)
+        run_auto_updater(translate_func=translate, parent=target_parent, manual=True, callback_done=callback_done)
 
     def on_open_downloads(self, event=None):
         try:
