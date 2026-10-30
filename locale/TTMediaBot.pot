@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-30 07:58+0700\n"
+"POT-Creation-Date: 2026-10-30 09:22+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -689,25 +689,6 @@ msgstr ""
 msgid "Unnamed Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2220 D:/TTMediaBot/bot/gui.py:2246
-#: D:/TTMediaBot/bot/gui.py:2649
-msgid "Connected"
-msgstr ""
-
-#: D:/TTMediaBot/bot/gui.py:2222 D:/TTMediaBot/bot/gui.py:2248
-#: D:/TTMediaBot/bot/gui.py:2653
-msgid "Connecting"
-msgstr ""
-
-#: D:/TTMediaBot/bot/gui.py:2224 D:/TTMediaBot/bot/gui.py:2250
-#: D:/TTMediaBot/bot/gui.py:2658
-msgid "Reconnecting"
-msgstr ""
-
-#: D:/TTMediaBot/bot/gui.py:2270
-msgid "Status"
-msgstr ""
-
 #: D:/TTMediaBot/bot/gui.py:2292
 msgid "&Disconnect All"
 msgstr ""
@@ -1001,10 +982,6 @@ msgstr ""
 msgid "Close this session window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:266 D:/TTMediaBot/bot/session_gui.py:538
-msgid "Channel:"
-msgstr ""
-
 #: D:/TTMediaBot/bot/session_gui.py:284
 msgid "Status: Connected"
 msgstr ""
@@ -1015,11 +992,6 @@ msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:414
 msgid "Channel: Disconnected"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:423 D:/TTMediaBot/bot/session_gui.py:639
-#: D:/TTMediaBot/bot/session_gui.py:647 D:/TTMediaBot/bot/session_gui.py:680
-msgid "&Users in channel"
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:612
@@ -1048,10 +1020,6 @@ msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:710 D:/TTMediaBot/bot/session_gui.py:1226
 msgid "Warning"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:734 D:/TTMediaBot/bot/session_gui.py:1248
-msgid "Failed to send message:"
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:824
@@ -1182,26 +1150,6 @@ msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:1420
 msgid "Microphone Volume"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:1488
-msgid "Computer Audio / Stereo Mix"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:1490
-msgid "Bot Music Player"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:1492
-msgid "Microphone"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:1516
-msgid "Headphones"
-msgstr ""
-
-#: D:/TTMediaBot/bot/session_gui.py:1518
-msgid "Speakers"
 msgstr ""
 
 #: D:/TTMediaBot/bot/TeamTalk/__init__.py:201
@@ -2338,30 +2286,6 @@ msgid ""
 "again when the vocals/lyrics are clearly heard."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1639
-#: D:/TTMediaBot/bot/commands/user_commands.py:1682
-msgid "Song"
-msgstr ""
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:1642
-#: D:/TTMediaBot/bot/commands/user_commands.py:1685
-msgid "Artist"
-msgstr ""
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:1644
-msgid "Lyrics heard"
-msgstr ""
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:1645
-#: D:/TTMediaBot/bot/commands/user_commands.py:1686
-msgid "Position"
-msgstr ""
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:1646
-#: D:/TTMediaBot/bot/commands/user_commands.py:1687
-msgid "Source"
-msgstr ""
-
 #: D:/TTMediaBot/bot/commands/user_commands.py:1658
 #, python-brace-format
 msgid "Error identifying song: {}"
@@ -2378,10 +2302,6 @@ msgstr ""
 #: D:/TTMediaBot/bot/commands/user_commands.py:1769
 #, python-brace-format
 msgid "Lyrics not found for '{}'"
-msgstr ""
-
-#: D:/TTMediaBot/bot/commands/user_commands.py:1775
-msgid "Lyrics"
 msgstr ""
 
 #: D:/TTMediaBot/bot/commands/user_commands.py:1783
