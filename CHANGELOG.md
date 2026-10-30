@@ -4,23 +4,27 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🚀 [Unreleased] — Interactive Sessions, Private Chat, Saved Audio & Direct Messaging
+## 🚀 [Unreleased] — Interactive Sessions, Sound Configuration, Volume Sliders & Direct Messaging
 
 ### 💬 Interactive Server Sessions & Private Chat Windows
 - **Interactive Session Chat Toggle (Experimental):** Added a new checkbox in the **Settings** window labeled **Enable interactive session chat window (Experimental)**.
   - **Disabled by default:** When disabled, pressing **Enter** on any server in the list simply connects the bot quietly in the background without opening any extra windows. The operator messaging command (`pm`) is also disabled to keep things simple and silent.
   - **Turn on whenever you want:** Enabling the checkbox brings back the full interactive session window on connection, user lists, and allows channel members to contact you using `pm`.
 - **Dedicated Server Session Window:** When you connect to a server with the session window enabled, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
-- **Detailed User List:** The channel user list displays each person's nickname along with their gender (Male, Female, or None) and status mode (such as Away, Question, or custom status text).
+- **Detailed User List:** The channel user list displays each person's nickname, real-time microphone transmission status (marked with `🎤` when speaking), gender (Male, Female, or None), user role (Admin, Operator, or User), and their custom status message.
 - **Instant Private Chat on Enter:** Simply press **Enter** or double-click on any user in the channel list to immediately open a separate private chat window with them. The cursor automatically lands in the message box, allowing you to start typing and send messages right away.
 - **Alt + Tab Friendly & Easy to Close:** The private chat window appears as its own independent window in Alt + Tab. Pressing **Escape** closes the private chat without disturbing your main session.
 - **Persistent Chat History:** Private chat conversations are safely kept for every person you talk to, so switching between users or reopening a chat window keeps your conversation history intact until you disconnect.
 - **Consistent Message Timestamps:** All public and private chat entries now place timestamps clearly at the end of each message (`Nickname: Message [HH:MM:SS]`), making conversations clean and easy to read.
 
-### 🎙️ Remembered Audio Settings & Instant Microphone
-- **Settings Saved Per Server:** Your choices for sound output (speakers/headphones), sound input (microphone), sound system, and input gain level are now automatically remembered for each server.
-- **Microphone Stays Ready:** If you turn on your microphone, it stays preserved. When you return to that server, your microphone is ready to use immediately without having to configure it again.
-- **Clear Device Identification:** In the audio devices window, every microphone and speaker displays its unique device ID (e.g. `[ID: 27]`), so you can easily choose the exact physical device you want even if two sound cards have identical names.
+### 🎙️ Sound Configuration & Dual Volume Sliders
+- **Instant Save & Sound Configuration Dialog:** Replaced the legacy input/output devices dialog with **Sound Configuration**, removing the manual OK button. Any selection for sound system, input device, output device, or volume level is applied and saved immediately in real time.
+- **Master Volume Slider (Global Output):** Added a master playback volume slider (0%–100%) to control all incoming TeamTalk sound. Defaults to **50%** (TeamTalk's baseline `1000` level), allowing you to either soften audio or amplify it above normal.
+- **Microphone Volume Slider:** Added a dedicated microphone volume slider (0%–100%) to control your voice input level, defaulting to **50%** (baseline `1000` level) with gain boost when increased.
+- **Accessible & Screen Reader Friendly:** Both sliders announce their full accessible labels (Master Volume / Microphone Volume) to NVDA and JAWS, with intuitive keyboard controls (Up/Right arrow to increase +1%, Down/Left arrow to decrease -1%, Page Up/Down to step by ±5%, and Home/End for min/max).
+- **Dedicated External Microphone Toggle:** Voice transmission is solely toggled via the main session window's **Microphone (Voice)** checkbox or **F8** hotkey, keeping audio device configuration clean and separate.
+- **Settings Remembered Per Server:** Output device, input device, sound system, master volume, and microphone volume are automatically remembered and restored whenever you reconnect to that server.
+- **Clear Device Identification:** In the Sound Configuration window, every microphone and speaker displays its unique device ID (e.g. `[ID: 27]`), so you can easily choose the exact physical device you want even if two sound cards have identical names.
 
 ### 📬 Direct Operator Messaging Command (`pm`)
 - **Single, Simple Command for Everyone:** Channel members can now reach the bot operator at any time using the unified command:

@@ -145,9 +145,9 @@ class ServerSessionDialog(wx.Dialog):
         self.chk_mute_out.Bind(wx.EVT_CHECKBOX, self.on_toggle_mute_out)
 
         # 6. Action Buttons (Tab from Checkboxes lands here)
-        self.btn_audio_devices = wx.Button(panel, label=translate("&Input & Output Devices..."))
-        self.btn_audio_devices.SetName(translate("Input and Output Devices"))
-        self.btn_audio_devices.SetToolTip(translate("Configure sound input and output devices for TeamTalk (Hotkeys, computer audio, mic)"))
+        self.btn_audio_devices = wx.Button(panel, label=translate("&Sound Configuration..."))
+        self.btn_audio_devices.SetName(translate("Sound Configuration"))
+        self.btn_audio_devices.SetToolTip(translate("Configure TeamTalk sound system, audio devices, and volume levels"))
         self.btn_audio_devices.Bind(wx.EVT_BUTTON, self.on_audio_devices_click)
 
         self.btn_disconnect = wx.Button(panel, label=translate("&Disconnect"))
@@ -332,14 +332,18 @@ class ServerSessionDialog(wx.Dialog):
             except Exception as e:
                 logging.error(f"Error restoring live input device: {e}")
 
-        # 3. Restore input gain level
-        if "session_gain" in self.server_data:
-            try:
-                import TeamTalkPy
-                gain_val = int(self.server_data["session_gain"]) * 10
-                TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(bot.ttclient.tt._tt, gain_val)
-            except Exception as e:
-                logging.error(f"Error restoring gain: {e}")
+        # 3. Restore master volume & input gain level (default 50% -> 1000)
+        try:
+            import TeamTalkPy
+            vol_pct = int(self.server_data.get("master_volume", 50))
+            vol_val = vol_pct * 20
+            TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputVolume(bot.ttclient.tt._tt, vol_val)
+
+            gain_pct = int(self.server_data.get("mic_gain", 50))
+            gain_val = gain_pct * 20
+            TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(bot.ttclient.tt._tt, gain_val)
+        except Exception as e:
+            logging.error(f"Error restoring master volume or gain: {e}")
 
         # 4. Restore microphone (voice transmission) state
         try:
@@ -467,7 +471,7 @@ class ServerSessionDialog(wx.Dialog):
         elif ev_type == EventType.USER_LOGGEDOUT:
             self.refresh_users_in_channel()
 
-        elif ev_type == EventType.USER_UPDATE:
+        elif ev_type in (EventType.USER_UPDATE, EventType.STATE_CHANGE):
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_TEXT_MESSAGE:
@@ -551,14 +555,34 @@ class ServerSessionDialog(wx.Dialog):
             self.on_bot_disconnected()
 
     def _format_user_display(self, u) -> str:
-        """Formats a user for the channel users list: Nickname + Gender + Status."""
+        """Formats a user for the channel users list: Nickname + Mic + (Gender, Role, Status)."""
         nick = _safe_str(getattr(u, "szNickname", ""))
         if not nick:
             nick = _safe_str(getattr(u, "szUsername", ""))
         if not nick:
             nick = f"User #{getattr(u, 'nUserID', 0)}"
 
-        # Parse gender and status flags from nStatusMode
+        u_id = getattr(u, "nUserID", 0)
+        u_state = getattr(u, "uUserState", 0)
+
+        # 1. Microphone transmission state (USERSTATE_VOICE = 0x01, USERSTATE_MUTE_VOICE = 0x02)
+        is_mic_on = bool((u_state & 0x01) and not (u_state & 0x02))
+
+        # Check local bot microphone state if this user is ourselves
+        if self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
+            try:
+                my_uid = self.bot.ttclient.tt.getMyUserID()
+                if u_id == my_uid:
+                    if getattr(self.bot.ttclient, "is_voice_transmission_enabled", False):
+                        is_mic_on = True
+                    elif hasattr(self, "chk_mic") and self.chk_mic.GetValue():
+                        is_mic_on = True
+            except Exception:
+                pass
+
+        mic_icon = " 🎤" if is_mic_on else ""
+
+        # 2. Gender from nStatusMode
         status_mode = getattr(u, "nStatusMode", 0)
         STATUSMODE_AWAY = 0x01
         STATUSMODE_QUESTION = 0x02
@@ -572,19 +596,41 @@ class ServerSessionDialog(wx.Dialog):
         else:
             gender_str = translate("Male")
 
-        details = [gender_str]
+        # 3. Role: Admin, Operator, or User
+        user_type = getattr(u, "uUserType", 0)
+        is_admin = bool(user_type & 0x02)  # USERTYPE_ADMIN = 0x02
+        is_op = False
+        if not is_admin and self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
+            try:
+                import TeamTalkPy
+                cid = getattr(u, "nChannelID", 0) or self.bot.ttclient.tt.getMyChannelID()
+                is_op = bool(TeamTalkPy.TeamTalk5.dll.TT_IsChannelOperator(self.bot.ttclient.tt._tt, cid, u_id))
+            except Exception:
+                pass
 
-        if status_mode & STATUSMODE_AWAY:
+        if is_admin:
+            role_str = translate("Admin")
+        elif is_op:
+            role_str = translate("Operator")
+        else:
+            role_str = translate("User")
+
+        # 4. Status (Away, Question, and custom status message)
+        details = [gender_str, role_str]
+
+        status_msg = _safe_str(getattr(u, "szStatusMsg", "")).strip()
+        is_away = bool(status_mode & STATUSMODE_AWAY)
+        is_question = bool(status_mode & STATUSMODE_QUESTION)
+
+        if is_away:
             details.append(translate("Away"))
-        if status_mode & STATUSMODE_QUESTION:
+        if is_question:
             details.append(translate("Question"))
-
-        status_msg = _safe_str(getattr(u, "szStatusMsg", ""))
         if status_msg:
             details.append(status_msg)
 
         details_str = ", ".join(details)
-        return f"{nick} ({details_str})"
+        return f"{nick}{mic_icon} ({details_str})"
 
     def refresh_users_in_channel(self):
         """Updates the channel users listbox with nickname, gender, and status."""
@@ -793,6 +839,8 @@ class ServerSessionDialog(wx.Dialog):
             self.chk_mic.SetValue(False)
             self.server_data["mic_enabled"] = False
             self.save_server_settings()
+        finally:
+            self.refresh_users_in_channel()
 
     def on_toggle_mute_out(self, event=None):
         """Toggles mute on TeamTalk sound output."""
@@ -865,7 +913,7 @@ class ServerSessionDialog(wx.Dialog):
             text = self.list_users.GetString(sel)
             # Find in raw users if possible
             u_id = 0
-            nick = text.split(" (")[0].strip()
+            nick = text.split(" (")[0].replace("🎤", "").strip()
             if self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
                 try:
                     cid = self.bot.ttclient.tt.getMyChannelID()
@@ -946,6 +994,43 @@ class ServerSessionDialog(wx.Dialog):
             if wx.TheClipboard.Open():
                 wx.TheClipboard.SetData(wx.TextDataObject(text))
                 wx.TheClipboard.Close()
+
+    def _handle_slider_key(self, slider, on_change_callback, event):
+        key = event.GetKeyCode()
+        cur_val = slider.GetValue()
+        new_val = None
+
+        if key in (wx.WXK_UP, wx.WXK_RIGHT):
+            new_val = min(100, cur_val + 1)
+        elif key in (wx.WXK_DOWN, wx.WXK_LEFT):
+            new_val = max(0, cur_val - 1)
+        elif key == wx.WXK_PAGEUP:
+            new_val = min(100, cur_val + 5)
+        elif key == wx.WXK_PAGEDOWN:
+            new_val = max(0, cur_val - 5)
+        elif key == wx.WXK_HOME:
+            new_val = 0
+        elif key == wx.WXK_END:
+            new_val = 100
+
+        if new_val is not None:
+            if new_val != cur_val:
+                slider.SetValue(new_val)
+                try:
+                    import ctypes
+                    ctypes.windll.user32.NotifyWinEvent(0x800E, slider.GetHandle(), -4, 0)
+                except Exception:
+                    pass
+                on_change_callback(event)
+            return
+
+        event.Skip()
+
+    def on_master_slider_key(self, event):
+        self._handle_slider_key(self.slider_master_vol, self.on_master_vol_changed, event)
+
+    def on_mic_slider_key(self, event):
+        self._handle_slider_key(self.slider_mic_vol, self.on_mic_vol_changed, event)
 
     def on_close(self, event=None):
         """Cleans up audio output and listeners upon closing the dialog."""
@@ -1220,13 +1305,13 @@ ServerSessionFrame = ServerSessionDialog
 
 
 class SessionAudioDevicesDialog(wx.Dialog):
-    """Accessible dialog to configure TeamTalk Sound System, Input, and Output devices."""
+    """Accessible dialog to configure TeamTalk Sound System, Input, Output devices, and Volume levels."""
 
     def __init__(self, parent: wx.Window, bot: Any):
         super().__init__(
             parent,
-            title=translate("Audio Devices (Input & Output) - TeamTalk"),
-            size=(540, 390),
+            title=translate("Sound Configuration - TeamTalk"),
+            size=(540, 430),
             style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER,
         )
         self.parent = parent
@@ -1282,6 +1367,7 @@ class SessionAudioDevicesDialog(wx.Dialog):
         lbl_in = wx.StaticText(panel, label=translate("&Input Device (Microphone / Computer Audio / VAC):"))
         self.choice_input = wx.Choice(panel)
         self.choice_input.SetName(translate("Input Device"))
+        self.choice_input.Bind(wx.EVT_CHOICE, self.on_input_changed)
         in_box = wx.BoxSizer(wx.VERTICAL)
         in_box.Add(lbl_in, 0, wx.BOTTOM, 4)
         in_box.Add(self.choice_input, 0, wx.EXPAND)
@@ -1291,39 +1377,68 @@ class SessionAudioDevicesDialog(wx.Dialog):
         lbl_out = wx.StaticText(panel, label=translate("&Output Device (Headphones / Speakers):"))
         self.choice_output = wx.Choice(panel)
         self.choice_output.SetName(translate("Output Device"))
+        self.choice_output.Bind(wx.EVT_CHOICE, self.on_output_changed)
         out_box = wx.BoxSizer(wx.VERTICAL)
         out_box.Add(lbl_out, 0, wx.BOTTOM, 4)
         out_box.Add(self.choice_output, 0, wx.EXPAND)
         main_sizer.Add(out_box, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
 
-        # 4. Gain level & Voice Transmission
-        options_box = wx.BoxSizer(wx.HORIZONTAL)
+        # 4. Master Volume Slider (Global volume in TeamTalk, default 50%)
+        saved_master = server_data.get("master_volume")
+        if saved_master is not None:
+            init_master = int(saved_master)
+        else:
+            init_master = 50
 
-        lbl_gain = wx.StaticText(panel, label=translate("Input &Gain (%):"))
-        self.spin_gain = wx.SpinCtrl(panel, min=0, max=400, initial=100)
-        self.spin_gain.SetName(translate("Input Gain Percent"))
-        options_box.Add(lbl_gain, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 6)
-        options_box.Add(self.spin_gain, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 20)
+        lbl_master = wx.StaticText(panel, label=translate("&Master Volume:"))
+        self.slider_master_vol = wx.Slider(panel, value=init_master, minValue=0, maxValue=100, style=wx.SL_HORIZONTAL)
+        self.slider_master_vol.SetName(translate("Master Volume"))
+        self.slider_master_vol.SetLineSize(1)
+        self.slider_master_vol.SetPageSize(5)
+        self.slider_master_vol.Bind(wx.EVT_SLIDER, self.on_master_vol_changed)
+        self.slider_master_vol.Bind(wx.EVT_KEY_DOWN, self.on_master_slider_key)
+        self.lbl_master_val = wx.StaticText(panel, label=f"{init_master}%")
 
-        self.chk_transmit = wx.CheckBox(panel, label=translate("Enable &Voice Transmission"))
-        self.chk_transmit.SetName(translate("Enable Voice Transmission"))
-        saved_mic = server_data.get("mic_enabled")
+        master_box = wx.BoxSizer(wx.VERTICAL)
+        master_hdr = wx.BoxSizer(wx.HORIZONTAL)
+        master_hdr.Add(lbl_master, 0, wx.ALIGN_CENTER_VERTICAL)
+        master_hdr.Add((8, 0), 0)
+        master_hdr.Add(self.lbl_master_val, 0, wx.ALIGN_CENTER_VERTICAL)
+        master_box.Add(master_hdr, 0, wx.BOTTOM, 4)
+        master_box.Add(self.slider_master_vol, 0, wx.EXPAND)
+        main_sizer.Add(master_box, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+
+        # 5. Microphone Volume Slider (default 50%)
+        saved_mic = server_data.get("mic_gain")
         if saved_mic is not None:
-            self.chk_transmit.SetValue(bool(saved_mic))
-        elif self.ttclient:
-            self.chk_transmit.SetValue(bool(getattr(self.ttclient, "is_voice_transmission_enabled", False)))
-        options_box.Add(self.chk_transmit, 0, wx.ALIGN_CENTER_VERTICAL)
-        main_sizer.Add(options_box, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+            init_mic = int(saved_mic)
+        else:
+            init_mic = 50
 
-        # 5. Buttons (OK, Cancel)
-        btn_sizer = wx.StdDialogButtonSizer()
-        self.btn_ok = wx.Button(panel, wx.ID_OK, label=translate("&OK"))
-        self.btn_ok.SetDefault()
-        self.btn_ok.Bind(wx.EVT_BUTTON, self.on_ok)
-        self.btn_cancel = wx.Button(panel, wx.ID_CANCEL, label=translate("&Cancel"))
-        btn_sizer.AddButton(self.btn_ok)
-        btn_sizer.AddButton(self.btn_cancel)
-        btn_sizer.Realize()
+        lbl_mic = wx.StaticText(panel, label=translate("Microphone &Volume:"))
+        self.slider_mic_vol = wx.Slider(panel, value=init_mic, minValue=0, maxValue=100, style=wx.SL_HORIZONTAL)
+        self.slider_mic_vol.SetName(translate("Microphone Volume"))
+        self.slider_mic_vol.SetLineSize(1)
+        self.slider_mic_vol.SetPageSize(5)
+        self.slider_mic_vol.Bind(wx.EVT_SLIDER, self.on_mic_vol_changed)
+        self.slider_mic_vol.Bind(wx.EVT_KEY_DOWN, self.on_mic_slider_key)
+        self.lbl_mic_val = wx.StaticText(panel, label=f"{init_mic}%")
+
+        mic_box = wx.BoxSizer(wx.VERTICAL)
+        mic_hdr = wx.BoxSizer(wx.HORIZONTAL)
+        mic_hdr.Add(lbl_mic, 0, wx.ALIGN_CENTER_VERTICAL)
+        mic_hdr.Add((8, 0), 0)
+        mic_hdr.Add(self.lbl_mic_val, 0, wx.ALIGN_CENTER_VERTICAL)
+        mic_box.Add(mic_hdr, 0, wx.BOTTOM, 4)
+        mic_box.Add(self.slider_mic_vol, 0, wx.EXPAND)
+        main_sizer.Add(mic_box, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+
+        # 6. Close Button
+        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.btn_close = wx.Button(panel, wx.ID_CANCEL, label=translate("&Close"))
+        self.btn_close.SetDefault()
+        self.btn_close.Bind(wx.EVT_BUTTON, self.on_close)
+        btn_sizer.Add(self.btn_close, 0, wx.ALL, 5)
         main_sizer.Add(btn_sizer, 0, wx.ALIGN_RIGHT | wx.ALL, 10)
 
         panel.SetSizer(main_sizer)
@@ -1332,23 +1447,12 @@ class SessionAudioDevicesDialog(wx.Dialog):
         dlg_sizer.Add(panel, 1, wx.EXPAND)
         self.SetSizer(dlg_sizer)
 
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
         # Populate devices
         self._input_devices = []
         self._output_devices = []
         self.populate_devices()
-
-        # Load current gain
-        saved_gain = server_data.get("session_gain")
-        if saved_gain is not None:
-            self.spin_gain.SetValue(int(saved_gain))
-        elif self.ttclient:
-            try:
-                import TeamTalkPy
-                cur_gain = TeamTalkPy.TeamTalk5.dll.TT_GetSoundInputGainLevel(self.ttclient.tt._tt)
-                gain_pct = max(0, min(400, int(cur_gain / 10)))
-                self.spin_gain.SetValue(gain_pct)
-            except Exception:
-                pass
 
         self.CentreOnParent()
 
@@ -1427,29 +1531,19 @@ class SessionAudioDevicesDialog(wx.Dialog):
             self.choice_output.SetSelection(selected_out_idx)
 
     def on_system_changed(self, event):
+        sys_id = self.get_selected_sound_system()
+        if hasattr(self.parent, "server_data"):
+            self.parent.server_data["session_sound_system"] = sys_id
+            if hasattr(self.parent, "save_server_settings"):
+                self.parent.save_server_settings()
         self.populate_devices()
 
-    def on_ok(self, event):
+    def on_input_changed(self, event):
         if not self.ttclient:
-            self.EndModal(wx.ID_OK)
             return
-
         in_sel = self.choice_input.GetSelection()
-        out_sel = self.choice_output.GetSelection()
-
-        in_dev = self._input_devices[in_sel] if 0 <= in_sel < len(self._input_devices) else None
-        out_dev = self._output_devices[out_sel] if 0 <= out_sel < len(self._output_devices) else None
-        sys_id = self.get_selected_sound_system()
-
-        # 1. Update Output Device
-        if out_dev:
-            self.ttclient.set_output_device(out_dev.id)
-            if hasattr(self.parent, "server_data"):
-                self.parent.server_data["session_output_device_id"] = out_dev.id
-                self.parent.server_data["session_output_device_name"] = out_dev.name
-
-        # 2. Update Input Device
-        if in_dev:
+        if 0 <= in_sel < len(self._input_devices):
+            in_dev = self._input_devices[in_sel]
             self.ttclient.set_input_device_live(in_dev.id)
             if hasattr(self.parent, "selected_mic_device_id"):
                 self.parent.selected_mic_device_id = in_dev.id
@@ -1458,35 +1552,92 @@ class SessionAudioDevicesDialog(wx.Dialog):
                 self.parent.server_data["session_input_device_name"] = in_dev.name
                 self.parent.server_data["selected_mic_device_id"] = in_dev.id
                 self.parent.server_data["selected_mic_device_name"] = in_dev.name
+                if hasattr(self.parent, "save_server_settings"):
+                    self.parent.save_server_settings()
 
-        # 3. Update Gain Level
-        gain_pct = self.spin_gain.GetValue()
-        gain_val = gain_pct * 10
-        try:
-            import TeamTalkPy
-            TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(self.ttclient.tt._tt, gain_val)
-        except Exception as e:
-            logging.error(f"Error setting gain level: {e}")
+    def on_output_changed(self, event):
+        if not self.ttclient:
+            return
+        out_sel = self.choice_output.GetSelection()
+        if 0 <= out_sel < len(self._output_devices):
+            out_dev = self._output_devices[out_sel]
+            self.ttclient.set_output_device(out_dev.id)
+            if hasattr(self.parent, "server_data"):
+                self.parent.server_data["session_output_device_id"] = out_dev.id
+                self.parent.server_data["session_output_device_name"] = out_dev.name
+                if hasattr(self.parent, "save_server_settings"):
+                    self.parent.save_server_settings()
+
+    def on_master_vol_changed(self, event):
+        vol_pct = self.slider_master_vol.GetValue()
+        if hasattr(self, "lbl_master_val"):
+            self.lbl_master_val.SetLabel(f"{vol_pct}%")
+        if self.ttclient:
+            vol_val = int(vol_pct * 20)
+            try:
+                import TeamTalkPy
+                TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputVolume(self.ttclient.tt._tt, vol_val)
+            except Exception as e:
+                logging.error(f"Error setting master output volume: {e}")
         if hasattr(self.parent, "server_data"):
-            self.parent.server_data["session_gain"] = gain_pct
+            self.parent.server_data["master_volume"] = vol_pct
+            if hasattr(self.parent, "save_server_settings"):
+                self.parent.save_server_settings()
 
-        # 4. Update Voice Transmission
-        enable_tx = self.chk_transmit.GetValue()
-        if enable_tx:
-            self.ttclient.enable_voice_transmission()
-            if hasattr(self.parent, "chk_mic"):
-                self.parent.chk_mic.SetValue(True)
-        else:
-            self.ttclient.disable_voice_transmission()
-            if hasattr(self.parent, "chk_mic"):
-                self.parent.chk_mic.SetValue(False)
-
+    def on_mic_vol_changed(self, event):
+        mic_pct = self.slider_mic_vol.GetValue()
+        if hasattr(self, "lbl_mic_val"):
+            self.lbl_mic_val.SetLabel(f"{mic_pct}%")
+        if self.ttclient:
+            gain_val = int(mic_pct * 20)
+            try:
+                import TeamTalkPy
+                TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(self.ttclient.tt._tt, gain_val)
+            except Exception as e:
+                logging.error(f"Error setting mic volume: {e}")
         if hasattr(self.parent, "server_data"):
-            self.parent.server_data["mic_enabled"] = enable_tx
-            self.parent.server_data["session_sound_system"] = sys_id
+            self.parent.server_data["mic_gain"] = mic_pct
+            self.parent.server_data["session_gain"] = mic_pct
+            if hasattr(self.parent, "save_server_settings"):
+                self.parent.save_server_settings()
 
-        # Persist all audio settings to servers.json
-        if hasattr(self.parent, "save_server_settings"):
-            self.parent.save_server_settings()
+    def _handle_slider_key(self, slider, on_change_callback, event):
+        key = event.GetKeyCode()
+        cur_val = slider.GetValue()
+        new_val = None
 
-        self.EndModal(wx.ID_OK)
+        if key in (wx.WXK_UP, wx.WXK_RIGHT):
+            new_val = min(100, cur_val + 1)
+        elif key in (wx.WXK_DOWN, wx.WXK_LEFT):
+            new_val = max(0, cur_val - 1)
+        elif key == wx.WXK_PAGEUP:
+            new_val = min(100, cur_val + 5)
+        elif key == wx.WXK_PAGEDOWN:
+            new_val = max(0, cur_val - 5)
+        elif key == wx.WXK_HOME:
+            new_val = 0
+        elif key == wx.WXK_END:
+            new_val = 100
+
+        if new_val is not None:
+            if new_val != cur_val:
+                slider.SetValue(new_val)
+                try:
+                    import ctypes
+                    ctypes.windll.user32.NotifyWinEvent(0x800E, slider.GetHandle(), -4, 0)
+                except Exception:
+                    pass
+                on_change_callback(event)
+            return
+
+        event.Skip()
+
+    def on_master_slider_key(self, event):
+        self._handle_slider_key(self.slider_master_vol, self.on_master_vol_changed, event)
+
+    def on_mic_slider_key(self, event):
+        self._handle_slider_key(self.slider_mic_vol, self.on_mic_vol_changed, event)
+
+    def on_close(self, event=None):
+        self.EndModal(wx.ID_CLOSE)
+

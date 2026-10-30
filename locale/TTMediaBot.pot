@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-29 17:07+0700\n"
+"POT-Creation-Date: 2026-10-30 07:58+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,15 +196,15 @@ msgstr ""
 msgid "&Gender:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:571
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:595
 msgid "None"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:573
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:597
 msgid "Male"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:569
+#: D:/TTMediaBot/bot/gui.py:847 D:/TTMediaBot/bot/session_gui.py:593
 msgid "Female"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "Event Handlers &File Name:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1111 D:/TTMediaBot/bot/session_gui.py:1320
+#: D:/TTMediaBot/bot/gui.py:1111
 msgid "&OK"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1112 D:/TTMediaBot/bot/session_gui.py:1323
+#: D:/TTMediaBot/bot/gui.py:1112
 msgid "&Cancel"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:1525 D:/TTMediaBot/bot/gui.py:1737
 #: D:/TTMediaBot/bot/gui.py:1875 D:/TTMediaBot/bot/session_gui.py:158
-#: D:/TTMediaBot/bot/session_gui.py:1083
+#: D:/TTMediaBot/bot/session_gui.py:1168 D:/TTMediaBot/bot/session_gui.py:1438
 msgid "&Close"
 msgstr ""
 
@@ -506,8 +506,8 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1563 D:/TTMediaBot/bot/session_gui.py:689
-#: D:/TTMediaBot/bot/session_gui.py:779 D:/TTMediaBot/bot/session_gui.py:1164
+#: D:/TTMediaBot/bot/gui.py:1563 D:/TTMediaBot/bot/session_gui.py:735
+#: D:/TTMediaBot/bot/session_gui.py:825 D:/TTMediaBot/bot/session_gui.py:1249
 msgid "Error"
 msgstr ""
 
@@ -829,7 +829,7 @@ msgid ""
 msgstr ""
 
 #: D:/TTMediaBot/bot/gui.py:2749 D:/TTMediaBot/bot/gui.py:2783
-#: D:/TTMediaBot/bot/gui.py:2820 D:/TTMediaBot/bot/session_gui.py:812
+#: D:/TTMediaBot/bot/gui.py:2820 D:/TTMediaBot/bot/session_gui.py:860
 msgid "Notice"
 msgstr ""
 
@@ -925,11 +925,11 @@ msgstr ""
 msgid "Type message here and press Enter to send..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:118 D:/TTMediaBot/bot/session_gui.py:1077
+#: D:/TTMediaBot/bot/session_gui.py:118 D:/TTMediaBot/bot/session_gui.py:1162
 msgid "&Send"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:119 D:/TTMediaBot/bot/session_gui.py:1078
+#: D:/TTMediaBot/bot/session_gui.py:119 D:/TTMediaBot/bot/session_gui.py:1163
 msgid "Send"
 msgstr ""
 
@@ -970,17 +970,15 @@ msgid "Temporarily mute incoming audio from TeamTalk"
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:148
-msgid "&Input & Output Devices..."
+msgid "&Sound Configuration..."
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:149
-msgid "Input and Output Devices"
+msgid "Sound Configuration"
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:150
-msgid ""
-"Configure sound input and output devices for TeamTalk (Hotkeys, computer "
-"audio, mic)"
+msgid "Configure TeamTalk sound system, audio devices, and volume levels"
 msgstr ""
 
 #: D:/TTMediaBot/bot/session_gui.py:153
@@ -995,7 +993,7 @@ msgstr ""
 msgid "Disconnect from this TeamTalk server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:159 D:/TTMediaBot/bot/session_gui.py:1084
+#: D:/TTMediaBot/bot/session_gui.py:159 D:/TTMediaBot/bot/session_gui.py:1169
 msgid "Close"
 msgstr ""
 
@@ -1003,7 +1001,7 @@ msgstr ""
 msgid "Close this session window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:266 D:/TTMediaBot/bot/session_gui.py:534
+#: D:/TTMediaBot/bot/session_gui.py:266 D:/TTMediaBot/bot/session_gui.py:538
 msgid "Channel:"
 msgstr ""
 
@@ -1011,186 +1009,198 @@ msgstr ""
 msgid "Status: Connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:409
+#: D:/TTMediaBot/bot/session_gui.py:413
 msgid "Status: Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:410
+#: D:/TTMediaBot/bot/session_gui.py:414
 msgid "Channel: Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:419 D:/TTMediaBot/bot/session_gui.py:593
-#: D:/TTMediaBot/bot/session_gui.py:601 D:/TTMediaBot/bot/session_gui.py:634
+#: D:/TTMediaBot/bot/session_gui.py:423 D:/TTMediaBot/bot/session_gui.py:639
+#: D:/TTMediaBot/bot/session_gui.py:647 D:/TTMediaBot/bot/session_gui.py:680
 msgid "&Users in channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:578
+#: D:/TTMediaBot/bot/session_gui.py:612
+msgid "Admin"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:614
+msgid "Operator"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:616
+msgid "User"
+msgstr ""
+
+#: D:/TTMediaBot/bot/session_gui.py:626
 msgid "Away"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:580
+#: D:/TTMediaBot/bot/session_gui.py:628
 msgid "Question"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:663 D:/TTMediaBot/bot/session_gui.py:1140
+#: D:/TTMediaBot/bot/session_gui.py:709 D:/TTMediaBot/bot/session_gui.py:1225
 msgid "Cannot send message: Not connected to server."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:664 D:/TTMediaBot/bot/session_gui.py:1141
+#: D:/TTMediaBot/bot/session_gui.py:710 D:/TTMediaBot/bot/session_gui.py:1226
 msgid "Warning"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:688 D:/TTMediaBot/bot/session_gui.py:1163
+#: D:/TTMediaBot/bot/session_gui.py:734 D:/TTMediaBot/bot/session_gui.py:1248
 msgid "Failed to send message:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:778
+#: D:/TTMediaBot/bot/session_gui.py:824
 msgid "Failed to activate microphone. Please check your microphone connection."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:811
+#: D:/TTMediaBot/bot/session_gui.py:859
 msgid "Not connected to server."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:825
+#: D:/TTMediaBot/bot/session_gui.py:873
 msgid "Are you sure you want to disconnect from this server?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:826
+#: D:/TTMediaBot/bot/session_gui.py:874
 msgid "Confirm Disconnect"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:897
+#: D:/TTMediaBot/bot/session_gui.py:945
 msgid "&Private Message..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:900
+#: D:/TTMediaBot/bot/session_gui.py:948
 #, python-brace-format
 msgid "&Mention '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:903
+#: D:/TTMediaBot/bot/session_gui.py:951
 msgid "&Copy User Info"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:933 D:/TTMediaBot/bot/session_gui.py:1190
+#: D:/TTMediaBot/bot/session_gui.py:981 D:/TTMediaBot/bot/session_gui.py:1275
 msgid "&Copy Selected Line"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:936 D:/TTMediaBot/bot/session_gui.py:1193
+#: D:/TTMediaBot/bot/session_gui.py:984 D:/TTMediaBot/bot/session_gui.py:1278
 msgid "Clear &History"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1008 D:/TTMediaBot/bot/session_gui.py:1032
+#: D:/TTMediaBot/bot/session_gui.py:1093 D:/TTMediaBot/bot/session_gui.py:1117
 #, python-brace-format
 msgid "Private Chat - {user}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1059
+#: D:/TTMediaBot/bot/session_gui.py:1144
 msgid "&Message History:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1061
+#: D:/TTMediaBot/bot/session_gui.py:1146
 msgid "Message History"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1069
+#: D:/TTMediaBot/bot/session_gui.py:1154
 msgid "&Message:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1071
+#: D:/TTMediaBot/bot/session_gui.py:1156
 msgid "Message"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1072
+#: D:/TTMediaBot/bot/session_gui.py:1157
 msgid "Type private message and press Enter..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1079
+#: D:/TTMediaBot/bot/session_gui.py:1164
 msgid "Send private message (Enter)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1085
+#: D:/TTMediaBot/bot/session_gui.py:1170
 msgid "Close this chat window (Escape)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1228
-msgid "Audio Devices (Input & Output) - TeamTalk"
+#: D:/TTMediaBot/bot/session_gui.py:1313
+msgid "Sound Configuration - TeamTalk"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1242 D:/TTMediaBot/bot/session_gui.py:1247
+#: D:/TTMediaBot/bot/session_gui.py:1327 D:/TTMediaBot/bot/session_gui.py:1332
 msgid "Windows Audio Session (WASAPI) [Recommended]"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1243
+#: D:/TTMediaBot/bot/session_gui.py:1328
 msgid "DirectSound"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1244
+#: D:/TTMediaBot/bot/session_gui.py:1329
 msgid "Windows Multimedia (WaveIn/WaveOut)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1250
+#: D:/TTMediaBot/bot/session_gui.py:1335
 msgid "Default Sound System"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1257
+#: D:/TTMediaBot/bot/session_gui.py:1342
 msgid "Sound &System:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1262
+#: D:/TTMediaBot/bot/session_gui.py:1347
 msgid "Sound System"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1282
+#: D:/TTMediaBot/bot/session_gui.py:1367
 msgid "&Input Device (Microphone / Computer Audio / VAC):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1284
+#: D:/TTMediaBot/bot/session_gui.py:1369
 msgid "Input Device"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1291
+#: D:/TTMediaBot/bot/session_gui.py:1377
 msgid "&Output Device (Headphones / Speakers):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1293
+#: D:/TTMediaBot/bot/session_gui.py:1379
 msgid "Output Device"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1302
-msgid "Input &Gain (%):"
+#: D:/TTMediaBot/bot/session_gui.py:1393
+msgid "&Master Volume:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1304
-msgid "Input Gain Percent"
+#: D:/TTMediaBot/bot/session_gui.py:1395
+msgid "Master Volume"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1308
-msgid "Enable &Voice Transmission"
+#: D:/TTMediaBot/bot/session_gui.py:1418
+msgid "Microphone &Volume:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1309
-msgid "Enable Voice Transmission"
+#: D:/TTMediaBot/bot/session_gui.py:1420
+msgid "Microphone Volume"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1384
+#: D:/TTMediaBot/bot/session_gui.py:1488
 msgid "Computer Audio / Stereo Mix"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1386
+#: D:/TTMediaBot/bot/session_gui.py:1490
 msgid "Bot Music Player"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1388
+#: D:/TTMediaBot/bot/session_gui.py:1492
 msgid "Microphone"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1412
+#: D:/TTMediaBot/bot/session_gui.py:1516
 msgid "Headphones"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1414
+#: D:/TTMediaBot/bot/session_gui.py:1518
 msgid "Speakers"
 msgstr ""
 
