@@ -4,45 +4,73 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🚀 [Unreleased] — Interactive Sessions, Sound Configuration, Volume Sliders & Direct Messaging
+## 🚀 [Unreleased] — Official TeamTalk 5 Tree View Interface, Full Sound Events, Screen Reader Announcements & Smart Device Detection
+
+### 🌳 TeamTalk 5 Tree View Hierarchy & Instant Channel Navigation
+- **Authentic TeamTalk 5 Tree View (`wx.TreeCtrl`):** Replaced the flat user list with a complete, accessible hierarchical Tree View matching the official TeamTalk 5 client. Users and channels are displayed in their real directory tree:
+  - **Channels & Sub-channels:** Root channels, sub-channels, and nested channels are organized hierarchically with standard expand (`Right Arrow`) and collapse (`Left Arrow`) keyboard navigation.
+  - **Users Inside Channels:** Each channel lists the users currently residing inside it, showing their nickname, real-time microphone transmission status (`🎤`), gender, and role.
+  - **Current Channel Indicator:** The channel you are currently in is clearly marked with `[Current]` so you and screen readers always know where you are.
+- **Enter to Join & Auto-Expand Channel:**
+  - Pressing **Enter** (or double-clicking) on any channel in the Tree View immediately moves you into that channel.
+  - **Automatic Expansion:** Upon joining, the channel (and all parent channels) automatically expands to reveal all sub-channels and participants inside, eliminating the need to manually press the Right Arrow key.
+- **Accessible Channel Password Prompt (`ChannelPasswordDialog`):**
+  - When entering a password-protected channel, a dedicated modal prompt opens requesting the channel password.
+  - **Protected & Secure:** Input characters are masked by default (`*`) to ensure privacy.
+  - **Show Password Checkbox (`Alt + S`):** Users can toggle a checkbox to view the password characters in plain text directly on screen, leveraging Win32 `EM_SETPASSWORDCHAR` for full accessibility.
+  - **Enter to Submit:** Simply press **Enter** after typing the password to join the channel immediately.
+- **Channel Context Menu:** Right-clicking on any channel provides a context menu with options to **Join Channel** or **Copy Channel Name** to the clipboard.
+- **Instant Private Chat on User Activation:** Pressing **Enter** or double-clicking on any user inside a channel opens a private chat window with them and focuses the input box right away.
+
+### 🔔 Authentic TeamTalk 5 Sound Events
+- **100% Parity with Official TeamTalk 5 Client:** Integrated complete sound event mappings directly modeled after the TeamTalk 5 desktop client source code (`mainwindow.cpp` and `TeamTalkDlg.cpp`):
+  - **User Logged On (`logged_on.wav`):** Plays when any user logs in to the server.
+  - **User Logged Off (`logged_off.wav`):** Plays when a user logs out from the server.
+  - **User Joined Channel (`newuser.wav`):** Plays when a user enters the channel you are currently in.
+  - **User Left Channel (`removeuser.wav`):** Plays when a user leaves your current channel.
+  - **Public Channel Message Received (`channel_msg.wav`):** Plays whenever someone posts a message in the channel.
+  - **Public Channel Message Sent (`channel_msg_sent.wav`):** Plays confirmation audio when you send a message to the channel.
+  - **Private Message Received (`user_msg.wav`):** Plays an alert when receiving a direct private message or `pm` command.
+  - **Private Message Sent (`user_msg_sent.wav`):** Plays confirmation audio when you send a reply in a private chat window.
+  - **Broadcast Message (`broadcast_msg.wav`):** Plays upon receiving a server broadcast.
+  - **Voice Activation / Hotkey Feedback (`voiceact_on.wav` / `voiceact_off.wav`):** Plays audio cues when toggling the microphone on or off.
+  - **Server Disconnection Alert (`serverlost.wav`):** Plays when the connection to the server is lost.
+- **Sound Events Toggle (`Alt + E`):** Toggle sound notifications on or off at any time using the checkbox or hotkey. Preferences are saved per server.
+
+### 📢 Screen Reader Announcement Engine (TTS & Braille via UniversalSpeech)
+- **Universal Accessibility Engine (`bot/accessibility.py`):** Added native screen reader support powered by the 64-bit `UniversalSpeech` library, providing synchronized text-to-speech and refreshable Braille output across NVDA, JAWS, System Access, SuperNova, and Windows SAPI:
+  - **User Login & Logout Announcements:** Screen readers announce whenever someone connects or disconnects (`"{user} đã đăng nhập"` / `"{user} đã đăng xuất"`).
+  - **Channel Movement Announcements:** Informs you when someone joins or leaves your channel (`"{user} đã tham gia kênh"` / `"{user} đã rời khỏi kênh"`), and confirms when you enter a channel (`"Đã tham gia kênh {channel}"`).
+  - **Spoken Chat Messages:** Automatically reads incoming channel messages (`"{user}: {message}"`) and private messages (`"Tin nhắn riêng từ {user}: {message}"`).
+  - **Sent Message Confirmations:** Confirms outgoing public and private messages without requiring manual history navigation.
+  - **Device & Output State Changes:** Speaks real-time feedback when toggling your microphone (`"Đã bật micro"` / `"Đã tắt micro"`) or muting output sound (`"Đã tắt tiếng"` / `"Đã bật tiếng"`).
+  - **Disconnection Alert:** Screen readers immediately announce `"Mất kết nối tới máy chủ"` if the connection drops.
+
+### 🎙️ Enhanced Sound Configuration, OK/Enter to Save & Automatic Hardware Detection
+- **Explicit OK Button & Enter to Save:**
+  - Added an **OK** button (`btn_ok`) set as the default button in the **Sound Configuration** dialog (`SessionAudioDevicesDialog`).
+  - **Prevent Mid-Navigation Errors:** Users can freely navigate through audio devices and systems using arrow keys without triggering premature device re-initialization or driver lockups.
+  - **One-Key Save (Enter):** Pressing **Enter** anywhere in the dialog (or activating OK) applies and saves all choices (Sound System, Microphone Device, Output Device, Master Volume, and Mic Volume) and announces `"Đã lưu thiết lập âm thanh thành công"`.
+- **Manual "Refresh Devices" Button (`Alt + R`):**
+  - Added a dedicated **Refresh Devices** (`&Refresh Devices`) button. Clicking it forces TeamTalk's sound system to reinitialize (`TT_RestartSoundSystem()`) and re-scans all audio inputs/outputs while preserving your currently selected device.
+- **Automatic Hardware Device Detection (`WM_DEVICECHANGE`):**
+  - Both the chat session window and Sound Configuration dialog register for Windows device notifications (`RegisterDeviceNotificationW`) and listen for native OS hardware broadcast events (`WM_DEVICECHANGE`) as well as TeamTalk's internal sound device events (`CLIENTEVENT_SOUNDDEVICE_ADDED`, `CLIENTEVENT_SOUNDDEVICE_REMOVED`, `CLIENTEVENT_SOUNDDEVICE_UNPLUGGED`).
+  - **Plug-and-Play Detection:** Whenever a USB headset, microphone, or external audio interface is plugged in or unplugged:
+    - The device lists automatically refresh in real time without restarting the application or reconnecting to the server.
+    - Screen readers announce the change: `"Đã phát hiện thiết bị âm thanh mới. Danh sách thiết bị đã được tự động làm mới."` or `"Thiết bị âm thanh đã ngắt kết nối. Danh sách thiết bị đã được cập nhật."`.
+- **Master & Microphone Volume Sliders:**
+  - Accessible sliders for Master Playback Volume and Microphone Volume (0%–100%) with live percentage feedback, 1% arrow key steps, and 5% Page Up/Down steps.
+- **Per-Server Settings Persistence:** Audio hardware selections and volume levels are remembered and restored per server upon reconnect.
 
 ### 💬 Interactive Server Sessions & Private Chat Windows
 - **Interactive Session Chat Toggle (Experimental):** Added a new checkbox in the **Settings** window labeled **Enable interactive session chat window (Experimental)**.
   - **Disabled by default:** When disabled, pressing **Enter** on any server in the list simply connects the bot quietly in the background without opening any extra windows. The operator messaging command (`pm`) is also disabled to keep things simple and silent.
   - **Turn on whenever you want:** Enabling the checkbox brings back the full interactive session window on connection, user lists, and allows channel members to contact you using `pm`.
 - **Dedicated Server Session Window:** When you connect to a server with the session window enabled, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
-- **Detailed User List:** The channel user list displays each person's nickname, real-time microphone transmission status (marked with `🎤` when speaking), gender (Male, Female, or None), user role (Admin, Operator, or User), and their custom status message.
 - **Instant Private Chat on Enter:** Simply press **Enter** or double-click on any user in the channel list to immediately open a separate private chat window with them. The cursor automatically lands in the message box, allowing you to start typing and send messages right away.
 - **Alt + Tab Friendly & Easy to Close:** The private chat window appears as its own independent window in Alt + Tab. Pressing **Escape** closes the private chat without disturbing your main session.
 - **Persistent Chat History:** Private chat conversations are safely kept for every person you talk to, so switching between users or reopening a chat window keeps your conversation history intact until you disconnect.
 - **Consistent Message Timestamps:** All public and private chat entries now place timestamps clearly at the end of each message (`Nickname: Message [HH:MM:SS]`), making conversations clean and easy to read.
-
-### 🔔 Familiar TeamTalk Sound Events in Chat Sessions
-- **Feels Just Like Classic TeamTalk:** You now get familiar, friendly sound notifications right inside the chat window, exactly as you are used to in the official TeamTalk client.
-- **Never Miss a Message:**
-  - **New Channel Message:** Plays a crisp notification sound whenever someone sends a message in the channel.
-  - **Message Sent:** Plays a gentle confirmation tone when you press Enter to send a channel message, letting you know it went through successfully.
-  - **Private Message Alert:** Plays a distinct sound whenever someone sends you a private message or uses the `pm` command.
-  - **Private Message Sent:** Plays a soft confirmation tone when you send a reply in a private chat window.
-- **Know Who Enters and Leaves:**
-  - **User Joined Channel:** A friendly chime sounds when someone enters or moves into your channel.
-  - **User Left Channel:** A chime sounds when someone leaves the channel or disconnects.
-  - *(Smart & Quiet):* Changing channels yourself won't trigger noisy alerts for everyone already sitting in the room.
-- **Voice & Connection Feedback:**
-  - **Microphone On / Off:** Plays audio feedback when you press **F8** or toggle your microphone, so you always know whether you are live or muted.
-  - **Server Disconnected:** Plays a distinct sound alert if the connection to the server drops.
-- **Easy One-Click Toggle (Alt + E):**
-  - Prefer complete silence? Just press **`Alt + E`** or uncheck **Sound Events** in the session window anytime. Your choice is remembered automatically for each server.
-- **Screen Reader & Keyboard Friendly:** All sound events play quietly in the background without interrupting your screen reader (NVDA, JAWS) or slowing down typing.
-
-### 🎙️ Sound Configuration & Dual Volume Sliders
-- **Instant Save & Sound Configuration Dialog:** Replaced the legacy input/output devices dialog with **Sound Configuration**, removing the manual OK button. Any selection for sound system, input device, output device, or volume level is applied and saved immediately in real time.
-- **Master Volume Slider (Global Output):** Added a master playback volume slider (0%–100%) to control all incoming TeamTalk sound. Defaults to **50%** (TeamTalk's baseline `1000` level), allowing you to either soften audio or amplify it above normal.
-- **Microphone Volume Slider:** Added a dedicated microphone volume slider (0%–100%) to control your voice input level, defaulting to **50%** (baseline `1000` level) with gain boost when increased.
-- **Accessible & Screen Reader Friendly:** Both sliders announce their full accessible labels (Master Volume / Microphone Volume) to NVDA and JAWS, with intuitive keyboard controls (Up/Right arrow to increase +1%, Down/Left arrow to decrease -1%, Page Up/Down to step by ±5%, and Home/End for min/max).
-- **Dedicated External Microphone Toggle:** Voice transmission is solely toggled via the main session window's **Microphone (Voice)** checkbox or **F8** hotkey, keeping audio device configuration clean and separate.
-- **Settings Remembered Per Server:** Output device, input device, sound system, master volume, and microphone volume are automatically remembered and restored whenever you reconnect to that server.
-- **Clear Device Identification:** In the Sound Configuration window, every microphone and speaker displays its unique device ID (e.g. `[ID: 27]`), so you can easily choose the exact physical device you want even if two sound cards have identical names.
 
 ### 📬 Direct Operator Messaging Command (`pm`)
 - **Single, Simple Command for Everyone:** Channel members can now reach the bot operator at any time using the unified command:

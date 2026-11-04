@@ -10,6 +10,7 @@ import wx.adv
 from bot.TeamTalk.structs import Event, EventType, MessageType, State
 from bot.gui import translate
 from bot import sound_events
+from bot import accessibility
 
 
 def _safe_str(val: Any) -> str:
@@ -19,6 +20,135 @@ def _safe_str(val: Any) -> str:
     if isinstance(val, bytes):
         return val.decode("utf-8", errors="replace").strip()
     return str(val).strip()
+
+
+def _t(text: str) -> str:
+    """Translation helper with built-in fallbacks for tree view and channel dialogs."""
+    res = translate(text)
+    if res == text:
+        try:
+            from bot.gui import get_gui_translator
+            locale = get_gui_translator().get_locale()
+        except Exception:
+            locale = "en"
+        if locale == "vi":
+            vi_dict = {
+                "Channels and Users": "Kênh và người dùng",
+                "&Channels and Users:": "&Kênh và người dùng:",
+                "Channels and Users (%d)": "Kênh và người dùng (%d)",
+                "Password protected": "Có mật khẩu",
+                "Enter Password": "Nhập mật khẩu",
+                "Channel Password": "Mật khẩu kênh",
+                "Please enter password for channel '{channel}':": "Vui lòng nhập mật khẩu cho kênh '{channel}':",
+                "&Password:": "&Mật khẩu:",
+                "&Show password": "&Hiển thị mật khẩu",
+                "&Join Channel": "&Tham gia kênh",
+                "&Copy Channel Name": "&Sao chép tên kênh",
+                "Failed to join channel": "Không thể tham gia kênh",
+                "Current": "Hiện tại",
+                "{user} has logged in": "{user} đã đăng nhập",
+                "{user} has logged out": "{user} đã đăng xuất",
+                "{user} joined channel": "{user} đã tham gia kênh",
+                "{user} left channel": "{user} đã rời khỏi kênh",
+                "Private message from {user}: {message}": "Tin nhắn riêng từ {user}: {message}",
+                "Private message sent: {message}": "Đã gửi tin nhắn riêng: {message}",
+                "Channel message from {user}: {message}": "{user}: {message}",
+                "Channel message sent: {message}": "{message}",
+                "Broadcast message from {user}: {message}": "Tin nhắn từ {user}: {message}",
+                "Microphone enabled": "Đã bật micro",
+                "Microphone disabled": "Đã tắt micro",
+                "Sound output muted": "Đã tắt tiếng",
+                "Sound output unmuted": "Đã bật tiếng",
+                "Joined channel {channel}": "Đã tham gia kênh {channel}",
+                "Connection lost to server": "Mất kết nối tới máy chủ",
+                "&OK": "&Đồng ý",
+                "&Cancel": "&Hủy",
+                "&Refresh Devices": "&Làm mới thiết bị",
+                "Refresh Devices": "Làm mới thiết bị",
+                "Sound settings saved successfully": "Đã lưu thiết lập âm thanh thành công",
+                "Audio devices list refreshed": "Đã làm mới danh sách thiết bị âm thanh",
+                "New audio device detected. Device list refreshed.": "Đã phát hiện thiết bị âm thanh mới. Danh sách thiết bị đã được tự động làm mới.",
+                "Audio device disconnected. Device list updated.": "Thiết bị âm thanh đã ngắt kết nối. Danh sách thiết bị đã được cập nhật.",
+            }
+            return vi_dict.get(text, res)
+    return res
+
+
+class ChannelPasswordDialog(wx.Dialog):
+    """Accessible dialog prompting for channel password with hidden input and show password checkbox."""
+
+    def __init__(self, parent: wx.Window, channel_name: str, channel_id: int, initial_password: str = ""):
+        title = _t("Channel Password")
+        super().__init__(
+            parent,
+            title=title,
+            style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER,
+        )
+        self.channel_name = channel_name
+        self.channel_id = channel_id
+
+        panel = wx.Panel(self)
+        main_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        prompt_text = _t("Please enter password for channel '{channel}':").format(channel=channel_name)
+        self.lbl_prompt = wx.StaticText(panel, label=prompt_text)
+        main_sizer.Add(self.lbl_prompt, 0, wx.ALL, 10)
+
+        pass_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.lbl_pass = wx.StaticText(panel, label=_t("&Password:"))
+        self.txt_pass = wx.TextCtrl(panel, value=initial_password, style=wx.TE_PASSWORD | wx.TE_PROCESS_ENTER)
+        self.txt_pass.Bind(wx.EVT_TEXT_ENTER, self.on_ok)
+        pass_sizer.Add(self.lbl_pass, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 8)
+        pass_sizer.Add(self.txt_pass, 1, wx.ALIGN_CENTER_VERTICAL)
+        main_sizer.Add(pass_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+
+        self.chk_show = wx.CheckBox(panel, label=_t("&Show password"))
+        self.chk_show.SetValue(False)
+        self.chk_show.Bind(wx.EVT_CHECKBOX, self.on_toggle_show)
+        main_sizer.Add(self.chk_show, 0, wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
+
+        btn_sizer = wx.StdDialogButtonSizer()
+        self.btn_ok = wx.Button(panel, wx.ID_OK, label=translate("&OK"))
+        self.btn_cancel = wx.Button(panel, wx.ID_CANCEL, label=translate("&Cancel"))
+        self.btn_ok.SetDefault()
+        btn_sizer.AddButton(self.btn_ok)
+        btn_sizer.AddButton(self.btn_cancel)
+        btn_sizer.Realize()
+
+        self.btn_ok.Bind(wx.EVT_BUTTON, self.on_ok)
+        self.btn_cancel.Bind(wx.EVT_BUTTON, self.on_cancel)
+
+        main_sizer.Add(btn_sizer, 0, wx.ALIGN_RIGHT | wx.ALL, 10)
+
+        panel.SetSizer(main_sizer)
+        dlg_sizer = wx.BoxSizer(wx.VERTICAL)
+        dlg_sizer.Add(panel, 1, wx.EXPAND)
+        self.SetSizerAndFit(dlg_sizer)
+        self.SetMinSize((380, 180))
+        self.CentreOnParent()
+
+        wx.CallAfter(self.txt_pass.SetFocus)
+
+    def on_toggle_show(self, event=None):
+        show = self.chk_show.GetValue()
+        hwnd = self.txt_pass.GetHandle()
+        try:
+            import ctypes
+            char_code = 0 if show else ord('*')
+            ctypes.windll.user32.SendMessageW(hwnd, 0x00CC, char_code, 0)
+            ctypes.windll.user32.InvalidateRect(hwnd, None, True)
+            self.txt_pass.Refresh()
+        except Exception:
+            pass
+
+    def on_ok(self, event=None):
+        self.EndModal(wx.ID_OK)
+
+    def on_cancel(self, event=None):
+        self.EndModal(wx.ID_CANCEL)
+
+    def get_password(self) -> str:
+        return self.txt_pass.GetValue()
 
 
 class ServerSessionDialog(wx.Dialog):
@@ -57,13 +187,21 @@ class ServerSessionDialog(wx.Dialog):
         self._last_channel_id = -1
         self._last_channel_uids: Optional[set] = None
         self._last_users: List[tuple] = []
+        self._channel_items: Dict[int, wx.TreeItemId] = {}
+        self._user_items: Dict[int, wx.TreeItemId] = {}
+        self._channel_passwords: Dict[int, str] = {}
+        self._pending_expand_cids: set = set()
+        self._last_tree_snapshot = None
         self._is_muted = False
         self._closing = False
         self.private_chat_window: Optional[Any] = None
         self.private_chat_histories: Dict[int, List[str]] = {}
+        self.audio_devices_dialog: Optional[Any] = None
 
         self._init_ui()
         self.CentreOnParent()
+
+        self._init_device_change_notification()
 
         # Timer for polling connection state and channel synchronization
         self.timer = wx.Timer(self)
@@ -128,13 +266,21 @@ class ServerSessionDialog(wx.Dialog):
         self.btn_send.Bind(wx.EVT_BUTTON, self.on_send_message)
         self.btn_send.Show(False)
 
-        # 4. Channel Users List (Tab from Message input lands here)
-        self.lbl_users = wx.StaticText(panel, label=translate("&Users in channel (0):"))
-        self.list_users = wx.ListBox(panel, style=wx.LB_SINGLE)
-        self.list_users.SetName(translate("Users in channel"))
-        self.list_users.Bind(wx.EVT_LISTBOX_DCLICK, self.on_user_activated)
-        self.list_users.Bind(wx.EVT_KEY_DOWN, self.on_user_key_down)
-        self.list_users.Bind(wx.EVT_CONTEXT_MENU, self.on_user_context_menu)
+        # 4. Channels and Users Tree View (Tab from Message input lands here)
+        self.lbl_tree = wx.StaticText(panel, label=_t("&Channels and Users:"))
+        self.tree_session = wx.TreeCtrl(
+            panel,
+            style=wx.TR_DEFAULT_STYLE | wx.TR_HAS_BUTTONS | wx.TR_LINES_AT_ROOT | wx.TR_SINGLE,
+        )
+        self.tree_session.SetName(_t("Channels and Users"))
+        self.tree_session.Bind(wx.EVT_TREE_ITEM_ACTIVATED, self.on_tree_item_activated)
+        self.tree_session.Bind(wx.EVT_KEY_DOWN, self.on_tree_key_down)
+        self.tree_session.Bind(wx.EVT_TREE_ITEM_MENU, self.on_tree_context_menu)
+        self.tree_session.Bind(wx.EVT_CONTEXT_MENU, self.on_tree_context_menu)
+
+        # Aliases for backwards compatibility
+        self.lbl_users = self.lbl_tree
+        self.list_users = self.tree_session
 
         # 5. Checkboxes (Tab from Users lands here)
         self.selected_mic_device_id = self.server_data.get("selected_mic_device_id")
@@ -174,7 +320,7 @@ class ServerSessionDialog(wx.Dialog):
         self.btn_close.Bind(wx.EVT_BUTTON, lambda e: self.Close())
 
         # ---------------- Layout Controls in Sizers ----------------
-        # Content row: History (Left) and Users (Right)
+        # Content row: History (Left) and Channels/Users Tree (Right)
         content_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
         history_col = wx.BoxSizer(wx.VERTICAL)
@@ -182,10 +328,10 @@ class ServerSessionDialog(wx.Dialog):
         history_col.Add(self.list_history, 1, wx.EXPAND)
         content_sizer.Add(history_col, 3, wx.EXPAND | wx.RIGHT, 8)
 
-        users_col = wx.BoxSizer(wx.VERTICAL)
-        users_col.Add(self.lbl_users, 0, wx.BOTTOM, 4)
-        users_col.Add(self.list_users, 1, wx.EXPAND)
-        content_sizer.Add(users_col, 2, wx.EXPAND)
+        tree_col = wx.BoxSizer(wx.VERTICAL)
+        tree_col.Add(self.lbl_tree, 0, wx.BOTTOM, 4)
+        tree_col.Add(self.tree_session, 1, wx.EXPAND)
+        content_sizer.Add(tree_col, 2, wx.EXPAND)
         main_sizer.Add(content_sizer, 1, wx.EXPAND | wx.ALL, 10)
 
         # Controls row: Checkboxes and Action buttons
@@ -224,10 +370,10 @@ class ServerSessionDialog(wx.Dialog):
             self.on_toggle_mic()
             return
         elif key in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
-            # If user presses Enter while focusing the channel user list, activate private chat immediately
+            # If user presses Enter while focusing the tree view, activate channel/user immediately
             focused = self.FindFocus()
-            if focused == self.list_users:
-                self.on_user_activated(event)
+            if focused == self.tree_session or focused == self.list_users:
+                self.on_tree_item_activated()
                 return
         elif key == wx.WXK_ESCAPE:
             # Do not close on Escape key in main session dialog; user requested to click Close button
@@ -257,6 +403,8 @@ class ServerSessionDialog(wx.Dialog):
         if self._closing:
             return
         self._check_bot_connection()
+        if self._is_attached and self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
+            self.refresh_channels_and_users()
 
     def _check_bot_connection(self):
         active_bots = getattr(self.parent, "active_bots", {})
@@ -427,6 +575,7 @@ class ServerSessionDialog(wx.Dialog):
         self._last_channel_uids = None
         self._last_users = []
         sound_events.play_sound(sound_events.SOUND_SERVER_LOST, enabled=self.is_sound_events_enabled())
+        accessibility.announce(_t("Connection lost to server"))
         self.lbl_status.SetLabel(translate("Status: Disconnected"))
         self.lbl_channel.SetLabel(translate("Channel: Disconnected"))
         self.chk_mic.SetValue(False)
@@ -436,8 +585,12 @@ class ServerSessionDialog(wx.Dialog):
                     self.bot.ttclient.restore_input_device()
             except Exception:
                 pass
-        self.list_users.Clear()
-        self.lbl_users.SetLabel(f"{translate('&Users in channel')} (0):")
+        if hasattr(self, "tree_session"):
+            self.tree_session.DeleteAllItems()
+        self._channel_items.clear()
+        self._user_items.clear()
+        self._last_tree_snapshot = None
+        self.lbl_tree.SetLabel(f"{_t('&Channels and Users:')}")
         # Clear private chat histories only when bot disconnects from server
         self.private_chat_histories.clear()
         if self.private_chat_window:
@@ -459,6 +612,7 @@ class ServerSessionDialog(wx.Dialog):
 
         # Open and bring to front the dedicated private chat window
         sound_events.play_sound(sound_events.SOUND_USER_MSG, enabled=self.is_sound_events_enabled())
+        accessibility.announce(_t("Private message from {user}: {message}").format(user=user_nickname, message=text))
         self.open_private_chat(user_id, user_nickname)
         if self.private_chat_window and self.private_chat_window.user_id == user_id:
             cnt = self.private_chat_window.list_history.GetCount()
@@ -478,16 +632,42 @@ class ServerSessionDialog(wx.Dialog):
         ev_type = event.event_type
 
         if ev_type == EventType.USER_JOINED:
+            # Check if myself joined a channel
+            my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
+            if event.user and getattr(event.user, "id", 0) == my_uid:
+                chan_name = ""
+                try:
+                    c = self.bot.ttclient.tt.getChannel(getattr(event.user, "channel_id", 0))
+                    if c:
+                        chan_name = _safe_str(getattr(c, "szName", ""))
+                except Exception:
+                    pass
+                if chan_name:
+                    accessibility.announce(_t("Joined channel {channel}").format(channel=chan_name))
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_LEFT:
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_LOGGEDIN:
-            pass
+            if event.user:
+                my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
+                uid = getattr(event.user, "id", 0)
+                if uid != my_uid:
+                    u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", "")) or f"User #{uid}"
+                    sound_events.play_sound(sound_events.SOUND_LOGGED_ON, enabled=self.is_sound_events_enabled())
+                    accessibility.announce(_t("{user} has logged in").format(user=u_name))
+            self.refresh_channels_and_users()
 
         elif ev_type == EventType.USER_LOGGEDOUT:
-            self.refresh_users_in_channel()
+            if event.user:
+                my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
+                uid = getattr(event.user, "id", 0)
+                if uid != my_uid:
+                    u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", "")) or f"User #{uid}"
+                    sound_events.play_sound(sound_events.SOUND_LOGGED_OFF, enabled=self.is_sound_events_enabled())
+                    accessibility.announce(_t("{user} has logged out").format(user=u_name))
+            self.refresh_channels_and_users()
 
         elif ev_type in (EventType.USER_UPDATE, EventType.STATE_CHANGE):
             self.refresh_users_in_channel()
@@ -527,6 +707,7 @@ class ServerSessionDialog(wx.Dialog):
                 # If this message was sent from someone else to us, automatically open the private chat window
                 if my_uid > 0 and sender_uid != my_uid:
                     sound_events.play_sound(sound_events.SOUND_USER_MSG, enabled=self.is_sound_events_enabled())
+                    accessibility.announce(_t("Private message from {user}: {message}").format(user=u_name, message=msg_text))
                     self.open_private_chat(sender_uid, u_name)
                     # If window was just opened or already active, add the message to the active list
                     if self.private_chat_window and self.private_chat_window.user_id == sender_uid:
@@ -547,9 +728,14 @@ class ServerSessionDialog(wx.Dialog):
             if msg.type == MessageType.Channel:
                 self.add_public_message(u_name, msg_text, time_str)
                 sound_events.play_sound(sound_events.SOUND_CHANNEL_MSG, enabled=self.is_sound_events_enabled())
+                accessibility.announce(_t("Channel message from {user}: {message}").format(user=u_name, message=msg_text))
+            elif msg.type == MessageType.Broadcast:
+                self.add_public_message(f"[Broadcast] {u_name}", msg_text, time_str)
+                sound_events.play_sound(sound_events.SOUND_BROADCAST_MSG, enabled=self.is_sound_events_enabled())
+                accessibility.announce(_t("Broadcast message from {user}: {message}").format(user=u_name, message=msg_text))
 
         elif ev_type == EventType.CHANNEL_NEW:
-            pass
+            self.refresh_channels_and_users()
 
         elif ev_type == EventType.CHANNEL_UPDATE:
             c_name = _safe_str(event.channel.name) or f"#{event.channel.id}"
@@ -560,13 +746,13 @@ class ServerSessionDialog(wx.Dialog):
                     self._last_channel_uids = None
                 self.lbl_channel.SetLabel(f"{translate('Channel:')} {c_name}")
                 self.SetTitle(f"{self.server_name} - {c_name} - TeamTalk")
-                self.refresh_users_in_channel()
+            self.refresh_channels_and_users()
 
         elif ev_type == EventType.CHANNEL_REMOVE:
-            pass
+            self.refresh_channels_and_users()
 
         elif ev_type == EventType.SERVER_UPDATE:
-            pass
+            self.refresh_channels_and_users()
 
         elif ev_type == EventType.BANNED_USER:
             pass
@@ -576,6 +762,9 @@ class ServerSessionDialog(wx.Dialog):
 
         elif ev_type in (EventType.CON_LOST, EventType.CON_FAILED):
             self.on_bot_disconnected()
+
+        elif ev_type in (getattr(EventType, "SOUNDDEVICE_ADDED", None), getattr(EventType, "SOUNDDEVICE_REMOVED", None), getattr(EventType, "SOUNDDEVICE_UNPLUGGED", None)):
+            self._on_wm_devicechange()
 
     def _format_user_display(self, u) -> str:
         """Formats a user for the channel users list: Nickname + Mic + (Gender, Role, Status)."""
@@ -655,72 +844,298 @@ class ServerSessionDialog(wx.Dialog):
         details_str = ", ".join(details)
         return f"{nick}{mic_icon} ({details_str})"
 
-    def refresh_users_in_channel(self):
-        """Updates the channel users listbox with nickname, gender, and status."""
+    def refresh_channels_and_users(self):
+        """Updates the channels and users tree view with channels and hierarchy."""
         if not self.bot or not hasattr(self.bot, "ttclient") or not self.bot.ttclient:
-            self.list_users.Clear()
-            self.lbl_users.SetLabel(f"{translate('&Users in channel')} (0):")
+            if hasattr(self, "tree_session"):
+                self.tree_session.DeleteAllItems()
+            self._channel_items.clear()
+            self._user_items.clear()
+            self._last_tree_snapshot = None
             self._last_users = []
+            if hasattr(self, "lbl_tree"):
+                self.lbl_tree.SetLabel(f"{_t('&Channels and Users:')}")
             return
 
         try:
-            cid = self.bot.ttclient.tt.getMyChannelID()
-            if cid <= 0:
-                self.list_users.Clear()
-                self.lbl_users.SetLabel(f"{translate('&Users in channel')} (0):")
-                self._last_users = []
-                return
+            tt = self.bot.ttclient.tt
+            my_cid = tt.getMyChannelID()
+            my_uid = tt.getMyUserID()
 
-            raw_users = self.bot.ttclient.tt.getChannelUsers(cid)
-            users_data: List[tuple] = []
-            for u in raw_users:
-                u_id = getattr(u, "nUserID", 0)
-                disp_str = self._format_user_display(u)
-                nick = _safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", "")) or f"User #{u_id}"
-                users_data.append((u_id, disp_str, nick))
-
-            users_data.sort(key=lambda item: item[2].lower())
-
-            curr_uids = {u[0] for u in users_data}
-            my_uid = self.bot.ttclient.tt.getMyUserID() if (self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient) else 0
-
-            # Play sound events for users joining or leaving the channel
-            if self._last_channel_uids is not None:
-                joined_uids = curr_uids - self._last_channel_uids
-                joined_uids.discard(my_uid)
-
-                left_uids = self._last_channel_uids - curr_uids
-                left_uids.discard(my_uid)
-
-                if joined_uids:
-                    sound_events.play_sound(sound_events.SOUND_NEW_USER, enabled=self.is_sound_events_enabled())
-                elif left_uids:
-                    sound_events.play_sound(sound_events.SOUND_REMOVE_USER, enabled=self.is_sound_events_enabled())
-
-            self._last_channel_uids = curr_uids
-
-            # Only refresh if the user list has actually changed
-            if users_data != self._last_users:
-                curr_sel = self.list_users.GetSelection()
-                sel_uid = None
-                if curr_sel != wx.NOT_FOUND and curr_sel < len(self._last_users):
-                    sel_uid = self._last_users[curr_sel][0]
-
-                self._last_users = list(users_data)
-                self.list_users.Clear()
-                sel_idx = wx.NOT_FOUND
-
-                for i, (u_id, disp_str, nick) in enumerate(users_data):
-                    self.list_users.Append(disp_str)
-                    if sel_uid is not None and u_id == sel_uid:
-                        sel_idx = i
-
-                if sel_idx != wx.NOT_FOUND:
-                    self.list_users.SetSelection(sel_idx)
-
-                self.lbl_users.SetLabel(f"{translate('&Users in channel')} ({len(users_data)}):")
+            raw_channels = list(tt.getServerChannels())
+            raw_users = list(tt.getServerUsers())
         except Exception as e:
-            logging.debug(f"Error refreshing channel users: {e}")
+            logging.debug(f"[SessionDialog] Error querying channels/users: {e}")
+            return
+
+        # Current channel user sound notification check
+        current_chan_raw_users = [u for u in raw_users if getattr(u, "nChannelID", 0) == my_cid]
+        curr_uids = {getattr(u, "nUserID", 0) for u in current_chan_raw_users}
+        if self._last_channel_uids is not None:
+            joined_uids = curr_uids - self._last_channel_uids
+            joined_uids.discard(my_uid)
+            left_uids = self._last_channel_uids - curr_uids
+            left_uids.discard(my_uid)
+            if joined_uids:
+                sound_events.play_sound(sound_events.SOUND_NEW_USER, enabled=self.is_sound_events_enabled())
+                for j_uid in joined_uids:
+                    u_obj = next((u for u in current_chan_raw_users if getattr(u, "nUserID", 0) == j_uid), None)
+                    j_nick = _safe_str(getattr(u_obj, "szNickname", "")) or _safe_str(getattr(u_obj, "szUsername", "")) or f"User #{j_uid}"
+                    accessibility.announce(_t("{user} joined channel").format(user=j_nick))
+            elif left_uids:
+                sound_events.play_sound(sound_events.SOUND_REMOVE_USER, enabled=self.is_sound_events_enabled())
+                for l_uid in left_uids:
+                    l_nick = f"User #{l_uid}"
+                    for prev_uid, _, p_nick in (self._last_users or []):
+                        if prev_uid == l_uid:
+                            l_nick = p_nick
+                            break
+                    accessibility.announce(_t("{user} left channel").format(user=l_nick))
+        self._last_channel_uids = curr_uids
+
+        # Update _last_users for current channel
+        users_data: List[tuple] = []
+        for u in current_chan_raw_users:
+            u_id = getattr(u, "nUserID", 0)
+            disp_str = self._format_user_display(u)
+            nick = _safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", "")) or f"User #{u_id}"
+            users_data.append((u_id, disp_str, nick))
+        users_data.sort(key=lambda item: item[2].lower())
+        self._last_users = users_data
+
+        mic_state = hasattr(self, "chk_mic") and self.chk_mic.GetValue()
+        chan_snap = tuple((c.nChannelID, c.nParentID, _safe_str(c.szName), bool(c.bPassword), getattr(c, "uChannelType", 0)) for c in raw_channels)
+        user_snap = tuple((getattr(u, "nUserID", 0), getattr(u, "nChannelID", 0), _safe_str(getattr(u, "szNickname", "")), getattr(u, "uUserState", 0), getattr(u, "nStatusMode", 0), _safe_str(getattr(u, "szStatusMsg", ""))) for u in raw_users)
+        snapshot = (my_cid, my_uid, mic_state, chan_snap, user_snap)
+
+        if snapshot == self._last_tree_snapshot:
+            return
+
+        is_initial = (self._last_tree_snapshot is None)
+
+        # 1. Record expanded channels
+        expanded_cids = set()
+        for cid, item in self._channel_items.items():
+            if item and item.IsOk() and self.tree_session.IsExpanded(item):
+                expanded_cids.add(cid)
+
+        # 2. Record selection
+        selected_data = None
+        sel_item = self.tree_session.GetSelection()
+        if sel_item and sel_item.IsOk():
+            selected_data = self.tree_session.GetItemData(sel_item)
+
+        # 3. Organize data
+        channels_map = {c.nChannelID: c for c in raw_channels}
+        children_by_parent: Dict[int, List[Any]] = {}
+        users_by_channel: Dict[int, List[Any]] = {}
+
+        for c in raw_channels:
+            p_id = c.nParentID
+            children_by_parent.setdefault(p_id, []).append(c)
+
+        for u in raw_users:
+            c_id = getattr(u, "nChannelID", 0)
+            users_by_channel.setdefault(c_id, []).append(u)
+
+        # Sort subchannels by name
+        for sub_list in children_by_parent.values():
+            sub_list.sort(key=lambda c: _safe_str(getattr(c, "szName", "")).lower())
+
+        # Sort users by nickname
+        for u_list in users_by_channel.values():
+            u_list.sort(key=lambda u: (_safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", ""))).lower())
+
+        def count_subtree_users(cid: int) -> int:
+            cnt = len(users_by_channel.get(cid, []))
+            for sub_c in children_by_parent.get(cid, []):
+                cnt += count_subtree_users(sub_c.nChannelID)
+            return cnt
+
+        try:
+            root_cid = tt.getRootChannelID()
+        except Exception:
+            root_cid = 0
+
+        root_chan = channels_map.get(root_cid)
+        if not root_chan:
+            for c in raw_channels:
+                if c.nParentID == 0 or c.nParentID == c.nChannelID:
+                    root_chan = c
+                    root_cid = c.nChannelID
+                    break
+
+        if not root_chan and raw_channels:
+            root_chan = raw_channels[0]
+            root_cid = root_chan.nChannelID
+
+        if not root_chan:
+            self.tree_session.DeleteAllItems()
+            self._channel_items.clear()
+            self._user_items.clear()
+            self._last_tree_snapshot = snapshot
+            return
+
+        try:
+            srv_prop = tt.getServerProperties()
+            srv_name = _safe_str(getattr(srv_prop, "szServerName", ""))
+        except Exception:
+            srv_name = ""
+        if not srv_name:
+            srv_name = _safe_str(getattr(root_chan, "szName", "")) or self.server_name
+
+        # Always keep root channel, pending channels, and current channel (with ancestors) expanded
+        expanded_cids.add(root_cid)
+        if self._pending_expand_cids:
+            expanded_cids.update(self._pending_expand_cids)
+            self._pending_expand_cids.clear()
+
+        curr = my_cid
+        visited = set()
+        while curr and curr not in visited:
+            visited.add(curr)
+            expanded_cids.add(curr)
+            parent_chan = channels_map.get(curr)
+            if parent_chan and parent_chan.nParentID and parent_chan.nParentID != curr:
+                curr = parent_chan.nParentID
+            else:
+                break
+
+        self.tree_session.Freeze()
+        try:
+            self.tree_session.DeleteAllItems()
+            self._channel_items.clear()
+            self._user_items.clear()
+
+            def format_chan_text(cid: int, name: str, is_pw: bool, is_root: bool = False) -> str:
+                direct_cnt = len(users_by_channel.get(cid, []))
+                has_subs = bool(children_by_parent.get(cid, []))
+                if has_subs:
+                    tot_cnt = count_subtree_users(cid)
+                    count_str = f"({direct_cnt}/{tot_cnt})"
+                else:
+                    count_str = f"({direct_cnt})"
+
+                pw_str = f" - [{_t('Password protected')}]" if is_pw else ""
+                cur_str = f" *" if (cid == my_cid and not is_root) else ""
+                return f"{name} {count_str}{pw_str}{cur_str}"
+
+            root_text = format_chan_text(root_cid, srv_name, bool(root_chan.bPassword), is_root=True)
+            root_item = self.tree_session.AddRoot(
+                root_text,
+                data={
+                    "type": "channel",
+                    "id": root_cid,
+                    "name": srv_name,
+                    "has_password": bool(root_chan.bPassword),
+                    "channel": root_chan,
+                }
+            )
+            self._channel_items[root_cid] = root_item
+            if root_cid == my_cid:
+                self.tree_session.SetItemBold(root_item, True)
+
+            def populate_channel(parent_item, cid: int):
+                # 1. Users directly in this channel
+                for u in users_by_channel.get(cid, []):
+                    u_id = getattr(u, "nUserID", 0)
+                    nick = _safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", "")) or f"User #{u_id}"
+                    disp_str = self._format_user_display(u)
+                    u_item = self.tree_session.AppendItem(
+                        parent_item,
+                        disp_str,
+                        data={
+                            "type": "user",
+                            "id": u_id,
+                            "nickname": nick,
+                            "channel_id": cid,
+                            "display_str": disp_str,
+                            "user": u,
+                        }
+                    )
+                    self._user_items[u_id] = u_item
+                    if u_id == my_uid:
+                        self.tree_session.SetItemBold(u_item, True)
+
+                # 2. Sub-channels of this channel
+                for sub_c in children_by_parent.get(cid, []):
+                    sub_id = sub_c.nChannelID
+                    if sub_id == root_cid or sub_id == cid:
+                        continue
+                    sub_name = _safe_str(getattr(sub_c, "szName", "")) or f"#{sub_id}"
+                    sub_text = format_chan_text(sub_id, sub_name, bool(sub_c.bPassword))
+                    sub_item = self.tree_session.AppendItem(
+                        parent_item,
+                        sub_text,
+                        data={
+                            "type": "channel",
+                            "id": sub_id,
+                            "name": sub_name,
+                            "has_password": bool(sub_c.bPassword),
+                            "channel": sub_c,
+                        }
+                    )
+                    self._channel_items[sub_id] = sub_item
+                    if sub_id == my_cid:
+                        self.tree_session.SetItemBold(sub_item, True)
+
+                    populate_channel(sub_item, sub_id)
+
+            populate_channel(root_item, root_cid)
+
+            # Orphans check
+            for c in raw_channels:
+                if c.nChannelID not in self._channel_items:
+                    orphan_id = c.nChannelID
+                    orphan_name = _safe_str(getattr(c, "szName", "")) or f"#{orphan_id}"
+                    orphan_text = format_chan_text(orphan_id, orphan_name, bool(c.bPassword))
+                    orphan_item = self.tree_session.AppendItem(
+                        root_item,
+                        orphan_text,
+                        data={
+                            "type": "channel",
+                            "id": orphan_id,
+                            "name": orphan_name,
+                            "has_password": bool(c.bPassword),
+                            "channel": c,
+                        }
+                    )
+                    self._channel_items[orphan_id] = orphan_item
+                    populate_channel(orphan_item, orphan_id)
+
+            # Apply expansions
+            for cid, item in self._channel_items.items():
+                if cid in expanded_cids and item and item.IsOk():
+                    self.tree_session.Expand(item)
+
+            # Restore selection
+            restored = False
+            if selected_data:
+                sel_type = selected_data.get("type")
+                sel_id = selected_data.get("id")
+                if sel_type == "channel" and sel_id in self._channel_items:
+                    self.tree_session.SelectItem(self._channel_items[sel_id])
+                    restored = True
+                elif sel_type == "user" and sel_id in self._user_items:
+                    self.tree_session.SelectItem(self._user_items[sel_id])
+                    restored = True
+
+            if not restored:
+                if my_cid in self._channel_items:
+                    self.tree_session.SelectItem(self._channel_items[my_cid])
+                elif root_cid in self._channel_items:
+                    self.tree_session.SelectItem(self._channel_items[root_cid])
+
+        finally:
+            self.tree_session.Thaw()
+
+        self._last_tree_snapshot = snapshot
+        total_users = len(raw_users)
+        self.lbl_tree.SetLabel(f"{_t('&Channels and Users (%d)') % total_users}:")
+
+    def refresh_users_in_channel(self):
+        """Compatibility wrapper: refreshes the full channels and users tree."""
+        self.refresh_channels_and_users()
 
     def on_text_changed(self, event=None):
         """Shows the Send button only when there is non-empty text in the message box."""
@@ -761,6 +1176,7 @@ class ServerSessionDialog(wx.Dialog):
             now_str = time.strftime("%H:%M:%S")
             self.add_public_message(my_nick, msg, now_str)
             sound_events.play_sound(sound_events.SOUND_CHANNEL_MSG_SENT, enabled=self.is_sound_events_enabled())
+            accessibility.announce(_t("Channel message sent: {message}").format(message=msg))
 
             self.txt_message.Clear()
             if self.btn_send.IsShown():
@@ -873,11 +1289,13 @@ class ServerSessionDialog(wx.Dialog):
                     self.server_data["selected_mic_device_id"] = self.selected_mic_device_id
                     self.save_server_settings()
                     sound_events.play_sound(sound_events.SOUND_VOICEACT_ON, enabled=self.is_sound_events_enabled())
+                    accessibility.announce(_t("Microphone enabled"))
             else:
                 self.bot.ttclient.restore_input_device()
                 self.server_data["mic_enabled"] = False
                 self.save_server_settings()
                 sound_events.play_sound(sound_events.SOUND_VOICEACT_OFF, enabled=self.is_sound_events_enabled())
+                accessibility.announce(_t("Microphone disabled"))
         except Exception as e:
             logging.error(f"Error toggling voice transmission: {e}")
             self.chk_mic.SetValue(False)
@@ -889,6 +1307,10 @@ class ServerSessionDialog(wx.Dialog):
     def on_toggle_mute_out(self, event=None):
         """Toggles mute on TeamTalk sound output."""
         self._is_muted = self.chk_mute_out.GetValue()
+        if self._is_muted:
+            accessibility.announce(_t("Sound output muted"))
+        else:
+            accessibility.announce(_t("Sound output unmuted"))
         if self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
             try:
                 import TeamTalkPy
@@ -913,9 +1335,10 @@ class ServerSessionDialog(wx.Dialog):
             )
             return
 
-        dlg = SessionAudioDevicesDialog(self, self.bot)
-        dlg.ShowModal()
-        dlg.Destroy()
+        self.audio_devices_dialog = SessionAudioDevicesDialog(self, self.bot)
+        self.audio_devices_dialog.ShowModal()
+        self.audio_devices_dialog.Destroy()
+        self.audio_devices_dialog = None
 
     def on_disconnect_click(self, event=None):
         """Disconnects this server session and closes the dialog."""
@@ -949,49 +1372,127 @@ class ServerSessionDialog(wx.Dialog):
         frame.Raise()
         frame.focus_input()
 
-    def on_user_activated(self, event=None):
-        """When user is double-clicked or Enter is pressed in user list, open a new private chat window."""
-        sel = self.list_users.GetSelection()
-        if sel == wx.NOT_FOUND and self.list_users.GetCount() > 0:
-            sel = 0
+    def join_channel_action(self, channel_id: int):
+        """Attempts to join the given channel. Prompts for password if channel is password protected."""
+        if not self.bot or not hasattr(self.bot, "ttclient") or not self.bot.ttclient:
+            return
 
-        if sel != wx.NOT_FOUND and sel < len(self._last_users):
-            u_id, disp_str, nick = self._last_users[sel]
-            self.open_private_chat(u_id, nick)
-        elif sel != wx.NOT_FOUND and sel < self.list_users.GetCount():
-            # Fallback if _last_users is desynced
-            text = self.list_users.GetString(sel)
-            # Find in raw users if possible
-            u_id = 0
-            nick = text.split(" (")[0].replace("🎤", "").strip()
-            if self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
-                try:
-                    cid = self.bot.ttclient.tt.getMyChannelID()
-                    for u in self.bot.ttclient.tt.getChannelUsers(cid):
-                        u_nick = _safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", ""))
-                        if u_nick == nick or f"User #{getattr(u, 'nUserID', 0)}" == nick:
-                            u_id = getattr(u, "nUserID", 0)
-                            break
-                except Exception:
-                    pass
-            if u_id > 0:
-                self.open_private_chat(u_id, nick)
+        tt = self.bot.ttclient.tt
+        try:
+            my_cid = tt.getMyChannelID()
+        except Exception:
+            my_cid = 0
 
-    def on_user_key_down(self, event):
+        # Channel lookup
+        chan = None
+        chan_name = f"#{channel_id}"
+        has_password = False
+        try:
+            chan = tt.getChannel(channel_id)
+            if chan:
+                has_password = bool(getattr(chan, "bPassword", False))
+                chan_name = _safe_str(getattr(chan, "szName", "")) or chan_name
+        except Exception:
+            pass
+
+        password = self._channel_passwords.get(channel_id, "")
+
+        if has_password:
+            dlg = ChannelPasswordDialog(self, chan_name, channel_id, initial_password=password)
+            res = dlg.ShowModal()
+            if res != wx.ID_OK:
+                dlg.Destroy()
+                return
+            password = dlg.get_password()
+            dlg.Destroy()
+            self._channel_passwords[channel_id] = password
+
+        # Immediately expand this channel and mark for persistent expansion
+        self._pending_expand_cids.add(channel_id)
+        chan_item = self._channel_items.get(channel_id)
+        if chan_item and chan_item.IsOk():
+            self.tree_session.Expand(chan_item)
+            p = self.tree_session.GetItemParent(chan_item)
+            while p and p.IsOk():
+                self.tree_session.Expand(p)
+                p = self.tree_session.GetItemParent(p)
+
+        try:
+            self.bot.ttclient.join_channel(channel_id, password)
+        except Exception as e:
+            logging.error(f"Error joining channel {channel_id}: {e}")
+            wx.MessageBox(
+                f"{_t('Failed to join channel')}: {e}",
+                _t("Channel Password"),
+                wx.OK | wx.ICON_ERROR,
+                self,
+            )
+
+    def on_tree_item_activated(self, event=None):
+        """When channel or user is double-clicked or Enter is pressed in tree view."""
+        item = self.tree_session.GetSelection()
+        if not item or not item.IsOk():
+            if event and hasattr(event, "GetItem"):
+                item = event.GetItem()
+        if not item or not item.IsOk():
+            return
+
+        data = self.tree_session.GetItemData(item)
+        if not data or not isinstance(data, dict):
+            return
+
+        item_type = data.get("type")
+        if item_type == "channel":
+            chan_id = data.get("id")
+            if chan_id is not None:
+                # Expand immediately so contents are shown as in TeamTalk
+                self.tree_session.Expand(item)
+                self.join_channel_action(chan_id)
+        elif item_type == "user":
+            user_id = data.get("id")
+            nick = data.get("nickname", f"User #{user_id}")
+            if user_id:
+                self.open_private_chat(user_id, nick)
+
+    def on_tree_key_down(self, event):
         key = event.GetKeyCode()
         if key in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
-            self.on_user_activated(event)
+            self.on_tree_item_activated()
             return
         elif key == ord("C") and event.ControlDown():
-            self._copy_selected_user()
+            self._copy_selected_tree_item()
             return
         event.Skip()
 
-    def on_user_context_menu(self, event):
+    def on_tree_context_menu(self, event):
+        item = self.tree_session.GetSelection()
+        if not item or not item.IsOk():
+            if hasattr(event, "GetItem"):
+                item = event.GetItem()
+        if not item or not item.IsOk():
+            return
+
+        data = self.tree_session.GetItemData(item)
+        if not data or not isinstance(data, dict):
+            return
+
         menu = wx.Menu()
-        sel = self.list_users.GetSelection()
-        if sel != wx.NOT_FOUND and sel < len(self._last_users):
-            u_id, disp_str, nick = self._last_users[sel]
+        item_type = data.get("type")
+
+        if item_type == "channel":
+            chan_id = data.get("id")
+            chan_name = data.get("name", f"#{chan_id}")
+            item_join = menu.Append(wx.ID_ANY, _t("&Join Channel"))
+            self.Bind(wx.EVT_MENU, lambda e: self.join_channel_action(chan_id), item_join)
+
+            item_copy = menu.Append(wx.ID_ANY, _t("&Copy Channel Name"))
+            self.Bind(wx.EVT_MENU, lambda e: self._copy_text(chan_name), item_copy)
+
+        elif item_type == "user":
+            u_id = data.get("id")
+            nick = data.get("nickname", f"User #{u_id}")
+            disp_str = data.get("display_str", nick)
+
             item_private = menu.Append(wx.ID_ANY, translate("&Private Message..."))
             self.Bind(wx.EVT_MENU, lambda e: self.open_private_chat(u_id, nick), item_private)
 
@@ -999,23 +1500,41 @@ class ServerSessionDialog(wx.Dialog):
             self.Bind(wx.EVT_MENU, lambda e: self._mention_user(nick), item_mention)
 
             item_copy = menu.Append(wx.ID_ANY, translate("&Copy User Info"))
-            self.Bind(wx.EVT_MENU, lambda e: self._copy_selected_user(), item_copy)
+            self.Bind(wx.EVT_MENU, lambda e: self._copy_text(disp_str), item_copy)
 
         self.PopupMenu(menu)
         menu.Destroy()
 
-    def _mention_user(self, nick: str):
-        self.txt_message.SetValue(f"@{nick} ")
-        self.txt_message.SetInsertionPointEnd()
-        self.txt_message.SetFocus()
+    def _copy_selected_tree_item(self):
+        item = self.tree_session.GetSelection()
+        if not item or not item.IsOk():
+            return
+        data = self.tree_session.GetItemData(item)
+        if not data or not isinstance(data, dict):
+            return
+        if data.get("type") == "user":
+            self._copy_text(data.get("display_str", data.get("nickname", "")))
+        elif data.get("type") == "channel":
+            self._copy_text(data.get("name", ""))
+
+    def _copy_text(self, text: str):
+        if not text:
+            return
+        if wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(wx.TextDataObject(text))
+            wx.TheClipboard.Close()
+
+    def on_user_activated(self, event=None):
+        self.on_tree_item_activated(event)
+
+    def on_user_key_down(self, event):
+        self.on_tree_key_down(event)
+
+    def on_user_context_menu(self, event):
+        self.on_tree_context_menu(event)
 
     def _copy_selected_user(self):
-        sel = self.list_users.GetSelection()
-        if sel != wx.NOT_FOUND and sel < len(self._last_users):
-            u_id, disp_str, nick = self._last_users[sel]
-            if wx.TheClipboard.Open():
-                wx.TheClipboard.SetData(wx.TextDataObject(disp_str))
-                wx.TheClipboard.Close()
+        self._copy_selected_tree_item()
 
     def on_history_key_down(self, event):
         key = event.GetKeyCode()
@@ -1111,6 +1630,8 @@ class ServerSessionDialog(wx.Dialog):
                 pass
             self.private_chat_window = None
 
+        self._cleanup_device_change_notification()
+
         # Unregister from parent session windows
         if hasattr(self.parent, "session_windows") and self.s_id in self.parent.session_windows:
             del self.parent.session_windows[self.s_id]
@@ -1119,6 +1640,81 @@ class ServerSessionDialog(wx.Dialog):
             self.EndModal(wx.ID_CANCEL)
         else:
             self.Destroy()
+
+    def _init_device_change_notification(self):
+        self._dev_notify_handle = None
+        self._device_debounce_timer = None
+        self._known_audio_device_ids = set()
+        if sys.platform == "win32":
+            try:
+                import ctypes
+                from ctypes import wintypes
+                user32 = ctypes.windll.user32
+                class DEV_BROADCAST_DEVICEINTERFACE_W(ctypes.Structure):
+                    _fields_ = [
+                        ('dbcc_size', wintypes.DWORD),
+                        ('dbcc_devicetype', wintypes.DWORD),
+                        ('dbcc_reserved', wintypes.DWORD),
+                        ('dbcc_classguid', ctypes.c_byte * 16),
+                        ('dbcc_name', ctypes.c_wchar * 1)
+                    ]
+                dbi = DEV_BROADCAST_DEVICEINTERFACE_W()
+                dbi.dbcc_size = ctypes.sizeof(DEV_BROADCAST_DEVICEINTERFACE_W)
+                dbi.dbcc_devicetype = 5
+                hwnd = self.GetHandle()
+                self._dev_notify_handle = user32.RegisterDeviceNotificationW(
+                    wintypes.HANDLE(hwnd),
+                    ctypes.byref(dbi),
+                    4
+                )
+            except Exception as e:
+                logging.debug(f"RegisterDeviceNotification error: {e}")
+
+    def _cleanup_device_change_notification(self):
+        if sys.platform == "win32" and getattr(self, "_dev_notify_handle", None):
+            try:
+                import ctypes
+                ctypes.windll.user32.UnregisterDeviceNotification(self._dev_notify_handle)
+            except Exception:
+                pass
+            self._dev_notify_handle = None
+
+    def MSWWindowProc(self, msg, wParam, lParam):
+        # WM_DEVICECHANGE = 0x0219
+        if msg == 0x0219:
+            self._on_wm_devicechange()
+        return super().MSWWindowProc(msg, wParam, lParam)
+
+    def _on_wm_devicechange(self):
+        if not hasattr(self, "_device_debounce_timer") or not self._device_debounce_timer:
+            self._device_debounce_timer = wx.Timer(self)
+            self.Bind(wx.EVT_TIMER, self._on_device_debounce_timeout, self._device_debounce_timer)
+        self._device_debounce_timer.StartOnce(600)
+
+    def _on_device_debounce_timeout(self, event=None):
+        if getattr(self, "audio_devices_dialog", None) and bool(self.audio_devices_dialog):
+            try:
+                self.audio_devices_dialog._auto_detect_devices()
+                return
+            except Exception:
+                pass
+        try:
+            import TeamTalkPy
+            TeamTalkPy.TeamTalk5.dll.TT_RestartSoundSystem()
+            if self.bot and hasattr(self.bot, "ttclient") and self.bot.ttclient:
+                in_devs = self.bot.ttclient.get_input_devices()
+                out_devs = self.bot.ttclient.get_output_devices()
+                curr_ids = {d.id for d in in_devs} | {d.id for d in out_devs}
+                if hasattr(self, "_known_audio_device_ids") and self._known_audio_device_ids:
+                    added = curr_ids - self._known_audio_device_ids
+                    removed = self._known_audio_device_ids - curr_ids
+                    if added:
+                        accessibility.announce(_t("New audio device detected. Device list refreshed."))
+                    elif removed:
+                        accessibility.announce(_t("Audio device disconnected. Device list updated."))
+                self._known_audio_device_ids = curr_ids
+        except Exception as e:
+            logging.debug(f"Device change check error: {e}")
 
 
 class PrivateChatDialog(wx.Frame):
@@ -1290,6 +1886,7 @@ class PrivateChatDialog(wx.Frame):
             if hasattr(self.session_dialog, "is_sound_events_enabled"):
                 sound_enabled = self.session_dialog.is_sound_events_enabled()
             sound_events.play_sound(sound_events.SOUND_USER_MSG_SENT, enabled=sound_enabled)
+            accessibility.announce(_t("Private message sent: {message}").format(message=msg))
 
             self.txt_message.Clear()
             if self.btn_send.IsShown():
@@ -1366,7 +1963,7 @@ class SessionAudioDevicesDialog(wx.Dialog):
         super().__init__(
             parent,
             title=translate("Sound Configuration - TeamTalk"),
-            size=(540, 430),
+            size=(560, 480),
             style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER,
         )
         self.parent = parent
@@ -1422,7 +2019,6 @@ class SessionAudioDevicesDialog(wx.Dialog):
         lbl_in = wx.StaticText(panel, label=translate("&Input Device (Microphone / Computer Audio / VAC):"))
         self.choice_input = wx.Choice(panel)
         self.choice_input.SetName(translate("Input Device"))
-        self.choice_input.Bind(wx.EVT_CHOICE, self.on_input_changed)
         in_box = wx.BoxSizer(wx.VERTICAL)
         in_box.Add(lbl_in, 0, wx.BOTTOM, 4)
         in_box.Add(self.choice_input, 0, wx.EXPAND)
@@ -1432,7 +2028,6 @@ class SessionAudioDevicesDialog(wx.Dialog):
         lbl_out = wx.StaticText(panel, label=translate("&Output Device (Headphones / Speakers):"))
         self.choice_output = wx.Choice(panel)
         self.choice_output.SetName(translate("Output Device"))
-        self.choice_output.Bind(wx.EVT_CHOICE, self.on_output_changed)
         out_box = wx.BoxSizer(wx.VERTICAL)
         out_box.Add(lbl_out, 0, wx.BOTTOM, 4)
         out_box.Add(self.choice_output, 0, wx.EXPAND)
@@ -1488,13 +2083,27 @@ class SessionAudioDevicesDialog(wx.Dialog):
         mic_box.Add(self.slider_mic_vol, 0, wx.EXPAND)
         main_sizer.Add(mic_box, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
 
-        # 6. Close Button
+        # 6. Action buttons: Refresh, OK, Cancel
         btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.btn_close = wx.Button(panel, wx.ID_CANCEL, label=translate("&Close"))
-        self.btn_close.SetDefault()
-        self.btn_close.Bind(wx.EVT_BUTTON, self.on_close)
-        btn_sizer.Add(self.btn_close, 0, wx.ALL, 5)
-        main_sizer.Add(btn_sizer, 0, wx.ALIGN_RIGHT | wx.ALL, 10)
+
+        self.btn_refresh = wx.Button(panel, label=_t("&Refresh Devices"))
+        self.btn_refresh.SetName(_t("Refresh Devices"))
+        self.btn_refresh.SetToolTip(translate("Refresh sound devices list if new devices were connected"))
+        self.btn_refresh.Bind(wx.EVT_BUTTON, lambda e: self.on_refresh(user_triggered=True))
+        btn_sizer.Add(self.btn_refresh, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        btn_sizer.AddStretchSpacer()
+
+        self.btn_ok = wx.Button(panel, wx.ID_OK, label=_t("&OK"))
+        self.btn_ok.SetDefault()
+        self.btn_ok.Bind(wx.EVT_BUTTON, self.on_ok)
+        btn_sizer.Add(self.btn_ok, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        self.btn_cancel = wx.Button(panel, wx.ID_CANCEL, label=_t("&Cancel"))
+        self.btn_cancel.Bind(wx.EVT_BUTTON, self.on_cancel)
+        btn_sizer.Add(self.btn_cancel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        main_sizer.Add(btn_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 10)
 
         panel.SetSizer(main_sizer)
 
@@ -1503,12 +2112,14 @@ class SessionAudioDevicesDialog(wx.Dialog):
         self.SetSizer(dlg_sizer)
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
+        self.Bind(wx.EVT_CHAR_HOOK, self.on_char_hook)
 
         # Populate devices
         self._input_devices = []
         self._output_devices = []
         self.populate_devices()
 
+        self._init_device_change_notification()
         self.CentreOnParent()
 
     def get_selected_sound_system(self):
@@ -1517,9 +2128,23 @@ class SessionAudioDevicesDialog(wx.Dialog):
             return self.sound_systems[sel][0]
         return 5
 
-    def populate_devices(self):
+    def populate_devices(self, preserve_selection: bool = False):
         if not self.ttclient:
             return
+
+        prev_in_id = None
+        prev_in_name = None
+        prev_out_id = None
+        prev_out_name = None
+        if preserve_selection:
+            cur_in_sel = self.choice_input.GetSelection()
+            if 0 <= cur_in_sel < len(self._input_devices):
+                prev_in_id = self._input_devices[cur_in_sel].id
+                prev_in_name = self._input_devices[cur_in_sel].name
+            cur_out_sel = self.choice_output.GetSelection()
+            if 0 <= cur_out_sel < len(self._output_devices):
+                prev_out_id = self._output_devices[cur_out_sel].id
+                prev_out_name = self._output_devices[cur_out_sel].name
 
         sys_id = self.get_selected_sound_system()
         self._input_devices = self.ttclient.get_input_devices(sound_system=sys_id)
@@ -1547,9 +2172,13 @@ class SessionAudioDevicesDialog(wx.Dialog):
                 label = f"{label} ({translate('Microphone')})"
 
             label = f"{label} [ID: {dev.id}]"
-
             self.choice_input.Append(label)
-            if saved_in_id is not None and dev.id == saved_in_id:
+
+            if prev_in_id is not None and dev.id == prev_in_id:
+                selected_in_idx = idx
+            elif prev_in_id is None and saved_in_id is not None and dev.id == saved_in_id:
+                selected_in_idx = idx
+            elif selected_in_idx == 0 and prev_in_name and dev.name == prev_in_name:
                 selected_in_idx = idx
             elif selected_in_idx == 0 and saved_in_name and dev.name == saved_in_name:
                 selected_in_idx = idx
@@ -1573,9 +2202,13 @@ class SessionAudioDevicesDialog(wx.Dialog):
                 label = f"{label} ({translate('Speakers')})"
 
             label = f"{label} [ID: {dev.id}]"
-
             self.choice_output.Append(label)
-            if saved_out_id is not None and dev.id == saved_out_id:
+
+            if prev_out_id is not None and dev.id == prev_out_id:
+                selected_out_idx = idx
+            elif prev_out_id is None and saved_out_id is not None and dev.id == saved_out_id:
+                selected_out_idx = idx
+            elif selected_out_idx == 0 and prev_out_name and dev.name == prev_out_name:
                 selected_out_idx = idx
             elif selected_out_idx == 0 and saved_out_name and dev.name == saved_out_name:
                 selected_out_idx = idx
@@ -1586,75 +2219,17 @@ class SessionAudioDevicesDialog(wx.Dialog):
             self.choice_output.SetSelection(selected_out_idx)
 
     def on_system_changed(self, event):
-        sys_id = self.get_selected_sound_system()
-        if hasattr(self.parent, "server_data"):
-            self.parent.server_data["session_sound_system"] = sys_id
-            if hasattr(self.parent, "save_server_settings"):
-                self.parent.save_server_settings()
-        self.populate_devices()
-
-    def on_input_changed(self, event):
-        if not self.ttclient:
-            return
-        in_sel = self.choice_input.GetSelection()
-        if 0 <= in_sel < len(self._input_devices):
-            in_dev = self._input_devices[in_sel]
-            self.ttclient.set_input_device_live(in_dev.id)
-            if hasattr(self.parent, "selected_mic_device_id"):
-                self.parent.selected_mic_device_id = in_dev.id
-            if hasattr(self.parent, "server_data"):
-                self.parent.server_data["session_input_device_id"] = in_dev.id
-                self.parent.server_data["session_input_device_name"] = in_dev.name
-                self.parent.server_data["selected_mic_device_id"] = in_dev.id
-                self.parent.server_data["selected_mic_device_name"] = in_dev.name
-                if hasattr(self.parent, "save_server_settings"):
-                    self.parent.save_server_settings()
-
-    def on_output_changed(self, event):
-        if not self.ttclient:
-            return
-        out_sel = self.choice_output.GetSelection()
-        if 0 <= out_sel < len(self._output_devices):
-            out_dev = self._output_devices[out_sel]
-            self.ttclient.set_output_device(out_dev.id)
-            if hasattr(self.parent, "server_data"):
-                self.parent.server_data["session_output_device_id"] = out_dev.id
-                self.parent.server_data["session_output_device_name"] = out_dev.name
-                if hasattr(self.parent, "save_server_settings"):
-                    self.parent.save_server_settings()
+        self.populate_devices(preserve_selection=False)
 
     def on_master_vol_changed(self, event):
         vol_pct = self.slider_master_vol.GetValue()
         if hasattr(self, "lbl_master_val"):
             self.lbl_master_val.SetLabel(f"{vol_pct}%")
-        if self.ttclient:
-            vol_val = int(vol_pct * 20)
-            try:
-                import TeamTalkPy
-                TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputVolume(self.ttclient.tt._tt, vol_val)
-            except Exception as e:
-                logging.error(f"Error setting master output volume: {e}")
-        if hasattr(self.parent, "server_data"):
-            self.parent.server_data["master_volume"] = vol_pct
-            if hasattr(self.parent, "save_server_settings"):
-                self.parent.save_server_settings()
 
     def on_mic_vol_changed(self, event):
         mic_pct = self.slider_mic_vol.GetValue()
         if hasattr(self, "lbl_mic_val"):
             self.lbl_mic_val.SetLabel(f"{mic_pct}%")
-        if self.ttclient:
-            gain_val = int(mic_pct * 20)
-            try:
-                import TeamTalkPy
-                TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(self.ttclient.tt._tt, gain_val)
-            except Exception as e:
-                logging.error(f"Error setting mic volume: {e}")
-        if hasattr(self.parent, "server_data"):
-            self.parent.server_data["mic_gain"] = mic_pct
-            self.parent.server_data["session_gain"] = mic_pct
-            if hasattr(self.parent, "save_server_settings"):
-                self.parent.save_server_settings()
 
     def _handle_slider_key(self, slider, on_change_callback, event):
         key = event.GetKeyCode()
@@ -1693,6 +2268,188 @@ class SessionAudioDevicesDialog(wx.Dialog):
     def on_mic_slider_key(self, event):
         self._handle_slider_key(self.slider_mic_vol, self.on_mic_vol_changed, event)
 
-    def on_close(self, event=None):
-        self.EndModal(wx.ID_CLOSE)
+    def on_refresh(self, event=None, user_triggered: bool = True):
+        """Refreshes the audio device list manually or automatically."""
+        try:
+            import TeamTalkPy
+            TeamTalkPy.TeamTalk5.dll.TT_RestartSoundSystem()
+        except Exception as e:
+            logging.debug(f"TT_RestartSoundSystem error: {e}")
 
+        self.populate_devices(preserve_selection=True)
+        if user_triggered:
+            accessibility.announce(_t("Audio devices list refreshed"))
+
+    def on_ok(self, event=None):
+        """Applies and saves all selected sound settings to TeamTalk and session configuration."""
+        if not self.ttclient:
+            self._cleanup_device_change_notification()
+            self.EndModal(wx.ID_OK)
+            return
+
+        try:
+            # 1. Apply & save Sound System
+            sys_id = self.get_selected_sound_system()
+            if hasattr(self.parent, "server_data"):
+                self.parent.server_data["session_sound_system"] = sys_id
+
+            # 2. Apply & save Input Device
+            in_sel = self.choice_input.GetSelection()
+            if 0 <= in_sel < len(self._input_devices):
+                in_dev = self._input_devices[in_sel]
+                self.ttclient.set_input_device_live(in_dev.id)
+                if hasattr(self.parent, "selected_mic_device_id"):
+                    self.parent.selected_mic_device_id = in_dev.id
+                if hasattr(self.parent, "server_data"):
+                    self.parent.server_data["session_input_device_id"] = in_dev.id
+                    self.parent.server_data["session_input_device_name"] = in_dev.name
+                    self.parent.server_data["selected_mic_device_id"] = in_dev.id
+                    self.parent.server_data["selected_mic_device_name"] = in_dev.name
+
+            # 3. Apply & save Output Device
+            out_sel = self.choice_output.GetSelection()
+            if 0 <= out_sel < len(self._output_devices):
+                out_dev = self._output_devices[out_sel]
+                self.ttclient.set_output_device(out_dev.id)
+                if hasattr(self.parent, "server_data"):
+                    self.parent.server_data["session_output_device_id"] = out_dev.id
+                    self.parent.server_data["session_output_device_name"] = out_dev.name
+
+            # 4. Master volume
+            vol_pct = self.slider_master_vol.GetValue()
+            vol_val = int(vol_pct * 20)
+            try:
+                import TeamTalkPy
+                TeamTalkPy.TeamTalk5.dll.TT_SetSoundOutputVolume(self.ttclient.tt._tt, vol_val)
+            except Exception as e:
+                logging.error(f"Error setting master output volume: {e}")
+            if hasattr(self.parent, "server_data"):
+                self.parent.server_data["master_volume"] = vol_pct
+
+            # 5. Mic volume
+            mic_pct = self.slider_mic_vol.GetValue()
+            gain_val = int(mic_pct * 20)
+            try:
+                import TeamTalkPy
+                TeamTalkPy.TeamTalk5.dll.TT_SetSoundInputGainLevel(self.ttclient.tt._tt, gain_val)
+            except Exception as e:
+                logging.error(f"Error setting mic volume: {e}")
+            if hasattr(self.parent, "server_data"):
+                self.parent.server_data["mic_gain"] = mic_pct
+                self.parent.server_data["session_gain"] = mic_pct
+
+            # 6. Save server settings to disk
+            if hasattr(self.parent, "save_server_settings"):
+                self.parent.save_server_settings()
+
+            accessibility.announce(_t("Sound settings saved successfully"))
+        except Exception as e:
+            logging.error(f"Error saving sound configuration: {e}")
+            wx.MessageBox(
+                f"{translate('Failed to save sound settings:')}\n{e}",
+                translate("Error"),
+                wx.OK | wx.ICON_ERROR,
+                self,
+            )
+
+        self._cleanup_device_change_notification()
+        self.EndModal(wx.ID_OK)
+
+    def on_cancel(self, event=None):
+        self._cleanup_device_change_notification()
+        self.EndModal(wx.ID_CANCEL)
+
+    def on_close(self, event=None):
+        self.on_cancel()
+
+    def on_char_hook(self, event):
+        key = event.GetKeyCode()
+        if key in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
+            focus = self.FindFocus()
+            if focus == self.btn_cancel:
+                self.on_cancel()
+                return
+            elif focus == self.btn_refresh:
+                self.on_refresh(user_triggered=True)
+                return
+            self.on_ok()
+            return
+        elif key == wx.WXK_ESCAPE:
+            self.on_cancel()
+            return
+        event.Skip()
+
+    def _init_device_change_notification(self):
+        self._dev_notify_handle = None
+        self._device_debounce_timer = None
+        if sys.platform == "win32":
+            try:
+                import ctypes
+                from ctypes import wintypes
+                user32 = ctypes.windll.user32
+                class DEV_BROADCAST_DEVICEINTERFACE_W(ctypes.Structure):
+                    _fields_ = [
+                        ('dbcc_size', wintypes.DWORD),
+                        ('dbcc_devicetype', wintypes.DWORD),
+                        ('dbcc_reserved', wintypes.DWORD),
+                        ('dbcc_classguid', ctypes.c_byte * 16),
+                        ('dbcc_name', ctypes.c_wchar * 1)
+                    ]
+                dbi = DEV_BROADCAST_DEVICEINTERFACE_W()
+                dbi.dbcc_size = ctypes.sizeof(DEV_BROADCAST_DEVICEINTERFACE_W)
+                dbi.dbcc_devicetype = 5
+                hwnd = self.GetHandle()
+                self._dev_notify_handle = user32.RegisterDeviceNotificationW(
+                    wintypes.HANDLE(hwnd),
+                    ctypes.byref(dbi),
+                    4
+                )
+            except Exception as e:
+                logging.debug(f"RegisterDeviceNotification error: {e}")
+
+    def _cleanup_device_change_notification(self):
+        if sys.platform == "win32" and getattr(self, "_dev_notify_handle", None):
+            try:
+                import ctypes
+                ctypes.windll.user32.UnregisterDeviceNotification(self._dev_notify_handle)
+            except Exception:
+                pass
+            self._dev_notify_handle = None
+
+    def MSWWindowProc(self, msg, wParam, lParam):
+        # WM_DEVICECHANGE = 0x0219
+        if msg == 0x0219:
+            self._on_wm_devicechange()
+        return super().MSWWindowProc(msg, wParam, lParam)
+
+    def _on_wm_devicechange(self):
+        if not hasattr(self, "_device_debounce_timer") or not self._device_debounce_timer:
+            self._device_debounce_timer = wx.Timer(self)
+            self.Bind(wx.EVT_TIMER, self._on_device_debounce_timeout, self._device_debounce_timer)
+        self._device_debounce_timer.StartOnce(600)
+
+    def _on_device_debounce_timeout(self, event=None):
+        self._auto_detect_devices()
+
+    def _auto_detect_devices(self):
+        old_in_ids = {d.id for d in self._input_devices}
+        old_out_ids = {d.id for d in self._output_devices}
+
+        try:
+            import TeamTalkPy
+            TeamTalkPy.TeamTalk5.dll.TT_RestartSoundSystem()
+        except Exception:
+            pass
+
+        self.populate_devices(preserve_selection=True)
+
+        new_in_ids = {d.id for d in self._input_devices}
+        new_out_ids = {d.id for d in self._output_devices}
+
+        added = (new_in_ids - old_in_ids) or (new_out_ids - old_out_ids)
+        removed = (old_in_ids - new_in_ids) or (old_out_ids - new_out_ids)
+
+        if added:
+            accessibility.announce(_t("New audio device detected. Device list refreshed."))
+        elif removed:
+            accessibility.announce(_t("Audio device disconnected. Device list updated."))

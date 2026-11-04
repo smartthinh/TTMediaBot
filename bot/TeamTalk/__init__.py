@@ -415,8 +415,12 @@ class TeamTalk:
             message = self.get_message(obj.textmessage)
         except (UnicodeDecodeError, ValueError):
             message = Message("", user, channel, MessageType.NONE)
+        try:
+            ev_type = EventType(obj.nClientEvent)
+        except ValueError:
+            ev_type = EventType.NONE
         return Event(
-            EventType(obj.nClientEvent),
+            ev_type,
             obj.nSource,
             channel,
             error,
