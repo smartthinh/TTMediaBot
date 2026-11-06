@@ -20,6 +20,7 @@ class GeneralModel(BaseModel):
     sampling_rate: str = "default"
     mp3_bitrate: str = "320k"
     session_chat_enabled: bool = False
+    require_command_prefix: bool = True
 
 class SoundDevicesModel(BaseModel):
     output_device: int = 0

@@ -192,6 +192,7 @@ class ServerSessionDialog(wx.Dialog):
         self._channel_passwords: Dict[int, str] = {}
         self._pending_expand_cids: set = set()
         self._last_tree_snapshot = None
+        self._known_users: Dict[int, str] = {}
         self._is_muted = False
         self._closing = False
         self.private_chat_window: Optional[Any] = None
@@ -632,6 +633,11 @@ class ServerSessionDialog(wx.Dialog):
         ev_type = event.event_type
 
         if ev_type == EventType.USER_JOINED:
+            if event.user:
+                uid = getattr(event.user, "id", 0)
+                u_nick = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", ""))
+                if uid and u_nick:
+                    self._known_users[uid] = u_nick
             # Check if myself joined a channel
             my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
             if event.user and getattr(event.user, "id", 0) == my_uid:
@@ -653,23 +659,41 @@ class ServerSessionDialog(wx.Dialog):
             if event.user:
                 my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
                 uid = getattr(event.user, "id", 0)
+                u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", ""))
+                if uid and u_name:
+                    self._known_users[uid] = u_name
                 if uid != my_uid:
-                    u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", "")) or f"User #{uid}"
+                    display_name = u_name or self._known_users.get(uid) or f"User #{uid}"
                     sound_events.play_sound(sound_events.SOUND_LOGGED_ON, enabled=self.is_sound_events_enabled())
-                    accessibility.announce(_t("{user} has logged in").format(user=u_name))
+                    accessibility.announce(_t("{user} has logged in").format(user=display_name))
             self.refresh_channels_and_users()
 
         elif ev_type == EventType.USER_LOGGEDOUT:
             if event.user:
                 my_uid = self.bot.ttclient.tt.getMyUserID() if self.bot else 0
                 uid = getattr(event.user, "id", 0)
+                u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", ""))
+                if not u_name and uid in self._known_users:
+                    u_name = self._known_users[uid]
+                if not u_name and self.bot and hasattr(self.bot, "ttclient") and hasattr(self.bot.ttclient, "user_cache"):
+                    cached = self.bot.ttclient.user_cache.get(uid)
+                    if cached:
+                        u_name = _safe_str(getattr(cached, "nickname", "")) or _safe_str(getattr(cached, "username", ""))
+                if not u_name:
+                    u_name = f"User #{uid}" if uid else _t("Unknown User")
                 if uid != my_uid:
-                    u_name = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", "")) or f"User #{uid}"
                     sound_events.play_sound(sound_events.SOUND_LOGGED_OFF, enabled=self.is_sound_events_enabled())
                     accessibility.announce(_t("{user} has logged out").format(user=u_name))
+                if uid in self._known_users:
+                    del self._known_users[uid]
             self.refresh_channels_and_users()
 
         elif ev_type in (EventType.USER_UPDATE, EventType.STATE_CHANGE):
+            if event.user:
+                uid = getattr(event.user, "id", 0)
+                u_nick = _safe_str(getattr(event.user, "nickname", "")) or _safe_str(getattr(event.user, "username", ""))
+                if uid and u_nick:
+                    self._known_users[uid] = u_nick
             self.refresh_users_in_channel()
 
         elif ev_type == EventType.USER_TEXT_MESSAGE:
@@ -681,13 +705,23 @@ class ServerSessionDialog(wx.Dialog):
             # Format: <Nickname>: <Content> [Time]
             time_str = time.strftime("%H:%M:%S")
 
-            # Check if this message is a command to send private message to bot operator (strictly 'pm <content>')
+            # Check if this message is a command to send private message to bot operator
             text_stripped = msg_text.strip()
-            is_pm_cmd = text_stripped.lower().startswith("pm ")
+            require_prefix = getattr(self.bot.config.general, "require_command_prefix", True) if (self.bot and hasattr(self.bot, "config")) else True
+            if require_prefix:
+                is_pm_cmd = text_stripped.lower().startswith("/pm ")
+                pm_prefix_len = 4
+            else:
+                if text_stripped.lower().startswith("pm "):
+                    is_pm_cmd = True
+                    pm_prefix_len = 3
+                else:
+                    is_pm_cmd = False
+                    pm_prefix_len = 0
             session_enabled = getattr(self.bot.config.general, "session_chat_enabled", False) if (self.bot and hasattr(self.bot, "config")) else True
 
             if session_enabled and is_pm_cmd and my_uid > 0 and msg.user.id != my_uid:
-                pm_content = text_stripped[3:].strip()
+                pm_content = text_stripped[pm_prefix_len:].strip()
                 if pm_content:
                     self.receive_user_pm_command(msg.user.id, u_name, pm_content)
 
@@ -868,6 +902,18 @@ class ServerSessionDialog(wx.Dialog):
             logging.debug(f"[SessionDialog] Error querying channels/users: {e}")
             return
 
+        for u in raw_users:
+            u_id = getattr(u, "nUserID", 0)
+            u_nick = _safe_str(getattr(u, "szNickname", "")) or _safe_str(getattr(u, "szUsername", ""))
+            if u_id and u_nick:
+                self._known_users[u_id] = u_nick
+                if self.bot and hasattr(self.bot, "ttclient") and hasattr(self.bot.ttclient, "user_cache"):
+                    if u_id not in self.bot.ttclient.user_cache:
+                        try:
+                            self.bot.ttclient.user_cache[u_id] = self.bot.ttclient.get_user_from_obj(u)
+                        except Exception:
+                            pass
+
         # Current channel user sound notification check
         current_chan_raw_users = [u for u in raw_users if getattr(u, "nChannelID", 0) == my_cid]
         curr_uids = {getattr(u, "nUserID", 0) for u in current_chan_raw_users}
@@ -880,12 +926,12 @@ class ServerSessionDialog(wx.Dialog):
                 sound_events.play_sound(sound_events.SOUND_NEW_USER, enabled=self.is_sound_events_enabled())
                 for j_uid in joined_uids:
                     u_obj = next((u for u in current_chan_raw_users if getattr(u, "nUserID", 0) == j_uid), None)
-                    j_nick = _safe_str(getattr(u_obj, "szNickname", "")) or _safe_str(getattr(u_obj, "szUsername", "")) or f"User #{j_uid}"
+                    j_nick = _safe_str(getattr(u_obj, "szNickname", "")) or _safe_str(getattr(u_obj, "szUsername", "")) or self._known_users.get(j_uid) or f"User #{j_uid}"
                     accessibility.announce(_t("{user} joined channel").format(user=j_nick))
-            elif left_uids:
+            if left_uids:
                 sound_events.play_sound(sound_events.SOUND_REMOVE_USER, enabled=self.is_sound_events_enabled())
                 for l_uid in left_uids:
-                    l_nick = f"User #{l_uid}"
+                    l_nick = self._known_users.get(l_uid) or f"User #{l_uid}"
                     for prev_uid, _, p_nick in (self._last_users or []):
                         if prev_uid == l_uid:
                             l_nick = p_nick

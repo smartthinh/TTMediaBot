@@ -3,7 +3,7 @@ import logging
 import os
 import re
 import sys
-from typing import AnyStr, Callable, List, TYPE_CHECKING, Optional, Union
+from typing import AnyStr, Callable, Dict, List, TYPE_CHECKING, Optional, Union
 import threading
 from queue import Queue
 
@@ -108,6 +108,7 @@ class TeamTalk:
         self.message_queue: Queue[Message] = Queue()
         self.myself_event_queue: Queue[Event] = Queue()
         self.uploaded_files_queue: Queue[File] = Queue()
+        self.user_cache: Dict[int, User] = {}
         self.thread = TeamTalkThread(bot, self)
         self.reconnect = False
         self.reconnect_attempt = 0
@@ -198,6 +199,9 @@ class TeamTalk:
         if self.config.status:
             return self.config.status
         else:
+            require_prefix = getattr(self.bot.config.general, "require_command_prefix", True) if hasattr(self.bot, "config") and hasattr(self.bot.config, "general") else True
+            if require_prefix:
+                return self.translator.translate('Send "/h" for help')
             return self.translator.translate('Send "h" for help')
 
     def send_message(
@@ -342,25 +346,73 @@ class TeamTalk:
     def channel(self) -> Channel:
         return self.get_channel(self.tt.getMyChannelID())
 
-    def get_user(self, id: int) -> User:
-        user = self.tt.getUser(id)
-        gender = UserStatusMode(user.nStatusMode)
+    def get_user_from_obj(self, user: TeamTalkPy.User) -> User:
+        try:
+            gender = UserStatusMode(getattr(user, "nStatusMode", 0))
+        except (ValueError, TypeError):
+            gender = UserStatusMode.M
+        username = _str(getattr(user, "szUsername", ""))
+        nickname = _str(getattr(user, "szNickname", ""))
+        status_msg = _str(getattr(user, "szStatusMsg", ""))
+        client_name = _str(getattr(user, "szClientName", ""))
+        u_id = getattr(user, "nUserID", 0)
+        c_id = getattr(user, "nChannelID", 0)
+        version = getattr(user, "uVersion", 1)
+        user_type_raw = getattr(user, "uUserType", 0)
+        try:
+            user_type = UserType(user_type_raw)
+        except (ValueError, TypeError):
+            user_type = UserType.Null
+        user_state_raw = getattr(user, "uUserState", 0)
+        try:
+            user_state = UserState(user_state_raw)
+        except (ValueError, TypeError):
+            user_state = UserState.Null
+
         return User(
-            user.nUserID,
-            _str(user.szNickname),
-            _str(user.szUsername),
-            _str(user.szStatusMsg),
+            u_id,
+            nickname,
+            username,
+            status_msg,
             gender,
-            UserState(user.uUserState),
-            self.get_channel(user.nChannelID),
-            _str(user.szClientName),
-            user.uVersion,
-            self.get_user_account(_str(user.szUsername)),
-            UserType(user.uUserType),
+            user_state,
+            self.get_channel(c_id),
+            client_name,
+            version,
+            self.get_user_account(username),
+            user_type,
             True
-            if _str(user.szUsername) in self.config.users.admins or user.uUserType == 2
+            if username in self.config.users.admins or user_type_raw == 2
             else False,
-            _str(user.szUsername) in self.config.users.banned_users,
+            username in self.config.users.banned_users,
+        )
+
+    def get_user(self, id: int) -> User:
+        try:
+            user = self.tt.getUser(id)
+            if user and getattr(user, "nUserID", 0) != 0:
+                u = self.get_user_from_obj(user)
+                if u.nickname or u.username:
+                    self.user_cache[id] = u
+                return u
+        except Exception:
+            pass
+        if id in self.user_cache:
+            return self.user_cache[id]
+        return User(
+            id,
+            "",
+            "",
+            "",
+            UserStatusMode.M,
+            UserState.Null,
+            self.get_channel(1),
+            "",
+            1,
+            self.get_user_account(""),
+            UserType.Null,
+            False,
+            False,
         )
 
     def get_user_account(self, username: str) -> UserAccount:
@@ -393,23 +445,45 @@ class TeamTalk:
             user_account = self.get_user_account_by_tt_obj(obj.useraccount)
         except (UnicodeDecodeError, ValueError):
             user_account = UserAccount("", "", "", UserType.Null, UserRight.Null, "")
+
+        user = None
         try:
-            user = self.get_user(obj.user.nUserID)
-        except (UnicodeDecodeError, ValueError):
-            user = User(
-                1,
-                "",
-                "",
-                "",
-                UserStatusMode.M,
-                UserState.Null,
-                channel,
-                "",
-                1,
-                user_account,
-                UserType.Null,
-                False,
-                False,
+            raw_u = getattr(obj, "user", None)
+            u_id = getattr(raw_u, "nUserID", 0) if raw_u else 0
+            if raw_u and u_id != 0:
+                user = self.get_user_from_obj(raw_u)
+                if user.nickname or user.username:
+                    self.user_cache[u_id] = user
+                elif u_id in self.user_cache:
+                    user = self.user_cache[u_id]
+                else:
+                    live_u = self.get_user(u_id)
+                    if live_u.nickname or live_u.username:
+                        user = live_u
+            elif u_id != 0:
+                user = self.get_user(u_id)
+        except Exception:
+            pass
+
+        if not user:
+            u_id = getattr(getattr(obj, "user", None), "nUserID", 0)
+            user = self.user_cache.get(
+                u_id,
+                User(
+                    u_id or 1,
+                    "",
+                    "",
+                    "",
+                    UserStatusMode.M,
+                    UserState.Null,
+                    channel,
+                    "",
+                    1,
+                    user_account,
+                    UserType.Null,
+                    False,
+                    False,
+                ),
             )
         try:
             message = self.get_message(obj.textmessage)

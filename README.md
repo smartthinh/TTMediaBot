@@ -279,4 +279,13 @@ located directly in the bot root directory.
 
 ## ⚖️ License and Disclaimer
 
-This software is distributed "AS IS" under the open-source MIT License. The authors assume no liability for service interruptions, data loss, or system issues arising from the use of this software.
+This software is free software distributed under the terms of the [GNU General Public License v3.0 (GPLv3)](LICENSE).
+
+```
+TTMediaBot - TeamTalk 5 Media Bot
+Copyright (C) 2021 Gumerov Amir Eduardovich
+Copyright (C) 2024 João Almeida
+Copyright (C) 2026 Smart Thinh
+```
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [GNU General Public License](LICENSE) for more details.

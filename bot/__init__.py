@@ -1,3 +1,21 @@
+# TTMediaBot - TeamTalk 5 Media Bot
+# Copyright (C) 2021 Gumerov Amir Eduardovich
+# Copyright (C) 2024 João Almeida
+# Copyright (C) 2026 Smart Thinh
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import os
 import socket
 import sys
@@ -130,7 +148,13 @@ class Bot:
             client_name="", version=0, user_account=None, is_banned=False
         )
         for command in self.config.general.start_commands:
-            message = Message(text=command, user=startup_context_user, channel=self.ttclient.channel, type=MessageType.User)
+            cmd_text = command.strip()
+            require_prefix = getattr(self.config.general, "require_command_prefix", True)
+            if require_prefix and not cmd_text.startswith("/"):
+                cmd_text = "/" + cmd_text
+            elif not require_prefix and cmd_text.startswith("/"):
+                cmd_text = cmd_text[1:].lstrip()
+            message = Message(text=cmd_text, user=startup_context_user, channel=self.ttclient.channel, type=MessageType.User)
             self.command_processor(message)
         
         # Check for update success file

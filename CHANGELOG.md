@@ -4,7 +4,13 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🚀 [Unreleased] — Official TeamTalk 5 Tree View Interface, Full Sound Events, Screen Reader Announcements & Smart Device Detection
+## 🚀 [Unreleased] — Official TeamTalk 5 Tree View Interface, Full Sound Events, Screen Reader Announcements, Command Prefix Control, Smart Device Detection & GPLv3 Licensing
+
+### ⚖️ Open-Source Licensing Transition to GNU General Public License v3.0 (GPLv3)
+- **Migrated Project License to GNU GPLv3:** Upgraded the project license from MIT to the copyleft **GNU General Public License Version 3 (GPLv3)**.
+- **Copyleft Freedom Guarantees:** Ensures that all future distributions, enhancements, and forks of TTMediaBot remain free and open-source, giving all users the guaranteed freedom to access, inspect, modify, and redistribute the source code.
+- **Preserved Historical Attributions:** Retained original MIT copyright notices for historical upstream contributions by Amir Gumerov (2021) and João Almeida (2024), alongside current copyright by Smart Thinh (2026).
+- **Updated Documentation & Headers:** Added standard GPLv3 header notices to core codebase entries and updated repository documentation.
 
 ### 🌳 TeamTalk 5 Tree View Hierarchy & Instant Channel Navigation
 - **Authentic TeamTalk 5 Tree View (`wx.TreeCtrl`):** Replaced the flat user list with a complete, accessible hierarchical Tree View matching the official TeamTalk 5 client. Users and channels are displayed in their real directory tree:
@@ -39,8 +45,8 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ### 📢 Screen Reader Announcement Engine (TTS & Braille via UniversalSpeech)
 - **Universal Accessibility Engine (`bot/accessibility.py`):** Added native screen reader support powered by the 64-bit `UniversalSpeech` library, providing synchronized text-to-speech and refreshable Braille output across NVDA, JAWS, System Access, SuperNova, and Windows SAPI:
-  - **User Login & Logout Announcements:** Screen readers announce whenever someone connects or disconnects (`"{user} đã đăng nhập"` / `"{user} đã đăng xuất"`).
-  - **Channel Movement Announcements:** Informs you when someone joins or leaves your channel (`"{user} đã tham gia kênh"` / `"{user} đã rời khỏi kênh"`), and confirms when you enter a channel (`"Đã tham gia kênh {channel}"`).
+  - **User Login & Logout Spoken Announcements:** Screen readers accurately announce full nicknames whenever someone connects or disconnects (`"{user} đã đăng nhập"` / `"{user} đã đăng xuất"`), matching official TeamTalk 5 behavior.
+  - **Channel Movement Spoken Announcements:** Informs you with user nicknames whenever someone enters or leaves your current channel (`"{user} đã tham gia kênh"` / `"{user} đã rời khỏi kênh"`), and confirms when you enter a channel (`"Đã tham gia kênh {channel}"`).
   - **Spoken Chat Messages:** Automatically reads incoming channel messages (`"{user}: {message}"`) and private messages (`"Tin nhắn riêng từ {user}: {message}"`).
   - **Sent Message Confirmations:** Confirms outgoing public and private messages without requiring manual history navigation.
   - **Device & Output State Changes:** Speaks real-time feedback when toggling your microphone (`"Đã bật micro"` / `"Đã tắt micro"`) or muting output sound (`"Đã tắt tiếng"` / `"Đã bật tiếng"`).
@@ -78,6 +84,13 @@ All notable updates to this fork are documented here, in reverse chronological o
 - **Instant Notification on Your Screen:** Whenever someone sends a `pm` message, the bot automatically pops up the private chat window with that user on your screen, places the message in your chat history, and sets your cursor in the reply box so you can answer right away.
 - **Immediate Sender Confirmation:** The sender receives a prompt confirmation from the bot letting them know their message was successfully delivered to the operator.
 
+### ⌨️ Strict Command Prefix Syntax Control ('/' Prefix Requirement)
+- **Require '/' Prefix for Commands Checkbox:** Added a dedicated configuration option in the **Settings...** window (`General & Audio` tab) labeled **Require '/' prefix for commands (e.g. /p, /s)** (`Bắt buộc gõ dấu '/' trước lệnh (ví dụ: /p, /s)`):
+  - **Enabled by Default (Strict Slash Mode):** Commands strictly require a leading slash (e.g., `/p`, `/s`, `/v`, `/h`, `/pm`). Typing raw command letters directly without `/` (such as `p`, `s`, `v`, `h`) is strictly prohibited, ignored as an invalid command, and the bot replies with `Gửi "/h" để xem trợ giúp`.
+  - **Disabled (Strict Direct Mode):** When unchecked, users must type ONLY the command letters without `/` (e.g., `p`, `s`, `v`, `h`, `pm`). Typing a leading slash (`/p`, `/s`) is strictly prohibited, rejected, and the bot replies with `Gửi "h" để xem trợ giúp`.
+  - **Dynamic Command Help & Server Status:** Bot command help listings (`help`, `admin_help`), unknown command hints, and TeamTalk server status dynamically adapt to display with or without `/` based on this setting.
+  - **Instant Real-Time Synchronization:** Any change to this checkbox saves immediately to `config.json` and updates all active bot connections on the fly without requiring a restart.
+
 ### 🧹 Cleaner, Clutter-Free Main Screen
 - **More Room for Your Servers:** We moved all audio options, language settings, and extra buttons into their own clean **Settings** window. The main screen is now much tidier, giving you a clear view of your servers without feeling crowded.
 - **Neat & Balanced Buttons:** Buttons on the main screen are now organized in a simple, balanced grid:
@@ -92,6 +105,8 @@ All notable updates to this fork are documented here, in reverse chronological o
     - **Audio Format:** Choose how music is saved (MP3, WAV, FLAC, and more).
     - **MP3 Sound Quality (Bitrate):** Automatically appears whenever you select MP3, letting you choose between studio-quality sound (320 kbps) or smaller file sizes.
     - **Sampling Rate:** Adjust audio quality to match your listening setup (recommended 48000 Hz for TeamTalk).
+    - **Session Chat Window (Experimental):** Checkbox to enable or disable the interactive server session chat window upon connecting.
+    - **Require '/' Prefix for Commands:** Checkbox to enforce strict command prefixing (`/p` vs `p`) across all channels and direct messages (enabled by default).
   - **Information & Support Tab:** Helpful tools and community links:
     - **View Logs...:** Check recent activity and errors if you ever need troubleshooting help.
     - **Check for Updates:** Easily check if a newer version of TTMediaBot is available.

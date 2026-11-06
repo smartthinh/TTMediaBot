@@ -170,10 +170,17 @@ class CommandProcessor:
         except errors.AccessDeniedError as e:
             self.ttclient.send_message(str(e), message.user)
         except (errors.ParseCommandError, errors.UnknownCommandError):
-            self.ttclient.send_message(
-                self.translator.translate('Unknown command. Send "h" for help.'),
-                message.user,
-            )
+            require_prefix = getattr(self.config.general, "require_command_prefix", True)
+            if require_prefix:
+                self.ttclient.send_message(
+                    self.translator.translate('Unknown command. Send "/h" for help.'),
+                    message.user,
+                )
+            else:
+                self.ttclient.send_message(
+                    self.translator.translate('Unknown command. Send "h" for help.'),
+                    message.user,
+                )
         except Exception as e:
             logging.error("", exc_info=True)
             self.ttclient.send_message(
@@ -224,12 +231,20 @@ class CommandProcessor:
 
     def help(self, arg: str, user: User) -> str:
         arg = arg.strip().lower()
+        require_prefix = getattr(self.config.general, "require_command_prefix", True)
+        if require_prefix:
+            if arg.startswith("/"):
+                arg = arg[1:]
+        else:
+            if arg.startswith("/"):
+                return self.translator.translate("Unknown command")
         is_admin = user.is_admin or user.type == UserType.Admin
+        prefix = "/" if getattr(self.config.general, "require_command_prefix", True) else ""
         if arg:
             if arg in self.commands_dict:
-                return "{} {}".format(arg, self.commands_dict[arg](self).help)
+                return "{}{} {}".format(prefix, arg, self.commands_dict[arg](self).help)
             elif is_admin and arg in self.admin_commands_dict:
-                return "{} {}".format(arg, self.admin_commands_dict[arg](self).help)
+                return "{}{} {}".format(prefix, arg, self.admin_commands_dict[arg](self).help)
             else:
                 return self.translator.translate("Unknown command")
         else:
@@ -244,15 +259,23 @@ class CommandProcessor:
 
     def admin_help(self, arg: str, user: User) -> str:
         arg = arg.strip().lower()
+        require_prefix = getattr(self.config.general, "require_command_prefix", True)
+        if require_prefix:
+            if arg.startswith("/"):
+                arg = arg[1:]
+        else:
+            if arg.startswith("/"):
+                return self.translator.translate("Unknown command")
+        prefix = "/" if getattr(self.config.general, "require_command_prefix", True) else ""
         if arg:
             if arg in self.admin_commands_dict:
-                return "{} {}".format(arg, self.admin_commands_dict[arg](self).help)
+                return "{}{} {}".format(prefix, arg, self.admin_commands_dict[arg](self).help)
             else:
                 return self.translator.translate("Unknown command")
         else:
             help_strings: List[str] = []
             for i in list(self.admin_commands_dict):
-                line = "{} {}".format(i, self.admin_commands_dict[i](self).help)
+                line = "{}{} {}".format(prefix, i, self.admin_commands_dict[i](self).help)
                 if i == "cm":
                     help_strings.append(f"\f{line}\f")
                 else:
@@ -261,6 +284,15 @@ class CommandProcessor:
 
     def parse_command(self, text: str) -> Tuple[str, str]:
         text = text.strip()
+        require_prefix = getattr(self.config.general, "require_command_prefix", True)
+        if require_prefix:
+            if not text.startswith("/"):
+                raise errors.ParseCommandError()
+            text = text[1:].lstrip()
+        else:
+            if text.startswith("/"):
+                raise errors.ParseCommandError()
+
         try:
             command = re.findall(re_command, text.split(" ")[0].lower())[0]
         except IndexError:

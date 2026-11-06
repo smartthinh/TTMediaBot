@@ -601,6 +601,68 @@ class ServerManager:
                 except Exception as ex:
                     logging.error(f"Fallback save to {target} failed: {ex}")
 
+    def get_require_command_prefix(self) -> bool:
+        """Reads require_command_prefix state from config.json. Defaults to True."""
+        paths_to_check = [self.config_path]
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+        if user_config not in paths_to_check:
+            paths_to_check.append(user_config)
+
+        for p in paths_to_check:
+            if p and os.path.exists(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    val = data.get("general", {}).get("require_command_prefix")
+                    if val is not None:
+                        return bool(val)
+                except Exception as e:
+                    logging.error(f"Error reading require_command_prefix from {p}: {e}")
+        return True
+
+    def set_require_command_prefix(self, enabled: bool) -> None:
+        """Saves require_command_prefix state to config.json immediately."""
+        data = {}
+        user_config = os.path.join(app_vars.data_dir, "config.json")
+
+        load_path = self.config_path if os.path.exists(self.config_path) else (user_config if os.path.exists(user_config) else None)
+        if load_path:
+            try:
+                with open(load_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except Exception as e:
+                logging.error(f"Error reading {load_path}: {e}")
+
+        if "general" not in data or not isinstance(data["general"], dict):
+            data["general"] = {}
+        data["general"]["require_command_prefix"] = bool(enabled)
+
+        targets = [self.config_path]
+        if user_config not in targets:
+            targets.append(user_config)
+
+        for target in targets:
+            try:
+                temp_file = target + ".tmp"
+                with open(temp_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(temp_file, target)
+                self.config_path = target
+                logging.info(f"require_command_prefix '{enabled}' saved immediately to {target}")
+                break
+            except Exception as e:
+                logging.error(f"Error writing require_command_prefix to {target}: {e}")
+                try:
+                    with open(target, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                    self.config_path = target
+                    logging.info(f"require_command_prefix '{enabled}' saved (fallback) to {target}")
+                    break
+                except Exception as ex:
+                    logging.error(f"Fallback save to {target} failed: {ex}")
+
     def load_servers(self) -> List[Dict[str, Any]]:
         """Loads servers from servers.json. By default, starts with an empty list."""
         old_servers_file = os.path.join(app_vars.directory, "servers.json")
@@ -750,6 +812,7 @@ class ServerManager:
             start_cmds = [c.strip() for c in start_cmds.split(",") if c.strip()]
         gen["start_commands"] = start_cmds
         gen["session_chat_enabled"] = bool(self.get_session_chat_enabled())
+        gen["require_command_prefix"] = bool(self.get_require_command_prefix())
 
         # 5. Services section
         if "services" not in data or not isinstance(data["services"], dict):
@@ -1762,6 +1825,15 @@ class SettingsDialog(wx.Dialog):
         self.chk_session_chat.Bind(wx.EVT_CHECKBOX, self.on_session_chat_toggled)
         self.tab_general_sizer.Add(self.chk_session_chat, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
 
+        # Require '/' prefix for commands
+        self.chk_require_prefix = wx.CheckBox(
+            self.tab_general,
+            label=translate("Require '/' prefix for commands (e.g. /p, /s)"),
+        )
+        self.chk_require_prefix.SetValue(self.main_frame.current_require_command_prefix)
+        self.chk_require_prefix.Bind(wx.EVT_CHECKBOX, self.on_require_prefix_toggled)
+        self.tab_general_sizer.Add(self.chk_require_prefix, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 12)
+
         self.tab_general.SetSizer(self.tab_general_sizer)
         self.notebook.AddPage(self.tab_general, translate("General & Audio"))
 
@@ -1845,6 +1917,10 @@ class SettingsDialog(wx.Dialog):
     def on_session_chat_toggled(self, event=None):
         val = self.chk_session_chat.IsChecked()
         self.main_frame.set_session_chat_enabled(val)
+
+    def on_require_prefix_toggled(self, event=None):
+        val = self.chk_require_prefix.IsChecked()
+        self.main_frame.set_require_command_prefix(val)
 
     def on_view_logs(self, event=None):
         self.btn_view_logs.Disable()
@@ -1941,6 +2017,15 @@ class SettingsDialog(wx.Dialog):
                 translate("Enable the interactive session chat interface when connecting to a server (Experimental).")
             )
 
+        if hasattr(self, 'chk_require_prefix'):
+            self.chk_require_prefix.SetLabel(
+                translate("Require '/' prefix for commands (e.g. /p, /s)")
+            )
+            self.chk_require_prefix.SetValue(self.main_frame.current_require_command_prefix)
+            self.chk_require_prefix.SetToolTip(
+                translate("When enabled, commands must begin with '/' (e.g. /p, /s). When disabled, commands must NOT have '/' and only the command letters are allowed.")
+            )
+
         if hasattr(self, 'btn_view_logs'):
             self.btn_view_logs.SetLabel(translate("&View Logs..."))
             self.btn_view_logs.SetToolTip(translate("View application logs and errors."))
@@ -1987,6 +2072,7 @@ class MainFrame(wx.Frame):
         self.current_sampling_rate = self.server_mgr.get_sampling_rate()
         self.current_mp3_bitrate = self.server_mgr.get_mp3_bitrate()
         self.current_session_chat_enabled = self.server_mgr.get_session_chat_enabled()
+        self.current_require_command_prefix = self.server_mgr.get_require_command_prefix()
 
         # Multi-server tracking
         self.active_bots: Dict[str, Bot] = {}
@@ -2276,6 +2362,21 @@ class MainFrame(wx.Frame):
                 except Exception:
                     pass
         logging.info(f"Updated global session_chat_enabled to: {enabled}")
+
+    def set_require_command_prefix(self, enabled: bool):
+        self.current_require_command_prefix = bool(enabled)
+        self.server_mgr.set_require_command_prefix(bool(enabled))
+
+        # Update all active bots in real time
+        for bot in self.active_bots.values():
+            if hasattr(bot, "config") and hasattr(bot.config, "general"):
+                bot.config.general.require_command_prefix = bool(enabled)
+            if hasattr(bot, "config_manager"):
+                try:
+                    bot.config_manager.save()
+                except Exception:
+                    pass
+        logging.info(f"Updated global require_command_prefix to: {enabled}")
 
     def on_search(self, event):
         self.search_query = self.txt_search.GetValue().strip().lower()
@@ -2626,9 +2727,20 @@ class MainFrame(wx.Frame):
             except Exception as e:
                 logging.error(f"Error updating server config cache file: {e}")
 
+            if self.server_states.get(s_id) == "disconnected":
+                return
+
             bot = Bot(cfg_path, cache_file_name=cache_name, log_file_name=log_name)
-            self.active_bots[s_id] = bot
             bot.initialize()
+
+            if self.server_states.get(s_id) == "disconnected":
+                try:
+                    bot.close()
+                except Exception:
+                    pass
+                return
+
+            self.active_bots[s_id] = bot
             bot.run()
         except Exception as e:
             logging.error(f"Error running bot for '{server.get('name')}': {e}", exc_info=True)
@@ -2739,7 +2851,8 @@ class MainFrame(wx.Frame):
                 server_name = server.get("name", translate("Server"))
                 status_parts.append(f"{server_name}: {translate('Reconnecting')} ({attempt})")
 
-            if hasattr(tt, "thread") and not tt.thread.is_alive() and prev_state in ("connected", "connecting"):
+            thread_started = hasattr(tt, "thread") and getattr(tt.thread, "ident", None) is not None
+            if thread_started and not tt.thread.is_alive() and prev_state == "connected":
                 curr_state = "disconnected"
                 self.disconnect_server_by_id(s_id)
 

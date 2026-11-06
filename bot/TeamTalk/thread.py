@@ -63,7 +63,12 @@ class TeamTalkThread(Thread):
             and event.message.type == MessageType.Channel
         ):
             text = (event.message.text or "").strip()
-            if text.lower().startswith("pm "):
+            require_prefix = getattr(self.bot.config.general, "require_command_prefix", True) if hasattr(self.bot, "config") and hasattr(self.bot.config, "general") else True
+            if require_prefix:
+                is_pm = text.lower().startswith("/pm ")
+            else:
+                is_pm = text.lower().startswith("pm ")
+            if is_pm:
                 self.ttclient.message_queue.put(event.message)
             self._handle_channel_message(event.message)
         elif (
