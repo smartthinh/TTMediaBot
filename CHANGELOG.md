@@ -4,373 +4,169 @@ All notable updates to this fork are documented here, in reverse chronological o
 
 ---
 
-## 🚀 [Unreleased] — Official TeamTalk 5 Tree View Interface, Full Sound Events, Screen Reader Announcements, Command Prefix Control, Smart Device Detection & GPLv3 Licensing
+## 🚀 [Unreleased] — TeamTalk 5 Tree View, Sound Events, Screen Reader Announcements, Command Prefix Control & GPLv3
 
-### ⚖️ Open-Source Licensing Transition to GNU General Public License v3.0 (GPLv3)
-- **Migrated Project License to GNU GPLv3:** Upgraded the project license from MIT to the copyleft **GNU General Public License Version 3 (GPLv3)**.
-- **Copyleft Freedom Guarantees:** Ensures that all future distributions, enhancements, and forks of TTMediaBot remain free and open-source, giving all users the guaranteed freedom to access, inspect, modify, and redistribute the source code.
-- **Preserved Historical Attributions:** Retained original MIT copyright notices for historical upstream contributions by Amir Gumerov (2021) and João Almeida (2024), alongside current copyright by Smart Thinh (2026).
-- **Updated Documentation & Headers:** Added standard GPLv3 header notices to core codebase entries and updated repository documentation.
+### ⚖️ License
+- Changed the project license from MIT to GNU GPLv3.
+- Kept the original MIT copyright notices of upstream contributors.
+- Added GPLv3 headers to core source files and updated the documentation.
 
-### 🌳 TeamTalk 5 Tree View Hierarchy & Instant Channel Navigation
-- **Authentic TeamTalk 5 Tree View (`wx.TreeCtrl`):** Replaced the flat user list with a complete, accessible hierarchical Tree View matching the official TeamTalk 5 client. Users and channels are displayed in their real directory tree:
-  - **Channels & Sub-channels:** Root channels, sub-channels, and nested channels are organized hierarchically with standard expand (`Right Arrow`) and collapse (`Left Arrow`) keyboard navigation.
-  - **Users Inside Channels:** Each channel lists the users currently residing inside it, showing their nickname, real-time microphone transmission status (`🎤`), gender, and role.
-  - **Current Channel Indicator:** The channel you are currently in is clearly marked with `[Current]` so you and screen readers always know where you are.
-- **Enter to Join & Auto-Expand Channel:**
-  - Pressing **Enter** (or double-clicking) on any channel in the Tree View immediately moves you into that channel.
-  - **Automatic Expansion:** Upon joining, the channel (and all parent channels) automatically expands to reveal all sub-channels and participants inside, eliminating the need to manually press the Right Arrow key.
-- **Accessible Channel Password Prompt (`ChannelPasswordDialog`):**
-  - When entering a password-protected channel, a dedicated modal prompt opens requesting the channel password.
-  - **Protected & Secure:** Input characters are masked by default (`*`) to ensure privacy.
-  - **Show Password Checkbox (`Alt + S`):** Users can toggle a checkbox to view the password characters in plain text directly on screen, leveraging Win32 `EM_SETPASSWORDCHAR` for full accessibility.
-  - **Enter to Submit:** Simply press **Enter** after typing the password to join the channel immediately.
-- **Channel Context Menu:** Right-clicking on any channel provides a context menu with options to **Join Channel** or **Copy Channel Name** to the clipboard.
-- **Instant Private Chat on User Activation:** Pressing **Enter** or double-clicking on any user inside a channel opens a private chat window with them and focuses the input box right away.
+### 🌳 Tree View & Channel Navigation
+- Replaced the flat user list with a TeamTalk 5 style tree view of channels, sub-channels and users.
+- Users show their nickname, microphone status, gender and role.
+- Your current channel is marked `[Current]`.
+- Press Enter or double-click a channel to join it; it expands automatically.
+- Added a password prompt for protected channels, with a show-password checkbox (`Alt + S`).
+- Added a channel context menu: Join Channel, Copy Channel Name.
+- Press Enter or double-click a user to open a private chat with them.
 
-### 🔔 Authentic TeamTalk 5 Sound Events
-- **100% Parity with Official TeamTalk 5 Client:** Integrated complete sound event mappings directly modeled after the TeamTalk 5 desktop client source code (`mainwindow.cpp` and `TeamTalkDlg.cpp`):
-  - **User Logged On (`logged_on.wav`):** Plays when any user logs in to the server.
-  - **User Logged Off (`logged_off.wav`):** Plays when a user logs out from the server.
-  - **User Joined Channel (`newuser.wav`):** Plays when a user enters the channel you are currently in.
-  - **User Left Channel (`removeuser.wav`):** Plays when a user leaves your current channel.
-  - **Public Channel Message Received (`channel_msg.wav`):** Plays whenever someone posts a message in the channel.
-  - **Public Channel Message Sent (`channel_msg_sent.wav`):** Plays confirmation audio when you send a message to the channel.
-  - **Private Message Received (`user_msg.wav`):** Plays an alert when receiving a direct private message or `pm` command.
-  - **Private Message Sent (`user_msg_sent.wav`):** Plays confirmation audio when you send a reply in a private chat window.
-  - **Broadcast Message (`broadcast_msg.wav`):** Plays upon receiving a server broadcast.
-  - **Voice Activation / Hotkey Feedback (`voiceact_on.wav` / `voiceact_off.wav`):** Plays audio cues when toggling the microphone on or off.
-  - **Server Disconnection Alert (`serverlost.wav`):** Plays when the connection to the server is lost.
-- **Sound Events Toggle (`Alt + E`):** Toggle sound notifications on or off at any time using the checkbox or hotkey. Preferences are saved per server.
+### 🔔 Sound Events
+- Added TeamTalk 5 sounds for user log in/out, user join/leave channel, public and private messages (received and sent), broadcasts, microphone on/off and server disconnection.
+- Added a sound events toggle (`Alt + E`), saved per server.
 
-### 📢 Screen Reader Announcement Engine (TTS & Braille via UniversalSpeech)
-- **Universal Accessibility Engine (`bot/accessibility.py`):** Added native screen reader support powered by the 64-bit `UniversalSpeech` library, providing synchronized text-to-speech and refreshable Braille output across NVDA, JAWS, System Access, SuperNova, and Windows SAPI:
-  - **User Login & Logout Spoken Announcements:** Screen readers accurately announce full nicknames whenever someone connects or disconnects (`"{user} đã đăng nhập"` / `"{user} đã đăng xuất"`), matching official TeamTalk 5 behavior.
-  - **Channel Movement Spoken Announcements:** Informs you with user nicknames whenever someone enters or leaves your current channel (`"{user} đã tham gia kênh"` / `"{user} đã rời khỏi kênh"`), and confirms when you enter a channel (`"Đã tham gia kênh {channel}"`).
-  - **Spoken Chat Messages:** Automatically reads incoming channel messages (`"{user}: {message}"`) and private messages (`"Tin nhắn riêng từ {user}: {message}"`).
-  - **Sent Message Confirmations:** Confirms outgoing public and private messages without requiring manual history navigation.
-  - **Device & Output State Changes:** Speaks real-time feedback when toggling your microphone (`"Đã bật micro"` / `"Đã tắt micro"`) or muting output sound (`"Đã tắt tiếng"` / `"Đã bật tiếng"`).
-  - **Disconnection Alert:** Screen readers immediately announce `"Mất kết nối tới máy chủ"` if the connection drops.
+### 📢 Screen Reader Announcements
+- Added screen reader speech and Braille output through UniversalSpeech (NVDA, JAWS, System Access, SuperNova, SAPI).
+- Announces user log in/out, channel joins and leaves, and incoming and sent messages.
+- Announces microphone and mute changes, and server disconnection.
 
-### 🎙️ Enhanced Sound Configuration, OK/Enter to Save & Automatic Hardware Detection
-- **Explicit OK Button & Enter to Save:**
-  - Added an **OK** button (`btn_ok`) set as the default button in the **Sound Configuration** dialog (`SessionAudioDevicesDialog`).
-  - **Prevent Mid-Navigation Errors:** Users can freely navigate through audio devices and systems using arrow keys without triggering premature device re-initialization or driver lockups.
-  - **One-Key Save (Enter):** Pressing **Enter** anywhere in the dialog (or activating OK) applies and saves all choices (Sound System, Microphone Device, Output Device, Master Volume, and Mic Volume) and announces `"Đã lưu thiết lập âm thanh thành công"`.
-- **Manual "Refresh Devices" Button (`Alt + R`):**
-  - Added a dedicated **Refresh Devices** (`&Refresh Devices`) button. Clicking it forces TeamTalk's sound system to reinitialize (`TT_RestartSoundSystem()`) and re-scans all audio inputs/outputs while preserving your currently selected device.
-- **Automatic Hardware Device Detection (`WM_DEVICECHANGE`):**
-  - Both the chat session window and Sound Configuration dialog register for Windows device notifications (`RegisterDeviceNotificationW`) and listen for native OS hardware broadcast events (`WM_DEVICECHANGE`) as well as TeamTalk's internal sound device events (`CLIENTEVENT_SOUNDDEVICE_ADDED`, `CLIENTEVENT_SOUNDDEVICE_REMOVED`, `CLIENTEVENT_SOUNDDEVICE_UNPLUGGED`).
-  - **Plug-and-Play Detection:** Whenever a USB headset, microphone, or external audio interface is plugged in or unplugged:
-    - The device lists automatically refresh in real time without restarting the application or reconnecting to the server.
-    - Screen readers announce the change: `"Đã phát hiện thiết bị âm thanh mới. Danh sách thiết bị đã được tự động làm mới."` or `"Thiết bị âm thanh đã ngắt kết nối. Danh sách thiết bị đã được cập nhật."`.
-- **Master & Microphone Volume Sliders:**
-  - Accessible sliders for Master Playback Volume and Microphone Volume (0%–100%) with live percentage feedback, 1% arrow key steps, and 5% Page Up/Down steps.
-- **Per-Server Settings Persistence:** Audio hardware selections and volume levels are remembered and restored per server upon reconnect.
+### 🎙️ Sound Configuration
+- Added an OK button; Enter saves all audio settings.
+- Added a Refresh Devices button (`Alt + R`).
+- Audio devices refresh automatically when hardware is plugged in or removed.
+- Added master and microphone volume sliders.
+- Audio settings are saved per server.
 
-### 💬 Interactive Server Sessions & Private Chat Windows
-- **Interactive Session Chat Toggle (Experimental):** Added a new checkbox in the **Settings** window labeled **Enable interactive session chat window (Experimental)**.
-  - **Disabled by default:** When disabled, pressing **Enter** on any server in the list simply connects the bot quietly in the background without opening any extra windows. The operator messaging command (`pm`) is also disabled to keep things simple and silent.
-  - **Turn on whenever you want:** Enabling the checkbox brings back the full interactive session window on connection, user lists, and allows channel members to contact you using `pm`.
-- **Dedicated Server Session Window:** When you connect to a server with the session window enabled, TTMediaBot opens an interactive, accessible window where you can listen to real-time audio, talk through your microphone, see who is in the channel, and read channel events and messages.
-- **Instant Private Chat on Enter:** Simply press **Enter** or double-click on any user in the channel list to immediately open a separate private chat window with them. The cursor automatically lands in the message box, allowing you to start typing and send messages right away.
-- **Alt + Tab Friendly & Easy to Close:** The private chat window appears as its own independent window in Alt + Tab. Pressing **Escape** closes the private chat without disturbing your main session.
-- **Persistent Chat History:** Private chat conversations are safely kept for every person you talk to, so switching between users or reopening a chat window keeps your conversation history intact until you disconnect.
-- **Consistent Message Timestamps:** All public and private chat entries now place timestamps clearly at the end of each message (`Nickname: Message [HH:MM:SS]`), making conversations clean and easy to read.
+### 💬 Session & Private Chat
+- Added an experimental setting to enable the interactive session chat window (off by default).
+- The session window shows live audio, users, events and messages.
+- Private chats open in their own window; Escape closes them.
+- Private chat history is kept until you disconnect.
+- Timestamps now appear at the end of each message.
 
-### 📬 Direct Operator Messaging Command (`pm`)
-- **Single, Simple Command for Everyone:** Channel members can now reach the bot operator at any time using the unified command:
-  - `pm <your message>`
-- **Instant Notification on Your Screen:** Whenever someone sends a `pm` message, the bot automatically pops up the private chat window with that user on your screen, places the message in your chat history, and sets your cursor in the reply box so you can answer right away.
-- **Immediate Sender Confirmation:** The sender receives a prompt confirmation from the bot letting them know their message was successfully delivered to the operator.
+### 📬 `pm` Command
+- Added `pm <message>` so channel members can message the bot operator.
+- The operator's private chat opens automatically and the sender gets a confirmation.
 
-### ⌨️ Strict Command Prefix Syntax Control ('/' Prefix Requirement)
-- **Require '/' Prefix for Commands Checkbox:** Added a dedicated configuration option in the **Settings...** window (`General & Audio` tab) labeled **Require '/' prefix for commands (e.g. /p, /s)** (`Bắt buộc gõ dấu '/' trước lệnh (ví dụ: /p, /s)`):
-  - **Enabled by Default (Strict Slash Mode):** Commands strictly require a leading slash (e.g., `/p`, `/s`, `/v`, `/h`, `/pm`). Typing raw command letters directly without `/` (such as `p`, `s`, `v`, `h`) is strictly prohibited, ignored as an invalid command, and the bot replies with `Gửi "/h" để xem trợ giúp`.
-  - **Disabled (Strict Direct Mode):** When unchecked, users must type ONLY the command letters without `/` (e.g., `p`, `s`, `v`, `h`, `pm`). Typing a leading slash (`/p`, `/s`) is strictly prohibited, rejected, and the bot replies with `Gửi "h" để xem trợ giúp`.
-  - **Dynamic Command Help & Server Status:** Bot command help listings (`help`, `admin_help`), unknown command hints, and TeamTalk server status dynamically adapt to display with or without `/` based on this setting.
-  - **Instant Real-Time Synchronization:** Any change to this checkbox saves immediately to `config.json` and updates all active bot connections on the fly without requiring a restart.
+### ⌨️ Command Prefix Setting
+- Added a setting to require a `/` prefix for commands (on by default).
+- When off, commands must be typed without `/`.
+- Help, hints and server status adapt to the setting.
+- Changes apply immediately without a restart.
 
-### 🧹 Cleaner, Clutter-Free Main Screen
-- **More Room for Your Servers:** We moved all audio options, language settings, and extra buttons into their own clean **Settings** window. The main screen is now much tidier, giving you a clear view of your servers without feeling crowded.
-- **Neat & Balanced Buttons:** Buttons on the main screen are now organized in a simple, balanced grid:
-  - You can quickly add a server, open settings, visit your downloads folder, hide the window, or exit.
-  - When you have two or more servers, the **Connect All** and **Delete All Servers** buttons neatly appear together and disappear when not needed, leaving no blank empty spaces.
-
-### ⚙️ Brand New, Easy-to-Use Settings Window
-- **Everything in One Place:** You can open Settings anytime by clicking the new **Settings...** button on the main screen, pressing **`Alt + T`**, or choosing **Settings...** from the server right-click menu.
-- **Two Simple Tabs for Effortless Browsing:** To keep things organized and easy to navigate, settings are split into two clear tabs:
-  - **General & Audio Tab:** All your listening and language choices:
-    - **Language:** Pick your preferred language; the entire app updates instantly.
-    - **Audio Format:** Choose how music is saved (MP3, WAV, FLAC, and more).
-    - **MP3 Sound Quality (Bitrate):** Automatically appears whenever you select MP3, letting you choose between studio-quality sound (320 kbps) or smaller file sizes.
-    - **Sampling Rate:** Adjust audio quality to match your listening setup (recommended 48000 Hz for TeamTalk).
-    - **Session Chat Window (Experimental):** Checkbox to enable or disable the interactive server session chat window upon connecting.
-    - **Require '/' Prefix for Commands:** Checkbox to enforce strict command prefixing (`/p` vs `p`) across all channels and direct messages (enabled by default).
-  - **Information & Support Tab:** Helpful tools and community links:
-    - **View Logs...:** Check recent activity and errors if you ever need troubleshooting help.
-    - **Check for Updates:** Easily check if a newer version of TTMediaBot is available.
-    - **Visit Website & Telegram:** One-click links to visit our official website or join the helpful Telegram community.
-- **Great for Screen Readers (NVDA & JAWS):** Instead of pressing Tab through a long list of options, visually impaired users can simply switch between the two tabs with **`Ctrl + Tab`** or the **Left/Right Arrow** keys.
+### 🧹 Main Window & Settings
+- Moved audio, language and other options into a new Settings window (`Alt + T`).
+- Settings has two tabs: General & Audio, and Information & Support.
+- Reorganized the main window buttons into a tidy grid.
+- Connect All and Delete All Servers appear only when there are two or more servers.
 
 ---
 
-## 🆕 v3.7.0 — Pure Windows Build, Clean Public Chat History & Packaging Optimization *(29/10/2026)*
+## 🆕 v3.7.0 — Pure Windows Build & Clean Chat History *(29/10/2026)*
 
-### 💬 Pure Public Channel Chat History
-- **Public Messages Only:** In the TeamTalk interactive session chat dialog, the message history list now exclusively displays public channel messages (both from users in the channel and the bot).
-- **Zero Event Clutter:** Eliminated all extraneous system notifications (user joins/leaves, profile changes, microphone state logs, connection/disconnection logs, channel changes) from the chat history list, providing a clean, accessible, and distraction-free conversation log.
-
-### 📦 Pure Windows Build & Packaging Optimization
-- **100% Native Windows Bundle:** Completely stripped all non-Windows binaries and modules (Linux and macOS binaries, unused offline pocketsphinx models, unneeded metadata, and redundant translation source files).
-- **Zero Redundancy & Duplicate Removal:** Resolved duplicated DLL files between root dist and `_internal`, cutting application folder size by over 217 MB and installer size by over 71 MB.
-- **Automatic Environment Verification:** Inno Setup installer now automatically verifies and installs Microsoft Visual C++ 2015-2022 Redistributable (x64) and checks Windows Media Foundation (`MFPlat.dll`).
+- The chat history now shows only public channel messages.
+- Removed Linux and macOS binaries, unused models and duplicate DLLs.
+- Reduced app size by over 217 MB and installer size by over 71 MB.
+- The installer now checks and installs the Visual C++ Redistributable and Windows Media Foundation.
 
 ---
 
-## 🆕 v3.6.0 — Unified Smart Play, Audio Stability & Bitrate Control, Admin File Management & Direct Downloads *(16/10/2026)*
+## 🆕 v3.6.0 — Unified Play, Audio Stability, Admin File Commands & Downloads *(16/10/2026)*
 
-### 🔄 Improved Auto-Updater & Clear Installation Progress
-- **Clear "Installing" Status:** After downloading the update, the status now clearly changes to **"Installing update... Please wait."** instead of closing abruptly. This lets you and screen readers know that the download has finished and installation is beginning.
-- **Visible Installation Progress:** The updater now displays a visible installation progress window with a progress bar while installing files. You can see the progress directly and no longer have to guess when the background installation is finished.
-- **Reliable Automatic Restart:** Once the installation completes, TTMediaBot automatically reopens with the new version ready to use, preventing accidental launches of the old version while updating.
-
-### 🎚️ Audio Sampling Rate Selector
-- **Sampling Rate Selector on Main Window:** Added an intuitive dropdown menu on the main interface allowing you to easily select the audio sampling rate for bot playback and downloaded music.
-- **Simple, Everyday Descriptions for Everyone:** You don't need any sound engineering knowledge — each option clearly explains its everyday purpose:
-  - `Default (48000 Hz - Recommended for TeamTalk)`: Best and most optimized for TeamTalk (matches TeamTalk's native Opus audio standard).
-  - `48000 Hz (TeamTalk / DVD Quality)`: High fidelity, studio and broadcast standard.
-  - `44100 Hz (CD Audio Quality)`: Standard compact disc quality for legacy audio equipment.
-  - `96000 Hz (Hi-Res Studio Quality)`: High-resolution audio for advanced sound cards.
-  - `32000 Hz (FM Radio Quality)`, `24000 Hz (Medium Quality)`, and `16000 Hz (Voice Quality)` for lighter bandwidth usage.
-- **Real-Time Effect:** Changing the sampling rate immediately updates active bot players in real time and automatically applies to all music downloads.
-
-### 🎵 Smart MP3 Bitrate Selector
-- **Appears Automatically When Needed:** When you select **MP3 (`.mp3`)** as your audio format, a dedicated **MP3 Bitrate** dropdown menu immediately appears right below it. If you choose any other format, it automatically hides away to keep your screen clean and clutter-free.
-- **Easy-to-Understand Quality Options:** Choose the perfect balance between great sound quality and lightweight file size:
-  - `320 kbps (Best Quality - Recommended)`: The highest quality available for MP3 files — crystal-clear, rich studio sound.
-  - `256 kbps (Very High Quality)`: Excellent sound fidelity.
-  - `192 kbps (High Quality - Standard)`: Great sound with balanced, fast upload speeds.
-  - `160 kbps (Good Quality)`: Good listening experience with moderate file sizes.
-  - `128 kbps (Standard Quality - Small Size)`: Traditional lightweight MP3 for fast sharing.
-  - `96 kbps (Medium Quality)` & `64 kbps (Voice Quality / Radio)`: Super lightweight for spoken words, radio, and podcasts.
-- **Automatic Audio Processing:** Downloaded songs are automatically encoded with your chosen bitrate before being uploaded to your TeamTalk channel.
-
-### 📥 Administrator Local Audio & Video Downloads (Direct to Host Machine)
-- **Two Standard Admin Commands:** Bot administrators can now download songs or videos directly to the host machine's storage without uploading them back to the TeamTalk server channel. To keep things clean, concise, and aligned with international standards, exactly two dedicated commands are provided:
-  - `da` (**Download **Audio): Downloads the currently playing song (or a query/link if provided, e.g. `da <song name or link>`) as audio and saves it into the host's `downloads/music` folder. It automatically applies your chosen audio format, sampling rate, and MP3 bitrate settings.
-  - `dv` (**Download **Video): Downloads the currently playing video (or a query/link if provided, e.g. `dv <video name or link>`) as a full video file (`.mp4`) and saves it into the host's `downloads/videos` folder.
-- **Strict Permission Protection:** Only bot administrators can execute `da` and `dv`. If a regular (non-admin) user attempts to run these commands, the bot politely blocks the action with an *"Only administrators can use this command"* message to protect host storage.
-- **Clear Status & File Path Notifications:** The bot notifies the administrator in TeamTalk chat when the download starts and when it finishes, providing the exact file name and the saved location on the host computer.
-- **1-Click "Downloads Folder" Button:** Added a **"Downloads Folder"** button directly to the main interface grid, allowing the bot host to open the folder containing downloaded files in File Explorer with a single click or keyboard shortcut.
-
-### 🎶 Unified Smart Play Command (`p`) & Removal of Redundant `u` Command
-- **Unified All-in-One Playback (`p`):** The `p` command now intelligently detects and plays any type of input:
-  - **Web URLs & Streams:** Entering any web link (YouTube video, playlist, direct audio/video stream, internet radio) directly loads and plays the stream.
-  - **Local Files & Folder Paths:** Entering a local file or directory path on the machine (for administrators) immediately loads and plays the audio files.
-  - **Keyword Searches:** Entering song names, artists, or keywords searches online and plays the best match (or presents a numbered list if search results mode `sr` is active).
-  - **No Arguments:** Toggles Pause / Resume on the currently playing track as before.
-- **Removed Redundant `u` Command:** Since `p` now handles URLs and local files with automatic detection, the legacy `u` command has been removed to keep the bot interface modern, clean, and unified.
-- **Enhanced Queue Addition (`qa`):** Command `qa` now shares the same smart detection, allowing you to add songs to the queue using search keywords, direct links, or local paths.
-
-### 📤 Administrator Channel File Management (`uf` & `df`)
-- **Direct File Upload to Channel (`uf <file_path>`):** Bot administrators can upload any local file from the host computer directly to the current TeamTalk server channel by typing `uf` followed by the file path (e.g., `uf "D:\Music\song.mp3"`).
-  - **Comprehensive Safety Checks:** The bot strictly verifies the input to prevent accidental errors:
-    - **Rejects Directories:** If an administrator accidentally enters a folder path instead of a file, the bot clearly explains that the path is a folder and requests a direct file path.
-    - **Path Existence & Validity:** Verifies that the file exists and is a readable file before attempting any upload.
-    - **Channel Connection:** Ensures the bot is connected to a valid channel.
-  - **Asynchronous Background Upload:** The upload runs in the background so the bot remains fully responsive, and sends a notification message with the file name and size once the upload finishes.
-- **Delete Files in Channel (`df [file_name]`):** A single, powerful administrator command to manage and clean up channel files:
-  - **Delete a Specific File:** Type `df <file_name>` (e.g., `df song.mp3` or `df "track name.mp3"`) or file ID to delete only that specific file from the TeamTalk channel.
-  - **Single-Command Cleanup for All Files:** Type `df` alone without any arguments, and the bot automatically retrieves and deletes all uploaded files currently present in the channel.
-  - **Detailed Report:** Notifies the administrator with the exact name of the deleted file, or the total count of successfully removed files.
-- **Strict Administrator Protection:** Restricted exclusively to authorized bot administrators to prevent unauthorized file manipulation.
-
-### 🛡️ Rock-Solid Audio Buffering & Instant Playback Response (Never Stutters)
-- **Zero Audio Dropouts Under Heavy Load:** Resolved the issue where opening multiple browser tabs or running heavy background tasks caused bot playback to stutter or cut out. Bot audio now streams with the same rock-solid stability as the native YouTube web player:
-  - **Ultra-Fast Stream Resolution (170ms):** Direct YouTube mobile stream extraction prioritizes high-compatibility stereo streams without login blocks or fallback penalties, extracting streams instantly in ~170–210 ms for 100% of tracks (including copyrighted, age-checked, and Vietnamese songs).
-  - **Sub-Second Playback Start (~1.0s):** Eliminated blocking initial probes and optimized the hardware audio buffer to 500 ms (`audio_buffer: 0.5s`), reducing total time from entering `p <query>` until music plays from ~3 seconds down to approximately 1.0 second.
-  - **High-Priority Process Scheduling & 1ms Timer:** Automatically elevates TTMediaBot's process priority to `HIGH_PRIORITY_CLASS` on Windows and enables 1ms multimedia timer resolution (`timeBeginPeriod(1)`), ensuring audio threads always receive CPU cycles ahead of browser tabs and background tasks.
-  - **High-Capacity 256 MB Demuxer & Seamless Auto-Reconnect:** Equipped with a 256 MB RAM cache and automated stream reconnection (`reconnect=1,reconnect_streamed=1`), reading ahead up to 1 hour of audio in the background so playback never pauses or drops even during sudden network congestion.
+- The updater now shows installation progress and restarts the app automatically.
+- Added a sampling rate selector.
+- Added an MP3 bitrate selector, shown only when MP3 is selected.
+- Added admin commands `da` (download audio) and `dv` (download video) to save files on the host machine.
+- Added a Downloads Folder button.
+- `p` now plays links, local files and search keywords; `p` alone pauses or resumes.
+- Removed the `u` command.
+- `qa` now accepts keywords, links and local paths.
+- Added admin command `uf <file_path>` to upload a local file to the channel.
+- Added admin command `df [file_name]` to delete one file or all files in the channel.
+- Fixed audio stuttering under heavy system load.
+- Playback now starts in about 1 second.
+- Raised process priority and added a larger audio cache with automatic reconnect.
 
 ---
 
-## 🆕 v3.5.0 — Ultra-Fast Playback, Worldwide Access, Channel Translation & Audio Converter *(14/10/2026)*
+## 🆕 v3.5.0 — Fast Playback, Worldwide Access, Translation & Audio Converter *(14/10/2026)*
 
-### ⚡ 1. Ultra-Fast Playback & Instant Search (`p`)
-- **6x Faster Playback Response:** Starting a song with `p <name>` is now dramatically faster. The total time from entering the command to hearing music has dropped from almost 5 seconds down to **under 0.8 seconds**!
-- **Direct Stream Extraction (25x Faster):** Instead of downloading large webpage files and running heavy scripts, the bot now connects directly to YouTube's lightweight mobile streaming API, obtaining the music link in just **0.13 seconds** (previously took ~3.5 seconds).
-- **Instant Playback for Cached Songs (0.001s):** Songs played recently or re-requested now start instantly without any waiting or network delay.
-- **Background Pre-Loading:** While a song is playing, the bot quietly prepares and resolves the next song in the background, making track transitions smooth and instantaneous.
-- **Zero Configuration Needed:** All performance improvements work out-of-the-box on every Windows PC without requiring Python, Node.js, or any developer tools to be installed.
-
-### 🌍 2. Worldwide Playback & Geo-Bypass Fix
-- **Fixed "Service is unavailable" Errors:** Resolved an issue where users in certain international countries or regions were unable to search or play YouTube content due to regional restrictions or bot checks.
-- **Smart Multi-Client Routing:** The bot now intelligently switches between mobile and web connection profiles to ensure songs can be found and played reliably from any country in the world.
-- **Connection Keep-Alive:** Keeps active network connections open to Google and YouTube servers so searches and playback start instantly without connection lag.
-
-### 🌐 3. Public Channel Translation (`tr`)
-- **Automatic Channel Translation:** The bot can automatically translate conversation messages in the public TeamTalk channel so everyone in the room can easily understand each other.
-- **Two-Way Translation Mode:** When you specify two languages (such as `tr vi en`), the bot automatically translates both ways:
-  - Messages in Vietnamese are translated to English.
-  - Messages in English are translated back to Vietnamese!
-  - Perfect for two people speaking different languages in the same channel.
-- **One-Way Auto-Detect Mode:** When using `auto` as the source (such as `tr auto en`), the bot detects any language and translates it into your chosen target language (defaults to English).
-- **Simple, Single Command (`tr`):** Control all translation features with one easy command:
-  - `tr`: Check current status, showing `(auto -> en)` for one-way or `(vi <-> en)` for two-way translation.
-  - `tr on`: Turn on public channel translation (defaults to `auto` -> `en`).
-  - `tr off`: Turn off public channel translation.
-  - `tr auto en`: Translate any language to English.
-  - `tr vi en`: Enable two-way translation between Vietnamese and English.
-  - Supports international regional language tags like `en-us`, `pt-br`, `zh-cn`, `ja`, etc.
-- **Sender Nickname in Translations:** Every translation starts with the speaker's name (`[Nickname]: <Translated text>`) so everyone can follow the conversation easily.
-- **Smart Translation Skipping:** If a message is already in the target language, or contains only numbers/emojis, the bot skips it to keep the chat clean.
-- **Helpful Input Checks:** Clearly lets you know if you accidentally set the target language to `auto` or select the same language for both source and target.
-- **Seamless Account Sharing:** Works smoothly even when you and the bot log into the server using the same registered user account.
-- **Channel Chat is Never Mistaken for Commands:** Messages in the public channel are treated strictly as conversation text to translate, keeping bot playback controls secure.
-- **Smooth Background Operation:** Translations are processed quickly in the background without interrupting music playback or server connections.
-
-### 📋 4. View & Save Complete Application Logs
-- **New "View Logs" Button:** You can now click the **"View Logs..."** button (or press `Alt+V`) directly on the main window to check what the bot is doing and inspect any errors. This option is also available in the right-click menu on any server and in the system tray icon menu.
-- **Full History from Disk:** The log window now displays the complete, permanent history saved to disk since the application started, rather than just recent temporary events.
-- **Save Log to File:** Click the **"Save Log..."** button to open the familiar Windows Save File dialog. You can choose where to save the log and save it as a `.log` or `.txt` file, making it simple to share error details for troubleshooting and support.
-- **Refresh & Close:** Instantly reload the latest logs with the **"Refresh"** button, or exit the window with the **"Close"** button (or by pressing `Esc`). Screen-reader friendly (NVDA, JAWS).
-
-### ⏱️ 5. Music Sleep Timer (`tm`)
-- **Automatic Music Shutdown:** You can now set a sleep timer to automatically stop music playback after a desired amount of time. Perfect for listening to music before going to sleep or managing listening time.
-- **Simple, Single Command (`tm`):** Easily turn on, turn off, or customize your sleep timer with one easy-to-remember command (measured strictly in minutes):
-  - `tm end`: Stops music automatically right after the currently playing song or video finishes.
-  - `tm on`: Turns on sleep timer with the default duration (30 minutes).
-  - `tm off`: Turns off and cancels the active sleep timer immediately.
-  - `tm 45`: Sets a custom countdown in minutes (e.g., `tm 15`, `tm 30`, `tm 60`, `tm 90`).
-  - `tm`: Checks the active timer status and remaining countdown time.
-- **Smooth Volume Fade-Out:** When the timer runs out, the bot gradually lowers the volume before stopping if fading is enabled, ensuring a gentle and pleasant stop without sudden loud cutoffs.
-- **Channel & Chat Notifications:** The bot clearly confirms when a timer is set, how much time remains, when it is cancelled, or when it expires.
-
-### 🎵 6. Download Audio Format Selector & Automatic Converter
-- **Audio Format Selector on Main Screen:** Added a convenient combo box on the main interface allowing you to choose your desired audio format when downloading music from YouTube and uploading it to TeamTalk.
-- **Default Format Option:** The first and default option is "Default (No conversion)". When selected, the app keeps YouTube's native `.m4a` audio format without extra processing and uploads it straight away.
-- **Multiple Supported Formats:** Easily choose between popular audio formats including **MP3 (`.mp3`)**, **WAV (`.wav`)**, **FLAC (`.flac`)**, **OGG (`.ogg`)**, **Opus (`.opus`)**, **AAC (`.aac`)**, and **WMA (`.wma`)**.
-- **Fixed Converter in Packaged Executable:** Resolved an issue where audio format conversion would fail with a missing file error in the compiled installer version. Conversion now works 100% reliably out of the box.
-- **Automatic High-Quality Conversion & Cleanup:** Once the audio is downloaded to your computer, the software automatically converts it into your selected format, removes the old temporary file to save disk space, and uploads the converted file cleanly to the channel.
-
-### 🛡️ 7. Reliable Settings & Windows Compatibility
-- **Safe Settings Saving:** Fixed an issue where changing settings or switching languages failed to save when the application was installed in system folders (like `Program Files`). All settings are now safely kept in your Windows user folder (`%APPDATA%\TTMediaBot`).
-- **Clean File Storage:** Music downloads, temporary files, and cache are now neatly organized in standard Windows user folders, ensuring smooth and reliable performance.
-- **Smart Search Fallback for Vietnamese Songs:** Fixed an issue where YouTube's search filter would occasionally return 0 results for specific Vietnamese titles with diacritics (like *"em đi trên cỏ non"*). The bot now automatically retries with an unaccented fallback query, ensuring songs are always found and played smoothly.
-- **Startup & Path Optimization:** Cleaned up internal paths to ensure fast startup and 100% native stability on Windows.
+- Playback now starts in under 0.8 seconds.
+- Recently played songs start instantly.
+- The next song is preloaded in the background.
+- Fixed "Service is unavailable" errors in some countries.
+- Added `tr` for automatic public channel translation: one-way or two-way, with the sender's name.
+- Added a View Logs window (`Alt+V`) with Save Log, Refresh and Close.
+- Added `tm` sleep timer (`tm end`, `tm on`, `tm off`, `tm <minutes>`), with volume fade-out.
+- Added an audio format selector (MP3, WAV, FLAC, OGG, Opus, AAC, WMA) with automatic conversion.
+- Fixed audio conversion in the installed version.
+- Settings and downloads are now saved in `%APPDATA%\TTMediaBot`.
+- Fixed Vietnamese songs with diacritics returning no search results.
 
 ---
 
-## 🆕 v3.4.0 — Global Internet Radio, Auto-Updater & Portuguese Support *(10/12/2026)*
+## 🆕 v3.4.0 — Internet Radio, Auto-Updater & Portuguese *(10/12/2026)*
 
-### 📻 1. Listen to Global Internet Radio
-- **Search and Play Radio (`ra`):** You can now search and play internet radio stations from all around the world.
-- **Smart Channel Selection:** When you search for a radio station, the bot automatically skips broken channels and picks the most popular working channel.
-- **Radio Favorites (`raf`, `rmr`, `rpf`):** You can now save your favorite radio stations to a new, separate list. This makes it easy to add, remove, and quickly play your favorite radio channels.
-
-### 🔄 2. Automatic Software Updates
-- **Automatic Update Check:** The app now checks for newer versions on GitHub every time it opens. You can also click the new "Check for Updates" button in the main window at any time.
-- **In-App Release Notes:** Read the full list of changes and new features directly inside the update dialog before deciding to upgrade.
-- **One-Click Silent Install:** When you click "Update", the app automatically downloads the latest installer, installs it quietly in the background without asking you to click Next or accept licenses, cleans up the downloaded file, and reopens the updated app right away.
-
-### 🖥️ 3. Graphical Server Manager Improvements
-- **Server Search Box:** Added a quick search box to the main interface. You can now type a few letters to instantly find and connect to your saved servers. Fully accessible for screen readers (NVDA).
-- **Delete All Servers:** Added a "Delete All Servers" button next to "Connect All" to quickly clear your server list. It includes safety checks and warnings if any servers are currently connected.
-- **Check for Updates Button:** Added a dedicated button on the main window to check for online updates anytime.
-
-### 🌐 4. Portuguese Language Support
-- **Portuguese Support:** Added full Portuguese (`pt_BR`) language translation for both the interface and bot commands, translated by **Otávio Santiago**.
+- Added `ra` to search and play internet radio; broken stations are skipped.
+- Added radio favorites commands `raf`, `rmr` and `rpf`.
+- The app checks for updates on startup; a Check for Updates button is also available.
+- The update dialog shows release notes.
+- Updates install silently and the app restarts automatically.
+- Added a server search box.
+- Added a Delete All Servers button.
+- Added Portuguese (`pt_BR`) translation by Otávio Santiago.
 
 ---
 
-## 🆕 v3.3.0 — Graphical Server Manager & Full Vietnamese Support *(10/08/2026)*
+## 🆕 v3.3.0 — Server Manager & Vietnamese *(10/08/2026)*
 
-### 🖥️ 1. Graphical Server Manager (GUI)
-- **Visual Server Management:** View, add, edit, and delete your TeamTalk servers through a clean and intuitive window without editing configuration files manually.
-- **Multi-Server Support:** Connect and run multiple bots on different TeamTalk servers simultaneously, with clear status indicators for each server (Connected, Connecting, Reconnecting).
-- **Smart "Connect All" Feature:** When two or more servers are configured, a "Connect All" button lets you connect or disconnect all bots with a single click or keystroke.
-- **Screen Reader Friendly:** Fully accessible for blind and visually impaired users with seamless keyboard navigation (arrow keys, Enter to connect/disconnect, Delete to remove, and Applications key for context menu).
-- **System Tray Support:** Minimize the app to the system tray to keep it running smoothly in the background, with quick access to restore the window or manage connections.
-
-### 🌐 2. Full Vietnamese Language Support
-- **Complete Translation:** All interface elements, settings, notifications, and bot commands/responses inside TeamTalk channels are now available in natural Vietnamese, translated by **Nguyễn Ninh Hoàng**.
-- **Instant Language Switching:** Switch between supported languages directly from the main window at any time without needing to restart the application.
-- **Automatic Preference Saving:** The app remembers your preferred language for future sessions.
-
-### 📦 3. Official Windows Installer
-- **Convenient Setup:** Easily install TTMediaBot using a dedicated Windows installer (`Setup_TTMediaBot_v3.3.0.exe`) with an optional desktop shortcut for quick access.
+- Added a graphical server manager to add, edit and delete servers.
+- Supports multiple servers at once, with status for each.
+- Added a Connect All button.
+- Fully keyboard and screen reader accessible.
+- Added system tray support.
+- Added full Vietnamese translation by Nguyễn Ninh Hoàng.
+- Language can be switched without restarting, and is remembered.
+- Added a Windows installer (`Setup_TTMediaBot_v3.3.0.exe`).
 
 ---
 
-## 🆕 v3.2.0 — Live Subtitles, Admin Help Menu & Smooth Audio Seeking *(10/06/2026)*
+## 🆕 v3.2.0 — Live Subtitles, Admin Help & Smooth Seeking *(10/06/2026)*
 
-### 💬 1. New Feature: Live Video & Song Subtitles (`sub`)
-- **Real-Time Subtitle Display:** While playing a video or song, type `sub` and the lyrics or spoken words will stream live directly onto the bot's status text—just like watching a YouTube video with Closed Captions (CC) turned on.
-- **Works on All YouTube Videos:** Retrieves subtitles from any YouTube video (news broadcasts, podcasts, tutorials, interviews, vlogs, and music). Supports both subtitles uploaded by the creator and YouTube's auto-generated speech subtitles.
-- **Vietnamese & English Priority:** Automatically chooses Vietnamese subtitles first if available, followed by English or the video's original language.
-- **Automatic Song Lyrics Search:** For music videos without YouTube subtitles, the bot automatically searches international lyrics databases to find time-synced lyrics for you.
-- **How to Use:** Type `sub` to turn subtitles on; type `sub` again to turn them off. Your preference is saved automatically (`video_subtitles` in `config.json`).
-
-### ⏩ 2. Bug Fix: Smooth, Instant Seeking Without Audio Cuts (`sf` & `sb`)
-- **Instant Response:** Commands `sf` (seek forward) and `sb` (seek backward) now respond immediately with no delays or pauses.
-- **No More Audio Drops:** Expanded memory buffer and resolved playback issues—now you can seek forward and backward repeatedly without audio stuttering, cutting out, or stopping.
-- **Smart Position Adjustments:** 
-  - Seeking backward past the start of a song automatically rewinds to `0:00` (beginning) without errors.
-  - Seeking forward past the end of a song holds at the very end to finish playing instead of abruptly skipping to the next track.
-- **Flexible Number Input:** Supports both positive and negative numbers (e.g. `sb 10` or `sb -10` both rewind 10 seconds; `sf 15` fast-forwards 15 seconds).
-
-### 🛡️ 3. For Administrators: Dedicated Admin Help Menu (`adh`)
-- **Dedicated Admin Menu:** Administrators can type `adh` to view the full list of admin-only commands without cluttering the regular user command list.
-- **Secure Access:** Regular users cannot view or run this command.
-- **Easy to Discover:** The `adh` command is also mentioned in the main help menu (`h`) so new administrators can discover and use it right away.
+- Added `sub` to show live subtitles in the bot's status text.
+- Uses YouTube subtitles (Vietnamese first, then English), or looks up lyrics for songs.
+- The `sub` setting is saved.
+- Fixed `sf` and `sb` seeking: instant response, no audio dropouts.
+- Seeking before the start goes to `0:00`; seeking past the end finishes the track.
+- `sb` accepts positive and negative numbers.
+- Added `adh` to show the admin command list.
 
 ---
 
-## 🆕 v3.1.0 — Identify Currently Playing Songs & Music (`ws`) *(10/03/2026)*
+## 🆕 v3.1.0 — Song Identification (`ws`) *(10/03/2026)*
 
-### 🔍 1. Identify Songs in Mixes & Compilations (`ws`)
-- **Find Song Titles on the Fly:** When listening to a long compilation, mashup, or DJ mix and you want to know what song is playing, simply type `ws`.
-- **Identifies Both Instrumental & Vocal Tracks:**
-  - **Instrumental Music (piano, guitar, lofi, orchestra):** Uses melody recognition (Shazam) to identify the song.
-  - **Songs with Singing (pop, acoustic, live covers):** Listens to the lyrics being sung and finds the exact song title.
-  - **Videos with Tracklists:** If a YouTube video includes time stamps or chapters in the description, the bot identifies the song instantly.
-- **Ultra-Fast Results (3 to 5 Seconds):** Recognition takes only a few seconds, and the bot immediately sends the song title and artist to the chat.
-- **No Playback Interruptions:** The recognition process runs quietly in the background without pausing, stuttering, or interrupting the audio in the room.
-- **How to Use:** Type `ws` to find the current song; type `ws -s` to force acoustic recognition.
+- Added `ws` to identify the song currently playing.
+- Works for instrumental music, songs with lyrics, and videos with a tracklist.
+- Returns results in 3–5 seconds without interrupting playback.
+- Added `ws -s` to force acoustic recognition.
 
 ---
 
-## 🆕 v3.0.0 — Native Windows Optimization, Pitch Control & General Improvements *(10/02/2026)*
+## 🆕 v3.0.0 — Native Windows, Pitch Control & Improvements *(10/02/2026)*
 
-### 🪟 1. Smooth, Native Windows Performance
-- **Runs Directly on Windows:** Completely redesigned to run natively and smoothly on Windows (Windows 10, Windows 11) without needing Docker, Linux scripts, or complicated third-party tools.
-- **Clear Audio Quality:** Uses the standard Windows audio system to ensure clean, high-quality audio playback without delays or crackling.
-- **Silent Startup:** Automatically blocks popup dialogs that previously appeared when starting up on Windows.
-- **Full Vietnamese & Unicode Support:** The command console correctly displays accented Vietnamese characters and international song titles without font glitches.
-
-### 🎛️ 2. Change Pitch & Key of Songs (`pt`)
-- **Easy Key Adjustment:** Raise or lower the pitch of any song from -12 to +12 semitones with the `pt` command (e.g. `pt 2` to raise 2 keys, `pt -2` to lower 2 keys, `pt 0` to reset to original).
-- **Clear Sound:** Keeps vocals natural and audio punchy when changing pitch without sounding robotic or distorted.
-- **Remembers Key Setting:** Your chosen pitch stays active for upcoming songs automatically.
-
-### ✂️ 3. Automatic Silence Trimming (`ts`)
-- **Seamless Music Flow:** Type `ts` to enable automatic trimming of dead silence at the beginning and end of tracks, making transitions between songs smooth and seamless.
-
-### 🔗 4. Get Permanent YouTube Links (`yl`)
-- **Permanent YouTube Links:** Added the `yl` command to get the permanent YouTube watch link (`https://www.youtube.com/watch?v=...`) of the playing song, making it easy to share or save.
-- **Automatic Link Shortening:** Automatically shortens long links if link shortening is enabled in your configuration.
-
-### ⚡ 5. Faster Track Loading & Preloading
-- **Instant Track Skips:** The bot preloads the next 2 songs in the playlist, so clicking next (`n`) plays the next song immediately without waiting for downloads.
-- **YouTube Account Support:** Supports adding a `cookies.txt` file to play age-restricted videos and member-only content.
-- **Download Full Playlists (`dlp`):** Type `dlp [link]` to download an entire playlist and upload it to the TeamTalk channel as a ZIP archive.
-
-### 💬 6. Helpful Improvements & Bug Fixes
-- **Flexible Help Command (`h`):** The help command ignores uppercase, lowercase, and extra spaces (e.g. `h pt` or `h PT` both work).
-- **Automatic Message Paging:** Long lists and menus are automatically split into neat pages so they never flood the chat window.
-- **Remembers Message Mode (`cm`):** The `cm` command (toggling between channel messages and private messages) saves automatically to settings.
-- **Bug Fixes:** Fixed playback stopping issues, previous track navigation bugs during repeat modes, and improved stability during internet reconnects.
+- Runs natively on Windows 10 and 11, without Docker or Linux scripts.
+- Improved audio quality using the Windows audio system.
+- Blocked startup popup dialogs.
+- Fixed display of Vietnamese and Unicode characters in the console.
+- Added `pt` to change pitch from -12 to +12 semitones; the setting is remembered.
+- Added `ts` to trim silence at the start and end of tracks.
+- Added `yl` to get the permanent YouTube link of the current song.
+- Preloads the next 2 songs for instant skipping.
+- Added `cookies.txt` support for age-restricted and member-only videos.
+- Added `dlp [link]` to download a playlist as a ZIP file.
+- `h` now ignores case and extra spaces.
+- Long lists are split into pages.
+- `cm` now saves its setting.
+- Fixed playback stopping, previous-track bugs in repeat modes, and stability during reconnects.
 
 ---
 
