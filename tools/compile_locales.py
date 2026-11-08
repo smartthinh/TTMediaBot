@@ -19,15 +19,31 @@ Two Babel problems this script works around:
    \\\\f and compiles it as "backslash + f".
    -> every file is normalised to the plain \\f escape, and compiling is done
       with the Babel API, which converts \\f back to a real form feed.
+
+3. Strings that Babel's own Python extractor cannot see. On Python < 3.12 an
+   f-string is a single token, so `f"{translate('Channel:')} {name}"` is never
+   extracted, and the helper `_t(...)` was not a keyword at all. Those strings
+   were missing from the .pot and ended up as obsolete (#~) entries.
+   -> extraction uses `extract_python_ast` (below), which reads the code with
+      `ast` and finds every call, also inside f-strings, on any Python
+      version; `_t` is added to the keywords.
+
+4. `babel update` never brings an obsolete (#~) entry back, even when the
+   same string is found in the source again. The old translation stayed
+   hidden while an empty entry was created.
+   -> `restore_obsolete()` copies the old translation back (never over an
+      entry that already has a translation).
 """
 
+import ast
 import difflib
 import os
 import subprocess
 import sys
+import tempfile
 
 from babel.messages.mofile import write_mo
-from babel.messages.pofile import read_po
+from babel.messages.pofile import read_po, write_po
 
 # Avoid UnicodeEncodeError on the Windows console when printing Vietnamese.
 for _stream in (sys.stdout, sys.stderr):
@@ -41,6 +57,9 @@ source_paths = [os.path.join(cd, "bot"), os.path.join(cd, "TTMediaBot.py")]
 locale_domain = "TTMediaBot"
 babel_cmd = [sys.executable, "-m", "babel.messages.frontend"]
 
+# Functions whose first argument is a translatable string.
+KEYWORDS = "translate translate_func translate_noop _t"
+
 FORM_FEED = "\x0c"  # the real character
 FF_ESCAPE = "\\f"  # backslash + f, as written in .po files
 FF_DOUBLE = "\\\\f"  # what Babel wrongly writes
@@ -48,7 +67,10 @@ FF_DOUBLE = "\\\\f"  # what Babel wrongly writes
 
 def run(args):
     # No shell: paths containing spaces are passed safely.
-    return subprocess.call(babel_cmd + args)
+    env = dict(os.environ)
+    tools_dir = os.path.dirname(os.path.abspath(__file__))
+    env["PYTHONPATH"] = tools_dir + os.pathsep + env.get("PYTHONPATH", "")
+    return subprocess.call(babel_cmd + args, env=env)
 
 
 def _po_files():
@@ -70,20 +92,103 @@ def _fix_formfeed(path):
             f.write(fixed)
 
 
+def extract_python_ast(fileobj, keywords, comment_tags, options):
+    """Babel extractor: find translatable strings with `ast`.
+
+    Unlike Babel's built-in Python extractor, this also finds calls placed
+    inside f-strings on Python < 3.12. Used through the mapping file written
+    by extract().
+    """
+    source = fileobj.read()
+    if isinstance(source, bytes):
+        source = source.decode(options.get("encoding", "utf-8"), "replace")
+    source = source.replace("\r\n", "\n").replace("\r", "\n")
+    lines = source.split("\n")
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return
+
+    def literal(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        # Like Babel's own extractor, also take the text of "text".format(...)
+        # and "text" % value, e.g. translate("{service} is disabled".format(...)).
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "format"
+        ):
+            return literal(node.func.value)
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mod):
+            return literal(node.left)
+        return None
+
+    def comments_for(lineno):
+        found = []
+        i = lineno - 2  # the line above the call (0-based)
+        while i >= 0 and lines[i].lstrip().startswith("#"):
+            text = lines[i].lstrip()[1:].strip()
+            found.insert(0, text)
+            i -= 1
+        if any(text.startswith(tag.strip()) for text in found for tag in comment_tags):
+            return found
+        return []
+
+    results = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        func = node.func
+        name = func.id if isinstance(func, ast.Name) else (
+            func.attr if isinstance(func, ast.Attribute) else None
+        )
+        if name is None or name not in keywords:
+            continue
+        # Leading string-literal arguments; Babel itself picks the ones it
+        # needs (message, plural) according to the keyword specification.
+        texts = []
+        for arg in node.args:
+            value = literal(arg)
+            if value is None:
+                break
+            texts.append(value)
+        if not texts:
+            continue
+        message = texts[0] if len(texts) == 1 else tuple(texts)
+        results.append((node.lineno, node.col_offset, name, message, comments_for(node.lineno)))
+    for lineno, _col, name, message, comments in sorted(results, key=lambda r: (r[0], r[1])):
+        yield lineno, name, message, comments
+
+
 def extract():
-    code = run(
-        [
-            "extract",
-            *source_paths,
-            "-o",
-            pot_file_path,
-            "--keywords=translate translate_func translate_noop",
-            "-c",
-            "translators:",
-            "--copyright-holder=TTMediaBot-team",
-            "--project=TTMediaBot",
-        ]
+    module = os.path.splitext(os.path.basename(__file__))[0]
+    mapping = (
+        "[extractors]\n"
+        f"ast = {module}:extract_python_ast\n\n"
+        "[ast: **.py]\n"
     )
+    fd, mapping_path = tempfile.mkstemp(suffix=".cfg", text=True)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(mapping)
+        code = run(
+            [
+                "extract",
+                *source_paths,
+                "-o",
+                pot_file_path,
+                "-F",
+                mapping_path,
+                f"--keywords={KEYWORDS}",
+                "-c",
+                "translators:",
+                "--copyright-holder=TTMediaBot-team",
+                "--project=TTMediaBot",
+            ]
+        )
+    finally:
+        os.remove(mapping_path)
     if code:
         sys.exit(
             "Extracting strings failed. Make sure Babel is installed "
@@ -110,8 +215,38 @@ def update():
     )
     if code:
         sys.exit(code)
-    for _lang, po_path in _po_files():
+    for lang, po_path in _po_files():
         _fix_formfeed(po_path)
+        restore_obsolete(po_path, lang)
+        _fix_formfeed(po_path)
+
+
+def restore_obsolete(po_path, lang):
+    """Bring back obsolete (#~) translations whose string is in the source again."""
+    with open(po_path, "rb") as f:
+        catalog = read_po(f, locale=lang)
+    restored = []
+    for message in list(catalog):
+        if not message.id:
+            continue
+        has_translation = message.string and (
+            not isinstance(message.string, (tuple, list)) or any(message.string)
+        )
+        if has_translation:
+            continue
+        key = message.id if isinstance(message.id, str) else message.id[0]
+        old = catalog.obsolete.get(message.id) or catalog.obsolete.get(key)
+        if old is None or not old.string:
+            continue
+        message.string = old.string
+        message.flags = set(old.flags)
+        del catalog.obsolete[message.id if message.id in catalog.obsolete else key]
+        restored.append(key)
+    if restored:
+        with open(po_path, "wb") as f:
+            write_po(f, catalog, width=76, include_previous=False)
+        for text in restored:
+            print(f"[{lang}] restored obsolete translation: {text!r}")
 
 
 def _text(message):

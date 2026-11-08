@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTMediaBot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-05 22:01+0700\n"
+"POT-Creation-Date: 2026-11-08 00:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: D:/TTMediaBot/bot/__init__.py:165
+#: /home/claude/work/bot/__init__.py:165
 msgid "Update completed successfully! I am back online."
 msgstr ""
 
-#: D:/TTMediaBot/bot/__init__.py:205
+#: /home/claude/work/bot/__init__.py:205
 msgid ""
 "The bot is starting an update process and will restart shortly. It may go"
 " offline at any moment."
 msgstr ""
 
-#: D:/TTMediaBot/bot/__init__.py:243
+#: /home/claude/work/bot/__init__.py:243
 msgid "The bot is restarting now to apply the update. See you in a moment!"
 msgstr ""
 
-#: D:/TTMediaBot/bot/app_vars.py:13
+#: /home/claude/work/bot/app_vars.py:12
 msgid ""
 "Hello, I'm Smart Thinh.\n"
 "This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's "
@@ -44,1946 +44,2113 @@ msgid ""
 "Kirill Belousov.\n"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:74
+#: /home/claude/work/bot/auto_updater.py:74
 msgid "Update Available"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:81
+#: /home/claude/work/bot/auto_updater.py:81
 #, python-brace-format
 msgid ""
 "A new version of TTMediaBot (v{version}) is available.\n"
 "Would you like to update now?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:90
+#: /home/claude/work/bot/auto_updater.py:90
 msgid "Release notes are not available."
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:98
+#: /home/claude/work/bot/auto_updater.py:98
 msgid "Update"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:99
+#: /home/claude/work/bot/auto_updater.py:99
 msgid "Cancel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:130
+#: /home/claude/work/bot/auto_updater.py:130
 msgid "Downloading update... Please wait."
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:168
+#: /home/claude/work/bot/auto_updater.py:168
 msgid "Installing update... Please wait."
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:175
+#: /home/claude/work/bot/auto_updater.py:175
 msgid "Failed to download update:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:175
+#: /home/claude/work/bot/auto_updater.py:175
 msgid "Update Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:263
+#: /home/claude/work/bot/auto_updater.py:263
 #, python-brace-format
 msgid ""
 "Could not check for updates. Please check your internet connection.\n"
 "{error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:264 D:/TTMediaBot/bot/auto_updater.py:271
+#: /home/claude/work/bot/auto_updater.py:264
+#: /home/claude/work/bot/auto_updater.py:271
 msgid "Update Check"
 msgstr ""
 
-#: D:/TTMediaBot/bot/auto_updater.py:270
+#: /home/claude/work/bot/auto_updater.py:270
 #, python-brace-format
 msgid "You are using the latest version of TTMediaBot (v{version})."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:130
+#: /home/claude/work/bot/gui.py:130
 msgid "Default (No conversion)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:147
+#: /home/claude/work/bot/gui.py:147
 msgid "Default (48000 Hz - Recommended for TeamTalk)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:148
+#: /home/claude/work/bot/gui.py:148
 msgid "48000 Hz (TeamTalk / DVD Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:149
+#: /home/claude/work/bot/gui.py:149
 msgid "44100 Hz (CD Audio Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:150
+#: /home/claude/work/bot/gui.py:150
 msgid "96000 Hz (Hi-Res Studio Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:151
+#: /home/claude/work/bot/gui.py:151
 msgid "32000 Hz (FM Radio Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:152
+#: /home/claude/work/bot/gui.py:152
 msgid "24000 Hz (Medium Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:153
+#: /home/claude/work/bot/gui.py:153
 msgid "16000 Hz (Voice Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:163
+#: /home/claude/work/bot/gui.py:163
 msgid "320 kbps (Best Quality - Recommended)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:164
+#: /home/claude/work/bot/gui.py:164
 msgid "256 kbps (Very High Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:165
+#: /home/claude/work/bot/gui.py:165
 msgid "192 kbps (High Quality - Standard)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:166
+#: /home/claude/work/bot/gui.py:166
 msgid "160 kbps (Good Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:167
+#: /home/claude/work/bot/gui.py:167
 msgid "128 kbps (Standard Quality - Small Size)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:168
+#: /home/claude/work/bot/gui.py:168
 msgid "96 kbps (Medium Quality)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:169
+#: /home/claude/work/bot/gui.py:169
 msgid "64 kbps (Voice Quality / Radio)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:855
+#: /home/claude/work/bot/gui.py:855
 msgid "Server Connection"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:859
+#: /home/claude/work/bot/gui.py:859
 msgid "Server &Name (Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:861
+#: /home/claude/work/bot/gui.py:861
 msgid "Enter a display name for this server in the server list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:866
+#: /home/claude/work/bot/gui.py:866
 msgid "&Host / IP Address (Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:868
+#: /home/claude/work/bot/gui.py:868
 msgid "Enter the TeamTalk server hostname or IP address."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:876
+#: /home/claude/work/bot/gui.py:876
 msgid "&TCP Port (Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:883
+#: /home/claude/work/bot/gui.py:883
 msgid "&UDP Port (Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:892
+#: /home/claude/work/bot/gui.py:892
 msgid "&Encrypted connection (SSL/TLS)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:899
+#: /home/claude/work/bot/gui.py:899
 msgid "Bot & Authentication"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:903
+#: /home/claude/work/bot/gui.py:903
 msgid "Bot &Nickname (Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:910
+#: /home/claude/work/bot/gui.py:910
 msgid "&Gender:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:911 D:/TTMediaBot/bot/session_gui.py:841
+#: /home/claude/work/bot/gui.py:911 /home/claude/work/bot/session_gui.py:841
 msgid "None"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:911 D:/TTMediaBot/bot/session_gui.py:843
+#: /home/claude/work/bot/gui.py:911 /home/claude/work/bot/session_gui.py:843
 msgid "Male"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:911 D:/TTMediaBot/bot/session_gui.py:839
+#: /home/claude/work/bot/gui.py:911 /home/claude/work/bot/session_gui.py:839
 msgid "Female"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:921
+#: /home/claude/work/bot/gui.py:921
 msgid "&Status Message (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:930
+#: /home/claude/work/bot/gui.py:930
 msgid "&Username (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:937
+#: /home/claude/work/bot/gui.py:937
 msgid "&Password (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:949
+#: /home/claude/work/bot/gui.py:949
 msgid "Default &Channel (Optional, default /):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:956
+#: /home/claude/work/bot/gui.py:956
 msgid "Channel Pass&word (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:969
+#: /home/claude/work/bot/gui.py:969
 msgid "Sound Devices"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:975
+#: /home/claude/work/bot/gui.py:975
 msgid "Output Sound &Device:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:981
+#: /home/claude/work/bot/gui.py:981
 msgid "Select from the list or type the output sound device index or name."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:991
+#: /home/claude/work/bot/gui.py:991
 msgid "Input Sound De&vice:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:997
+#: /home/claude/work/bot/gui.py:997
 msgid "Select from the list or type the input sound device index or name."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1009
+#: /home/claude/work/bot/gui.py:1009
 msgid "Audio & Playback"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1016
+#: /home/claude/work/bot/gui.py:1016
 msgid "Default &Volume (0-100, Required):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1020
+#: /home/claude/work/bot/gui.py:1020
 msgid "Default playback volume percentage when bot starts playing."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1026
+#: /home/claude/work/bot/gui.py:1026
 msgid "Max &Volume (0-100):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1030
+#: /home/claude/work/bot/gui.py:1030
 msgid "Maximum allowed volume percentage users can set via commands."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1038
+#: /home/claude/work/bot/gui.py:1038
 msgid "Seek Step in &Seconds:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1040
+#: /home/claude/work/bot/gui.py:1040
 msgid "Number of seconds to jump when seeking forward or backward."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1045
+#: /home/claude/work/bot/gui.py:1045
 msgid "Enable Volume &Fading (smooth track transitions)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1049
+#: /home/claude/work/bot/gui.py:1049
 msgid "Enable &Silence Trim (remove silence at start/end)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1056
+#: /home/claude/work/bot/gui.py:1056
 msgid "Bot Behavior & Services"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1061
+#: /home/claude/work/bot/gui.py:1061
 msgid "Default Music &Service:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1069
+#: /home/claude/work/bot/gui.py:1069
 msgid "Send &Channel Messages (post notifications to channel)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1073
+#: /home/claude/work/bot/gui.py:1073
 msgid "Search &Results Mode (choose songs interactively 1-5)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1077
+#: /home/claude/work/bot/gui.py:1077
 msgid "Display Video &Subtitles in status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1082
+#: /home/claude/work/bot/gui.py:1082
 msgid "Startup Commands (Optional, comma-separated):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1089
+#: /home/claude/work/bot/gui.py:1089
 msgid "Commands executed automatically upon joining the server, e.g. 'v 60'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1094
+#: /home/claude/work/bot/gui.py:1094
 msgid "YouTube Cookies File Path (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1096
+#: /home/claude/work/bot/gui.py:1096
 msgid "Path to cookies.txt file for YouTube authentication if needed."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1103
+#: /home/claude/work/bot/gui.py:1103
 msgid "Advanced Settings"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1110
+#: /home/claude/work/bot/gui.py:1110
 msgid "License &Name (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1117
+#: /home/claude/work/bot/gui.py:1117
 msgid "License &Key (Optional):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1126
+#: /home/claude/work/bot/gui.py:1126
 msgid "&Administrators (Optional, comma-separated usernames):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1137
+#: /home/claude/work/bot/gui.py:1137
 msgid "Reconnection &Attempts (-1 for infinite):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1146
+#: /home/claude/work/bot/gui.py:1146
 msgid "Reconnection &Timeout in seconds:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1157
+#: /home/claude/work/bot/gui.py:1157
 msgid "&Load Event Handlers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1161
+#: /home/claude/work/bot/gui.py:1161
 msgid "Event Handlers &File Name:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1175 D:/TTMediaBot/bot/session_gui.py:111
+#: /home/claude/work/bot/gui.py:1175 /home/claude/work/bot/session_gui.py:111
+#: /home/claude/work/bot/session_gui.py:2143
 msgid "&OK"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1176 D:/TTMediaBot/bot/session_gui.py:112
+#: /home/claude/work/bot/gui.py:1176 /home/claude/work/bot/session_gui.py:112
+#: /home/claude/work/bot/session_gui.py:2148
 msgid "&Cancel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1239
+#: /home/claude/work/bot/gui.py:1239
 msgid "Please enter a server name."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1239 D:/TTMediaBot/bot/gui.py:1245
-#: D:/TTMediaBot/bot/gui.py:1255 D:/TTMediaBot/bot/gui.py:1265
-#: D:/TTMediaBot/bot/gui.py:1271 D:/TTMediaBot/bot/gui.py:1282
-#: D:/TTMediaBot/bot/gui.py:1292 D:/TTMediaBot/bot/gui.py:1297
-#: D:/TTMediaBot/bot/gui.py:1307 D:/TTMediaBot/bot/gui.py:1315
-#: D:/TTMediaBot/bot/gui.py:1325
+#: /home/claude/work/bot/gui.py:1239 /home/claude/work/bot/gui.py:1245
+#: /home/claude/work/bot/gui.py:1255 /home/claude/work/bot/gui.py:1265
+#: /home/claude/work/bot/gui.py:1271 /home/claude/work/bot/gui.py:1282
+#: /home/claude/work/bot/gui.py:1292 /home/claude/work/bot/gui.py:1297
+#: /home/claude/work/bot/gui.py:1307 /home/claude/work/bot/gui.py:1315
+#: /home/claude/work/bot/gui.py:1325
 msgid "Validation Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1245
+#: /home/claude/work/bot/gui.py:1245
 msgid "Please enter a host or IP address."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1255
+#: /home/claude/work/bot/gui.py:1255
 msgid "TCP Port must be an integer between 1 and 65535."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1265
+#: /home/claude/work/bot/gui.py:1265
 msgid "UDP Port must be an integer between 1 and 65535."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1271
+#: /home/claude/work/bot/gui.py:1271
 msgid "Please enter a bot nickname."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1282
+#: /home/claude/work/bot/gui.py:1282
 msgid "Default volume must be an integer between 0 and 100."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1292
+#: /home/claude/work/bot/gui.py:1292
 msgid "Max volume must be an integer between 0 and 100."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1297
+#: /home/claude/work/bot/gui.py:1297
 msgid "Default volume cannot be greater than max volume."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1307
+#: /home/claude/work/bot/gui.py:1307
 msgid "Seek step must be at least 1 second."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1315
+#: /home/claude/work/bot/gui.py:1315
 msgid "Reconnection attempts must be an integer (e.g. -1 for infinite)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1325
+#: /home/claude/work/bot/gui.py:1325
 msgid "Reconnection timeout must be a non-negative integer."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1499
+#: /home/claude/work/bot/gui.py:1499
 msgid "TTMediaBot - Running in Background"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1503
+#: /home/claude/work/bot/gui.py:1503
 msgid "&Show Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1513 D:/TTMediaBot/bot/gui.py:2554
+#: /home/claude/work/bot/gui.py:1513 /home/claude/work/bot/gui.py:2554
 msgid "&Disconnect All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1516 D:/TTMediaBot/bot/gui.py:2557
+#: /home/claude/work/bot/gui.py:1516 /home/claude/work/bot/gui.py:2557
 msgid "&Connect All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1520 D:/TTMediaBot/bot/gui.py:1847
-#: D:/TTMediaBot/bot/gui.py:2030 D:/TTMediaBot/bot/gui.py:2568
+#: /home/claude/work/bot/gui.py:1520 /home/claude/work/bot/gui.py:1847
+#: /home/claude/work/bot/gui.py:2030 /home/claude/work/bot/gui.py:2568
 msgid "&View Logs..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1524
+#: /home/claude/work/bot/gui.py:1524
 msgid "E&xit TTMediaBot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1551
+#: /home/claude/work/bot/gui.py:1551
 msgid "Application Logs"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1561
+#: /home/claude/work/bot/gui.py:1561
 msgid "&Log Content:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1572
+#: /home/claude/work/bot/gui.py:1572
 msgid "Log Content"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1573
+#: /home/claude/work/bot/gui.py:1573
 msgid "Recent log recorded during application usage."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1580
+#: /home/claude/work/bot/gui.py:1580
 msgid "&Save Log..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1581
+#: /home/claude/work/bot/gui.py:1581
 msgid "Save log content to a file."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1585
+#: /home/claude/work/bot/gui.py:1585
 msgid "&Refresh"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1586
+#: /home/claude/work/bot/gui.py:1586
 msgid "Reload latest log entries."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1590
+#: /home/claude/work/bot/gui.py:1590
 msgid "&Open Log File"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1591
+#: /home/claude/work/bot/gui.py:1591
 msgid "Open the full log file in your default text editor."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1595
+#: /home/claude/work/bot/gui.py:1595
 msgid "&Open Logs Folder"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1596
+#: /home/claude/work/bot/gui.py:1596
 msgid "Open directory containing application logs."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1602 D:/TTMediaBot/bot/gui.py:1871
-#: D:/TTMediaBot/bot/gui.py:2042 D:/TTMediaBot/bot/session_gui.py:318
-#: D:/TTMediaBot/bot/session_gui.py:1860
+#: /home/claude/work/bot/gui.py:1602 /home/claude/work/bot/gui.py:1871
+#: /home/claude/work/bot/gui.py:2042 /home/claude/work/bot/session_gui.py:318
+#: /home/claude/work/bot/session_gui.py:1860
 msgid "&Close"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1603
+#: /home/claude/work/bot/gui.py:1603
 msgid "Close the log dialog."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1633
+#: /home/claude/work/bot/gui.py:1633
 #, python-brace-format
 msgid ""
 "Failed to open log file:\n"
 "{error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1634 D:/TTMediaBot/bot/gui.py:1688
-#: D:/TTMediaBot/bot/session_gui.py:1239 D:/TTMediaBot/bot/session_gui.py:1329
-#: D:/TTMediaBot/bot/session_gui.py:1947 D:/TTMediaBot/bot/session_gui.py:2396
+#: /home/claude/work/bot/gui.py:1634 /home/claude/work/bot/gui.py:1688
+#: /home/claude/work/bot/session_gui.py:1239
+#: /home/claude/work/bot/session_gui.py:1329
+#: /home/claude/work/bot/session_gui.py:1947
+#: /home/claude/work/bot/session_gui.py:2396
 msgid "Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1640
+#: /home/claude/work/bot/gui.py:1640
 msgid "No log file found on disk yet."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1641 D:/TTMediaBot/bot/gui.py:2944
-#: D:/TTMediaBot/bot/gui.py:2978 D:/TTMediaBot/bot/gui.py:3015
-#: D:/TTMediaBot/bot/session_gui.py:1378
+#: /home/claude/work/bot/gui.py:1641 /home/claude/work/bot/gui.py:2944
+#: /home/claude/work/bot/gui.py:2978 /home/claude/work/bot/gui.py:3015
+#: /home/claude/work/bot/session_gui.py:1378
 msgid "Notice"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1659
+#: /home/claude/work/bot/gui.py:1659
 msgid "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1662
+#: /home/claude/work/bot/gui.py:1662
 msgid "Save Log File"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1679
+#: /home/claude/work/bot/gui.py:1679
 #, python-brace-format
 msgid ""
 "Log file successfully saved to:\n"
 "{path}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1680
+#: /home/claude/work/bot/gui.py:1680
 msgid "Save Log"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1687
+#: /home/claude/work/bot/gui.py:1687
 #, python-brace-format
 msgid ""
 "Failed to save log file:\n"
 "{error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1714 D:/TTMediaBot/bot/gui.py:1958
+#: /home/claude/work/bot/gui.py:1714 /home/claude/work/bot/gui.py:1958
 msgid "Settings"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1752 D:/TTMediaBot/bot/gui.py:1963
+#: /home/claude/work/bot/gui.py:1752 /home/claude/work/bot/gui.py:1963
 msgid "&Language:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1770 D:/TTMediaBot/bot/gui.py:1973
+#: /home/claude/work/bot/gui.py:1770 /home/claude/work/bot/gui.py:1973
 msgid "&Audio Format:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1787 D:/TTMediaBot/bot/gui.py:1985
+#: /home/claude/work/bot/gui.py:1787 /home/claude/work/bot/gui.py:1985
 msgid "&MP3 Bitrate:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1804 D:/TTMediaBot/bot/gui.py:1999
+#: /home/claude/work/bot/gui.py:1804 /home/claude/work/bot/gui.py:1999
 msgid "&Sampling Rate:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1822 D:/TTMediaBot/bot/gui.py:2013
+#: /home/claude/work/bot/gui.py:1822 /home/claude/work/bot/gui.py:2013
 msgid "Enable interactive session chat window (Experimental)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1831 D:/TTMediaBot/bot/gui.py:2022
+#: /home/claude/work/bot/gui.py:1831 /home/claude/work/bot/gui.py:2022
 msgid "Require '/' prefix for commands (e.g. /p, /s)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1838 D:/TTMediaBot/bot/gui.py:1960
+#: /home/claude/work/bot/gui.py:1838 /home/claude/work/bot/gui.py:1960
 msgid "General & Audio"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1848 D:/TTMediaBot/bot/gui.py:2033
+#: /home/claude/work/bot/gui.py:1848 /home/claude/work/bot/gui.py:2033
 msgid "&Check for Updates"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1849 D:/TTMediaBot/bot/gui.py:2036
+#: /home/claude/work/bot/gui.py:1849 /home/claude/work/bot/gui.py:2036
 msgid "&Visit Website"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1850 D:/TTMediaBot/bot/gui.py:2039
+#: /home/claude/work/bot/gui.py:1850 /home/claude/work/bot/gui.py:2039
 msgid "&Join Telegram Channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1864 D:/TTMediaBot/bot/gui.py:1961
+#: /home/claude/work/bot/gui.py:1864 /home/claude/work/bot/gui.py:1961
 msgid "Information & Support"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1939
+#: /home/claude/work/bot/gui.py:1939
 msgid "Checking for updates..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1970
+#: /home/claude/work/bot/gui.py:1970
 msgid "Select the active language for the bot and interface."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1982
+#: /home/claude/work/bot/gui.py:1982
 msgid ""
 "Select audio format for YouTube downloads and channel uploads (Default "
 "does not convert)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:1994
+#: /home/claude/work/bot/gui.py:1994
 msgid "Select MP3 audio bitrate (320 kbps offers the highest sound quality)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2008
+#: /home/claude/work/bot/gui.py:2008
 msgid ""
 "Select audio sampling rate for playback and conversion (48000 Hz is "
 "recommended for TeamTalk)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2017
+#: /home/claude/work/bot/gui.py:2017
 msgid ""
 "Enable the interactive session chat interface when connecting to a server"
 " (Experimental)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2026
+#: /home/claude/work/bot/gui.py:2026
 msgid ""
 "When enabled, commands must begin with '/' (e.g. /p, /s). When disabled, "
 "commands must NOT have '/' and only the command letters are allowed."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2031
+#: /home/claude/work/bot/gui.py:2031
 msgid "View application logs and errors."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2034
+#: /home/claude/work/bot/gui.py:2034
 msgid "Check for the latest version online."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2037
+#: /home/claude/work/bot/gui.py:2037
 msgid "Open website: https://smartthinh.com/en/home"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2040
+#: /home/claude/work/bot/gui.py:2040
 msgid "Open Telegram channel: https://t.me/accessiblevisionresources"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2043
+#: /home/claude/work/bot/gui.py:2043
 msgid "Close the settings dialog."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2056 D:/TTMediaBot/bot/gui.py:2197
+#: /home/claude/work/bot/gui.py:2056 /home/claude/work/bot/gui.py:2197
 msgid "TTMediaBot - Server Manager"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2126 D:/TTMediaBot/bot/gui.py:2201
+#: /home/claude/work/bot/gui.py:2126 /home/claude/work/bot/gui.py:2201
 msgid "&Search:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2128 D:/TTMediaBot/bot/gui.py:2204
+#: /home/claude/work/bot/gui.py:2128 /home/claude/work/bot/gui.py:2204
 msgid "Search"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2129 D:/TTMediaBot/bot/gui.py:2205
+#: /home/claude/work/bot/gui.py:2129 /home/claude/work/bot/gui.py:2205
 msgid "Type to search servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2130 D:/TTMediaBot/bot/gui.py:2203
+#: /home/claude/work/bot/gui.py:2130 /home/claude/work/bot/gui.py:2203
 msgid "Search servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2199
+#: /home/claude/work/bot/gui.py:2199
 msgid "&Servers:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2208
+#: /home/claude/work/bot/gui.py:2208
 msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2212
+#: /home/claude/work/bot/gui.py:2212
 msgid "&Delete All Servers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2213
+#: /home/claude/work/bot/gui.py:2213
 msgid "Delete all saved servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2215 D:/TTMediaBot/bot/gui.py:2561
+#: /home/claude/work/bot/gui.py:2215 /home/claude/work/bot/gui.py:2561
 msgid "&Add Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2216
+#: /home/claude/work/bot/gui.py:2216
 msgid "Add a new server to the list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2218 D:/TTMediaBot/bot/gui.py:2564
+#: /home/claude/work/bot/gui.py:2218 /home/claude/work/bot/gui.py:2564
 msgid "Se&ttings..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2219
+#: /home/claude/work/bot/gui.py:2219
 msgid "Configure language, audio format, and access tools."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2221
+#: /home/claude/work/bot/gui.py:2221
 msgid "&Hide Window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2222
+#: /home/claude/work/bot/gui.py:2222
 msgid "Minimize TTMediaBot window to the system tray."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2224
+#: /home/claude/work/bot/gui.py:2224
 msgid "E&xit"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2225
+#: /home/claude/work/bot/gui.py:2225
 msgid "Close TTMediaBot (or press Alt+F4)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2227
+#: /home/claude/work/bot/gui.py:2227
 msgid "&Downloads Folder"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2228
+#: /home/claude/work/bot/gui.py:2228
 msgid "Open the downloads folder."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2232
+#: /home/claude/work/bot/gui.py:2232
 msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2400 D:/TTMediaBot/bot/gui.py:2425
+#: /home/claude/work/bot/gui.py:2400 /home/claude/work/bot/gui.py:2425
 msgid "Unnamed Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2403 D:/TTMediaBot/bot/gui.py:2429
-#: D:/TTMediaBot/bot/gui.py:2843
+#: /home/claude/work/bot/gui.py:2403 /home/claude/work/bot/gui.py:2429
+#: /home/claude/work/bot/gui.py:2843
 msgid "Connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2405 D:/TTMediaBot/bot/gui.py:2431
-#: D:/TTMediaBot/bot/gui.py:2847
+#: /home/claude/work/bot/gui.py:2405 /home/claude/work/bot/gui.py:2431
+#: /home/claude/work/bot/gui.py:2847
 msgid "Connecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2407 D:/TTMediaBot/bot/gui.py:2433
-#: D:/TTMediaBot/bot/gui.py:2852
+#: /home/claude/work/bot/gui.py:2407 /home/claude/work/bot/gui.py:2433
+#: /home/claude/work/bot/gui.py:2852
 msgid "Reconnecting"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2453
+#: /home/claude/work/bot/gui.py:2453
 msgid "Status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2475
+#: /home/claude/work/bot/gui.py:2475
 msgid "&Disconnect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2476
+#: /home/claude/work/bot/gui.py:2476
 msgid "Disconnect all connected TeamTalk servers."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2478
+#: /home/claude/work/bot/gui.py:2478
 msgid "&Connect All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2479
+#: /home/claude/work/bot/gui.py:2479
 msgid "Connect all configured servers to TeamTalk."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2510 D:/TTMediaBot/bot/gui.py:2696
-#: D:/TTMediaBot/bot/gui.py:2747 D:/TTMediaBot/bot/gui.py:2842
-#: D:/TTMediaBot/bot/gui.py:2846 D:/TTMediaBot/bot/gui.py:2851
-#: D:/TTMediaBot/bot/session_gui.py:171
+#: /home/claude/work/bot/gui.py:2510 /home/claude/work/bot/gui.py:2696
+#: /home/claude/work/bot/gui.py:2747 /home/claude/work/bot/gui.py:2842
+#: /home/claude/work/bot/gui.py:2846 /home/claude/work/bot/gui.py:2851
+#: /home/claude/work/bot/session_gui.py:171
 msgid "Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2516
+#: /home/claude/work/bot/gui.py:2516
 #, python-brace-format
 msgid "&Open Session Window for '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2523
+#: /home/claude/work/bot/gui.py:2523
 #, python-brace-format
 msgid "&Disconnect from '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2528
+#: /home/claude/work/bot/gui.py:2528
 #, python-brace-format
 msgid "&Cancel Connecting to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2533
+#: /home/claude/work/bot/gui.py:2533
 #, python-brace-format
 msgid "&Connect to '{server_name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2539
+#: /home/claude/work/bot/gui.py:2539
 msgid "&Edit Server..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2544
+#: /home/claude/work/bot/gui.py:2544
 msgid "&Delete Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2582 D:/TTMediaBot/bot/gui.py:2632
+#: /home/claude/work/bot/gui.py:2582 /home/claude/work/bot/gui.py:2632
 msgid "Please select a server from the list first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2583 D:/TTMediaBot/bot/gui.py:2633
-#: D:/TTMediaBot/bot/gui.py:2659 D:/TTMediaBot/bot/gui.py:2932
-#: D:/TTMediaBot/bot/gui.py:2965 D:/TTMediaBot/bot/gui.py:3005
+#: /home/claude/work/bot/gui.py:2583 /home/claude/work/bot/gui.py:2633
+#: /home/claude/work/bot/gui.py:2659 /home/claude/work/bot/gui.py:2932
+#: /home/claude/work/bot/gui.py:2965 /home/claude/work/bot/gui.py:3005
 msgid "Information"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2658
+#: /home/claude/work/bot/gui.py:2658
 msgid "No servers to connect. Please add a server first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2672
+#: /home/claude/work/bot/gui.py:2672
 msgid "Connecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2686
+#: /home/claude/work/bot/gui.py:2686
 msgid "Disconnecting all servers..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2702
+#: /home/claude/work/bot/gui.py:2702
 #, python-brace-format
 msgid "Connecting to '{server_name}'..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2804
+#: /home/claude/work/bot/gui.py:2804
 msgid "Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2809
+#: /home/claude/work/bot/gui.py:2809
 #, python-brace-format
 msgid ""
 "An error occurred while running the bot on '{server_name}':\n"
 "{err_msg}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2812
+#: /home/claude/work/bot/gui.py:2812
 msgid "Connection Error"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2877
+#: /home/claude/work/bot/gui.py:2877
 msgid "TTMediaBot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2878
+#: /home/claude/work/bot/gui.py:2878
 msgid "TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2910
+#: /home/claude/work/bot/gui.py:2910
 msgid "Add New Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2919
+#: /home/claude/work/bot/gui.py:2919
 #, python-brace-format
 msgid "Added server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2931
+#: /home/claude/work/bot/gui.py:2931
 msgid "Please select a server to edit."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2943
+#: /home/claude/work/bot/gui.py:2943
 msgid ""
 "Cannot edit the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2950
+#: /home/claude/work/bot/gui.py:2950
 msgid "Edit Server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2957
+#: /home/claude/work/bot/gui.py:2957
 #, python-brace-format
 msgid "Updated server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2964
+#: /home/claude/work/bot/gui.py:2964
 msgid "Please select a server to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2977
+#: /home/claude/work/bot/gui.py:2977
 msgid ""
 "Cannot delete the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2984
+#: /home/claude/work/bot/gui.py:2984
 msgid "this server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2987
+#: /home/claude/work/bot/gui.py:2987
 #, python-brace-format
 msgid "Are you sure you want to delete server '{server_name}'?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2988
+#: /home/claude/work/bot/gui.py:2988
 msgid "Confirm Delete"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:2998
+#: /home/claude/work/bot/gui.py:2998
 #, python-brace-format
 msgid "Deleted server '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:3004
+#: /home/claude/work/bot/gui.py:3004
 msgid "No servers to delete."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:3014
+#: /home/claude/work/bot/gui.py:3014
 msgid ""
 "Some servers are currently connected. Please disconnect all servers "
 "before deleting."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:3023
+#: /home/claude/work/bot/gui.py:3023
 msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:3024
+#: /home/claude/work/bot/gui.py:3024
 msgid "Confirm Delete All"
 msgstr ""
 
-#: D:/TTMediaBot/bot/gui.py:3033
+#: /home/claude/work/bot/gui.py:3033
 msgid "All servers deleted."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:172
+#: /home/claude/work/bot/session_gui.py:81
+#: /home/claude/work/bot/session_gui.py:1472
+msgid "Channel Password"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:93
+#, python-brace-format
+msgid "Please enter password for channel '{channel}':"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:98
+msgid "&Password:"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:105
+msgid "&Show password"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:172
 #, python-brace-format
 msgid "{server_name} - TeamTalk Session"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:235 D:/TTMediaBot/bot/session_gui.py:437
+#: /home/claude/work/bot/session_gui.py:235
+#: /home/claude/work/bot/session_gui.py:437
 msgid "Status: Connecting..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:241
+#: /home/claude/work/bot/session_gui.py:241
 msgid "Channel: Waiting for connection..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:249
+#: /home/claude/work/bot/session_gui.py:249
 msgid "&Public Chat History:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:251
+#: /home/claude/work/bot/session_gui.py:251
 msgid "Public Chat History"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:256
+#: /home/claude/work/bot/session_gui.py:256
 msgid "&Public Message:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:258
+#: /home/claude/work/bot/session_gui.py:258
 msgid "Public Message"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:259
+#: /home/claude/work/bot/session_gui.py:259
 msgid "Type message here and press Enter to send..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:264 D:/TTMediaBot/bot/session_gui.py:1854
+#: /home/claude/work/bot/session_gui.py:264
+#: /home/claude/work/bot/session_gui.py:1854
 msgid "&Send"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:265 D:/TTMediaBot/bot/session_gui.py:1855
+#: /home/claude/work/bot/session_gui.py:265
+#: /home/claude/work/bot/session_gui.py:1855
 msgid "Send"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:266
+#: /home/claude/work/bot/session_gui.py:266
 msgid "Send public message to the current channel (Enter)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:288
+#: /home/claude/work/bot/session_gui.py:271
+#: /home/claude/work/bot/session_gui.py:594
+#: /home/claude/work/bot/session_gui.py:891
+msgid "&Channels and Users:"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:276
+msgid "Channels and Users"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:288
 msgid "&Microphone (Voice)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:291
+#: /home/claude/work/bot/session_gui.py:291
 msgid "Microphone transmission"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:292
+#: /home/claude/work/bot/session_gui.py:292
 msgid "Toggle voice transmission through the bot's microphone (Hotkey: F8)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:296
+#: /home/claude/work/bot/session_gui.py:296
 msgid "M&ute Audio"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:297
+#: /home/claude/work/bot/session_gui.py:297
 msgid "Mute TeamTalk audio"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:298
+#: /home/claude/work/bot/session_gui.py:298
 msgid "Temporarily mute incoming audio from TeamTalk"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:301
+#: /home/claude/work/bot/session_gui.py:301
 msgid "Sound &Events"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:303
+#: /home/claude/work/bot/session_gui.py:303
 msgid "Sound Events"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:304
+#: /home/claude/work/bot/session_gui.py:304
 msgid ""
 "Play TeamTalk sound notifications for messages, users joining/leaving, "
 "etc."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:308
+#: /home/claude/work/bot/session_gui.py:308
 msgid "&Sound Configuration..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:309
+#: /home/claude/work/bot/session_gui.py:309
 msgid "Sound Configuration"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:310
+#: /home/claude/work/bot/session_gui.py:310
 msgid "Configure TeamTalk sound system, audio devices, and volume levels"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:313
+#: /home/claude/work/bot/session_gui.py:313
 msgid "&Disconnect"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:314
+#: /home/claude/work/bot/session_gui.py:314
 msgid "Disconnect"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:315
+#: /home/claude/work/bot/session_gui.py:315
 msgid "Disconnect from this TeamTalk server"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:319 D:/TTMediaBot/bot/session_gui.py:1861
+#: /home/claude/work/bot/session_gui.py:319
+#: /home/claude/work/bot/session_gui.py:1861
 msgid "Close"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:320
+#: /home/claude/work/bot/session_gui.py:320
 msgid "Close this session window"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:430 D:/TTMediaBot/bot/session_gui.py:781
+#: /home/claude/work/bot/session_gui.py:430
+#: /home/claude/work/bot/session_gui.py:781
 msgid "Channel:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:448
+#: /home/claude/work/bot/session_gui.py:448
 msgid "Status: Connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:580
+#: /home/claude/work/bot/session_gui.py:579
+msgid "Connection lost to server"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:580
 msgid "Status: Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:581
+#: /home/claude/work/bot/session_gui.py:581
 msgid "Channel: Disconnected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:858
+#: /home/claude/work/bot/session_gui.py:616
+#: /home/claude/work/bot/session_gui.py:744
+#, python-brace-format
+msgid "Private message from {user}: {message}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:652
+#, python-brace-format
+msgid "Joined channel {channel}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:668
+#, python-brace-format
+msgid "{user} has logged in"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:683
+msgid "Unknown User"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:686
+#, python-brace-format
+msgid "{user} has logged out"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:765
+#, python-brace-format
+msgid "Channel message from {user}: {message}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:769
+#, python-brace-format
+msgid "Broadcast message from {user}: {message}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:858
 msgid "Admin"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:860
+#: /home/claude/work/bot/session_gui.py:860
 msgid "Operator"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:862
+#: /home/claude/work/bot/session_gui.py:862
 msgid "User"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:872
+#: /home/claude/work/bot/session_gui.py:872
 msgid "Away"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:874
+#: /home/claude/work/bot/session_gui.py:874
 msgid "Question"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1211 D:/TTMediaBot/bot/session_gui.py:1917
+#: /home/claude/work/bot/session_gui.py:930
+#, python-brace-format
+msgid "{user} joined channel"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:939
+#, python-brace-format
+msgid "{user} left channel"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1065
+msgid "Password protected"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1180
+#, python-format
+msgid "&Channels and Users (%d)"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1211
+#: /home/claude/work/bot/session_gui.py:1917
 msgid "Cannot send message: Not connected to server."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1212 D:/TTMediaBot/bot/session_gui.py:1918
+#: /home/claude/work/bot/session_gui.py:1212
+#: /home/claude/work/bot/session_gui.py:1918
 msgid "Warning"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1238 D:/TTMediaBot/bot/session_gui.py:1946
+#: /home/claude/work/bot/session_gui.py:1225
+#, python-brace-format
+msgid "Channel message sent: {message}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1238
+#: /home/claude/work/bot/session_gui.py:1946
 msgid "Failed to send message:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1328
+#: /home/claude/work/bot/session_gui.py:1328
 msgid "Failed to activate microphone. Please check your microphone connection."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1377
+#: /home/claude/work/bot/session_gui.py:1338
+msgid "Microphone enabled"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1344
+msgid "Microphone disabled"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1357
+msgid "Sound output muted"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1359
+msgid "Sound output unmuted"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1377
 msgid "Not connected to server."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1392
+#: /home/claude/work/bot/session_gui.py:1392
 msgid "Are you sure you want to disconnect from this server?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1393
+#: /home/claude/work/bot/session_gui.py:1393
 msgid "Confirm Disconnect"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1542
+#: /home/claude/work/bot/session_gui.py:1471
+msgid "Failed to join channel"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1531
+msgid "&Join Channel"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1534
+msgid "&Copy Channel Name"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1542
 msgid "&Private Message..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1545
+#: /home/claude/work/bot/session_gui.py:1545
 #, python-brace-format
 msgid "&Mention '{name}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1548
+#: /home/claude/work/bot/session_gui.py:1548
 msgid "&Copy User Info"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1596 D:/TTMediaBot/bot/session_gui.py:1973
+#: /home/claude/work/bot/session_gui.py:1596
+#: /home/claude/work/bot/session_gui.py:1973
 msgid "&Copy Selected Line"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1599 D:/TTMediaBot/bot/session_gui.py:1976
+#: /home/claude/work/bot/session_gui.py:1599
+#: /home/claude/work/bot/session_gui.py:1976
 msgid "Clear &History"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1785 D:/TTMediaBot/bot/session_gui.py:1809
+#: /home/claude/work/bot/session_gui.py:1758
+#: /home/claude/work/bot/session_gui.py:2499
+msgid "New audio device detected. Device list refreshed."
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1760
+#: /home/claude/work/bot/session_gui.py:2501
+msgid "Audio device disconnected. Device list updated."
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:1785
+#: /home/claude/work/bot/session_gui.py:1809
 #, python-brace-format
 msgid "Private Chat - {user}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1836
+#: /home/claude/work/bot/session_gui.py:1836
 msgid "&Message History:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1838
+#: /home/claude/work/bot/session_gui.py:1838
 msgid "Message History"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1846
+#: /home/claude/work/bot/session_gui.py:1846
 msgid "&Message:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1848
+#: /home/claude/work/bot/session_gui.py:1848
 msgid "Message"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1849
+#: /home/claude/work/bot/session_gui.py:1849
 msgid "Type private message and press Enter..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1856
+#: /home/claude/work/bot/session_gui.py:1856
 msgid "Send private message (Enter)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:1862
+#: /home/claude/work/bot/session_gui.py:1862
 msgid "Close this chat window (Escape)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2011
+#: /home/claude/work/bot/session_gui.py:1935
+#, python-brace-format
+msgid "Private message sent: {message}"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:2011
 msgid "Sound Configuration - TeamTalk"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2025 D:/TTMediaBot/bot/session_gui.py:2030
+#: /home/claude/work/bot/session_gui.py:2025
+#: /home/claude/work/bot/session_gui.py:2030
 msgid "Windows Audio Session (WASAPI) [Recommended]"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2026
+#: /home/claude/work/bot/session_gui.py:2026
 msgid "DirectSound"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2027
+#: /home/claude/work/bot/session_gui.py:2027
 msgid "Windows Multimedia (WaveIn/WaveOut)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2033
+#: /home/claude/work/bot/session_gui.py:2033
 msgid "Default Sound System"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2040
+#: /home/claude/work/bot/session_gui.py:2040
 msgid "Sound &System:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2045
+#: /home/claude/work/bot/session_gui.py:2045
 msgid "Sound System"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2065
+#: /home/claude/work/bot/session_gui.py:2065
 msgid "&Input Device (Microphone / Computer Audio / VAC):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2067
+#: /home/claude/work/bot/session_gui.py:2067
 msgid "Input Device"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2074
+#: /home/claude/work/bot/session_gui.py:2074
 msgid "&Output Device (Headphones / Speakers):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2076
+#: /home/claude/work/bot/session_gui.py:2076
 msgid "Output Device"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2089
+#: /home/claude/work/bot/session_gui.py:2089
 msgid "&Master Volume:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2091
+#: /home/claude/work/bot/session_gui.py:2091
 msgid "Master Volume"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2114
+#: /home/claude/work/bot/session_gui.py:2114
 msgid "Microphone &Volume:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2116
+#: /home/claude/work/bot/session_gui.py:2116
 msgid "Microphone Volume"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2137
+#: /home/claude/work/bot/session_gui.py:2135
+msgid "&Refresh Devices"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:2136
+msgid "Refresh Devices"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:2137
 msgid "Refresh sound devices list if new devices were connected"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2214
+#: /home/claude/work/bot/session_gui.py:2214
 msgid "Computer Audio / Stereo Mix"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2216
+#: /home/claude/work/bot/session_gui.py:2216
 msgid "Bot Music Player"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2218
+#: /home/claude/work/bot/session_gui.py:2218
 msgid "Microphone"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2246
+#: /home/claude/work/bot/session_gui.py:2246
 msgid "Headphones"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2248
+#: /home/claude/work/bot/session_gui.py:2248
 msgid "Speakers"
 msgstr ""
 
-#: D:/TTMediaBot/bot/session_gui.py:2395
+#: /home/claude/work/bot/session_gui.py:2327
+msgid "Audio devices list refreshed"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:2391
+msgid "Sound settings saved successfully"
+msgstr ""
+
+#: /home/claude/work/bot/session_gui.py:2395
 msgid "Failed to save sound settings:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/TeamTalk/__init__.py:204
+#: /home/claude/work/bot/TeamTalk/__init__.py:204
 msgid "Send \"/h\" for help"
 msgstr ""
 
-#: D:/TTMediaBot/bot/TeamTalk/__init__.py:205
+#: /home/claude/work/bot/TeamTalk/__init__.py:205
 msgid "Send \"h\" for help"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:176
+#: /home/claude/work/bot/commands/__init__.py:176
 msgid "Unknown command. Send \"/h\" for help."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:181
+#: /home/claude/work/bot/commands/__init__.py:181
 msgid "Unknown command. Send \"h\" for help."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:187
-#: D:/TTMediaBot/bot/commands/admin_commands.py:457
-#: D:/TTMediaBot/bot/commands/admin_commands.py:569
-#: D:/TTMediaBot/bot/commands/user_commands.py:872
-#: D:/TTMediaBot/bot/commands/user_commands.py:878
-#: D:/TTMediaBot/bot/commands/user_commands.py:913
-#: D:/TTMediaBot/bot/commands/user_commands.py:1325
-#: D:/TTMediaBot/bot/commands/user_commands.py:1407
-#: D:/TTMediaBot/bot/commands/user_commands.py:1483
-#: D:/TTMediaBot/bot/commands/user_commands.py:1561
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:134
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:148
-#: D:/TTMediaBot/bot/modules/uploader.py:91
+#: /home/claude/work/bot/commands/__init__.py:187
+#: /home/claude/work/bot/commands/admin_commands.py:457
+#: /home/claude/work/bot/commands/admin_commands.py:569
+#: /home/claude/work/bot/commands/user_commands.py:872
+#: /home/claude/work/bot/commands/user_commands.py:878
+#: /home/claude/work/bot/commands/user_commands.py:913
+#: /home/claude/work/bot/commands/user_commands.py:1325
+#: /home/claude/work/bot/commands/user_commands.py:1407
+#: /home/claude/work/bot/commands/user_commands.py:1483
+#: /home/claude/work/bot/commands/user_commands.py:1561
+#: /home/claude/work/bot/modules/playlist_uploader.py:134
+#: /home/claude/work/bot/modules/playlist_uploader.py:148
+#: /home/claude/work/bot/modules/uploader.py:91
 #, python-brace-format
 msgid "Error: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:199
+#: /home/claude/work/bot/commands/__init__.py:199
 msgid "You are banned"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:203
+#: /home/claude/work/bot/commands/__init__.py:203
 msgid "You are not in bot's channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:207
+#: /home/claude/work/bot/commands/__init__.py:207
 msgid "Bot is locked"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:211
+#: /home/claude/work/bot/commands/__init__.py:211
 msgid "This command is blocked"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:215
-#: D:/TTMediaBot/bot/commands/admin_commands.py:30
-#: D:/TTMediaBot/bot/commands/admin_commands.py:420
-#: D:/TTMediaBot/bot/commands/admin_commands.py:532
-#: D:/TTMediaBot/bot/commands/admin_commands.py:639
-#: D:/TTMediaBot/bot/commands/admin_commands.py:743
+#: /home/claude/work/bot/commands/__init__.py:215
+#: /home/claude/work/bot/commands/admin_commands.py:30
+#: /home/claude/work/bot/commands/admin_commands.py:420
+#: /home/claude/work/bot/commands/admin_commands.py:532
+#: /home/claude/work/bot/commands/admin_commands.py:639
+#: /home/claude/work/bot/commands/admin_commands.py:743
 msgid "Only administrators can use this command"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/__init__.py:240
-#: D:/TTMediaBot/bot/commands/__init__.py:249
-#: D:/TTMediaBot/bot/commands/__init__.py:268
-#: D:/TTMediaBot/bot/commands/__init__.py:274
+#: /home/claude/work/bot/commands/__init__.py:240
+#: /home/claude/work/bot/commands/__init__.py:249
+#: /home/claude/work/bot/commands/__init__.py:268
+#: /home/claude/work/bot/commands/__init__.py:274
 msgid "Unknown command"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:25
+#: /home/claude/work/bot/commands/admin_commands.py:25
 msgid "Shows administrator commands"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:39
+#: /home/claude/work/bot/commands/admin_commands.py:38
 msgid ""
 "+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the "
 "blocklist. -COMMAND removes from it. Without a command shows the "
 "blocklist"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:50
-#: D:/TTMediaBot/bot/commands/admin_commands.py:344
-#: D:/TTMediaBot/bot/commands/admin_commands.py:374
-#: D:/TTMediaBot/bot/commands/user_commands.py:585
-#: D:/TTMediaBot/bot/commands/user_commands.py:597
-#: D:/TTMediaBot/bot/commands/user_commands.py:687
-#: D:/TTMediaBot/bot/commands/user_commands.py:1255
-#: D:/TTMediaBot/bot/commands/user_commands.py:1277
-#: D:/TTMediaBot/bot/commands/user_commands.py:1340
+#: /home/claude/work/bot/commands/admin_commands.py:50
+#: /home/claude/work/bot/commands/admin_commands.py:344
+#: /home/claude/work/bot/commands/admin_commands.py:374
+#: /home/claude/work/bot/commands/user_commands.py:585
+#: /home/claude/work/bot/commands/user_commands.py:597
+#: /home/claude/work/bot/commands/user_commands.py:687
+#: /home/claude/work/bot/commands/user_commands.py:1255
+#: /home/claude/work/bot/commands/user_commands.py:1277
+#: /home/claude/work/bot/commands/user_commands.py:1340
 msgid "The list is empty"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:55
-#: D:/TTMediaBot/bot/commands/admin_commands.py:326
-#: D:/TTMediaBot/bot/commands/admin_commands.py:358
-#: D:/TTMediaBot/bot/commands/user_commands.py:548
+#: /home/claude/work/bot/commands/admin_commands.py:55
+#: /home/claude/work/bot/commands/admin_commands.py:326
+#: /home/claude/work/bot/commands/admin_commands.py:358
+#: /home/claude/work/bot/commands/user_commands.py:548
 msgid "Added"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:57
+#: /home/claude/work/bot/commands/admin_commands.py:57
 msgid "This command is already added"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:63
-#: D:/TTMediaBot/bot/commands/admin_commands.py:332
-#: D:/TTMediaBot/bot/commands/admin_commands.py:364
-#: D:/TTMediaBot/bot/commands/user_commands.py:560
+#: /home/claude/work/bot/commands/admin_commands.py:63
+#: /home/claude/work/bot/commands/admin_commands.py:332
+#: /home/claude/work/bot/commands/admin_commands.py:364
+#: /home/claude/work/bot/commands/user_commands.py:560
 msgid "Deleted"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:65
+#: /home/claude/work/bot/commands/admin_commands.py:65
 msgid "This command is not blocked"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:74
+#: /home/claude/work/bot/commands/admin_commands.py:73
 msgid "GENDER Changes bot's gender. n neutral, m male, f female"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:88
+#: /home/claude/work/bot/commands/admin_commands.py:88
 msgid "LANGUAGE Changes bot's language"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:96
+#: /home/claude/work/bot/commands/admin_commands.py:96
 msgid "The language has been changed"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:98
+#: /home/claude/work/bot/commands/admin_commands.py:98
 msgid "Incorrect language"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:101
+#: /home/claude/work/bot/commands/admin_commands.py:100
 #, python-brace-format
 msgid ""
 "Current language: {current_language}. Available languages: "
 "{available_languages}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:111
+#: /home/claude/work/bot/commands/admin_commands.py:111
 msgid "NICKNAME Changes bot's nickname"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:122
+#: /home/claude/work/bot/commands/admin_commands.py:121
 msgid ""
 "r/f Clears bot's cache. r clears recents, f clears favorites, without an "
 "option clears the entire cache"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:130
+#: /home/claude/work/bot/commands/admin_commands.py:130
 msgid "Cache cleared"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:134
+#: /home/claude/work/bot/commands/admin_commands.py:134
 msgid "Recents cleared"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:138
+#: /home/claude/work/bot/commands/admin_commands.py:138
 msgid "Favorites cleared"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:145
+#: /home/claude/work/bot/commands/admin_commands.py:144
 msgid ""
 "Join channel. first argument is channel name or id, second argument is "
 "password, split argument \" | \", if password is undefined, don't type "
 "second argument"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:164
+#: /home/claude/work/bot/commands/admin_commands.py:164
 msgid "This channel does not exist"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:178
+#: /home/claude/work/bot/commands/admin_commands.py:177
 #, python-brace-format
 msgid "Error joining channel: {error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:226
+#: /home/claude/work/bot/commands/admin_commands.py:226
 msgid "Enables or disables voice transmission"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:233
-#: D:/TTMediaBot/bot/commands/admin_commands.py:235
+#: /home/claude/work/bot/commands/admin_commands.py:233
+#: /home/claude/work/bot/commands/admin_commands.py:235
 msgid "Voice transmission enabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:240
+#: /home/claude/work/bot/commands/admin_commands.py:240
 msgid "Voice transmission disabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:246
+#: /home/claude/work/bot/commands/admin_commands.py:246
 msgid "Locks or unlocks the bot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:251
+#: /home/claude/work/bot/commands/admin_commands.py:251
 msgid "Locked"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:253
+#: /home/claude/work/bot/commands/admin_commands.py:253
 msgid "Unlocked"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:260
+#: /home/claude/work/bot/commands/admin_commands.py:260
 msgid "STATUS Changes bot's status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:270
+#: /home/claude/work/bot/commands/admin_commands.py:270
 msgid "Enables or disables event handling"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:277
+#: /home/claude/work/bot/commands/admin_commands.py:277
 msgid "Event handling is enabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:279
+#: /home/claude/work/bot/commands/admin_commands.py:279
 msgid "Event handling is disabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:287
+#: /home/claude/work/bot/commands/admin_commands.py:286
 msgid ""
 "Toggles channel messages. When disabled, notifications are sent privately"
 " instead of public channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:297
+#: /home/claude/work/bot/commands/admin_commands.py:296
 msgid "Public channel messages enabled (bot will announce in channel)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:301
+#: /home/claude/work/bot/commands/admin_commands.py:300
 msgid ""
 "Private messages mode enabled (bot will send notifications privately "
 "instead of public channel)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:308
+#: /home/claude/work/bot/commands/admin_commands.py:308
 msgid "Saves bot's configuration"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:312
+#: /home/claude/work/bot/commands/admin_commands.py:312
 msgid "Configuration saved"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:319
+#: /home/claude/work/bot/commands/admin_commands.py:318
 msgid ""
 "+/-USERNAME Manages a list of administrators. +USERNAME adds a user. "
 "-USERNAME removes it. Without an option shows the list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:335
+#: /home/claude/work/bot/commands/admin_commands.py:334
 msgid "This user is not in the admin list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:341
-#: D:/TTMediaBot/bot/commands/admin_commands.py:371
+#: /home/claude/work/bot/commands/admin_commands.py:341
+#: /home/claude/work/bot/commands/admin_commands.py:371
 msgid "<Anonymous>"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:351
+#: /home/claude/work/bot/commands/admin_commands.py:350
 msgid ""
 "+/-USERNAME Manages a list of banned users. +USERNAME adds a user. "
 "-USERNAME removes it. Without an option shows the list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:366
+#: /home/claude/work/bot/commands/admin_commands.py:366
 msgid "This user is not banned"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:380
+#: /home/claude/work/bot/commands/admin_commands.py:380
 msgid "Quits the bot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:389
+#: /home/claude/work/bot/commands/admin_commands.py:389
 msgid "Restarts the bot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:404
+#: /home/claude/work/bot/commands/admin_commands.py:404
 msgid "Returns current channel's ID"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:414
+#: /home/claude/work/bot/commands/admin_commands.py:413
 msgid ""
 "[QUERY|LINK] Downloads the current track or specified link/query as audio"
 " and saves it to the downloads folder."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:428
+#: /home/claude/work/bot/commands/admin_commands.py:428
 msgid "Searching and downloading audio..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:438
+#: /home/claude/work/bot/commands/admin_commands.py:438
 msgid "Downloading audio..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:440
-#: D:/TTMediaBot/bot/commands/admin_commands.py:467
-#: D:/TTMediaBot/bot/commands/admin_commands.py:552
-#: D:/TTMediaBot/bot/commands/admin_commands.py:579
-#: D:/TTMediaBot/bot/commands/user_commands.py:707
-#: D:/TTMediaBot/bot/commands/user_commands.py:728
+#: /home/claude/work/bot/commands/admin_commands.py:440
+#: /home/claude/work/bot/commands/admin_commands.py:467
+#: /home/claude/work/bot/commands/admin_commands.py:552
+#: /home/claude/work/bot/commands/admin_commands.py:579
+#: /home/claude/work/bot/commands/user_commands.py:707
+#: /home/claude/work/bot/commands/user_commands.py:728
 msgid "Live streams cannot be downloaded"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:442
-#: D:/TTMediaBot/bot/commands/admin_commands.py:554
-#: D:/TTMediaBot/bot/commands/user_commands.py:153
-#: D:/TTMediaBot/bot/commands/user_commands.py:177
-#: D:/TTMediaBot/bot/commands/user_commands.py:210
-#: D:/TTMediaBot/bot/commands/user_commands.py:232
-#: D:/TTMediaBot/bot/commands/user_commands.py:262
-#: D:/TTMediaBot/bot/commands/user_commands.py:278
-#: D:/TTMediaBot/bot/commands/user_commands.py:290
-#: D:/TTMediaBot/bot/commands/user_commands.py:307
-#: D:/TTMediaBot/bot/commands/user_commands.py:451
-#: D:/TTMediaBot/bot/commands/user_commands.py:467
-#: D:/TTMediaBot/bot/commands/user_commands.py:478
-#: D:/TTMediaBot/bot/commands/user_commands.py:550
-#: D:/TTMediaBot/bot/commands/user_commands.py:568
-#: D:/TTMediaBot/bot/commands/user_commands.py:614
-#: D:/TTMediaBot/bot/commands/user_commands.py:648
-#: D:/TTMediaBot/bot/commands/user_commands.py:709
-#: D:/TTMediaBot/bot/commands/user_commands.py:730
-#: D:/TTMediaBot/bot/commands/user_commands.py:1062
-#: D:/TTMediaBot/bot/commands/user_commands.py:1664
-#: D:/TTMediaBot/bot/commands/user_commands.py:1795
-#: D:/TTMediaBot/bot/commands/user_commands.py:1813
-#: D:/TTMediaBot/bot/commands/user_commands.py:1888
-#: D:/TTMediaBot/bot/commands/user_commands.py:2067
+#: /home/claude/work/bot/commands/admin_commands.py:442
+#: /home/claude/work/bot/commands/admin_commands.py:554
+#: /home/claude/work/bot/commands/user_commands.py:153
+#: /home/claude/work/bot/commands/user_commands.py:177
+#: /home/claude/work/bot/commands/user_commands.py:210
+#: /home/claude/work/bot/commands/user_commands.py:232
+#: /home/claude/work/bot/commands/user_commands.py:262
+#: /home/claude/work/bot/commands/user_commands.py:278
+#: /home/claude/work/bot/commands/user_commands.py:290
+#: /home/claude/work/bot/commands/user_commands.py:307
+#: /home/claude/work/bot/commands/user_commands.py:451
+#: /home/claude/work/bot/commands/user_commands.py:467
+#: /home/claude/work/bot/commands/user_commands.py:478
+#: /home/claude/work/bot/commands/user_commands.py:550
+#: /home/claude/work/bot/commands/user_commands.py:568
+#: /home/claude/work/bot/commands/user_commands.py:614
+#: /home/claude/work/bot/commands/user_commands.py:648
+#: /home/claude/work/bot/commands/user_commands.py:709
+#: /home/claude/work/bot/commands/user_commands.py:730
+#: /home/claude/work/bot/commands/user_commands.py:1062
+#: /home/claude/work/bot/commands/user_commands.py:1664
+#: /home/claude/work/bot/commands/user_commands.py:1795
+#: /home/claude/work/bot/commands/user_commands.py:1813
+#: /home/claude/work/bot/commands/user_commands.py:1888
+#: /home/claude/work/bot/commands/user_commands.py:2067
 msgid "Nothing is playing"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:449
-#: D:/TTMediaBot/bot/commands/admin_commands.py:561
-#: D:/TTMediaBot/bot/commands/user_commands.py:67
-#: D:/TTMediaBot/bot/commands/user_commands.py:142
-#: D:/TTMediaBot/bot/commands/user_commands.py:807
-#: D:/TTMediaBot/bot/commands/user_commands.py:911
-#: D:/TTMediaBot/bot/commands/user_commands.py:946
-#: D:/TTMediaBot/bot/commands/user_commands.py:1317
-#: D:/TTMediaBot/bot/commands/user_commands.py:1850
+#: /home/claude/work/bot/commands/admin_commands.py:449
+#: /home/claude/work/bot/commands/admin_commands.py:561
+#: /home/claude/work/bot/commands/user_commands.py:67
+#: /home/claude/work/bot/commands/user_commands.py:142
+#: /home/claude/work/bot/commands/user_commands.py:807
+#: /home/claude/work/bot/commands/user_commands.py:911
+#: /home/claude/work/bot/commands/user_commands.py:946
+#: /home/claude/work/bot/commands/user_commands.py:1317
+#: /home/claude/work/bot/commands/user_commands.py:1850
 msgid "Nothing is found for your query"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:476
-#: D:/TTMediaBot/bot/commands/admin_commands.py:588
+#: /home/claude/work/bot/commands/admin_commands.py:476
+#: /home/claude/work/bot/commands/admin_commands.py:588
 msgid "Error: File not found."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:495
-#: D:/TTMediaBot/bot/commands/admin_commands.py:607
-#: D:/TTMediaBot/bot/modules/uploader.py:64
+#: /home/claude/work/bot/commands/admin_commands.py:495
+#: /home/claude/work/bot/commands/admin_commands.py:607
+#: /home/claude/work/bot/modules/uploader.py:64
 msgid "Error: Downloaded file not found."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:508
+#: /home/claude/work/bot/commands/admin_commands.py:507
 #, python-brace-format
 msgid ""
 "Audio downloaded successfully: {file_name}\n"
 "Saved to: {path}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:515
-#: D:/TTMediaBot/bot/commands/admin_commands.py:622
+#: /home/claude/work/bot/commands/admin_commands.py:515
+#: /home/claude/work/bot/commands/admin_commands.py:622
 #, python-brace-format
 msgid "Error downloading {name}: {error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:526
+#: /home/claude/work/bot/commands/admin_commands.py:525
 msgid ""
 "[QUERY|LINK] Downloads the current track or specified link/query as video"
 " and saves it to the downloads folder."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:540
+#: /home/claude/work/bot/commands/admin_commands.py:540
 msgid "Searching and downloading video..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:550
-#: D:/TTMediaBot/bot/commands/user_commands.py:726
+#: /home/claude/work/bot/commands/admin_commands.py:550
+#: /home/claude/work/bot/commands/user_commands.py:726
 msgid "Downloading video..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:615
+#: /home/claude/work/bot/commands/admin_commands.py:614
 #, python-brace-format
 msgid ""
 "Video downloaded successfully: {file_name}\n"
 "Saved to: {path}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:633
+#: /home/claude/work/bot/commands/admin_commands.py:632
 msgid "FILE_PATH Uploads a local file to the current TeamTalk channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:642
+#: /home/claude/work/bot/commands/admin_commands.py:642
 msgid "Error: Please specify the path of the file to upload."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:646
+#: /home/claude/work/bot/commands/admin_commands.py:646
 #, python-brace-format
 msgid "Error: File not found at '{path}'."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:651
+#: /home/claude/work/bot/commands/admin_commands.py:650
 msgid ""
 "Error: The specified path is a folder, not a file. Please provide a "
 "direct file path."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:654
+#: /home/claude/work/bot/commands/admin_commands.py:654
 msgid "Error: The specified path is not a valid file."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:656
+#: /home/claude/work/bot/commands/admin_commands.py:656
 #, python-brace-format
 msgid "Error: Cannot read file '{path}'. Permission denied."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:660
-#: D:/TTMediaBot/bot/commands/admin_commands.py:746
+#: /home/claude/work/bot/commands/admin_commands.py:660
+#: /home/claude/work/bot/commands/admin_commands.py:746
 msgid "Error: Bot is not currently in any channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:671
+#: /home/claude/work/bot/commands/admin_commands.py:671
 #, python-brace-format
 msgid "Uploading file: {file_name}..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:702
-#: D:/TTMediaBot/bot/commands/admin_commands.py:728
+#: /home/claude/work/bot/commands/admin_commands.py:702
+#: /home/claude/work/bot/commands/admin_commands.py:728
 #, python-brace-format
 msgid "Error uploading file: {error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:720
+#: /home/claude/work/bot/commands/admin_commands.py:720
 #, python-brace-format
 msgid "File uploaded successfully: {file_name} ({size})"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:737
+#: /home/claude/work/bot/commands/admin_commands.py:736
 msgid "[FILE_NAME] Deletes a specific file or all files in the current channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:751
+#: /home/claude/work/bot/commands/admin_commands.py:751
 msgid "No files found in the current channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:767
+#: /home/claude/work/bot/commands/admin_commands.py:766
 #, python-brace-format
 msgid "Error: File '{name}' not found in the current channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:784
+#: /home/claude/work/bot/commands/admin_commands.py:784
 #, python-brace-format
 msgid "Error deleting file '{name}'."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:788
+#: /home/claude/work/bot/commands/admin_commands.py:788
 #, python-brace-format
 msgid "Successfully deleted file: {name}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:793
+#: /home/claude/work/bot/commands/admin_commands.py:792
 #, python-brace-format
 msgid "Successfully deleted {count} file(s) matching '{name}'."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:812
+#: /home/claude/work/bot/commands/admin_commands.py:811
 #, python-brace-format
 msgid "Successfully deleted all {count} file(s) from the channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/admin_commands.py:816
+#: /home/claude/work/bot/commands/admin_commands.py:815
 #, python-brace-format
 msgid "Deleted {deleted} file(s), failed to delete {failed} file(s)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/command.py:30
+#: /home/claude/work/bot/commands/command.py:30
 msgid "help text not found"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:25
+#: /home/claude/work/bot/commands/user_commands.py:25
 msgid "Shows command help"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:34
+#: /home/claude/work/bot/commands/user_commands.py:34
 msgid "Shows information about the bot"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:44
+#: /home/claude/work/bot/commands/user_commands.py:43
 msgid ""
 "[QUERY|URL|PATH] Plays tracks found for a query, URL, or local path. If "
 "no query is given, plays or pauses current track. When search results "
 "mode (sr) is active, shows a numbered list instead"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:60
+#: /home/claude/work/bot/commands/user_commands.py:60
 msgid "Loading URL / playlist..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:73
+#: /home/claude/work/bot/commands/user_commands.py:72
 #, python-brace-format
 msgid "{nickname} requested playing from a URL ({count} tracks)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:80
+#: /home/claude/work/bot/commands/user_commands.py:79
 #, python-brace-format
 msgid "Loaded {count} tracks"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:84
-#: D:/TTMediaBot/bot/commands/user_commands.py:95
-#: D:/TTMediaBot/bot/commands/user_commands.py:138
-#: D:/TTMediaBot/bot/commands/user_commands.py:258
-#: D:/TTMediaBot/bot/commands/user_commands.py:284
-#: D:/TTMediaBot/bot/commands/user_commands.py:301
-#: D:/TTMediaBot/bot/commands/user_commands.py:447
-#: D:/TTMediaBot/bot/commands/user_commands.py:917
-#: D:/TTMediaBot/bot/commands/user_commands.py:965
-#: D:/TTMediaBot/bot/commands/user_commands.py:1075
-#: D:/TTMediaBot/bot/commands/user_commands.py:1163
+#: /home/claude/work/bot/commands/user_commands.py:84
+#: /home/claude/work/bot/commands/user_commands.py:95
+#: /home/claude/work/bot/commands/user_commands.py:138
+#: /home/claude/work/bot/commands/user_commands.py:258
+#: /home/claude/work/bot/commands/user_commands.py:284
+#: /home/claude/work/bot/commands/user_commands.py:301
+#: /home/claude/work/bot/commands/user_commands.py:447
+#: /home/claude/work/bot/commands/user_commands.py:917
+#: /home/claude/work/bot/commands/user_commands.py:965
+#: /home/claude/work/bot/commands/user_commands.py:1075
+#: /home/claude/work/bot/commands/user_commands.py:1163
 #, python-brace-format
 msgid "Playing {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:91
-#: D:/TTMediaBot/bot/commands/user_commands.py:134
+#: /home/claude/work/bot/commands/user_commands.py:90
+#: /home/claude/work/bot/commands/user_commands.py:133
 #, python-brace-format
 msgid "{nickname} requested {request}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:99
+#: /home/claude/work/bot/commands/user_commands.py:99
 msgid "Incorrect protocol"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:101
+#: /home/claude/work/bot/commands/user_commands.py:101
 msgid "Cannot process stream URL"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:103
+#: /home/claude/work/bot/commands/user_commands.py:103
 msgid "The path cannot be found"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:106
-#: D:/TTMediaBot/bot/commands/user_commands.py:799
-#: D:/TTMediaBot/bot/commands/user_commands.py:939
+#: /home/claude/work/bot/commands/user_commands.py:106
+#: /home/claude/work/bot/commands/user_commands.py:799
+#: /home/claude/work/bot/commands/user_commands.py:939
 msgid "Searching..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:115
+#: /home/claude/work/bot/commands/user_commands.py:115
 msgid "Search results:"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:118
+#: /home/claude/work/bot/commands/user_commands.py:118
 msgid "Use 'sl NUMBER' to select a track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:145
-#: D:/TTMediaBot/bot/commands/user_commands.py:949
+#: /home/claude/work/bot/commands/user_commands.py:144
+#: /home/claude/work/bot/commands/user_commands.py:948
 msgid "The selected service is currently unavailable"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:159
+#: /home/claude/work/bot/commands/user_commands.py:159
 msgid "Stops playback"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:166
+#: /home/claude/work/bot/commands/user_commands.py:166
 #, python-brace-format
 msgid "{nickname} stopped playback"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:173
+#: /home/claude/work/bot/commands/user_commands.py:173
 msgid "Playback stopped"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:184
+#: /home/claude/work/bot/commands/user_commands.py:183
 #, python-brace-format
 msgid ""
 "VOLUME Sets the volume to a value between 0 and {max_volume}. If no "
 "volume is specified, the current volume level is displayed"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:205
+#: /home/claude/work/bot/commands/user_commands.py:204
 #, python-brace-format
 msgid "STEP Seeks current track backward. the default step is {seek_step} seconds"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:227
+#: /home/claude/work/bot/commands/user_commands.py:226
 #, python-brace-format
 msgid "STEP Seeks current track forward. the default step is {seek_step} seconds"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:248
+#: /home/claude/work/bot/commands/user_commands.py:248
 msgid ""
 "[NUMBER|?] Plays next track, jumps to track number, or shows current "
 "position with ?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:270
-#: D:/TTMediaBot/bot/commands/user_commands.py:459
+#: /home/claude/work/bot/commands/user_commands.py:270
+#: /home/claude/work/bot/commands/user_commands.py:459
 msgid "Incorrect number"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:272
-#: D:/TTMediaBot/bot/commands/user_commands.py:461
-#: D:/TTMediaBot/bot/commands/user_commands.py:474
+#: /home/claude/work/bot/commands/user_commands.py:272
+#: /home/claude/work/bot/commands/user_commands.py:461
+#: /home/claude/work/bot/commands/user_commands.py:474
 #, python-brace-format
 msgid "Playing {} {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:276
-#: D:/TTMediaBot/bot/commands/user_commands.py:465
-#: D:/TTMediaBot/bot/commands/user_commands.py:562
-#: D:/TTMediaBot/bot/commands/user_commands.py:595
-#: D:/TTMediaBot/bot/commands/user_commands.py:668
-#: D:/TTMediaBot/bot/commands/user_commands.py:1030
-#: D:/TTMediaBot/bot/commands/user_commands.py:1147
-#: D:/TTMediaBot/bot/commands/user_commands.py:1284
+#: /home/claude/work/bot/commands/user_commands.py:276
+#: /home/claude/work/bot/commands/user_commands.py:465
+#: /home/claude/work/bot/commands/user_commands.py:562
+#: /home/claude/work/bot/commands/user_commands.py:595
+#: /home/claude/work/bot/commands/user_commands.py:668
+#: /home/claude/work/bot/commands/user_commands.py:1030
+#: /home/claude/work/bot/commands/user_commands.py:1147
+#: /home/claude/work/bot/commands/user_commands.py:1284
 msgid "Out of list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:288
-#: D:/TTMediaBot/bot/commands/user_commands.py:1079
+#: /home/claude/work/bot/commands/user_commands.py:288
+#: /home/claude/work/bot/commands/user_commands.py:1079
 msgid "No next track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:296
+#: /home/claude/work/bot/commands/user_commands.py:296
 msgid "Plays previous track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:305
+#: /home/claude/work/bot/commands/user_commands.py:305
 msgid "No previous track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:314
+#: /home/claude/work/bot/commands/user_commands.py:313
 msgid ""
 "MODE Sets the playback mode. If no mode is specified, the current mode "
 "and a list of modes are displayed"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:319
+#: /home/claude/work/bot/commands/user_commands.py:319
 msgid "Single Track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:320
+#: /home/claude/work/bot/commands/user_commands.py:320
 msgid "Repeat Track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:321
+#: /home/claude/work/bot/commands/user_commands.py:321
 msgid "Track list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:322
+#: /home/claude/work/bot/commands/user_commands.py:322
 msgid "Repeat track list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:323
+#: /home/claude/work/bot/commands/user_commands.py:323
 msgid "Random"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:326
+#: /home/claude/work/bot/commands/user_commands.py:325
 #, python-brace-format
 msgid ""
 "Current mode: {current_mode}\n"
 "{modes}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:344
+#: /home/claude/work/bot/commands/user_commands.py:344
 #, python-brace-format
 msgid "Current mode: {mode}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:348
+#: /home/claude/work/bot/commands/user_commands.py:348
 msgid "Incorrect mode"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:357
+#: /home/claude/work/bot/commands/user_commands.py:356
 msgid ""
 "SERVICE Selects the service to play from, sv SERVICE h returns additional"
 " help. If no service is specified, the current service and a list of "
 "available services are displayed"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:365
+#: /home/claude/work/bot/commands/user_commands.py:365
 #, python-brace-format
 msgid ""
 "Unknown service.\n"
 "{}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:374
+#: /home/claude/work/bot/commands/user_commands.py:373
 #, python-brace-format
 msgid ""
 "Current service: {}\n"
 "Warning: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:376
+#: /home/claude/work/bot/commands/user_commands.py:376
 #, python-brace-format
 msgid "Current service: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:382
+#: /home/claude/work/bot/commands/user_commands.py:381
 #, python-brace-format
 msgid ""
 "Error: {error}\n"
 "{service} is disabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:389
+#: /home/claude/work/bot/commands/user_commands.py:388
 #, python-brace-format
 msgid "{service} is disabled"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:396
+#: /home/claude/work/bot/commands/user_commands.py:395
 msgid "This service has no additional help"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:413
+#: /home/claude/work/bot/commands/user_commands.py:413
 #, python-brace-format
 msgid "{} (Error)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:417
+#: /home/claude/work/bot/commands/user_commands.py:417
 #, python-brace-format
 msgid "{} (Warning: {})"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:424
+#: /home/claude/work/bot/commands/user_commands.py:423
 #, python-brace-format
 msgid ""
 "Current service: {current_service}\n"
@@ -1992,306 +2159,306 @@ msgid ""
 "send sv SERVICE h for additional help"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:436
+#: /home/claude/work/bot/commands/user_commands.py:435
 msgid "[NUMBER|?] Selects track by number, or shows current position with ?"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:485
+#: /home/claude/work/bot/commands/user_commands.py:484
 msgid ""
 "SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows "
 "current speed"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:490
+#: /home/claude/work/bot/commands/user_commands.py:490
 #, python-brace-format
 msgid "Current rate: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:504
+#: /home/claude/work/bot/commands/user_commands.py:503
 msgid ""
 "SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is "
 "given, shows current pitch"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:509
+#: /home/claude/work/bot/commands/user_commands.py:509
 #, python-brace-format
 msgid "Current pitch: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:523
+#: /home/claude/work/bot/commands/user_commands.py:522
 msgid ""
 "+/-NUMBER Manages favorite tracks. + adds the current track to favorites."
 " - removes a track requested from favorites. If a number is specified "
 "after +/-, adds/removes a track with that number"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:529
-#: D:/TTMediaBot/bot/commands/user_commands.py:1877
-#: D:/TTMediaBot/bot/commands/user_commands.py:1897
-#: D:/TTMediaBot/bot/commands/user_commands.py:1922
+#: /home/claude/work/bot/commands/user_commands.py:528
+#: /home/claude/work/bot/commands/user_commands.py:1877
+#: /home/claude/work/bot/commands/user_commands.py:1897
+#: /home/claude/work/bot/commands/user_commands.py:1922
 msgid "This command is not available for guest users"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:566
+#: /home/claude/work/bot/commands/user_commands.py:566
 msgid "This track is not in favorites"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:575
-#: D:/TTMediaBot/bot/commands/user_commands.py:674
+#: /home/claude/work/bot/commands/user_commands.py:575
+#: /home/claude/work/bot/commands/user_commands.py:674
 #, python-brace-format
 msgid "{number}: {track_name}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:603
+#: /home/claude/work/bot/commands/user_commands.py:603
 msgid "Gets a direct link to the current track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:612
+#: /home/claude/work/bot/commands/user_commands.py:612
 msgid "URL is not available"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:620
+#: /home/claude/work/bot/commands/user_commands.py:620
 msgid "Gets the original YouTube link to the current track"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:646
+#: /home/claude/work/bot/commands/user_commands.py:646
 msgid "Current track is not from YouTube"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:655
+#: /home/claude/work/bot/commands/user_commands.py:654
 msgid ""
 "NUMBER Plays a track with  the given number from a list of recent tracks."
 " Without a number shows recent tracks"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:680
+#: /home/claude/work/bot/commands/user_commands.py:680
 #, python-brace-format
 msgid "{number}: {track_url}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:695
+#: /home/claude/work/bot/commands/user_commands.py:694
 msgid "Downloads the current track and uploads it to the channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:705
+#: /home/claude/work/bot/commands/user_commands.py:705
 msgid "Downloading..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:716
+#: /home/claude/work/bot/commands/user_commands.py:715
 msgid "Downloads the current track as video and uploads it to the channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:736
+#: /home/claude/work/bot/commands/user_commands.py:736
 msgid "Makes the bot join your current channel"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:757
-#: D:/TTMediaBot/bot/commands/user_commands.py:774
+#: /home/claude/work/bot/commands/user_commands.py:757
+#: /home/claude/work/bot/commands/user_commands.py:774
 #, python-brace-format
 msgid "Joining channel: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:766
+#: /home/claude/work/bot/commands/user_commands.py:766
 #, python-brace-format
 msgid "Failed to join channel. Error: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:777
+#: /home/claude/work/bot/commands/user_commands.py:777
 #, python-brace-format
 msgid "Failed to join channel: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:784
+#: /home/claude/work/bot/commands/user_commands.py:783
 msgid ""
 "Downloads all tracks from a playlist/album URL, zips them, and uploads to"
 " the channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:792
+#: /home/claude/work/bot/commands/user_commands.py:792
 #, python-brace-format
 msgid "Current progress: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:796
+#: /home/claude/work/bot/commands/user_commands.py:796
 msgid "Please send the link to the playlist or album."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:815
+#: /home/claude/work/bot/commands/user_commands.py:815
 msgid ""
 "This command is for playlists, albums, and channels. For single tracks, "
 "use 'dl'."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:890
+#: /home/claude/work/bot/commands/user_commands.py:889
 msgid ""
 "QUERY Searches for a track and adds it to the queue. If nothing is "
 "playing, starts immediately"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:927
-#: D:/TTMediaBot/bot/commands/user_commands.py:974
+#: /home/claude/work/bot/commands/user_commands.py:926
+#: /home/claude/work/bot/commands/user_commands.py:973
 #, python-brace-format
 msgid "{nickname} added to queue: {track}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:932
-#: D:/TTMediaBot/bot/commands/user_commands.py:980
+#: /home/claude/work/bot/commands/user_commands.py:931
+#: /home/claude/work/bot/commands/user_commands.py:979
 #, python-brace-format
 msgid "Added to queue [{position}]: {track}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:935
+#: /home/claude/work/bot/commands/user_commands.py:935
 #, python-brace-format
 msgid "Added {count} tracks to queue"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:987
+#: /home/claude/work/bot/commands/user_commands.py:987
 msgid "Lists all tracks in the queue"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:993
+#: /home/claude/work/bot/commands/user_commands.py:993
 msgid "The queue is empty"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1001
+#: /home/claude/work/bot/commands/user_commands.py:1000
 #, python-brace-format
 msgid "Queue ({count} track(s)):"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1011
+#: /home/claude/work/bot/commands/user_commands.py:1010
 msgid "NUMBER Removes track number NUMBER from the queue"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1036
+#: /home/claude/work/bot/commands/user_commands.py:1035
 #, python-brace-format
 msgid "Removed from queue: {track}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1043
+#: /home/claude/work/bot/commands/user_commands.py:1043
 msgid "Clears the entire queue"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1047
+#: /home/claude/work/bot/commands/user_commands.py:1047
 msgid "The queue is already empty"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1050
+#: /home/claude/work/bot/commands/user_commands.py:1050
 msgid "Queue cleared"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1057
+#: /home/claude/work/bot/commands/user_commands.py:1056
 msgid ""
 "Skips current track and plays the next one from the queue. Falls back to "
 "normal next if queue is empty"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1068
+#: /home/claude/work/bot/commands/user_commands.py:1068
 #, python-brace-format
 msgid "Playing next from queue: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1092
+#: /home/claude/work/bot/commands/user_commands.py:1091
 msgid ""
 "Toggles search results mode. When active, 'p QUERY' shows a numbered "
 "list. Use 'sr on' or 'sr off' to set explicitly. Save permanently with "
 "'sc'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1100
-#: D:/TTMediaBot/bot/commands/user_commands.py:1110
+#: /home/claude/work/bot/commands/user_commands.py:1100
+#: /home/claude/work/bot/commands/user_commands.py:1110
 msgid "Search results mode: ON"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1104
-#: D:/TTMediaBot/bot/commands/user_commands.py:1112
+#: /home/claude/work/bot/commands/user_commands.py:1104
+#: /home/claude/work/bot/commands/user_commands.py:1112
 msgid "Search results mode: OFF"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1124
+#: /home/claude/work/bot/commands/user_commands.py:1123
 msgid ""
 "NUMBER Selects and plays result NUMBER from the last search list "
 "(requires search results mode to be active)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1143
+#: /home/claude/work/bot/commands/user_commands.py:1142
 msgid "No search results available. Use 'p QUERY' to search first"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1157
+#: /home/claude/work/bot/commands/user_commands.py:1156
 #, python-brace-format
 msgid "{nickname} selected: {track}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1174
+#: /home/claude/work/bot/commands/user_commands.py:1173
 msgid ""
 "NUMBER Sets how many results are shown when search results mode is "
 "active. Without a number shows current count. Resets to 1 on restart"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1180
+#: /home/claude/work/bot/commands/user_commands.py:1179
 #, python-brace-format
 msgid "Search results count: {count}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1190
+#: /home/claude/work/bot/commands/user_commands.py:1189
 msgid "Invalid count. Please enter a number greater than 0"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1195
+#: /home/claude/work/bot/commands/user_commands.py:1194
 #, python-brace-format
 msgid "Search results count set to {count}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1203
+#: /home/claude/work/bot/commands/user_commands.py:1202
 msgid "LINK Adds a link to the download list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1215
+#: /home/claude/work/bot/commands/user_commands.py:1215
 #, python-brace-format
 msgid "Added link to the list. Total: {count}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1224
+#: /home/claude/work/bot/commands/user_commands.py:1223
 msgid "LINK1 LINK2 ... Adds multiple space-separated links to the download list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1239
+#: /home/claude/work/bot/commands/user_commands.py:1239
 #, python-brace-format
 msgid "Added {added_count} links. Total list size: {count}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1249
+#: /home/claude/work/bot/commands/user_commands.py:1248
 msgid "Lists all links in the download list."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1268
+#: /home/claude/work/bot/commands/user_commands.py:1267
 msgid "NUMBER_OR_LINK Removes a link from the download list by its index or URL."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1293
+#: /home/claude/work/bot/commands/user_commands.py:1293
 msgid "Link not found in the list"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1295
+#: /home/claude/work/bot/commands/user_commands.py:1295
 #, python-brace-format
 msgid "Removed link: {link}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1302
+#: /home/claude/work/bot/commands/user_commands.py:1301
 msgid "LINK Downloads a link directly and uploads it to the channel."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1310
+#: /home/claude/work/bot/commands/user_commands.py:1310
 msgid "Searching and downloading..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1334
+#: /home/claude/work/bot/commands/user_commands.py:1333
 msgid ""
 "Downloads all links in your list and uploads them to the channel. Can "
 "download normally or as a ZIP archive."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1346
+#: /home/claude/work/bot/commands/user_commands.py:1345
 msgid ""
 "How do you want to download these links?\n"
 "1. Download individually (Normal)\n"
@@ -2299,406 +2466,409 @@ msgid ""
 "Respond only with 1 or 2."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1357
+#: /home/claude/work/bot/commands/user_commands.py:1357
 #, python-brace-format
 msgid "Starting local download of {count} links..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1360
+#: /home/claude/work/bot/commands/user_commands.py:1360
 #, python-brace-format
 msgid "Starting download of {count} links..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1366
+#: /home/claude/work/bot/commands/user_commands.py:1366
 #, python-brace-format
 msgid "Resolving and zipping locally {count} links..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1369
+#: /home/claude/work/bot/commands/user_commands.py:1369
 #, python-brace-format
 msgid "Resolving and zipping {count} links..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1371
+#: /home/claude/work/bot/commands/user_commands.py:1371
 msgid "Invalid option. Please send 'ads' again to select."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1377
-#: D:/TTMediaBot/bot/commands/user_commands.py:1415
+#: /home/claude/work/bot/commands/user_commands.py:1377
+#: /home/claude/work/bot/commands/user_commands.py:1415
 #, python-brace-format
 msgid "Processing link {number}/{total}: {link}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1385
-#: D:/TTMediaBot/bot/commands/user_commands.py:1423
+#: /home/claude/work/bot/commands/user_commands.py:1385
+#: /home/claude/work/bot/commands/user_commands.py:1423
 #, python-brace-format
 msgid "Nothing is found for: {link}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1393
+#: /home/claude/work/bot/commands/user_commands.py:1393
 #, python-brace-format
 msgid "Error downloading {link}: {error}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1447
-#: D:/TTMediaBot/bot/commands/user_commands.py:1568
+#: /home/claude/work/bot/commands/user_commands.py:1447
+#: /home/claude/work/bot/commands/user_commands.py:1568
 msgid "All downloads completed successfully!"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1452
-#: D:/TTMediaBot/bot/commands/user_commands.py:1573
+#: /home/claude/work/bot/commands/user_commands.py:1452
+#: /home/claude/work/bot/commands/user_commands.py:1573
 #, python-brace-format
 msgid "Downloads completed with {error_count} error(s)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1461
-#: D:/TTMediaBot/bot/commands/user_commands.py:1491
+#: /home/claude/work/bot/commands/user_commands.py:1461
+#: /home/claude/work/bot/commands/user_commands.py:1491
 msgid "Resolving links..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1475
-#: D:/TTMediaBot/bot/commands/user_commands.py:1508
+#: /home/claude/work/bot/commands/user_commands.py:1475
+#: /home/claude/work/bot/commands/user_commands.py:1508
 msgid "Error: No valid tracks found to download."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1532
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:92
+#: /home/claude/work/bot/commands/user_commands.py:1532
+#: /home/claude/work/bot/modules/playlist_uploader.py:92
 msgid "Error: Failed to download any tracks from this playlist."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1584
+#: /home/claude/work/bot/commands/user_commands.py:1583
 msgid ""
 "Toggles local download mode for the 'ads' command. When active, files are"
 " saved locally to the VPS instead of uploaded to TeamTalk."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1590
+#: /home/claude/work/bot/commands/user_commands.py:1590
 msgid "Local download mode (adsc) enabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1592
+#: /home/claude/work/bot/commands/user_commands.py:1592
 msgid "Local download mode (adsc) disabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1599
+#: /home/claude/work/bot/commands/user_commands.py:1598
 msgid ""
 "Toggles silence trimming mode. When active, automatically removes leading"
 " and trailing silence from tracks."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1606
+#: /home/claude/work/bot/commands/user_commands.py:1606
 msgid "Silence trimming (ts) enabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1608
+#: /home/claude/work/bot/commands/user_commands.py:1608
 msgid "Silence trimming (ts) disabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1615
+#: /home/claude/work/bot/commands/user_commands.py:1614
 msgid ""
 "[-s] Identifies the currently playing song in a mix or compilation using "
 "YouTube Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force "
 "audio/voice recognition."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1624
+#: /home/claude/work/bot/commands/user_commands.py:1623
 msgid ""
 "Could not identify the song. If this is a song with lyrics, please try "
 "again when the vocals/lyrics are clearly heard."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1639
-#: D:/TTMediaBot/bot/commands/user_commands.py:1682
+#: /home/claude/work/bot/commands/user_commands.py:1639
+#: /home/claude/work/bot/commands/user_commands.py:1682
 msgid "Song"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1642
-#: D:/TTMediaBot/bot/commands/user_commands.py:1685
+#: /home/claude/work/bot/commands/user_commands.py:1642
+#: /home/claude/work/bot/commands/user_commands.py:1685
 msgid "Artist"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1644
+#: /home/claude/work/bot/commands/user_commands.py:1644
 msgid "Lyrics heard"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1645
-#: D:/TTMediaBot/bot/commands/user_commands.py:1686
+#: /home/claude/work/bot/commands/user_commands.py:1645
+#: /home/claude/work/bot/commands/user_commands.py:1686
 msgid "Position"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1646
-#: D:/TTMediaBot/bot/commands/user_commands.py:1687
+#: /home/claude/work/bot/commands/user_commands.py:1646
+#: /home/claude/work/bot/commands/user_commands.py:1687
 msgid "Source"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1658
+#: /home/claude/work/bot/commands/user_commands.py:1658
 #, python-brace-format
 msgid "Error identifying song: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1696
+#: /home/claude/work/bot/commands/user_commands.py:1696
 msgid "🔍 Listening and identifying the currently playing song..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1707
+#: /home/claude/work/bot/commands/user_commands.py:1706
 msgid "[NAME] Gets lyrics for the currently playing song or specified song name"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1769
+#: /home/claude/work/bot/commands/user_commands.py:1769
 #, python-brace-format
 msgid "Lyrics not found for '{}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1775
+#: /home/claude/work/bot/commands/user_commands.py:1775
 msgid "Lyrics"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1783
+#: /home/claude/work/bot/commands/user_commands.py:1783
 #, python-brace-format
 msgid "Error fetching lyrics: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1816
+#: /home/claude/work/bot/commands/user_commands.py:1816
 #, python-brace-format
 msgid "🔍 Fetching lyrics for '{}'..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1826
+#: /home/claude/work/bot/commands/user_commands.py:1826
 msgid "Toggles live video subtitles on bot status"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1831
+#: /home/claude/work/bot/commands/user_commands.py:1831
 msgid "Video subtitles (sub) enabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1833
+#: /home/claude/work/bot/commands/user_commands.py:1833
 msgid "Video subtitles (sub) disabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1839
+#: /home/claude/work/bot/commands/user_commands.py:1839
 msgid "QUERY Searches and plays a radio station"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1844
+#: /home/claude/work/bot/commands/user_commands.py:1844
 msgid "Searching radio..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1862
+#: /home/claude/work/bot/commands/user_commands.py:1861
 #, python-brace-format
 msgid "{nickname} requested radio {request}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1866
+#: /home/claude/work/bot/commands/user_commands.py:1866
 #, python-brace-format
 msgid "Playing radio: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1868
+#: /home/claude/work/bot/commands/user_commands.py:1868
 #, python-brace-format
 msgid "Error playing radio: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1873
+#: /home/claude/work/bot/commands/user_commands.py:1873
 msgid "Adds currently playing radio to favorites"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1887
+#: /home/claude/work/bot/commands/user_commands.py:1887
 msgid "Added radio to favorites"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1893
+#: /home/claude/work/bot/commands/user_commands.py:1893
 msgid "NUMBER Removes a radio from favorites by number"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1899
-#: D:/TTMediaBot/bot/commands/user_commands.py:1924
+#: /home/claude/work/bot/commands/user_commands.py:1899
+#: /home/claude/work/bot/commands/user_commands.py:1924
 msgid "The radio favorites list is empty"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1911
+#: /home/claude/work/bot/commands/user_commands.py:1911
 msgid "Removed radio from favorites"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1913
-#: D:/TTMediaBot/bot/commands/user_commands.py:1937
+#: /home/claude/work/bot/commands/user_commands.py:1913
+#: /home/claude/work/bot/commands/user_commands.py:1937
 msgid "Invalid number"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1918
+#: /home/claude/work/bot/commands/user_commands.py:1918
 msgid "NUMBER Plays a radio from favorites by number"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1935
+#: /home/claude/work/bot/commands/user_commands.py:1935
 msgid "Playing radio from favorites"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1944
+#: /home/claude/work/bot/commands/user_commands.py:1943
 msgid ""
 "[on/off/<source> <target>] Checks translation status, enables/disables "
 "public channel translation, or sets language pair (e.g. tr auto en, tr vi"
 " en)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1956
+#: /home/claude/work/bot/commands/user_commands.py:1956
 #, python-brace-format
 msgid "Channel translation is enabled ({lang_from} {arrow} {lang_to})."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1958
+#: /home/claude/work/bot/commands/user_commands.py:1958
 #, python-brace-format
 msgid "Channel translation is disabled ({lang_from} {arrow} {lang_to})."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1974
+#: /home/claude/work/bot/commands/user_commands.py:1973
 #, python-brace-format
 msgid "Channel translation enabled ({lang_from} {arrow} {lang_to})."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1982
+#: /home/claude/work/bot/commands/user_commands.py:1982
 msgid "Channel translation disabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1991
+#: /home/claude/work/bot/commands/user_commands.py:1991
 msgid ""
 "Error: Target language cannot be 'auto'. Please specify a valid target "
 "language."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:1994
+#: /home/claude/work/bot/commands/user_commands.py:1994
 msgid "Error: Source and target languages cannot be the same."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2006
+#: /home/claude/work/bot/commands/user_commands.py:2005
 #, python-brace-format
 msgid "Channel translation set to {lang_from} {arrow} {lang_to} (Enabled)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2016
+#: /home/claude/work/bot/commands/user_commands.py:2015
 msgid ""
 "[on/off/end/MINUTES] Checks timer status, enables/disables timer, stops "
 "after current video/track ends, or sets timer in minutes (e.g., tm end, "
 "tm 30, tm on, tm off)"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2022
+#: /home/claude/work/bot/commands/user_commands.py:2022
 msgid "Sleep timer is not available."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2028
+#: /home/claude/work/bot/commands/user_commands.py:2028
 msgid "No sleep timer is currently active."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2039
+#: /home/claude/work/bot/commands/user_commands.py:2038
 #, python-brace-format
 msgid ""
 "Sleep timer is active: playback will stop when current track "
 "ends{time_part}."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2044
+#: /home/claude/work/bot/commands/user_commands.py:2044
 msgid "Sleep timer is about to stop playback."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2054
+#: /home/claude/work/bot/commands/user_commands.py:2053
 #, python-brace-format
 msgid "Sleep timer is active: {time_str} remaining."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2060
+#: /home/claude/work/bot/commands/user_commands.py:2060
 msgid "Sleep timer has been cancelled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2062
+#: /home/claude/work/bot/commands/user_commands.py:2062
 msgid "No sleep timer was active."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2074
+#: /home/claude/work/bot/commands/user_commands.py:2073
 #, python-brace-format
 msgid "Sleep timer set: playback will stop when current track ends{track_info}."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2080
+#: /home/claude/work/bot/commands/user_commands.py:2079
 #, python-brace-format
 msgid "{nickname} set a sleep timer to stop music when current track ends."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2102
+#: /home/claude/work/bot/commands/user_commands.py:2102
 msgid "Error: Timer cannot be set for more than 24 hours (1440 minutes)."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2109
+#: /home/claude/work/bot/commands/user_commands.py:2108
 #, python-brace-format
 msgid "Sleep timer set: music will stop in {duration}."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2116
+#: /home/claude/work/bot/commands/user_commands.py:2115
 #, python-brace-format
 msgid "{nickname} set a sleep timer to stop music in {duration}."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2127
+#: /home/claude/work/bot/commands/user_commands.py:2127
 msgid "[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>"
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2131
+#: /home/claude/work/bot/commands/user_commands.py:2131
 msgid "The operator private messaging feature is currently disabled."
 msgstr ""
 
-#: D:/TTMediaBot/bot/commands/user_commands.py:2153
+#: /home/claude/work/bot/commands/user_commands.py:2152
 #, python-brace-format
 msgid "Your message has been sent to the bot operator: '{message}'"
 msgstr ""
 
-#: D:/TTMediaBot/bot/connectors/tt_player_connector.py:30
+#: /home/claude/work/bot/connectors/tt_player_connector.py:30
 #, python-brace-format
 msgid "Playing: {track_name}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/connectors/tt_player_connector.py:34
+#: /home/claude/work/bot/connectors/tt_player_connector.py:34
 #, python-brace-format
 msgid "Playing: {stream_url}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/connectors/tt_player_connector.py:41
+#: /home/claude/work/bot/connectors/tt_player_connector.py:41
 #, python-brace-format
 msgid "Paused: {track_name}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/connectors/tt_player_connector.py:45
+#: /home/claude/work/bot/connectors/tt_player_connector.py:45
 #, python-brace-format
 msgid "Paused: {stream_url}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:55
+#: /home/claude/work/bot/modules/playlist_uploader.py:55
 #, python-brace-format
 msgid "Downloading playlist: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:62
+#: /home/claude/work/bot/modules/playlist_uploader.py:62
 #, python-brace-format
 msgid "Downloading track {}: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:98
+#: /home/claude/work/bot/modules/playlist_uploader.py:98
 msgid "Zipping tracks..."
 msgstr ""
 
-#: D:/TTMediaBot/bot/modules/playlist_uploader.py:113
+#: /home/claude/work/bot/modules/playlist_uploader.py:113
 #, python-brace-format
 msgid "Uploading ZIP: {}"
 msgstr ""
 
-#: D:/TTMediaBot/bot/player/sleep_timer.py:172
+#: /home/claude/work/bot/player/sleep_timer.py:172
 msgid "Sleep timer expired. Playback stopped."
 msgstr ""
 
-#: D:/TTMediaBot/bot/services/yt.py:250 D:/TTMediaBot/bot/services/yt.py:435
-#: D:/TTMediaBot/bot/services/yt.py:469 D:/TTMediaBot/bot/services/yt.py:546
-#: D:/TTMediaBot/bot/services/yt.py:630 D:/TTMediaBot/bot/services/yt.py:697
+#: /home/claude/work/bot/services/yt.py:250
+#: /home/claude/work/bot/services/yt.py:435
+#: /home/claude/work/bot/services/yt.py:469
+#: /home/claude/work/bot/services/yt.py:546
+#: /home/claude/work/bot/services/yt.py:630
+#: /home/claude/work/bot/services/yt.py:697
 msgid "Unknown Title"
 msgstr ""
 
-#: D:/TTMediaBot/bot/services/yt.py:571
+#: /home/claude/work/bot/services/yt.py:571
 msgid "YouTube Track"
 msgstr ""
 
