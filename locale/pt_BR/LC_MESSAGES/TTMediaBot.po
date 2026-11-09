@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: TTMediaBot 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-11-08 00:55+0000\n"
-"PO-Revision-Date: 2026-10-30 09:30+0700\n"
+"PO-Revision-Date: 2026-11-09 07:10+0700\n"
 "Last-Translator: \n"
-"Language: pt_BR\n"
 "Language-Team: pt_BR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Poedit 3.10\n"
 
 #: /home/claude/work/bot/__init__.py:165
 msgid "Update completed successfully! I am back online."
@@ -24,17 +25,16 @@ msgstr "Atualização concluída com sucesso! Estou de volta."
 
 #: /home/claude/work/bot/__init__.py:205
 msgid ""
-"The bot is starting an update process and will restart shortly. It may go"
-" offline at any moment."
+"The bot is starting an update process and will restart shortly. It may go "
+"offline at any moment."
 msgstr ""
-"O bot está iniciando o processo de atualização e será reiniciado em "
-"breve. Ele pode ficar offline a qualquer momento."
+"O bot está iniciando o processo de atualização e será reiniciado em breve. "
+"Ele pode ficar offline a qualquer momento."
 
 #: /home/claude/work/bot/__init__.py:243
 msgid "The bot is restarting now to apply the update. See you in a moment!"
 msgstr ""
-"O bot está reiniciando agora para aplicar a atualização. Até daqui a "
-"pouco!"
+"O bot está reiniciando agora para aplicar a atualização. Até daqui a pouco!"
 
 # | msgid "" "Hello, I'm Smart Thinh.\n" "This is a TTMediaBot edition for
 # | TeamTalk 5, based on João Almeida's " "fork.\n" "Ported to run seamlessly
@@ -45,8 +45,7 @@ msgstr ""
 #: /home/claude/work/bot/app_vars.py:12
 msgid ""
 "Hello, I'm Smart Thinh.\n"
-"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's "
-"fork.\n"
+"This is a TTMediaBot edition for TeamTalk 5, based on João Almeida's fork.\n"
 "Ported to run seamlessly on Windows with high stability and ultra-fast "
 "response.\n"
 "Repository: https://github.com/smartthinh/TTMediaBot\n"
@@ -54,13 +53,13 @@ msgid ""
 "Kirill Belousov.\n"
 msgstr ""
 "Olá, sou Smart Thinh.\n"
-"Esta é uma edição do TTMediaBot para TeamTalk 5, baseada na versão "
-"derivada por João Almeida.\n"
-"Adaptado para funcionar perfeitamente no Windows, com alta estabilidade e"
-" resposta ultrarrápida.\n"
+"Esta é uma edição do TTMediaBot para TeamTalk 5, baseada na versão derivada "
+"por João Almeida.\n"
+"Adaptado para funcionar perfeitamente no Windows, com alta estabilidade e "
+"resposta ultrarrápida.\n"
 "Repositório: https://github.com/smartthinh/TTMediaBot\n"
-"\fAutores originais: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili "
-"e Kirill Belousov.\n"
+"\fAutores originais: Amir Gumerov, Vladislav Kopylov, Beqa Gozalishvili e "
+"Kirill Belousov.\n"
 
 #: /home/claude/work/bot/auto_updater.py:74
 msgid "Update Available"
@@ -109,8 +108,8 @@ msgid ""
 "Could not check for updates. Please check your internet connection.\n"
 "{error}"
 msgstr ""
-"Não foi possível verificar se há atualizações. Verifique sua conexão com "
-"a internet.\n"
+"Não foi possível verificar se há atualizações. Verifique sua conexão com a "
+"internet.\n"
 "{error}"
 
 #: /home/claude/work/bot/auto_updater.py:264
@@ -241,11 +240,11 @@ msgstr "Feminino"
 
 #: /home/claude/work/bot/gui.py:921
 msgid "&Status Message (Optional):"
-msgstr "Mensagem de &status (opcional):"
+msgstr "&Mensagem de status (opcional):"
 
 #: /home/claude/work/bot/gui.py:930
 msgid "&Username (Optional):"
-msgstr "&Nome de usuário (opcional):"
+msgstr "Nome de &usuário (opcional):"
 
 #: /home/claude/work/bot/gui.py:937
 msgid "&Password (Optional):"
@@ -253,7 +252,7 @@ msgstr "&Senha (opcional):"
 
 #: /home/claude/work/bot/gui.py:949
 msgid "Default &Channel (Optional, default /):"
-msgstr "&Canal padrão (opcional, padrão /):"
+msgstr "Canal pa&drão (opcional, padrão /):"
 
 #: /home/claude/work/bot/gui.py:956
 msgid "Channel Pass&word (Optional):"
@@ -280,8 +279,8 @@ msgstr "Dispositivo de &entrada de áudio:"
 #: /home/claude/work/bot/gui.py:997
 msgid "Select from the list or type the input sound device index or name."
 msgstr ""
-"Selecione na lista ou digite o índice ou nome do dispositivo de entrada "
-"de áudio."
+"Selecione na lista ou digite o índice ou nome do dispositivo de entrada de "
+"áudio."
 
 #: /home/claude/work/bot/gui.py:1009
 msgid "Audio & Playback"
@@ -293,7 +292,8 @@ msgstr "&Volume padrão (0–100, obrigatório):"
 
 #: /home/claude/work/bot/gui.py:1020
 msgid "Default playback volume percentage when bot starts playing."
-msgstr "Porcentagem do volume padrão de reprodução quando o bot começa a tocar."
+msgstr ""
+"Porcentagem do volume padrão de reprodução quando o bot começa a tocar."
 
 #: /home/claude/work/bot/gui.py:1026
 msgid "Max &Volume (0-100):"
@@ -305,7 +305,7 @@ msgstr "Volume máximo que os usuários podem definir por meio de comandos."
 
 #: /home/claude/work/bot/gui.py:1038
 msgid "Seek Step in &Seconds:"
-msgstr "Intervalo de avanço/retrocesso em &segundos:"
+msgstr "Intervalo de avanço/retrocesso em s&egundos:"
 
 #: /home/claude/work/bot/gui.py:1040
 msgid "Number of seconds to jump when seeking forward or backward."
@@ -313,7 +313,7 @@ msgstr "Quantidade de segundos a avançar ou retroceder ao buscar na faixa."
 
 #: /home/claude/work/bot/gui.py:1045
 msgid "Enable Volume &Fading (smooth track transitions)"
-msgstr "Ativar transição gradual de &volume (transições suaves entre faixas)"
+msgstr "Ativar &transição gradual de volume (transições suaves entre faixas)"
 
 #: /home/claude/work/bot/gui.py:1049
 msgid "Enable &Silence Trim (remove silence at start/end)"
@@ -334,8 +334,7 @@ msgstr "Enviar mensagens ao &canal (publicar notificações no canal)"
 #: /home/claude/work/bot/gui.py:1073
 msgid "Search &Results Mode (choose songs interactively 1-5)"
 msgstr ""
-"Modo de &resultados da pesquisa (escolher músicas interativamente de 1 a "
-"5)"
+"Modo de &resultados da pesquisa (escolher músicas interativamente de 1 a 5)"
 
 #: /home/claude/work/bot/gui.py:1077
 msgid "Display Video &Subtitles in status"
@@ -348,8 +347,8 @@ msgstr "Comandos de inicialização (opcional, separados por vírgulas):"
 #: /home/claude/work/bot/gui.py:1089
 msgid "Commands executed automatically upon joining the server, e.g. 'v 60'"
 msgstr ""
-"Comandos executados automaticamente ao entrar no servidor, por exemplo, "
-"'v 60'"
+"Comandos executados automaticamente ao entrar no servidor, por exemplo, 'v "
+"60'"
 
 #: /home/claude/work/bot/gui.py:1094
 msgid "YouTube Cookies File Path (Optional):"
@@ -358,8 +357,7 @@ msgstr "Caminho do arquivo de cookies do YouTube (opcional):"
 #: /home/claude/work/bot/gui.py:1096
 msgid "Path to cookies.txt file for YouTube authentication if needed."
 msgstr ""
-"Caminho do arquivo cookies.txt para autenticação no YouTube, se "
-"necessário."
+"Caminho do arquivo cookies.txt para autenticação no YouTube, se necessário."
 
 #: /home/claude/work/bot/gui.py:1103
 msgid "Advanced Settings"
@@ -383,15 +381,15 @@ msgstr "&Tentativas de reconexão (-1 para ilimitadas):"
 
 #: /home/claude/work/bot/gui.py:1146
 msgid "Reconnection &Timeout in seconds:"
-msgstr "&Tempo limite de reconexão em segundos:"
+msgstr "Tempo &limite de reconexão em segundos:"
 
 #: /home/claude/work/bot/gui.py:1157
 msgid "&Load Event Handlers"
-msgstr "&Carregar manipuladores de eventos"
+msgstr "Ca&rregar manipuladores de eventos"
 
 #: /home/claude/work/bot/gui.py:1161
 msgid "Event Handlers &File Name:"
-msgstr "&Nome do arquivo de manipuladores de eventos:"
+msgstr "Nome do arquivo de &manipuladores de eventos:"
 
 #: /home/claude/work/bot/gui.py:1175 /home/claude/work/bot/session_gui.py:111
 #: /home/claude/work/bot/session_gui.py:2143
@@ -446,7 +444,7 @@ msgstr "O volume padrão não pode ser maior que o volume máximo."
 
 #: /home/claude/work/bot/gui.py:1307
 msgid "Seek step must be at least 1 second."
-msgstr "O intervalo de busca deve ser de pelo menos 1 segundo."
+msgstr "O intervalo de avanço/retrocesso deve ser de pelo menos 1 segundo."
 
 #: /home/claude/work/bot/gui.py:1315
 msgid "Reconnection attempts must be an integer (e.g. -1 for infinite)."
@@ -611,11 +609,11 @@ msgstr "&Idioma:"
 
 #: /home/claude/work/bot/gui.py:1770 /home/claude/work/bot/gui.py:1973
 msgid "&Audio Format:"
-msgstr "Formato de áudio:"
+msgstr "&Formato de áudio:"
 
 #: /home/claude/work/bot/gui.py:1787 /home/claude/work/bot/gui.py:1985
 msgid "&MP3 Bitrate:"
-msgstr "&Taxa de bits do MP3:"
+msgstr "Taxa de &bits do MP3:"
 
 #: /home/claude/work/bot/gui.py:1804 /home/claude/work/bot/gui.py:1999
 msgid "&Sampling Rate:"
@@ -639,7 +637,7 @@ msgstr "&Verificar atualizações"
 
 #: /home/claude/work/bot/gui.py:1849 /home/claude/work/bot/gui.py:2036
 msgid "&Visit Website"
-msgstr "&Visitar site"
+msgstr "Visitar &site"
 
 #: /home/claude/work/bot/gui.py:1850 /home/claude/work/bot/gui.py:2039
 msgid "&Join Telegram Channel"
@@ -659,8 +657,8 @@ msgstr "Selecione o idioma ativo do bot e da interface."
 
 #: /home/claude/work/bot/gui.py:1982
 msgid ""
-"Select audio format for YouTube downloads and channel uploads (Default "
-"does not convert)."
+"Select audio format for YouTube downloads and channel uploads (Default does "
+"not convert)."
 msgstr ""
 "Selecione o formato de áudio para downloads do YouTube e envios ao canal "
 "(Padrão não converte)."
@@ -668,24 +666,24 @@ msgstr ""
 #: /home/claude/work/bot/gui.py:1994
 msgid "Select MP3 audio bitrate (320 kbps offers the highest sound quality)."
 msgstr ""
-"Selecione a taxa de bits do áudio MP3 (320 kbps oferece a melhor "
-"qualidade sonora)."
+"Selecione a taxa de bits do áudio MP3 (320 kbps oferece a melhor qualidade "
+"sonora)."
 
 #: /home/claude/work/bot/gui.py:2008
 msgid ""
 "Select audio sampling rate for playback and conversion (48000 Hz is "
 "recommended for TeamTalk)."
 msgstr ""
-"Selecione a taxa de amostragem do áudio para reprodução e conversão "
-"(48000 Hz é recomendado para o TeamTalk)."
+"Selecione a taxa de amostragem do áudio para reprodução e conversão (48000 "
+"Hz é recomendado para o TeamTalk)."
 
 #: /home/claude/work/bot/gui.py:2017
 msgid ""
-"Enable the interactive session chat interface when connecting to a server"
-" (Experimental)."
+"Enable the interactive session chat interface when connecting to a server "
+"(Experimental)."
 msgstr ""
-"Ativar a interface de chat da sessão interativa ao conectar a um servidor"
-" (experimental)."
+"Ativar a interface de chat da sessão interativa ao conectar a um servidor "
+"(experimental)."
 
 #: /home/claude/work/bot/gui.py:2026
 msgid ""
@@ -693,8 +691,8 @@ msgid ""
 "commands must NOT have '/' and only the command letters are allowed."
 msgstr ""
 "Quando ativado, os comandos devem começar com '/' (ex: /p, /s). Quando "
-"desativado, os comandos NÃO devem ter '/' e apenas as letras do comando "
-"são permitidas."
+"desativado, os comandos NÃO devem ter '/' e apenas as letras do comando são "
+"permitidas."
 
 #: /home/claude/work/bot/gui.py:2031
 msgid "View application logs and errors."
@@ -745,9 +743,9 @@ msgid ""
 "Select a server. Press Enter to connect/disconnect. Right-click or press "
 "Applications key for Context Menu."
 msgstr ""
-"Selecione um servidor. Pressione Enter para conectar ou desconectar. "
-"Clique com o botão direito ou pressione a tecla Aplicações para abrir o "
-"menu de contexto."
+"Selecione um servidor. Pressione Enter para conectar ou desconectar. Clique "
+"com o botão direito ou pressione a tecla Aplicações para abrir o menu de "
+"contexto."
 
 #: /home/claude/work/bot/gui.py:2212
 msgid "&Delete All Servers"
@@ -802,9 +800,9 @@ msgid ""
 "Ready. Press Enter on a server to connect/disconnect. Right-click or "
 "Applications key for Context Menu."
 msgstr ""
-"Pronto. Pressione Enter em um servidor para conectar ou desconectar. "
-"Clique com o botão direito ou pressione a tecla Aplicações para abrir o "
-"menu de contexto."
+"Pronto. Pressione Enter em um servidor para conectar ou desconectar. Clique "
+"com o botão direito ou pressione a tecla Aplicações para abrir o menu de "
+"contexto."
 
 #: /home/claude/work/bot/gui.py:2400 /home/claude/work/bot/gui.py:2425
 msgid "Unnamed Server"
@@ -929,7 +927,8 @@ msgid "TTMediaBot"
 msgstr "TTMediaBot"
 
 #: /home/claude/work/bot/gui.py:2878
-msgid "TTMediaBot is running in the background. Click the tray icon to restore."
+msgid ""
+"TTMediaBot is running in the background. Click the tray icon to restore."
 msgstr ""
 "O TTMediaBot está sendo executado em segundo plano. Clique no ícone da "
 "bandeja para restaurar a janela."
@@ -949,8 +948,8 @@ msgstr "Selecione um servidor para editar."
 
 #: /home/claude/work/bot/gui.py:2943
 msgid ""
-"Cannot edit the server while the bot is connected to it. Please "
-"disconnect first."
+"Cannot edit the server while the bot is connected to it. Please disconnect "
+"first."
 msgstr ""
 "Não é possível editar o servidor enquanto o bot estiver conectado a ele. "
 "Desconecte-se primeiro."
@@ -973,8 +972,8 @@ msgid ""
 "Cannot delete the server while the bot is connected to it. Please "
 "disconnect first."
 msgstr ""
-"Não é possível excluir o servidor enquanto o bot estiver conectado a ele."
-" Desconecte-se primeiro."
+"Não é possível excluir o servidor enquanto o bot estiver conectado a ele. "
+"Desconecte-se primeiro."
 
 #: /home/claude/work/bot/gui.py:2984
 msgid "this server"
@@ -1000,17 +999,18 @@ msgstr "Não há servidores para excluir."
 
 #: /home/claude/work/bot/gui.py:3014
 msgid ""
-"Some servers are currently connected. Please disconnect all servers "
-"before deleting."
+"Some servers are currently connected. Please disconnect all servers before "
+"deleting."
 msgstr ""
 "Alguns servidores estão conectados no momento. Desconecte todos os "
 "servidores antes de excluí-los."
 
 #: /home/claude/work/bot/gui.py:3023
-msgid "Are you sure you want to delete ALL servers? This action cannot be undone."
+msgid ""
+"Are you sure you want to delete ALL servers? This action cannot be undone."
 msgstr ""
-"Tem certeza de que deseja excluir TODOS os servidores? Esta ação não pode"
-" ser desfeita."
+"Tem certeza de que deseja excluir TODOS os servidores? Esta ação não pode "
+"ser desfeita."
 
 #: /home/claude/work/bot/gui.py:3024
 msgid "Confirm Delete All"
@@ -1122,19 +1122,18 @@ msgstr "Silenciar temporariamente o áudio recebido do TeamTalk"
 
 #: /home/claude/work/bot/session_gui.py:301
 msgid "Sound &Events"
-msgstr "Efeitos &Sonoros"
+msgstr "Efeitos so&noros"
 
 #: /home/claude/work/bot/session_gui.py:303
 msgid "Sound Events"
-msgstr "Efeitos Sonoros"
+msgstr "Efeitos sonoros"
 
 #: /home/claude/work/bot/session_gui.py:304
 msgid ""
-"Play TeamTalk sound notifications for messages, users joining/leaving, "
-"etc."
+"Play TeamTalk sound notifications for messages, users joining/leaving, etc."
 msgstr ""
-"Reproduzir notificações sonoras do TeamTalk para mensagens, entrada e "
-"saída de usuários etc."
+"Reproduzir notificações sonoras do TeamTalk para mensagens, entrada e saída "
+"de usuários etc."
 
 #: /home/claude/work/bot/session_gui.py:308
 msgid "&Sound Configuration..."
@@ -1220,7 +1219,7 @@ msgstr "{user} desconectou"
 #: /home/claude/work/bot/session_gui.py:765
 #, python-brace-format
 msgid "Channel message from {user}: {message}"
-msgstr "{user}: {message}"
+msgstr "Mensagem no canal de {user}: {message}"
 
 #: /home/claude/work/bot/session_gui.py:769
 #, python-brace-format
@@ -1279,7 +1278,7 @@ msgstr "Aviso"
 #: /home/claude/work/bot/session_gui.py:1225
 #, python-brace-format
 msgid "Channel message sent: {message}"
-msgstr "{message}"
+msgstr "Mensagem enviada ao canal: {message}"
 
 #: /home/claude/work/bot/session_gui.py:1238
 #: /home/claude/work/bot/session_gui.py:1946
@@ -1287,7 +1286,8 @@ msgid "Failed to send message:"
 msgstr "Falha ao enviar mensagem:"
 
 #: /home/claude/work/bot/session_gui.py:1328
-msgid "Failed to activate microphone. Please check your microphone connection."
+msgid ""
+"Failed to activate microphone. Please check your microphone connection."
 msgstr "Falha ao ativar o microfone. Verifique a conexão do microfone."
 
 #: /home/claude/work/bot/session_gui.py:1338
@@ -1356,7 +1356,8 @@ msgstr "Limpar &histórico"
 #: /home/claude/work/bot/session_gui.py:1758
 #: /home/claude/work/bot/session_gui.py:2499
 msgid "New audio device detected. Device list refreshed."
-msgstr "Novo dispositivo de áudio detectado. Lista de dispositivos atualizada."
+msgstr ""
+"Novo dispositivo de áudio detectado. Lista de dispositivos atualizada."
 
 #: /home/claude/work/bot/session_gui.py:1760
 #: /home/claude/work/bot/session_gui.py:2501
@@ -1474,8 +1475,8 @@ msgstr "Atualizar dispositivos"
 #: /home/claude/work/bot/session_gui.py:2137
 msgid "Refresh sound devices list if new devices were connected"
 msgstr ""
-"Atualizar a lista de dispositivos de áudio caso novos dispositivos tenham"
-" sido conectados"
+"Atualizar a lista de dispositivos de áudio caso novos dispositivos tenham "
+"sido conectados"
 
 #: /home/claude/work/bot/session_gui.py:2214
 msgid "Computer Audio / Stereo Mix"
@@ -1581,12 +1582,11 @@ msgstr "Exibe os comandos de administrador"
 #: /home/claude/work/bot/commands/admin_commands.py:38
 msgid ""
 "+/-COMMAND Blocks or unblocks commands. +COMMAND adds command to the "
-"blocklist. -COMMAND removes from it. Without a command shows the "
-"blocklist"
+"blocklist. -COMMAND removes from it. Without a command shows the blocklist"
 msgstr ""
-"+/-COMANDO Bloqueia ou desbloqueia comandos. +COMANDO adiciona o comando "
-"à lista de bloqueio. -COMANDO remove o comando dela. Sem informar um "
-"comando, exibe a lista de bloqueio"
+"+/-COMANDO Bloqueia ou desbloqueia comandos. +COMANDO adiciona o comando à "
+"lista de bloqueio. -COMANDO remove o comando dela. Sem informar um comando, "
+"exibe a lista de bloqueio"
 
 #: /home/claude/work/bot/commands/admin_commands.py:50
 #: /home/claude/work/bot/commands/admin_commands.py:344
@@ -1624,11 +1624,11 @@ msgstr "Este comando não está bloqueado"
 
 #: /home/claude/work/bot/commands/admin_commands.py:73
 msgid "GENDER Changes bot's gender. n neutral, m male, f female"
-msgstr "GENDER altera o gênero do bot. n neutro, m masculino, f feminino"
+msgstr "GÊNERO altera o gênero do bot. n neutro, m masculino, f feminino"
 
 #: /home/claude/work/bot/commands/admin_commands.py:88
 msgid "LANGUAGE Changes bot's language"
-msgstr "LANGUAGE altera o idioma do bot"
+msgstr "IDIOMA altera o idioma do bot"
 
 #: /home/claude/work/bot/commands/admin_commands.py:96
 msgid "The language has been changed"
@@ -1644,12 +1644,11 @@ msgid ""
 "Current language: {current_language}. Available languages: "
 "{available_languages}"
 msgstr ""
-"Idioma atual: {current_language}. Idiomas disponíveis: "
-"{available_languages}"
+"Idioma atual: {current_language}. Idiomas disponíveis: {available_languages}"
 
 #: /home/claude/work/bot/commands/admin_commands.py:111
 msgid "NICKNAME Changes bot's nickname"
-msgstr "NICKNAME altera o apelido do bot"
+msgstr "APELIDO altera o apelido do bot"
 
 #: /home/claude/work/bot/commands/admin_commands.py:121
 msgid ""
@@ -1661,7 +1660,7 @@ msgstr ""
 
 #: /home/claude/work/bot/commands/admin_commands.py:130
 msgid "Cache cleared"
-msgstr "Cache limpa"
+msgstr "Cache limpo"
 
 #: /home/claude/work/bot/commands/admin_commands.py:134
 msgid "Recents cleared"
@@ -1677,9 +1676,9 @@ msgid ""
 "password, split argument \" | \", if password is undefined, don't type "
 "second argument"
 msgstr ""
-"Entra em um canal. O primeiro argumento é o nome ou ID do canal; o "
-"segundo é a senha. Separe os argumentos com \" | \". Se não houver senha,"
-" não informe o segundo argumento"
+"Entra em um canal. O primeiro argumento é o nome ou ID do canal; o segundo "
+"é a senha. Separe os argumentos com \" | \". Se não houver senha, não "
+"informe o segundo argumento"
 
 #: /home/claude/work/bot/commands/admin_commands.py:164
 msgid "This channel does not exist"
@@ -1733,11 +1732,11 @@ msgstr "O tratamento de eventos está desativado"
 
 #: /home/claude/work/bot/commands/admin_commands.py:286
 msgid ""
-"Toggles channel messages. When disabled, notifications are sent privately"
-" instead of public channel"
+"Toggles channel messages. When disabled, notifications are sent privately "
+"instead of public channel"
 msgstr ""
 "Alterna as mensagens no canal. Quando desativadas, as notificações são "
-"enviadas em privado em vez de serem publicadas no canal"
+"enviadas de forma privada em vez de serem publicadas no canal"
 
 #: /home/claude/work/bot/commands/admin_commands.py:296
 msgid "Public channel messages enabled (bot will announce in channel)."
@@ -1748,8 +1747,8 @@ msgid ""
 "Private messages mode enabled (bot will send notifications privately "
 "instead of public channel)."
 msgstr ""
-"Modo de mensagens privadas ativado (o bot enviará notificações em privado"
-" em vez de publicá-las no canal)."
+"Modo de mensagens privadas ativado (o bot enviará notificações de forma "
+"privada em vez de publicá-las no canal)."
 
 #: /home/claude/work/bot/commands/admin_commands.py:308
 msgid "Saves bot's configuration"
@@ -1802,8 +1801,8 @@ msgstr "Retorna o ID do canal atual"
 
 #: /home/claude/work/bot/commands/admin_commands.py:413
 msgid ""
-"[QUERY|LINK] Downloads the current track or specified link/query as audio"
-" and saves it to the downloads folder."
+"[QUERY|LINK] Downloads the current track or specified link/query as audio "
+"and saves it to the downloads folder."
 msgstr ""
 "[CONSULTA|LINK] Baixa a faixa atual ou o link/consulta especificado em "
 "formato de áudio e salva na pasta de downloads."
@@ -1893,8 +1892,8 @@ msgstr "Erro ao baixar {name}: {error}"
 
 #: /home/claude/work/bot/commands/admin_commands.py:525
 msgid ""
-"[QUERY|LINK] Downloads the current track or specified link/query as video"
-" and saves it to the downloads folder."
+"[QUERY|LINK] Downloads the current track or specified link/query as video "
+"and saves it to the downloads folder."
 msgstr ""
 "[CONSULTA|LINK] Baixa a faixa atual ou o link/consulta especificado em "
 "formato de vídeo e salva na pasta de downloads."
@@ -1919,7 +1918,8 @@ msgstr ""
 
 #: /home/claude/work/bot/commands/admin_commands.py:632
 msgid "FILE_PATH Uploads a local file to the current TeamTalk channel"
-msgstr "CAMINHO_DO_ARQUIVO Envia um arquivo local para o canal atual do TeamTalk"
+msgstr ""
+"CAMINHO_DO_ARQUIVO Envia um arquivo local para o canal atual do TeamTalk"
 
 #: /home/claude/work/bot/commands/admin_commands.py:642
 msgid "Error: Please specify the path of the file to upload."
@@ -1932,11 +1932,11 @@ msgstr "Erro: arquivo não encontrado em '{path}'."
 
 #: /home/claude/work/bot/commands/admin_commands.py:650
 msgid ""
-"Error: The specified path is a folder, not a file. Please provide a "
-"direct file path."
+"Error: The specified path is a folder, not a file. Please provide a direct "
+"file path."
 msgstr ""
-"Erro: o caminho especificado é uma pasta, não um arquivo. Informe o "
-"caminho completo de um arquivo."
+"Erro: o caminho especificado é uma pasta, não um arquivo. Informe o caminho "
+"completo de um arquivo."
 
 #: /home/claude/work/bot/commands/admin_commands.py:654
 msgid "Error: The specified path is not a valid file."
@@ -1969,7 +1969,8 @@ msgid "File uploaded successfully: {file_name} ({size})"
 msgstr "Arquivo enviado com sucesso: {file_name} ({size})"
 
 #: /home/claude/work/bot/commands/admin_commands.py:736
-msgid "[FILE_NAME] Deletes a specific file or all files in the current channel"
+msgid ""
+"[FILE_NAME] Deletes a specific file or all files in the current channel"
 msgstr ""
 "[NOME_DO_ARQUIVO] Exclui um arquivo específico ou todos os arquivos do "
 "canal atual"
@@ -1996,7 +1997,8 @@ msgstr "Arquivo excluído com sucesso: {name}"
 #: /home/claude/work/bot/commands/admin_commands.py:792
 #, python-brace-format
 msgid "Successfully deleted {count} file(s) matching '{name}'."
-msgstr "{count} arquivo(s) correspondente(s) a '{name}' excluído(s) com sucesso."
+msgstr ""
+"{count} arquivo(s) correspondente(s) a '{name}' excluído(s) com sucesso."
 
 #: /home/claude/work/bot/commands/admin_commands.py:811
 #, python-brace-format
@@ -2024,14 +2026,14 @@ msgstr "Exibe informações sobre o bot"
 
 #: /home/claude/work/bot/commands/user_commands.py:43
 msgid ""
-"[QUERY|URL|PATH] Plays tracks found for a query, URL, or local path. If "
-"no query is given, plays or pauses current track. When search results "
-"mode (sr) is active, shows a numbered list instead"
+"[QUERY|URL|PATH] Plays tracks found for a query, URL, or local path. If no "
+"query is given, plays or pauses current track. When search results mode "
+"(sr) is active, shows a numbered list instead"
 msgstr ""
 "[CONSULTA|URL|CAMINHO] Reproduz faixas encontradas por consulta, URL ou "
-"caminho local. Se nenhuma consulta for informada, reproduz ou pausa a "
-"faixa atual. Quando o modo de resultados da pesquisa (sr) está ativo, "
-"mostra uma lista numerada"
+"caminho local. Se nenhuma consulta for informada, reproduz ou pausa a faixa "
+"atual. Quando o modo de resultados da pesquisa (sr) está ativo, mostra uma "
+"lista numerada"
 
 #: /home/claude/work/bot/commands/user_commands.py:60
 msgid "Loading URL / playlist..."
@@ -2040,7 +2042,7 @@ msgstr "Carregando URL / playlist..."
 #: /home/claude/work/bot/commands/user_commands.py:72
 #, python-brace-format
 msgid "{nickname} requested playing from a URL ({count} tracks)"
-msgstr "{nickname} solicitou reprodução a partir de um URL ({count} faixas)"
+msgstr "{nickname} solicitou reprodução a partir de uma URL ({count} faixas)"
 
 #: /home/claude/work/bot/commands/user_commands.py:79
 #, python-brace-format
@@ -2074,7 +2076,7 @@ msgstr "Protocolo incorreto"
 
 #: /home/claude/work/bot/commands/user_commands.py:101
 msgid "Cannot process stream URL"
-msgstr "Não foi possível processar o URL da transmissão"
+msgstr "Não foi possível processar a URL da transmissão"
 
 #: /home/claude/work/bot/commands/user_commands.py:103
 msgid "The path cannot be found"
@@ -2115,31 +2117,33 @@ msgstr "Reprodução interrompida"
 #: /home/claude/work/bot/commands/user_commands.py:183
 #, python-brace-format
 msgid ""
-"VOLUME Sets the volume to a value between 0 and {max_volume}. If no "
-"volume is specified, the current volume level is displayed"
+"VOLUME Sets the volume to a value between 0 and {max_volume}. If no volume "
+"is specified, the current volume level is displayed"
 msgstr ""
 "VOLUME Define o volume entre 0 e {max_volume}. Se nenhum valor for "
 "informado, exibe o volume atual"
 
 #: /home/claude/work/bot/commands/user_commands.py:204
 #, python-brace-format
-msgid "STEP Seeks current track backward. the default step is {seek_step} seconds"
+msgid ""
+"STEP Seeks current track backward. the default step is {seek_step} seconds"
 msgstr ""
-"PASSO Retrocede na faixa atual. O intervalo padrão é de {seek_step} "
-"segundos"
+"PASSO Retrocede na faixa atual. O intervalo padrão é de {seek_step} segundos"
 
 #: /home/claude/work/bot/commands/user_commands.py:226
 #, python-brace-format
-msgid "STEP Seeks current track forward. the default step is {seek_step} seconds"
-msgstr "PASSO Avança na faixa atual. O intervalo padrão é de {seek_step} segundos"
+msgid ""
+"STEP Seeks current track forward. the default step is {seek_step} seconds"
+msgstr ""
+"PASSO Avança na faixa atual. O intervalo padrão é de {seek_step} segundos"
 
 #: /home/claude/work/bot/commands/user_commands.py:248
 msgid ""
 "[NUMBER|?] Plays next track, jumps to track number, or shows current "
 "position with ?"
 msgstr ""
-"[NÚMERO|?] Reproduz a próxima faixa, salta para o número indicado ou "
-"mostra a posição atual com ?"
+"[NÚMERO|?] Reproduz a próxima faixa, pula para o número indicado ou mostra "
+"a posição atual com ?"
 
 #: /home/claude/work/bot/commands/user_commands.py:270
 #: /home/claude/work/bot/commands/user_commands.py:459
@@ -2179,10 +2183,10 @@ msgstr "Não há faixa anterior"
 
 #: /home/claude/work/bot/commands/user_commands.py:313
 msgid ""
-"MODE Sets the playback mode. If no mode is specified, the current mode "
-"and a list of modes are displayed"
+"MODE Sets the playback mode. If no mode is specified, the current mode and "
+"a list of modes are displayed"
 msgstr ""
-"MODE Define o modo de reprodução. Se nenhum modo for informado, exibe o "
+"MODO Define o modo de reprodução. Se nenhum modo for informado, exibe o "
 "modo atual e a lista de modos"
 
 #: /home/claude/work/bot/commands/user_commands.py:319
@@ -2225,11 +2229,11 @@ msgstr "Modo incorreto"
 
 #: /home/claude/work/bot/commands/user_commands.py:356
 msgid ""
-"SERVICE Selects the service to play from, sv SERVICE h returns additional"
-" help. If no service is specified, the current service and a list of "
+"SERVICE Selects the service to play from, sv SERVICE h returns additional "
+"help. If no service is specified, the current service and a list of "
 "available services are displayed"
 msgstr ""
-"SERVICE Seleciona o serviço de reprodução. sv SERVICE h exibe ajuda "
+"SERVIÇO Seleciona o serviço de reprodução. sv SERVIÇO h exibe ajuda "
 "adicional. Se nenhum serviço for informado, mostra o serviço atual e a "
 "lista de serviços disponíveis"
 
@@ -2295,19 +2299,20 @@ msgstr ""
 "Serviço atual: {current_service}\n"
 "Disponíveis:\n"
 "{available_services}\n"
-"Envie sv SERVICE h para obter ajuda adicional"
+"Envie sv SERVIÇO h para obter ajuda adicional"
 
 #: /home/claude/work/bot/commands/user_commands.py:435
 msgid "[NUMBER|?] Selects track by number, or shows current position with ?"
-msgstr "[NÚMERO|?] Seleciona uma faixa pelo número ou mostra a posição atual com ?"
+msgstr ""
+"[NÚMERO|?] Seleciona uma faixa pelo número ou mostra a posição atual com ?"
 
 #: /home/claude/work/bot/commands/user_commands.py:484
 msgid ""
 "SPEED Sets playback speed from 0.25 to 4. If no speed is given, shows "
 "current speed"
 msgstr ""
-"SPEED Define a velocidade de reprodução entre 0,25 e 4. Sem valor, exibe "
-"a velocidade atual"
+"VELOCIDADE Define a velocidade de reprodução entre 0,25 e 4. Sem valor, "
+"exibe a velocidade atual"
 
 #: /home/claude/work/bot/commands/user_commands.py:490
 #, python-brace-format
@@ -2319,8 +2324,7 @@ msgid ""
 "SEMITONES Sets playback pitch from -12 to 12 semitones. If no pitch is "
 "given, shows current pitch"
 msgstr ""
-"SEMITONES Define a tonalidade entre -12 e 12 semitons. Sem valor, exibe a"
-" tonalidade atual"
+"SEMITONS Define o tom entre -12 e 12 semitons. Sem valor, exibe o tom atual"
 
 #: /home/claude/work/bot/commands/user_commands.py:509
 #, python-brace-format
@@ -2329,13 +2333,13 @@ msgstr "Tom atual: {}"
 
 #: /home/claude/work/bot/commands/user_commands.py:522
 msgid ""
-"+/-NUMBER Manages favorite tracks. + adds the current track to favorites."
-" - removes a track requested from favorites. If a number is specified "
-"after +/-, adds/removes a track with that number"
+"+/-NUMBER Manages favorite tracks. + adds the current track to favorites. - "
+"removes a track requested from favorites. If a number is specified after "
+"+/-, adds/removes a track with that number"
 msgstr ""
 "+/-NÚMERO Gerencia as faixas favoritas. + adiciona a faixa atual aos "
-"favoritos. - remove uma faixa dos favoritos. Se houver um número após "
-"+/-, adiciona ou remove a faixa correspondente"
+"favoritos. - remove uma faixa dos favoritos. Se houver um número após +/-, "
+"adiciona ou remove a faixa correspondente"
 
 #: /home/claude/work/bot/commands/user_commands.py:528
 #: /home/claude/work/bot/commands/user_commands.py:1877
@@ -2360,7 +2364,7 @@ msgstr "Obtém um link direto para a faixa atual"
 
 #: /home/claude/work/bot/commands/user_commands.py:612
 msgid "URL is not available"
-msgstr "O URL não está disponível"
+msgstr "A URL não está disponível"
 
 #: /home/claude/work/bot/commands/user_commands.py:620
 msgid "Gets the original YouTube link to the current track"
@@ -2372,8 +2376,8 @@ msgstr "A faixa atual não é do YouTube"
 
 #: /home/claude/work/bot/commands/user_commands.py:654
 msgid ""
-"NUMBER Plays a track with  the given number from a list of recent tracks."
-" Without a number shows recent tracks"
+"NUMBER Plays a track with  the given number from a list of recent tracks. "
+"Without a number shows recent tracks"
 msgstr ""
 "NÚMERO Reproduz a faixa correspondente na lista de faixas recentes. Sem "
 "número, exibe as faixas recentes"
@@ -2417,11 +2421,11 @@ msgstr "Falha ao entrar no canal: {}"
 
 #: /home/claude/work/bot/commands/user_commands.py:783
 msgid ""
-"Downloads all tracks from a playlist/album URL, zips them, and uploads to"
-" the channel."
+"Downloads all tracks from a playlist/album URL, zips them, and uploads to "
+"the channel."
 msgstr ""
-"Baixa todas as faixas de uma playlist ou álbum, compacta os arquivos em "
-"ZIP e envia o arquivo ao canal."
+"Baixa todas as faixas de uma playlist ou álbum, compacta os arquivos em ZIP "
+"e envia o arquivo ao canal."
 
 #: /home/claude/work/bot/commands/user_commands.py:792
 #, python-brace-format
@@ -2434,19 +2438,19 @@ msgstr "Envie o link da playlist ou do álbum."
 
 #: /home/claude/work/bot/commands/user_commands.py:815
 msgid ""
-"This command is for playlists, albums, and channels. For single tracks, "
-"use 'dl'."
+"This command is for playlists, albums, and channels. For single tracks, use "
+"'dl'."
 msgstr ""
 "Este comando é para playlists, álbuns e canais. Para faixas individuais, "
 "use 'dl'."
 
 #: /home/claude/work/bot/commands/user_commands.py:889
 msgid ""
-"QUERY Searches for a track and adds it to the queue. If nothing is "
-"playing, starts immediately"
+"QUERY Searches for a track and adds it to the queue. If nothing is playing, "
+"starts immediately"
 msgstr ""
-"CONSULTA Pesquisa uma faixa e a adiciona à fila. Se nada estiver tocando,"
-" a reprodução começa imediatamente"
+"CONSULTA Pesquisa uma faixa e a adiciona à fila. Se nada estiver tocando, a "
+"reprodução começa imediatamente"
 
 #: /home/claude/work/bot/commands/user_commands.py:926
 #: /home/claude/work/bot/commands/user_commands.py:973
@@ -2504,8 +2508,8 @@ msgid ""
 "Skips current track and plays the next one from the queue. Falls back to "
 "normal next if queue is empty"
 msgstr ""
-"Pula a faixa atual e reproduz a próxima da fila. Se a fila estiver vazia,"
-" usa o avanço normal"
+"Pula a faixa atual e reproduz a próxima da fila. Se a fila estiver vazia, "
+"usa o avanço normal"
 
 #: /home/claude/work/bot/commands/user_commands.py:1068
 #, python-brace-format
@@ -2514,13 +2518,12 @@ msgstr "Reproduzindo a próxima da fila: {}"
 
 #: /home/claude/work/bot/commands/user_commands.py:1091
 msgid ""
-"Toggles search results mode. When active, 'p QUERY' shows a numbered "
-"list. Use 'sr on' or 'sr off' to set explicitly. Save permanently with "
-"'sc'"
+"Toggles search results mode. When active, 'p QUERY' shows a numbered list. "
+"Use 'sr on' or 'sr off' to set explicitly. Save permanently with 'sc'"
 msgstr ""
-"Alterna o modo de resultados da pesquisa. Quando ativo, 'p CONSULTA' "
-"mostra uma lista numerada. Use 'sr on' ou 'sr off' para definir "
-"explicitamente. Salve permanentemente com 'sc'."
+"Alterna o modo de resultados da pesquisa. Quando ativo, 'p CONSULTA' mostra "
+"uma lista numerada. Use 'sr on' ou 'sr off' para definir explicitamente. "
+"Salve permanentemente com 'sc'."
 
 #: /home/claude/work/bot/commands/user_commands.py:1100
 #: /home/claude/work/bot/commands/user_commands.py:1110
@@ -2534,8 +2537,8 @@ msgstr "Modo de resultados da pesquisa: DESATIVADO"
 
 #: /home/claude/work/bot/commands/user_commands.py:1123
 msgid ""
-"NUMBER Selects and plays result NUMBER from the last search list "
-"(requires search results mode to be active)"
+"NUMBER Selects and plays result NUMBER from the last search list (requires "
+"search results mode to be active)"
 msgstr ""
 "NÚMERO Seleciona e reproduz o resultado indicado na última lista de "
 "pesquisa (é necessário ativar o modo de resultados)."
@@ -2553,8 +2556,8 @@ msgstr "{nickname} selecionou: {track}"
 
 #: /home/claude/work/bot/commands/user_commands.py:1173
 msgid ""
-"NUMBER Sets how many results are shown when search results mode is "
-"active. Without a number shows current count. Resets to 1 on restart"
+"NUMBER Sets how many results are shown when search results mode is active. "
+"Without a number shows current count. Resets to 1 on restart"
 msgstr ""
 "NÚMERO Define quantos resultados são exibidos no modo de resultados da "
 "pesquisa. Sem número, mostra a quantidade atual. Volta a 1 ao reiniciar"
@@ -2583,7 +2586,8 @@ msgid "Added link to the list. Total: {count}"
 msgstr "Link adicionado à lista. Total: {count}"
 
 #: /home/claude/work/bot/commands/user_commands.py:1223
-msgid "LINK1 LINK2 ... Adds multiple space-separated links to the download list."
+msgid ""
+"LINK1 LINK2 ... Adds multiple space-separated links to the download list."
 msgstr ""
 "LINK1 LINK2 ... Adiciona vários links separados por espaços à lista de "
 "downloads."
@@ -2598,8 +2602,10 @@ msgid "Lists all links in the download list."
 msgstr "Lista todos os links da lista de downloads."
 
 #: /home/claude/work/bot/commands/user_commands.py:1267
-msgid "NUMBER_OR_LINK Removes a link from the download list by its index or URL."
-msgstr "NÚMERO_OU_LINK Remove um link da lista de downloads pelo índice ou URL."
+msgid ""
+"NUMBER_OR_LINK Removes a link from the download list by its index or URL."
+msgstr ""
+"NÚMERO_OU_LINK Remove um link da lista de downloads pelo índice ou URL."
 
 #: /home/claude/work/bot/commands/user_commands.py:1293
 msgid "Link not found in the list"
@@ -2707,12 +2713,12 @@ msgstr "Erro: não foi possível baixar nenhuma faixa desta playlist."
 
 #: /home/claude/work/bot/commands/user_commands.py:1583
 msgid ""
-"Toggles local download mode for the 'ads' command. When active, files are"
-" saved locally to the VPS instead of uploaded to TeamTalk."
+"Toggles local download mode for the 'ads' command. When active, files are "
+"saved locally to the VPS instead of uploaded to TeamTalk."
 msgstr ""
 "Ativa ou desativa o modo de download local do comando 'ads'. Quando "
-"ativado, os arquivos são salvos localmente no VPS, em vez de serem "
-"enviados para o TeamTalk."
+"ativado, os arquivos são salvos localmente no VPS, em vez de serem enviados "
+"para o TeamTalk."
 
 #: /home/claude/work/bot/commands/user_commands.py:1590
 msgid "Local download mode (adsc) enabled."
@@ -2724,8 +2730,8 @@ msgstr "Modo de download local (adsc) desativado."
 
 #: /home/claude/work/bot/commands/user_commands.py:1598
 msgid ""
-"Toggles silence trimming mode. When active, automatically removes leading"
-" and trailing silence from tracks."
+"Toggles silence trimming mode. When active, automatically removes leading "
+"and trailing silence from tracks."
 msgstr ""
 "Alterna o corte de silêncio. Quando ativo, remove automaticamente o "
 "silêncio no início e no fim das faixas."
@@ -2741,12 +2747,12 @@ msgstr "Corte de silêncio (ts) desativado."
 #: /home/claude/work/bot/commands/user_commands.py:1614
 msgid ""
 "[-s] Identifies the currently playing song in a mix or compilation using "
-"YouTube Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force "
-"audio/voice recognition."
+"YouTube Chapters, Shazam, or Google Voice AI. Use 'ws -s' to force audio/"
+"voice recognition."
 msgstr ""
 "[-s] Identifica a música que está tocando em um mix ou compilação usando "
-"capítulos do YouTube, Shazam ou Google Voice AI. Use 'ws -s' para forçar "
-"o reconhecimento por áudio/voz."
+"capítulos do YouTube, Shazam ou Google Voice AI. Use 'ws -s' para forçar o "
+"reconhecimento por áudio/voz."
 
 #: /home/claude/work/bot/commands/user_commands.py:1623
 msgid ""
@@ -2790,7 +2796,8 @@ msgid "🔍 Listening and identifying the currently playing song..."
 msgstr "🔍 Ouvindo e identificando a música que está tocando..."
 
 #: /home/claude/work/bot/commands/user_commands.py:1706
-msgid "[NAME] Gets lyrics for the currently playing song or specified song name"
+msgid ""
+"[NAME] Gets lyrics for the currently playing song or specified song name"
 msgstr "[NOME] Obtém a letra da música atual ou de uma música especificada"
 
 #: /home/claude/work/bot/commands/user_commands.py:1769
@@ -2884,12 +2891,12 @@ msgstr "Reproduzindo rádio dos favoritos"
 #: /home/claude/work/bot/commands/user_commands.py:1943
 msgid ""
 "[on/off/<source> <target>] Checks translation status, enables/disables "
-"public channel translation, or sets language pair (e.g. tr auto en, tr vi"
-" en)"
+"public channel translation, or sets language pair (e.g. tr auto en, tr vi "
+"en)"
 msgstr ""
-"[on/off/<origem> <destino>] Verifica o estado da tradução, ativa/desativa"
-" a tradução pública do canal ou define o par de idiomas (por exemplo, tr "
-"auto pt, tr vi en)"
+"[on/off/<origem> <destino>] Verifica o estado da tradução, ativa/desativa a "
+"tradução pública do canal ou define o par de idiomas (por exemplo, tr auto "
+"pt, tr vi en)"
 
 #: /home/claude/work/bot/commands/user_commands.py:1956
 #, python-brace-format
@@ -2925,17 +2932,18 @@ msgstr "Erro: os idiomas de origem e de destino não podem ser iguais."
 #: /home/claude/work/bot/commands/user_commands.py:2005
 #, python-brace-format
 msgid "Channel translation set to {lang_from} {arrow} {lang_to} (Enabled)."
-msgstr "Tradução do canal definida para {lang_from} {arrow} {lang_to} (ativada)."
+msgstr ""
+"Tradução do canal definida para {lang_from} {arrow} {lang_to} (ativada)."
 
 #: /home/claude/work/bot/commands/user_commands.py:2015
 msgid ""
 "[on/off/end/MINUTES] Checks timer status, enables/disables timer, stops "
-"after current video/track ends, or sets timer in minutes (e.g., tm end, "
-"tm 30, tm on, tm off)"
+"after current video/track ends, or sets timer in minutes (e.g., tm end, tm "
+"30, tm on, tm off)"
 msgstr ""
 "[on/off/end/MINUTOS] Verifica o estado do temporizador, ativa/desativa o "
-"temporizador, para após o vídeo/faixa atual terminar ou define o tempo em"
-" minutos (por exemplo, tm end, tm 30, tm on, tm off)"
+"temporizador, para após o vídeo/faixa atual terminar ou define o tempo em "
+"minutos (por exemplo, tm end, tm 30, tm on, tm off)"
 
 #: /home/claude/work/bot/commands/user_commands.py:2022
 msgid "Sleep timer is not available."
@@ -2951,8 +2959,8 @@ msgid ""
 "Sleep timer is active: playback will stop when current track "
 "ends{time_part}."
 msgstr ""
-"O temporizador de parada está ativo: a reprodução será interrompida "
-"quando a faixa atual terminar{time_part}."
+"O temporizador de parada está ativo: a reprodução será interrompida quando "
+"a faixa atual terminar{time_part}."
 
 #: /home/claude/work/bot/commands/user_commands.py:2044
 msgid "Sleep timer is about to stop playback."
@@ -2973,7 +2981,8 @@ msgstr "Não havia nenhum temporizador de parada ativo."
 
 #: /home/claude/work/bot/commands/user_commands.py:2073
 #, python-brace-format
-msgid "Sleep timer set: playback will stop when current track ends{track_info}."
+msgid ""
+"Sleep timer set: playback will stop when current track ends{track_info}."
 msgstr ""
 "Temporizador de parada definido: a reprodução será interrompida quando a "
 "faixa atual terminar{track_info}."
@@ -2982,8 +2991,8 @@ msgstr ""
 #, python-brace-format
 msgid "{nickname} set a sleep timer to stop music when current track ends."
 msgstr ""
-"{nickname} definiu um temporizador para parar a música quando a faixa "
-"atual terminar."
+"{nickname} definiu um temporizador para parar a música quando a faixa atual "
+"terminar."
 
 #: /home/claude/work/bot/commands/user_commands.py:2102
 msgid "Error: Timer cannot be set for more than 24 hours (1440 minutes)."
@@ -2994,7 +3003,8 @@ msgstr ""
 #: /home/claude/work/bot/commands/user_commands.py:2108
 #, python-brace-format
 msgid "Sleep timer set: music will stop in {duration}."
-msgstr "Temporizador de parada definido: a música será interrompida em {duration}."
+msgstr ""
+"Temporizador de parada definido: a música será interrompida em {duration}."
 
 #: /home/claude/work/bot/commands/user_commands.py:2115
 #, python-brace-format
@@ -3002,14 +3012,15 @@ msgid "{nickname} set a sleep timer to stop music in {duration}."
 msgstr "{nickname} definiu um temporizador para parar a música em {duration}."
 
 #: /home/claude/work/bot/commands/user_commands.py:2127
-msgid "[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>"
+msgid ""
+"[MESSAGE] Sends a private message to the bot operator. Usage: pm <message>"
 msgstr ""
-"[MENSAGEM] Envia uma mensagem privada ao operador do bot. Uso: pm "
-"<mensagem>"
+"[MENSAGEM] Envia uma mensagem privada ao operador do bot. Uso: pm <mensagem>"
 
 #: /home/claude/work/bot/commands/user_commands.py:2131
 msgid "The operator private messaging feature is currently disabled."
-msgstr "O recurso de mensagens privadas ao operador está desativado no momento."
+msgstr ""
+"O recurso de mensagens privadas ao operador está desativado no momento."
 
 #: /home/claude/work/bot/commands/user_commands.py:2152
 #, python-brace-format
@@ -3071,4 +3082,3 @@ msgstr "Título desconhecido"
 #: /home/claude/work/bot/services/yt.py:571
 msgid "YouTube Track"
 msgstr "Faixa do YouTube"
-
